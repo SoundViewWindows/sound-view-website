@@ -1,0 +1,22 @@
+# Sound View Window & Door
+
+## Company
+Sound View Window & Door
+
+## Service Area
+Greater Seattle Area. Never use "& Eastside".
+
+## Experience
+17+ years in the Pacific Northwest
+
+## Core Offerings
+Replacement windows, replacement doors, and custom glass. Consultative, low-pressure customer experience.
+
+## Design Direction
+Warm cream/ivory/beige backgrounds (#FAF8F5, #F3EFEA), deep navy text and accents (#1B2A4A, #0F172A), editorial typography, generous spacing.
+
+## Copywriting Rules
+Professional, grounded, consultative. Never use em dashes (—) anywhere in headings or copy.
+
+## Code Standards
+Next.js App Router (src/ directory), TypeScript, Tailwind CSS. Protect all private keys using server-side environment variables. Never touch or reference the live WordPress production site.
