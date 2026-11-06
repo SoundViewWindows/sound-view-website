@@ -62,8 +62,3 @@ export const services: Service[] = [
     imageAlt: "Windows fitted with tailored shades",
   },
 ];
-
-export const consultationPhone = {
-  href: "tel:+12065550199",
-  display: "(206) 555-0199",
-};
