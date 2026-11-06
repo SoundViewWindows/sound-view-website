@@ -61,18 +61,18 @@ export default function Home() {
 
       <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 py-4 sm:px-5 lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_21rem] lg:py-3 xl:grid-cols-[minmax(0,1fr)_23rem]">
         <div className="relative z-20 flex min-h-0 flex-col gap-3 lg:h-full">
-          <div className="relative z-30 shrink-0">
-            <h1 className="font-serif text-3xl tracking-tight text-[#1B2A4A] sm:text-4xl">
+          <div className="relative z-30 mx-auto flex w-full shrink-0 flex-col items-center text-center">
+            <h1 className="font-serif text-4xl font-medium tracking-tight text-[#1B2A4A] lg:text-5xl">
               Sound View Window & Door
             </h1>
-            <p className="mt-1 max-w-xl text-sm leading-6 text-[#1B2A4A]/80 sm:text-base">
+            <p className="mt-2 max-w-2xl text-lg leading-snug text-[#1B2A4A]/80 lg:text-xl">
               Relaxed consultations, honest answers, and zero pressure to buy
             </p>
-            <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={bookAppointment}
-                className="rounded-full bg-[#1B2A4A] px-4 py-2.5 text-sm font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                className="rounded-full bg-[#1B2A4A] px-6 py-3 text-base font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
               >
                 Book an Appointment
               </button>
@@ -87,7 +87,7 @@ export default function Home() {
                   aria-expanded={phoneOpen}
                   aria-controls="showroom-phones"
                   onClick={() => setPhoneOpen((open) => !open)}
-                  className="flex w-full items-center justify-center gap-2 rounded-full border border-[#1B2A4A]/20 bg-[#FAF8F5] px-4 py-2.5 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-[#F4EFEA] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A] sm:w-auto"
+                  className="flex items-center justify-center gap-2 rounded-full border border-[#1B2A4A]/20 bg-[#FAF8F5] px-6 py-3 text-base font-medium text-[#1B2A4A] transition-colors hover:bg-[#F4EFEA] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
                 >
                   <PhoneIcon />
                   Give Us a Call
@@ -96,7 +96,7 @@ export default function Home() {
                 {phoneOpen ? (
                   <ul
                     id="showroom-phones"
-                    className="absolute left-0 top-full z-50 w-64 pt-2"
+                    className="absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-2"
                   >
                     <li className="overflow-hidden rounded-xl border border-[#1B2A4A]/10 bg-[#FAF8F5] shadow-lg">
                       <ul>
@@ -124,7 +124,7 @@ export default function Home() {
 
           <section
             aria-label="Services"
-            className="grid gap-2.5 sm:grid-cols-2 lg:min-h-0 lg:flex-1 lg:grid-cols-3 lg:grid-rows-2"
+            className="grid content-start gap-2.5 sm:grid-cols-2 lg:grid-cols-3"
           >
             {services.map((service) => {
               const selected = projectType === service.id;
@@ -140,7 +140,7 @@ export default function Home() {
                       : "border-[#1B2A4A]/10 hover:border-[#1B2A4A]/30"
                   }`}
                 >
-                  <span className="relative m-1.5 block h-24 overflow-hidden rounded-lg bg-[#F4EFEA] sm:h-20 lg:m-1 lg:h-auto lg:min-h-10 lg:flex-1">
+                  <span className="relative m-2.5 mb-0 block aspect-[16/10] overflow-hidden rounded-lg bg-[#F4EFEA] lg:aspect-auto lg:h-[120px]">
                     <Image
                       src={service.image}
                       alt={service.imageAlt}
@@ -149,11 +149,11 @@ export default function Home() {
                       className="object-cover"
                     />
                   </span>
-                  <span className="flex shrink-0 flex-col px-2.5 pb-2 lg:px-2 lg:pb-1.5">
-                    <span className="font-serif text-sm leading-tight tracking-tight text-[#0F172A]">
+                  <span className="flex shrink-0 flex-col p-2.5">
+                    <span className="font-serif text-sm font-medium leading-tight tracking-tight text-[#0F172A]">
                       {service.title}
                     </span>
-                    <span className="mt-0.5 line-clamp-2 text-xs leading-4 text-[#1B2A4A]/80">
+                    <span className="mt-1 line-clamp-2 text-xs leading-tight text-[#1B2A4A]/80">
                       {service.summary}
                     </span>
                   </span>
