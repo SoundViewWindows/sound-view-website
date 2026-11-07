@@ -101,11 +101,11 @@ export function Header({ onServiceSelect, onRequestConsultation }: HeaderProps) 
   }
 
   function selectService(event: MouseEvent, serviceId: string) {
-    if (!onServiceSelect) return;
-    event.preventDefault();
-    onServiceSelect(serviceId);
     setOpenMenu(null);
     setMobileOpen(false);
+    if (!onServiceSelect || serviceId === "window-replacement") return;
+    event.preventDefault();
+    onServiceSelect(serviceId);
   }
 
   return (
