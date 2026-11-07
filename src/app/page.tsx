@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Header } from "@/components/Header";
 import { QuoteRequestForm } from "@/components/quote-request-form";
@@ -128,40 +129,31 @@ export default function Home() {
             aria-label="Services"
             className="grid content-start gap-2.5 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {services.map((service) => {
-              const selected = projectType === service.id;
-              return (
-                <button
-                  key={service.id}
-                  type="button"
-                  onClick={() => chooseService(service.id)}
-                  aria-pressed={selected}
-                  className={`flex min-h-0 flex-col overflow-hidden rounded-xl border bg-white text-left shadow-[0_1px_2px_rgba(15,23,42,0.05)] transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A] ${
-                    selected
-                      ? "border-[#1B2A4A] ring-2 ring-[#1B2A4A]"
-                      : "border-[#1B2A4A]/10 hover:border-[#1B2A4A]/30"
-                  }`}
-                >
-                  <span className="relative m-2.5 mb-0 block aspect-[16/10] overflow-hidden rounded-lg bg-[#F4EFEA] lg:aspect-auto lg:h-[120px]">
-                    <Image
-                      src={service.image}
-                      alt={service.imageAlt}
-                      fill
-                      sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
-                      className="object-cover"
-                    />
+            {services.map((service) => (
+              <Link
+                key={service.id}
+                href={`/services/${service.id}`}
+                className="group flex min-h-0 cursor-pointer flex-col overflow-hidden rounded-xl border border-[#1B2A4A]/10 bg-white text-left shadow-[0_1px_2px_rgba(15,23,42,0.05)] transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+              >
+                <span className="relative m-2.5 mb-0 block aspect-[16/10] overflow-hidden rounded-lg bg-[#F4EFEA] lg:aspect-auto lg:h-[120px]">
+                  <Image
+                    src={service.image}
+                    alt={service.imageAlt}
+                    fill
+                    sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </span>
+                <span className="flex shrink-0 flex-col p-2.5">
+                  <span className="font-serif text-sm font-medium leading-tight tracking-tight text-[#0F172A] transition-colors duration-200 group-hover:text-[#1B2A4A]">
+                    {service.title}
                   </span>
-                  <span className="flex shrink-0 flex-col p-2.5">
-                    <span className="font-serif text-sm font-medium leading-tight tracking-tight text-[#0F172A]">
-                      {service.title}
-                    </span>
-                    <span className="mt-1 line-clamp-2 text-xs leading-tight text-[#1B2A4A]/80">
-                      {service.summary}
-                    </span>
+                  <span className="mt-1 line-clamp-2 text-xs leading-tight text-[#1B2A4A]/80">
+                    {service.summary}
                   </span>
-                </button>
-              );
-            })}
+                </span>
+              </Link>
+            ))}
           </section>
         </div>
 
