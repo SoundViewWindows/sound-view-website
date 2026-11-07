@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Header } from "@/components/Header";
 import { WindowQuoteBox } from "@/components/WindowQuoteBox";
 
@@ -28,63 +27,81 @@ const highlights = [
 export default function WindowReplacementPage() {
   return (
     <div className="bg-[#FAF8F5] text-[#1B2A4A]">
-      <div className="flex min-h-screen flex-col lg:h-dvh lg:min-h-0 lg:overflow-hidden">
-        <Header />
-        <main className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col px-4 py-4 sm:px-5 lg:min-h-0 lg:px-5 lg:py-5">
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Services" },
-              { label: "Window Replacement" },
-            ]}
-          />
-          <div className="mt-4 flex min-h-0 flex-1 flex-col gap-6 lg:flex-row lg:items-center">
-            <div className="min-w-0 flex-1">
-              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#1B2A4A]/70">
+      <Header />
+      <main>
+        <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="flex min-w-0 flex-col items-start lg:col-span-7">
+              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+                <ol className="flex flex-wrap items-center gap-2">
+                  <li>
+                    <Link
+                      href="/"
+                      className="rounded-sm hover:text-[#1B2A4A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <span>Services</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <span aria-current="page">Window Replacement</span>
+                  </li>
+                </ol>
+              </nav>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
                 Precision Window Replacement
               </p>
-              <h1 className="mt-3 max-w-3xl font-serif text-4xl font-medium tracking-tight text-[#1B2A4A] lg:text-5xl">
+              <h1 className="mb-4 max-w-full font-serif text-3xl font-bold leading-tight text-[#1B2A4A] sm:text-4xl lg:text-5xl">
                 Engineered for Pacific Northwest Weather, Installed With Care
               </h1>
-              <p className="mt-4 max-w-2xl text-lg leading-8 text-[#1B2A4A]/85">
+              <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
                 Explore window configurations designed for energy efficiency,
                 condensation resistance, and lasting curb appeal across the
                 Greater Seattle Area.
               </p>
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-2 flex flex-wrap gap-4">
                 <Link
                   href="/services/window-replacement/materials"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1B2A4A] px-5 py-3 text-sm font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="flex items-center gap-2 rounded-lg bg-[#1B2A4A] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#15223C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
                 >
                   Window Materials
                   <ArrowIcon />
                 </Link>
                 <Link
                   href="/services/window-replacement/types"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#1B2A4A]/20 px-5 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-[#F4EFEA] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="flex items-center gap-2 rounded-lg border border-[#1B2A4A] px-6 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
                 >
                   Window Types
                   <ArrowIcon />
                 </Link>
               </div>
             </div>
-            <div className="w-full shrink-0 lg:max-h-full lg:w-96 lg:overflow-y-auto">
-              <WindowQuoteBox />
+            <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
+              <div className="w-full max-w-md">
+                <WindowQuoteBox />
+              </div>
             </div>
           </div>
-        </main>
-      </div>
-
-      <section className="border-t border-[#1B2A4A]/10 bg-[#F4EFEA]">
-        <div className="mx-auto grid max-w-[1440px] gap-5 px-4 py-16 sm:px-5 md:grid-cols-3 lg:py-20">
-          {highlights.map((item) => (
-            <article key={item.title} className="rounded-2xl bg-[#FAF8F5] p-6">
-              <h2 className="font-serif text-2xl tracking-tight text-[#1B2A4A]">{item.title}</h2>
-              <p className="mt-3 text-sm leading-6 text-[#1B2A4A]/80">{item.body}</p>
-            </article>
-          ))}
         </div>
-      </section>
+
+        <section>
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 pb-20 sm:px-6 md:grid-cols-3 lg:px-8">
+            {highlights.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm"
+              >
+                <h2 className="font-serif text-2xl text-[#1B2A4A]">{item.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-700">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

@@ -71,7 +71,7 @@ export function WindowQuoteBox({
   return (
     <aside
       id="window-quote"
-      className="scroll-mt-6 rounded-2xl border border-[#1B2A4A]/15 bg-white p-4 shadow-[0_10px_30px_rgba(15,23,42,0.06)]"
+      className="relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xl sm:p-7"
     >
       {submittedName ? (
         <div>
@@ -91,47 +91,47 @@ export function WindowQuoteBox({
           </button>
         </div>
       ) : (
-        <form noValidate className="flex flex-col gap-2.5" onSubmit={handleSubmit}>
-          <div>
-            <h2 className="font-serif text-xl tracking-tight text-[#1B2A4A]">
-              Get a Quick Window Estimate
-            </h2>
-            <p className="mt-1 text-sm leading-5 text-[#1B2A4A]/75">
-              No pressure, upfront guidance from local Pacific Northwest specialists.
-            </p>
-          </div>
+        <form noValidate className="flex flex-col" onSubmit={handleSubmit}>
+          <h2 className="mb-1 text-xl font-bold text-[#1B2A4A]">
+            Get a Quick Window Estimate
+          </h2>
+          <p className="mb-5 text-xs text-slate-600">
+            No pressure, upfront guidance from local Pacific Northwest specialists.
+          </p>
 
-          <label className="flex flex-col gap-1 text-xs font-medium text-[#1B2A4A]" htmlFor="window-quote-name">
+          <label className="mb-3 block text-xs font-medium text-[#1B2A4A]" htmlFor="window-quote-name">
             Name
             <input
               id="window-quote-name"
               name="name"
               autoComplete="name"
+              placeholder="Your name"
               value={name}
               onChange={(event) => setName(event.target.value)}
               aria-invalid={Boolean(errors.name)}
-              className={inputClass(Boolean(errors.name))}
+              className={`${inputClass(Boolean(errors.name))} mt-1.5`}
             />
             {errors.name ? <FieldError message={errors.name} /> : null}
           </label>
 
-          <label className="flex flex-col gap-1 text-xs font-medium text-[#1B2A4A]" htmlFor="window-quote-contact">
+          <label className="mb-3 block text-xs font-medium text-[#1B2A4A]" htmlFor="window-quote-contact">
             Phone or Email
             <input
               id="window-quote-contact"
               name="contact"
               autoComplete="email"
+              placeholder="Phone or email"
               value={contact}
               onChange={(event) => setContact(event.target.value)}
               aria-invalid={Boolean(errors.contact)}
-              className={inputClass(Boolean(errors.contact))}
+              className={`${inputClass(Boolean(errors.contact))} mt-1.5`}
             />
             {errors.contact ? <FieldError message={errors.contact} /> : null}
           </label>
 
-          <fieldset>
-            <legend className="text-xs font-medium text-[#1B2A4A]">Approximate Window Count</legend>
-            <div className="mt-1 flex flex-wrap gap-2">
+          <fieldset className="mb-3">
+            <legend className="text-xs font-medium text-[#1B2A4A]">Window Count</legend>
+            <div className="mt-1.5 grid grid-cols-3 gap-2">
               {windowCounts.map((count) => {
                 const selected = windowCount === count;
                 return (
@@ -141,9 +141,9 @@ export function WindowQuoteBox({
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setWindowCount(count)}
-                    className={`rounded-full px-3 py-1.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A] ${
+                    className={`w-full rounded-full px-2 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A] ${
                       selected
-                        ? "bg-[#1B2A4A] text-[#FAF8F5]"
+                        ? "bg-[#1B2A4A] text-white"
                         : "bg-[#F4EFEA] text-[#1B2A4A] hover:bg-[#F3EFEA]"
                     }`}
                   >
@@ -155,15 +155,15 @@ export function WindowQuoteBox({
             {errors.count ? <FieldError message={errors.count} /> : null}
           </fieldset>
 
-          <label className="flex flex-col gap-1 text-xs font-medium text-[#1B2A4A]" htmlFor="window-quote-preference">
+          <label className="block text-xs font-medium text-[#1B2A4A]" htmlFor="window-quote-preference">
             Preferred Material or Style
-            <span className="font-normal text-[#1B2A4A]/60">Optional</span>
+            <span className="ml-1 font-normal text-slate-500">Optional</span>
             <select
               id="window-quote-preference"
               name="preference"
               value={preferenceValue}
               onChange={(event) => updatePreference(event.target.value)}
-              className={inputClass(false)}
+              className={`${inputClass(false)} mt-1.5`}
             >
               <option value="">No preference yet</option>
               <optgroup label="Materials">
@@ -185,11 +185,11 @@ export function WindowQuoteBox({
 
           <button
             type="submit"
-            className="rounded-full bg-[#1B2A4A] px-4 py-3 text-sm font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+            className="mt-4 w-full rounded-lg bg-[#1B2A4A] py-3 text-sm font-medium text-white transition-colors hover:bg-[#15223C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
           >
             Request Upfront Pricing
           </button>
-          <p className="text-xs leading-5 text-[#1B2A4A]/70">
+          <p className="mt-3 text-center text-[11px] text-slate-500">
             We never share your information. Typical response time under 2 business hours.
           </p>
         </form>
@@ -208,8 +208,8 @@ function FieldError({ message }: { message: string }) {
 
 function inputClass(invalid: boolean) {
   return [
-    "w-full rounded-lg border bg-white px-3 py-2 text-sm font-normal text-[#0F172A] outline-none transition",
-    "focus:border-[#1B2A4A] focus:ring-2 focus:ring-[#1B2A4A]/20",
-    invalid ? "border-[#8C3A32]" : "border-[#1B2A4A]/15",
+    "w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-[#0F172A]",
+    "focus:outline-none focus:ring-2 focus:ring-[#1B2A4A]",
+    invalid ? "border-[#8C3A32]" : "",
   ].join(" ");
 }
