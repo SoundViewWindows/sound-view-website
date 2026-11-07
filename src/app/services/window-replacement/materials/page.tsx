@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Header } from "@/components/Header";
 import { WindowQuoteBox } from "@/components/WindowQuoteBox";
@@ -8,22 +9,30 @@ import { WindowQuoteBox } from "@/components/WindowQuoteBox";
 const materials = [
   {
     title: "Fiberglass",
-    detail: "Milgard Ultra series",
+    detail: "Milgard Ultra Series",
+    image: "/materials/fiberglass.jpg",
+    alt: "Milgard Ultra Series Fiberglass Windows",
     body: "Superior structural strength and minimal thermal expansion. Fiberglass stands up to heavy rain and marine air without swelling or warping.",
   },
   {
     title: "Premium Vinyl",
-    detail: "Low maintenance",
+    detail: "Low Maintenance",
+    image: "/materials/vinyl.jpg",
+    alt: "Premium Vinyl Bay Window Installation",
     body: "A cost-effective frame with strong energy efficiency. Premium vinyl does not need painting, and it holds its color in wet Pacific Northwest weather.",
   },
   {
     title: "Wood & Wood-Clad",
     detail: "Andersen",
+    image: "/materials/wood-clad.jpg",
+    alt: "Andersen Wood and Wood-Clad Windows",
     body: "Classic Pacific Northwest interior warmth, with exterior cladding that takes the weather so the wood inside stays protected.",
   },
   {
     title: "Thermally Broken Aluminum",
-    detail: "Architectural lines",
+    detail: "Architectural Lines",
+    image: "/materials/aluminum.jpg",
+    alt: "Thermally Broken Architectural Aluminum Windows",
     body: "Crisp sightlines and high structural rigidity for modern homes. A thermal break keeps the metal frame from carrying cold inside.",
   },
 ];
@@ -79,21 +88,37 @@ export default function WindowMaterialsPage() {
       <section className="border-t border-[#1B2A4A]/10">
         <div className="mx-auto grid max-w-[1440px] gap-5 px-4 py-16 sm:px-5 md:grid-cols-2 lg:py-20">
           {materials.map((material) => (
-            <article key={material.title} className="flex flex-col rounded-2xl border border-[#1B2A4A]/10 bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
-              <p className="text-xs font-medium uppercase tracking-[0.16em] text-[#1B2A4A]/60">
-                {material.detail}
-              </p>
-              <h2 className="mt-2 font-serif text-3xl tracking-tight text-[#1B2A4A]">
-                {material.title}
-              </h2>
-              <p className="mt-3 flex-1 text-sm leading-6 text-[#1B2A4A]/80">{material.body}</p>
-              <button
-                type="button"
-                onClick={() => requestMaterial(material.title)}
-                className="mt-6 w-fit rounded-full border border-[#1B2A4A]/20 px-4 py-2.5 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-[#F4EFEA] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
-              >
-                Request Quote for this Material
-              </button>
+            <article
+              key={material.title}
+              className="flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-200 hover:shadow-md"
+            >
+              <div className="relative h-48 w-full sm:h-52">
+                <Image
+                  src={material.image}
+                  alt={material.alt}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-grow flex-col justify-between p-6">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                    {material.detail}
+                  </p>
+                  <h2 className="mt-2 font-serif text-3xl text-[#1B2A4A]">
+                    {material.title}
+                  </h2>
+                  <p className="mt-3 text-sm leading-6 text-[#1B2A4A]/80">{material.body}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => requestMaterial(material.title)}
+                  className="mt-5 w-full rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                >
+                  Request Quote for this Material
+                </button>
+              </div>
             </article>
           ))}
         </div>
