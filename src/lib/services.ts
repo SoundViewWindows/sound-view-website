@@ -29,9 +29,9 @@ export const services: Service[] = [
     title: "Shower Door Replacement",
     summary: "Frameless and framed enclosures fitted to your bathroom.",
     keywords: "Frameless Glass • Heavy Glass • Custom Enclosures",
-    image:
-      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Frameless glass shower door replacement in Seattle bathroom",
+    image: "/images/services/shower-door-replacement.jpg",
+    imageAlt:
+      "Professional technicians installing custom frameless glass shower door enclosure",
   },
   {
     id: "glass-replacement",
