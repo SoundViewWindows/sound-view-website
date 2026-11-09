@@ -27,7 +27,7 @@ export function ManufacturersStep() {
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-          <WindowStepNav step={3} material={materialSlug} type={typeSlug} />
+          <WindowStepNav current="Choose Manufacturer" progress="Step 3 of 4: Manufacturer" />
           <div className="mb-4 flex flex-wrap gap-3">
             <ChoiceBadge
               label={`Material: ${choiceLabel(material)}`}

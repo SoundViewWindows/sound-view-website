@@ -25,7 +25,7 @@ export function TypesStep() {
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-          <WindowStepNav step={2} material={materialSlug} />
+          <WindowStepNav current="Choose Style" progress="Step 2 of 4: Styles" />
           <p className="mb-4 inline-flex flex-wrap items-center gap-3 rounded-full border border-[#38BDF8]/40 bg-[#15263F] px-4 py-2 text-sm text-[#0B192C]">
             <span>Material: {choiceLabel(material)}</span>
             <Link

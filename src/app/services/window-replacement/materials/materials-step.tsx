@@ -49,15 +49,21 @@ export function MaterialsStep() {
                 href={`/services/window-replacement/quote?type=${typeSlug}&material=${material.slug}`}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
               >
-                <div className="relative h-52 w-full">
-                  <Image
-                    src={material.image}
-                    alt={material.alt}
-                    fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
+                {material.image ? (
+                  <div className="relative h-52 w-full">
+                    <Image
+                      src={material.image}
+                      alt={material.alt}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex h-52 w-full items-end bg-[#0B192C] p-6">
+                    <span className="font-serif text-3xl text-[#38BDF8]">{material.name}</span>
+                  </div>
+                )}
                 <span className="flex flex-grow flex-col justify-between p-6">
                   <span>
                     <span className="text-xs font-semibold uppercase tracking-wider text-slate-600">
