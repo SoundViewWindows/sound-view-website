@@ -78,13 +78,13 @@ export default function Home() {
       <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 py-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start lg:px-5 lg:py-3 xl:grid-cols-[minmax(0,1fr)_23rem]">
         <div className="relative z-20 flex min-h-0 flex-col">
           <div className="relative z-30 mx-auto flex w-full shrink-0 flex-col items-center text-center">
-            <h1 className="mb-1 font-serif text-3xl font-bold text-[#1B2A4A] lg:text-4xl">
-              Sound View Window & Door
-            </h1>
-            <p className="mb-1 text-xs text-slate-500">
+            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-slate-500 sm:text-sm">
               Seattle, Bellevue & Greater Puget Sound
             </p>
-            <p className="mb-3 max-w-2xl text-sm text-slate-600">
+            <h1 className="mb-1.5 font-serif text-3xl font-bold tracking-tight text-[#1B2A4A] lg:text-4xl">
+              Sound View Window & Door
+            </h1>
+            <p className="mb-4 max-w-2xl text-sm text-slate-600">
               Relaxed consultations, honest answers, and zero pressure to buy
             </p>
             <div className="mb-4 flex flex-wrap items-center justify-center gap-3">
