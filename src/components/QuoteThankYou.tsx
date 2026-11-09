@@ -90,21 +90,25 @@ export function QuoteThankYou({
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="mb-2 text-2xl font-bold text-white outline-none"
+        className={`mb-2 text-2xl font-bold outline-none ${framed ? "text-white" : "text-[#0B192C]"}`}
       >
         Thank You, Your Quote Request Is Received!
       </h2>
-      <p className="mb-6 max-w-sm text-sm leading-relaxed text-slate-300">
+      <p className={`mb-6 max-w-sm text-sm leading-relaxed ${framed ? "text-slate-300" : "text-slate-600"}`}>
         Our local Pacific Northwest specialists are reviewing your project
         specifications. A team member will follow up with your upfront estimate
         in under 2 business hours.
       </p>
-      <div className="mb-6 w-full rounded-xl border border-slate-700/80 bg-[#132238] p-5 text-left">
-        <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+      <div
+        className={`mb-6 w-full rounded-xl border p-5 text-left ${
+          framed ? "border-slate-700/80 bg-[#132238]" : "border-sky-100 bg-sky-50/70"
+        }`}
+      >
+        <p className={`mb-1 text-[11px] font-bold uppercase tracking-wider ${framed ? "text-slate-400" : "text-sky-700"}`}>
           While You Wait
         </p>
-        <h3 className="mb-1 font-semibold text-white">{offer.title}</h3>
-        <p className="mb-4 text-sm leading-relaxed text-slate-300">{offer.body}</p>
+        <h3 className={`mb-1 font-semibold ${framed ? "text-white" : "text-[#0B192C]"}`}>{offer.title}</h3>
+        <p className={`mb-4 text-sm leading-relaxed ${framed ? "text-slate-300" : "text-slate-600"}`}>{offer.body}</p>
         <a
           href={offer.href}
           target="_blank"
@@ -118,7 +122,9 @@ export function QuoteThankYou({
       <button
         type="button"
         onClick={onReset}
-        className="text-sm font-medium text-slate-300 underline decoration-sky-400/40 underline-offset-4 transition-colors hover:text-white"
+        className={`text-sm font-medium underline decoration-sky-400/40 underline-offset-4 transition-colors ${
+          framed ? "text-slate-300 hover:text-white" : "text-sky-700 hover:text-sky-600"
+        }`}
       >
         Submit another project request
       </button>

@@ -104,10 +104,10 @@ export function QuoteRequestForm({
   return (
     <form noValidate className="flex flex-col space-y-2.5" onSubmit={handleSubmit}>
       <div>
-        <h2 className="mb-1.5 text-2xl font-bold text-white sm:text-3xl">
+        <h2 className="text-xl font-extrabold leading-tight text-[#0B192C] sm:text-2xl">
           Request a Free Quote
         </h2>
-        <p className="mb-3 text-sm font-normal text-slate-200">
+        <p className="mb-3 text-xs font-normal text-slate-600 sm:text-sm">
           Get in touch with our installation experts today.
         </p>
       </div>
@@ -199,14 +199,14 @@ export function QuoteRequestForm({
 
       <Field label="Photos or videos" id="quote-media" error={errors.media}>
         <div
-          className={`relative flex h-9 items-center gap-2 overflow-hidden rounded-lg border bg-[#0B192C] px-1.5 focus-within:border-white focus-within:ring-2 focus-within:ring-white/30 ${
-            errors.media ? "border-[#8C3A32]" : "border-white/25"
+          className={`group relative flex h-8 items-center gap-2 overflow-hidden rounded-lg border bg-slate-50/60 px-1.5 focus-within:border-sky-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-sky-400/30 sm:h-9 ${
+            errors.media ? "border-red-600" : "border-slate-300"
           }`}
         >
-          <span className="shrink-0 rounded-md bg-white px-2.5 py-1 text-[11px] font-semibold text-[#0B192C]">
+          <span className="shrink-0 rounded border border-slate-300 bg-slate-100 px-2.5 py-1 text-xs text-slate-800 group-hover:bg-slate-200">
             Choose file
           </span>
-          <span className="min-w-0 flex-1 truncate text-xs font-medium text-slate-200">
+          <span className="min-w-0 flex-1 truncate text-[11px] text-slate-500">
             {files.length === 0
               ? "Attach photos or videos"
               : files.map((file) => file.name).join(", ")}
@@ -223,7 +223,7 @@ export function QuoteRequestForm({
           />
         </div>
         {files.length > 0 ? (
-          <p className="text-xs font-medium text-slate-200">
+          <p className="text-[11px] text-slate-500">
             {files.length} file{files.length === 1 ? "" : "s"} selected
           </p>
         ) : null}
@@ -233,7 +233,7 @@ export function QuoteRequestForm({
         type="submit"
         disabled={isSubmitting}
         aria-busy={isSubmitting}
-        className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-[#38BDF8] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] shadow-md shadow-sky-500/20 transition-all hover:bg-sky-300 hover:shadow-lg hover:shadow-sky-500/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-70 sm:py-3"
+        className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-[#38BDF8] py-2.5 text-xs font-extrabold uppercase tracking-wider text-[#0B192C] shadow-md shadow-sky-500/20 transition-all hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:cursor-not-allowed disabled:opacity-70 sm:py-3 sm:text-sm"
       >
         {isSubmitting ? "Submitting" : "Submit Quote Request"}
         {isSubmitting ? null : (
@@ -257,12 +257,12 @@ function Field({
 }) {
   return (
     <label htmlFor={id} className="block">
-      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-white">
+      <span className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-slate-800">
         {label}
       </span>
       {children}
       {error ? (
-        <span id={`${id}-error`} role="alert" className="font-normal text-red-300">
+        <span id={`${id}-error`} role="alert" className="font-normal text-red-700">
           {error}
         </span>
       ) : null}
@@ -273,8 +273,8 @@ function Field({
 function inputClass(invalid: boolean, fixedHeight = true) {
   return [
     fixedHeight ? "h-8 sm:h-9" : "h-auto",
-    "w-full rounded-lg border !bg-white px-3 py-1.5 text-xs font-medium text-[#0B192C] scheme-light placeholder:text-slate-400",
-    "focus:!bg-white focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400",
-    invalid ? "border-[#8C3A32]" : "border-slate-200",
+    "w-full rounded-lg border border-slate-300 bg-slate-50/60 px-3 py-1 text-xs font-medium text-slate-900 scheme-light placeholder:text-slate-400 sm:text-sm",
+    "focus:border-sky-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-400/30",
+    invalid ? "border-red-600" : "",
   ].join(" ");
 }

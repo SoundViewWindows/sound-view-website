@@ -234,17 +234,17 @@ export default function Home() {
 
         <aside
           id="quote"
-          className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-md"
+          className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-4 shadow-2xl sm:p-5"
         >
           {quoteSubmitted ? null : (
-            <div className="border border-white/20 bg-white px-6 py-5 shadow-md sm:py-6">
-              <p className="mb-0.5 block text-xs font-extrabold uppercase tracking-widest text-sky-600">
+            <div className="mb-3 rounded-xl border border-sky-100 bg-sky-50/70 p-3 sm:p-3.5">
+              <p className="mb-0.5 block text-[11px] font-extrabold uppercase tracking-widest text-sky-700 sm:text-xs">
                 Special Offer
               </p>
               <p className="text-xl font-extrabold leading-tight text-[#0B192C] sm:text-2xl">
                 Save 10% on Labor
               </p>
-              <p className="mt-0.5 text-xs font-medium text-slate-600 sm:text-sm">
+              <p className="mt-0.5 text-xs font-medium text-slate-600">
                 Book your project by November 30th.
               </p>
             </div>
@@ -252,8 +252,8 @@ export default function Home() {
           <div
             className={
               quoteSubmitted
-                ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto bg-[#132238] p-4 text-center sm:p-5"
-                : "min-h-0 flex-1 px-4 pb-4 pt-4 sm:px-5 sm:pb-5 sm:pt-5"
+                ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto text-center"
+                : "min-h-0 flex-1"
             }
           >
             <QuoteRequestForm
