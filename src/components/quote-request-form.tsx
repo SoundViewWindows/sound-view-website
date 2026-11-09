@@ -96,12 +96,12 @@ export function QuoteRequestForm({
   }
 
   return (
-    <form noValidate className="flex flex-col gap-2.5" onSubmit={handleSubmit}>
+    <form noValidate className="flex flex-col space-y-2.5" onSubmit={handleSubmit}>
       <div>
-        <h2 className="font-serif text-2xl tracking-tight text-[#0F172A]">
+        <h2 className="mb-0.5 font-serif text-xl font-bold text-[#1B2A4A]">
           Request a Free Quote
         </h2>
-        <p className="mt-1 text-sm leading-5 text-[#1B2A4A]/75">
+        <p className="mb-3 text-xs text-slate-500">
           Get in touch with our installation experts today.
         </p>
       </div>
@@ -181,10 +181,10 @@ export function QuoteRequestForm({
         <textarea
           id="quote-details"
           name="details"
-          rows={3}
+          rows={2}
           value={details}
           onChange={(event) => setDetails(event.target.value)}
-          className={`${inputClass(Boolean(errors.details))} resize-none lg:min-h-14`}
+          className={`${inputClass(Boolean(errors.details), false)} resize-none`}
           aria-invalid={Boolean(errors.details)}
         />
       </Field>
@@ -209,7 +209,7 @@ export function QuoteRequestForm({
 
       <button
         type="submit"
-        className="mt-1 rounded-full bg-[#1B2A4A] px-4 py-2.5 text-sm font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+        className="rounded-lg bg-[#1B2A4A] py-2.5 text-xs font-semibold uppercase tracking-wider text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
       >
         Submit Quote Request
       </button>
@@ -241,10 +241,11 @@ function Field({
   );
 }
 
-function inputClass(invalid: boolean) {
+function inputClass(invalid: boolean, fixedHeight = true) {
   return [
-    "w-full rounded-lg border bg-white px-3 py-1.5 text-sm font-normal text-[#0F172A] outline-none transition",
+    fixedHeight ? "h-9" : "h-auto",
+    "w-full rounded-lg border bg-white px-3 py-1.5 text-xs font-normal text-[#0F172A] outline-none transition",
     "focus:border-[#1B2A4A] focus:ring-2 focus:ring-[#1B2A4A]/20",
-    invalid ? "border-[#8C3A32]" : "border-[#1B2A4A]/15",
+    invalid ? "border-[#8C3A32]" : "border-slate-200",
   ].join(" ");
 }

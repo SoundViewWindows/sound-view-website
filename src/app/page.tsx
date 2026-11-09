@@ -70,27 +70,27 @@ export default function Home() {
 
   return (
     <div className="bg-[#FAF8F5] text-[#1B2A4A]">
-    <div className="flex min-h-screen flex-col lg:min-h-dvh">
+    <div className="flex min-h-screen flex-col">
       <Header onServiceSelect={chooseService} />
 
-      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 py-4 sm:px-5 lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_21rem] lg:px-5 lg:pb-3 lg:pt-6 xl:grid-cols-[minmax(0,1fr)_23rem]">
-        <div className="relative z-20 flex min-h-0 flex-col gap-6 lg:h-full">
+      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 py-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start lg:px-5 lg:py-3 xl:grid-cols-[minmax(0,1fr)_23rem]">
+        <div className="relative z-20 flex min-h-0 flex-col">
           <div className="relative z-30 mx-auto flex w-full shrink-0 flex-col items-center text-center">
-            <h1 className="font-serif text-4xl font-medium tracking-tight text-[#1B2A4A] lg:text-5xl">
+            <h1 className="mb-1 font-serif text-3xl font-bold text-[#1B2A4A] lg:text-4xl">
               Sound View Window & Door
             </h1>
-            <p className="mt-1 text-sm font-medium tracking-wide text-[#1B2A4A]/70">
+            <p className="mb-1 text-xs text-slate-500">
               Seattle, Bellevue & Greater Puget Sound
             </p>
-            <p className="mt-2 max-w-2xl text-lg leading-snug text-[#1B2A4A]/80 lg:text-xl">
+            <p className="mb-3 max-w-2xl text-sm text-slate-600">
               Relaxed consultations, honest answers, and zero pressure to buy
             </p>
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+            <div className="mb-4 flex flex-wrap items-center justify-center gap-3">
               <a
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-[#1B2A4A] px-6 py-3 text-base font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                className="rounded-full bg-[#1B2A4A] px-4 py-2 text-sm font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
               >
                 Book Appointment
               </a>
@@ -105,7 +105,7 @@ export default function Home() {
                   aria-expanded={phoneOpen}
                   aria-controls="showroom-phones"
                   onClick={() => setPhoneOpen((open) => !open)}
-                  className="flex items-center justify-center gap-2 rounded-full border border-[#1B2A4A]/20 bg-[#FAF8F5] px-6 py-3 text-base font-medium text-[#1B2A4A] transition-colors hover:bg-[#F4EFEA] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="flex items-center justify-center gap-2 rounded-full border border-[#1B2A4A]/20 bg-[#FAF8F5] px-4 py-2 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-[#F4EFEA] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
                 >
                   <PhoneIcon />
                   Give Us a Call
@@ -149,7 +149,7 @@ export default function Home() {
 
           <section
             aria-label="Services"
-            className="grid content-start gap-2.5 sm:grid-cols-2 lg:grid-cols-3"
+            className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3"
           >
             {services.map((service) => (
               <Link
@@ -169,35 +169,35 @@ export default function Home() {
                               ? "/services/window-blinds-shades"
                               : `/services/${service.id}`
                 }
-                className="group flex min-h-0 cursor-pointer flex-col overflow-hidden rounded-xl border border-[#1B2A4A]/10 bg-white text-left shadow-[0_1px_2px_rgba(15,23,42,0.05)] transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                className="group flex min-h-0 cursor-pointer flex-col rounded-xl border border-slate-200/80 bg-white p-3 text-left shadow-sm transition-shadow hover:shadow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
               >
-                <span className="relative m-2.5 mb-0 block h-44 overflow-hidden rounded-lg bg-[#F4EFEA] sm:h-48 md:h-52">
+                <span className="relative mb-2 block h-24 w-full overflow-hidden rounded-lg bg-[#F4EFEA] sm:h-28">
                   <Image
                     src={service.image}
                     alt={service.imageAlt}
                     fill
                     sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-cover"
                   />
                 </span>
-                <span className="flex shrink-0 flex-col p-2.5">
-                  <h3 className="font-serif text-sm font-medium leading-tight tracking-tight text-[#0F172A] transition-colors duration-200 group-hover:text-[#1B2A4A]">
-                    {service.title}
-                  </h3>
-                  <p className="mt-1 line-clamp-2 text-xs leading-tight text-[#1B2A4A]/80">
-                    {service.summary}
-                  </p>
-                  <p className="mt-2 text-xs font-medium text-slate-500">{service.keywords}</p>
-                  <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#1B2A4A] hover:underline">
-                    Explore Options →
-                  </span>
+                <h3 className="mb-1 line-clamp-1 text-sm font-bold text-[#1B2A4A]">
+                  {service.title}
+                </h3>
+                <p className="mb-1.5 line-clamp-2 text-[11px] leading-snug text-slate-600">
+                  {service.summary}
+                </p>
+                <p className="mb-1.5 truncate text-[10px] font-medium text-slate-400">
+                  {service.keywords}
+                </p>
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#1B2A4A] hover:underline">
+                  Explore Options →
                 </span>
               </Link>
             ))}
           </section>
           <section
             aria-label="Company credentials"
-            className="mt-4 grid grid-cols-1 gap-3 rounded-xl border border-slate-200/80 bg-slate-50/80 p-4 text-center sm:grid-cols-3 sm:text-left lg:mt-auto"
+            className="mt-3 grid grid-cols-1 gap-2 rounded-xl border border-slate-200/80 bg-slate-50/80 p-2.5 text-center sm:grid-cols-3 sm:text-left"
           >
             <div>
               <p className="text-sm font-semibold text-[#1B2A4A]">3 Puget Sound Showrooms</p>
@@ -216,25 +216,19 @@ export default function Home() {
 
         <aside
           id="quote"
-          className={
-            quoteSubmitted
-              ? "flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white text-center shadow-xl"
-              : "flex min-h-0 flex-col overflow-hidden rounded-2xl border border-[#1B2A4A]/10 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.05)]"
-          }
+          className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md"
         >
           {quoteSubmitted ? null : (
-            <div className="bg-[#1B2A4A] px-4 py-3 text-[#FAF8F5]">
-              <p className="text-sm font-medium">Special Offer: Save 10% on Labor</p>
-              <p className="mt-0.5 text-xs text-[#FAF8F5]/75">
-                Book your project by November 30th.
-              </p>
+            <div className="mb-3 rounded-t-xl bg-[#1B2A4A] px-3 py-1 text-[11px] font-semibold text-[#FAF8F5]">
+              <p>Special Offer: Save 10% on Labor</p>
+              <p className="font-medium text-[#FAF8F5]/80">Book your project by November 30th.</p>
             </div>
           )}
           <div
             className={
               quoteSubmitted
-                ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto bg-white p-6 sm:p-8"
-                : "min-h-0 flex-1 overflow-y-auto px-4 py-3"
+                ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto bg-white p-4 text-center sm:p-5"
+                : "min-h-0 flex-1 px-4 pb-4 sm:px-5 sm:pb-5"
             }
           >
             <QuoteRequestForm
