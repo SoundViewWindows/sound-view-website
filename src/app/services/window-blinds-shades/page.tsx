@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { CostComparison } from "@/components/CostComparison";
-import { ConsultationForm } from "./consultation-form";
 
 export const metadata: Metadata = {
   title: "Window Blinds & Shades | Sound View Window & Door",
@@ -48,7 +47,7 @@ const treatments = [
 
 export default function WindowBlindsShadesPage() {
   return (
-    <div className="scroll-smooth bg-[#F7F5F0] text-[#28323D]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
@@ -92,12 +91,6 @@ export default function WindowBlindsShadesPage() {
             >
               <ShoppingBagIcon />
               Shop Window Treatments Online
-            </a>
-            <a
-              href="#measurement-consultation"
-              className="inline-flex items-center justify-center rounded-full border border-[#1D2C43] px-6 py-3 text-sm font-medium text-[#1D2C43] transition-colors hover:bg-[#1D2C43] hover:text-[#FFFFFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
-            >
-              Request In-Home Consultation
             </a>
           </div>
         </section>
@@ -167,27 +160,6 @@ export default function WindowBlindsShadesPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-          <div
-            id="measurement-consultation"
-            className="scroll-mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10"
-          >
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-600">
-              In-home service
-            </p>
-            <h2 className="mt-2 font-serif text-3xl font-medium leading-tight text-[#1D2C43] sm:text-4xl">
-              Measurement and Consultation
-            </h2>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-700">
-              Prefer a turnkey visit? We measure on site, match fabrics to your
-              rooms, and handle professional installation across the Greater
-              Seattle Area.
-            </p>
-            <div className="mt-8">
-              <ConsultationForm />
-            </div>
-          </div>
-        </section>
         <CostComparison service="blinds-shades" />
       </main>
     </div>
