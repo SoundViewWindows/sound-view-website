@@ -146,7 +146,7 @@ export default function WestQueenAnneShowroomPage() {
                 </h2>
                 <a
                   href="tel:2064024229"
-                  className={`text-lg font-bold text-white underline-offset-4 hover:underline ${focusRing}`}
+                  className={`text-lg font-bold text-sky-300 underline-offset-4 hover:text-sky-200 hover:underline ${focusRing}`}
                 >
                   (206) 402-4229
                 </a>

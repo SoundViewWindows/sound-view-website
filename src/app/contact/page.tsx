@@ -62,7 +62,7 @@ export default function ContactPage() {
               </p>
               <a
                 href="tel:2064024229"
-                className={`mt-1 inline-block text-2xl font-bold text-white hover:underline ${focusRing}`}
+                className={`mt-1 inline-block text-2xl font-bold text-sky-300 hover:text-sky-200 hover:underline ${focusRing}`}
               >
                 (206) 402-4229
               </a>
