@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { QuoteThankYou } from "@/components/QuoteThankYou";
 import { windowMaterials, windowStyles } from "@/lib/window-funnel";
 
 const windowCounts = ["1 to 5", "6 to 12", "13+"] as const;
@@ -32,7 +33,7 @@ export function WindowQuoteBox({
   const [internalMaterial, setInternalMaterial] = useState("");
   const [internalStyle, setInternalStyle] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [submittedName, setSubmittedName] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const materialValue = onMaterialChange ? material : internalMaterial;
   const styleValue = onStyleChange ? style : internalStyle;
@@ -74,7 +75,17 @@ export function WindowQuoteBox({
       document.getElementById(field)?.focus();
       return;
     }
-    setSubmittedName(name.trim().split(/\s+/)[0]);
+    setIsSubmitted(true);
+  }
+
+  if (isSubmitted) {
+    return (
+      <QuoteThankYou
+        id="window-quote"
+        service="window"
+        onReset={() => setIsSubmitted(false)}
+      />
+    );
   }
 
   return (
@@ -82,24 +93,6 @@ export function WindowQuoteBox({
       id="window-quote"
       className="relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-xl sm:p-5"
     >
-      {submittedName ? (
-        <div>
-          <h2 className="font-serif text-2xl tracking-tight text-[#1B2A4A]">
-            Thank you, {submittedName}.
-          </h2>
-          <p className="mt-3 text-sm leading-6 text-[#1B2A4A]/80">
-            Your window details are ready for a specialist. Call a showroom if
-            you would like to talk sooner.
-          </p>
-          <button
-            type="button"
-            onClick={() => setSubmittedName(null)}
-            className="mt-5 text-sm font-medium text-[#1B2A4A] underline decoration-[#1B2A4A]/30 underline-offset-4"
-          >
-            Revise details
-          </button>
-        </div>
-      ) : (
         <form noValidate className="flex flex-col gap-2.5" onSubmit={handleSubmit}>
           <div>
             <h2 className="text-lg font-bold text-[#1B2A4A]">
@@ -285,7 +278,6 @@ export function WindowQuoteBox({
             We never share your information. Typical response time under 2 business hours.
           </p>
         </form>
-      )}
     </aside>
   );
 }

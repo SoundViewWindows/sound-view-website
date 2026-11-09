@@ -27,6 +27,7 @@ const showroomPhones: ShowroomPhone[] = [
 
 export default function Home() {
   const [projectType, setProjectType] = useState("");
+  const [quoteSubmitted, setQuoteSubmitted] = useState(false);
   const [phoneOpen, setPhoneOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const phoneMenuRef = useRef<HTMLDivElement>(null);
@@ -189,18 +190,31 @@ export default function Home() {
 
         <aside
           id="quote"
-          className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-[#1B2A4A]/10 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.05)]"
+          className={
+            quoteSubmitted
+              ? "flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white text-center shadow-xl"
+              : "flex min-h-0 flex-col overflow-hidden rounded-2xl border border-[#1B2A4A]/10 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.05)]"
+          }
         >
-          <div className="bg-[#1B2A4A] px-4 py-3 text-[#FAF8F5]">
-            <p className="text-sm font-medium">Special Offer: Save 10% on Labor</p>
-            <p className="mt-0.5 text-xs text-[#FAF8F5]/75">
-              Book your project by November 30th.
-            </p>
-          </div>
-          <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3">
+          {quoteSubmitted ? null : (
+            <div className="bg-[#1B2A4A] px-4 py-3 text-[#FAF8F5]">
+              <p className="text-sm font-medium">Special Offer: Save 10% on Labor</p>
+              <p className="mt-0.5 text-xs text-[#FAF8F5]/75">
+                Book your project by November 30th.
+              </p>
+            </div>
+          )}
+          <div
+            className={
+              quoteSubmitted
+                ? "flex min-h-0 flex-1 flex-col items-center justify-center overflow-y-auto bg-white p-6 sm:p-8"
+                : "min-h-0 flex-1 overflow-y-auto px-4 py-3"
+            }
+          >
             <QuoteRequestForm
               projectType={projectType}
               onProjectTypeChange={setProjectType}
+              onSubmittedChange={setQuoteSubmitted}
             />
           </div>
         </aside>

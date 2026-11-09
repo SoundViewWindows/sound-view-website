@@ -42,7 +42,7 @@ const navigation: NavEntry[] = [
       { label: "Financing", href: "/financing" },
       {
         label: "Energy Rebates for Windows & Doors",
-        href: "/resources/energy-rebates",
+        href: "/energy-rebates",
       },
     ],
   },
@@ -58,15 +58,7 @@ const navigation: NavEntry[] = [
       },
     ],
   },
-  {
-    kind: "menu",
-    label: "About",
-    items: [
-      { label: "About Sound View Window & Door", href: "/about" },
-      { label: "Portfolio", href: "/portfolio" },
-      { label: "Blog", href: "/blog" },
-    ],
-  },
+  { kind: "link", label: "About", href: "/about" },
   { kind: "link", label: "Contact Us", href: "/contact" },
 ];
 

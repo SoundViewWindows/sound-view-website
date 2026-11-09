@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent, type ReactNode } from "react";
+import { QuoteThankYou, quoteServiceFromProject } from "@/components/QuoteThankYou";
 import { services } from "@/lib/services";
 
 const MAX_FILES = 5;
@@ -9,6 +10,7 @@ const MAX_FILE_BYTES = 25 * 1024 * 1024;
 type QuoteRequestFormProps = {
   projectType: string;
   onProjectTypeChange: (value: string) => void;
+  onSubmittedChange?: (submitted: boolean) => void;
 };
 
 type FieldErrors = Partial<
@@ -18,6 +20,7 @@ type FieldErrors = Partial<
 export function QuoteRequestForm({
   projectType,
   onProjectTypeChange,
+  onSubmittedChange,
 }: QuoteRequestFormProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -26,7 +29,7 @@ export function QuoteRequestForm({
   const [details, setDetails] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [submittedName, setSubmittedName] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   function validate(nextFiles: File[]) {
     const nextErrors: FieldErrors = {};
@@ -75,27 +78,20 @@ export function QuoteRequestForm({
       document.getElementById(`quote-${firstInvalid}`)?.focus();
       return;
     }
-    setSubmittedName(name.trim().split(/\s+/)[0]);
+    setIsSubmitted(true);
+    onSubmittedChange?.(true);
   }
 
-  if (submittedName) {
+  if (isSubmitted) {
     return (
-      <div className="flex h-full flex-col justify-center px-4 py-6">
-        <h2 className="font-serif text-2xl tracking-tight text-[#0F172A]">
-          Thank you, {submittedName}.
-        </h2>
-        <p className="mt-3 text-sm leading-6 text-[#1B2A4A]/85">
-          Your project details are ready for a consultation. Call us and we
-          will pick up the conversation from here.
-        </p>
-        <button
-          type="button"
-          className="mt-6 text-left text-sm font-medium text-[#1B2A4A] underline decoration-[#1B2A4A]/30 underline-offset-4"
-          onClick={() => setSubmittedName(null)}
-        >
-          Revise details
-        </button>
-      </div>
+      <QuoteThankYou
+        framed={false}
+        service={quoteServiceFromProject(projectType)}
+        onReset={() => {
+          setIsSubmitted(false);
+          onSubmittedChange?.(false);
+        }}
+      />
     );
   }
 

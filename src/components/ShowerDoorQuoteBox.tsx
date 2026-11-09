@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { QuoteThankYou } from "@/components/QuoteThankYou";
 import { showerStyles } from "@/lib/shower-funnel";
 
 const enclosureLayouts = ["Single Door", "Door & Panel", "Custom Enclosure"] as const;
@@ -19,7 +20,7 @@ export function ShowerDoorQuoteBox({ style = "", onStyleChange }: ShowerDoorQuot
   const [notes, setNotes] = useState("");
   const [internalStyle, setInternalStyle] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [submittedName, setSubmittedName] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const styleValue = onStyleChange ? style : internalStyle;
 
@@ -55,7 +56,17 @@ export function ShowerDoorQuoteBox({ style = "", onStyleChange }: ShowerDoorQuot
       document.getElementById(field)?.focus();
       return;
     }
-    setSubmittedName(name.trim().split(/\s+/)[0]);
+    setIsSubmitted(true);
+  }
+
+  if (isSubmitted) {
+    return (
+      <QuoteThankYou
+        id="shower-quote"
+        service="shower"
+        onReset={() => setIsSubmitted(false)}
+      />
+    );
   }
 
   return (
@@ -63,24 +74,6 @@ export function ShowerDoorQuoteBox({ style = "", onStyleChange }: ShowerDoorQuot
       id="shower-quote"
       className="relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xl sm:p-7"
     >
-      {submittedName ? (
-        <div>
-          <h2 className="font-serif text-2xl tracking-tight text-[#1B2A4A]">
-            Thank you, {submittedName}.
-          </h2>
-          <p className="mt-3 text-sm leading-6 text-[#1B2A4A]/80">
-            Your shower door details are ready for a specialist. Call a showroom
-            if you would like to talk sooner.
-          </p>
-          <button
-            type="button"
-            onClick={() => setSubmittedName(null)}
-            className="mt-5 text-sm font-medium text-[#1B2A4A] underline decoration-[#1B2A4A]/30 underline-offset-4"
-          >
-            Revise details
-          </button>
-        </div>
-      ) : (
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
             <h2 className="text-xl font-bold text-[#1B2A4A]">Get a Quick Shower Door Estimate</h2>
@@ -242,7 +235,6 @@ export function ShowerDoorQuoteBox({ style = "", onStyleChange }: ShowerDoorQuot
             We never share your information. Typical response time under 2 business hours.
           </p>
         </form>
-      )}
     </aside>
   );
 }
