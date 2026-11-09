@@ -190,18 +190,32 @@ export function QuoteRequestForm({
       </Field>
 
       <Field label="Photos or videos" id="quote-media" error={errors.media}>
-        <input
-          id="quote-media"
-          name="media"
-          type="file"
-          accept="image/*,video/*"
-          multiple
-          onChange={(event) => setFiles(Array.from(event.target.files ?? []))}
-          className="block w-full text-xs text-[#1D2C43] file:mr-3 file:rounded-full file:border-0 file:bg-[#EFEBE4] file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-[#1D2C43] focus:outline-none"
-          aria-invalid={Boolean(errors.media)}
-        />
+        <div
+          className={`relative flex h-9 items-center gap-2 overflow-hidden rounded-lg border bg-white px-1.5 focus-within:border-[#1D2C43] focus-within:ring-2 focus-within:ring-[#1D2C43]/20 ${
+            errors.media ? "border-[#8C3A32]" : "border-slate-200"
+          }`}
+        >
+          <span className="shrink-0 rounded-md bg-[#1D2C43] px-2.5 py-1 text-[11px] font-semibold text-white">
+            Choose file
+          </span>
+          <span className="min-w-0 flex-1 truncate text-xs font-normal text-[#5D6875]">
+            {files.length === 0
+              ? "Attach photos or videos"
+              : files.map((file) => file.name).join(", ")}
+          </span>
+          <input
+            id="quote-media"
+            name="media"
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif,image/heic,image/heif,video/mp4,video/quicktime,video/webm,video/*"
+            multiple
+            onChange={(event) => setFiles(Array.from(event.target.files ?? []))}
+            className="absolute inset-0 cursor-pointer opacity-0"
+            aria-invalid={Boolean(errors.media)}
+          />
+        </div>
         {files.length > 0 ? (
-          <p className="text-xs text-[#5D6875]">
+          <p className="text-xs font-normal text-[#5D6875]">
             {files.length} file{files.length === 1 ? "" : "s"} selected
           </p>
         ) : null}
