@@ -11,7 +11,7 @@ type ShowroomPhone = {
   name: string;
   display: string;
   href: string;
-  note?: string;
+  appointmentOnly?: boolean;
 };
 
 const showroomPhones: ShowroomPhone[] = [
@@ -21,7 +21,7 @@ const showroomPhones: ShowroomPhone[] = [
     name: "Bellevue",
     display: "(425) 417-3005",
     href: "tel:4254173005",
-    note: "Showroom visits by appointment only",
+    appointmentOnly: true,
   },
 ];
 
@@ -111,7 +111,7 @@ export default function Home() {
                 {phoneOpen ? (
                   <ul
                     id="showroom-phones"
-                    className="absolute left-1/2 top-full z-50 w-80 min-w-[320px] -translate-x-1/2 pt-2"
+                    className="absolute left-1/2 top-full z-50 w-96 min-w-[360px] -translate-x-1/2 pt-2"
                   >
                     <li className="overflow-hidden rounded-xl border border-[#1B2A4A]/10 bg-[#FAF8F5] shadow-lg">
                       <ul>
@@ -122,17 +122,17 @@ export default function Home() {
                           >
                             <a
                               href={location.href}
-                              className="block px-4 py-3 text-sm text-[#1B2A4A] hover:bg-[#F4EFEA] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1B2A4A]"
+                              className="flex items-center justify-between gap-4 p-3 text-sm text-[#1B2A4A] hover:bg-[#F4EFEA] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1B2A4A]"
                             >
-                              <span className="flex items-center justify-between gap-4">
-                                <span>{location.name}</span>
-                                <span className="shrink-0 font-medium">{location.display}</span>
+                              <span className="flex min-w-0 items-center">
+                                <span className="font-medium text-slate-900">{location.name}</span>
+                                {location.appointmentOnly ? (
+                                  <span className="ml-2 inline-flex shrink-0 items-center whitespace-nowrap rounded-full border border-[#1B2A4A]/20 bg-[#1B2A4A]/10 px-2 py-0.5 text-[11px] font-semibold text-[#1B2A4A]">
+                                    By Appointment Only
+                                  </span>
+                                ) : null}
                               </span>
-                              {location.note ? (
-                                <span className="mt-0.5 block text-[11px] font-normal italic text-slate-500">
-                                  {location.note}
-                                </span>
-                              ) : null}
+                              <span className="shrink-0 font-bold">{location.display}</span>
                             </a>
                           </li>
                         ))}
