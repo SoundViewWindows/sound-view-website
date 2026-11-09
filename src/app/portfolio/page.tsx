@@ -40,7 +40,7 @@ const projects = [
     badge: "MASONRY OPENING RETROFIT",
     title: "Brick Exterior Single-Hung Window Replacement",
     copy: "Removed aged drafty single-pane wood sash set into masonry and installed a custom-sized, energy-efficient replacement unit with seamless exterior trim and tight perimeter seals.",
-    href: "/services/window-replacement/types",
+    href: "/services/window-replacement/materials",
   },
   {
     src: "/portfolio/siding-slider-before-after.jpg",
@@ -48,7 +48,7 @@ const projects = [
     badge: "SIDING PRESERVATION INSTALL",
     title: "Horizontal Sliding Window Upgrade",
     copy: "Upgraded an outdated gridded aluminum slider with a high-performance, smooth-glide vinyl slider, boosting thermal insulation and opening up natural garden light.",
-    href: "/services/window-replacement/types",
+    href: "/services/window-replacement/materials",
   },
 ];
 
@@ -170,7 +170,7 @@ export default function PortfolioPage() {
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-4">
               <Link
-                href="/services/window-replacement/types"
+                href="/services/window-replacement/materials"
                 className={`rounded-lg bg-white px-6 py-3 font-semibold text-[#1D2C43] transition-colors hover:bg-slate-100 ${focusRing}`}
               >
                 Start Your Window Estimate

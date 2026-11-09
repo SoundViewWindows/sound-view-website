@@ -2,42 +2,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/Header";
 import { WindowStepNav } from "@/components/WindowStepNav";
-import { styleFromSlug, windowMaterials } from "@/lib/window-funnel";
+import { windowMaterials, windowStepHref } from "@/lib/window-funnel";
 
 export function MaterialsStep() {
-  const searchParams = useSearchParams();
-  const style = styleFromSlug(searchParams.get("type"));
-  const typeSlug = style?.slug ?? "undecided";
-
   return (
     <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-          <WindowStepNav
-            current="Choose Material"
-            progress="Step 2 of 3: Choose Your Frame Material"
-          />
-          {style ? (
-            <p className="mb-4 inline-flex flex-wrap items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-[#1D2C43]">
-              <span>Selected Style: {style.name}</span>
-              <Link
-                href="/services/window-replacement/types"
-                className="font-medium underline decoration-[#1D2C43]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
-              >
-                Change
-              </Link>
-            </p>
-          ) : null}
-          <h1 className="mb-4 max-w-3xl font-serif text-3xl font-bold leading-tight text-[#1D2C43] sm:text-4xl lg:text-5xl">
-            Select Your Preferred Frame Material
+          <WindowStepNav step={1} />
+          <h1 className="mb-4 max-w-3xl font-serif text-3xl font-bold leading-tight text-[#0B192C] sm:text-4xl lg:text-5xl">
+            Select Your Window Material
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
-            Select a durable material engineered for Greater Seattle weather to
-            finalize your custom quote.
+            Choose a frame built for Greater Seattle weather. Your selection
+            continues to window types, then a manufacturer, then your free quote.
           </p>
         </div>
 
@@ -46,7 +27,7 @@ export function MaterialsStep() {
             {windowMaterials.map((material) => (
               <Link
                 key={material.slug}
-                href={`/services/window-replacement/quote?type=${typeSlug}&material=${material.slug}`}
+                href={windowStepHref("types", { material: material.slug })}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
               >
                 {material.image ? (
@@ -83,10 +64,10 @@ export function MaterialsStep() {
           </div>
           <div className="mx-auto max-w-7xl px-4 py-10 text-center sm:px-6 lg:px-8">
             <Link
-              href={`/services/window-replacement/quote?type=${typeSlug}&material=undecided`}
-              className="inline-flex rounded-full border border-[#1D2C43] px-6 py-3 text-sm font-medium text-[#1D2C43] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+              href={windowStepHref("types", { material: "undecided" })}
+              className="inline-flex rounded-full border border-[#0B192C] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
             >
-              Not sure yet? Proceed to Quote
+              Not sure yet? Continue to Types
             </Link>
           </div>
         </section>

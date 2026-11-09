@@ -181,9 +181,9 @@ function ctaFor(post: BlogPost) {
   }
   return {
     heading: "Compare window packages for your openings",
-    body: "Walk through style, frame material, and project details in the three-step window configurator.",
+    body: "Walk through material, type, and manufacturer, then request a free window quote.",
     label: "Start the Window Configurator",
-    href: "/services/window-replacement/types",
+    href: "/services/window-replacement/materials",
     external: false,
   };
 }

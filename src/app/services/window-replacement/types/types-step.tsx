@@ -21,12 +21,12 @@ export function TypesStep() {
   const material = materialFromSlug(materialSlug);
 
   return (
-    <div className="bg-[#0B192C] text-[#0B192C]">
+    <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-          <WindowStepNav current="Choose Style" progress="Step 2 of 4: Styles" />
-          <p className="mb-4 inline-flex flex-wrap items-center gap-3 rounded-full border border-[#38BDF8]/40 bg-[#15263F] px-4 py-2 text-sm text-[#0B192C]">
+          <WindowStepNav step={2} material={materialSlug} onDark />
+          <p className="mb-4 inline-flex flex-wrap items-center gap-3 rounded-full border border-[#38BDF8]/40 bg-white/10 px-4 py-2 text-sm text-white">
             <span>Material: {choiceLabel(material)}</span>
             <Link
               href={windowStepHref("materials")}
@@ -35,10 +35,10 @@ export function TypesStep() {
               Change
             </Link>
           </p>
-          <h1 className="mb-4 max-w-3xl font-serif text-3xl font-bold leading-tight text-[#0B192C] sm:text-4xl lg:text-5xl">
-            Select the Window Style That Fits Your Home
+          <h1 className="mb-4 max-w-3xl font-serif text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+            Select the Window Type That Fits Your Home
           </h1>
-          <p className="max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
+          <p className="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Casement, hung, slider, awning, picture, bay, and bow windows. Your
             style choice continues to manufacturer options.
           </p>
@@ -69,7 +69,7 @@ export function TypesStep() {
                     <span className="text-xs font-semibold uppercase tracking-wider text-[#0284C7]">
                       {style.detail}
                     </span>
-                    <span className="mb-2 mt-2 block font-serif text-xl font-bold text-[#0B192C]">
+                    <span className="mb-2 mt-2 block font-serif text-xl font-bold text-white">
                       {style.name}
                     </span>
                     <span className="block text-sm leading-6 text-[#94A3B8]">{style.body}</span>
@@ -87,7 +87,7 @@ export function TypesStep() {
                 material: materialSlug,
                 type: "undecided",
               })}
-              className="inline-flex rounded-full border border-[#0B192C] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-[#38BDF8] hover:text-[#0A192F] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+              className="inline-flex rounded-full border border-white px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#38BDF8] hover:text-[#0B192C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
             >
               Not sure yet? Continue to Manufacturers
             </Link>

@@ -25,7 +25,7 @@ const navigation: NavEntry[] = [
       label: service.title,
       href:
         service.id === "window-replacement"
-          ? "/services/window-replacement/types"
+          ? "/services/window-replacement/materials"
           : service.id === "door-replacement"
             ? "/services/door-replacement/types"
             : service.id === "shower-door-replacement"
