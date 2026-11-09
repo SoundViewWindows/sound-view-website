@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
+import { Compass, Ruler, Wrench } from "lucide-react";
 import { Header } from "@/components/Header";
 import { BOOKING_URL } from "@/config/links";
 
@@ -13,36 +13,21 @@ export const metadata: Metadata = {
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
 
-type StandardCard = {
-  title: string;
-  body: string;
-  image?: string;
-  imageAlt?: string;
-};
-
-const standards: StandardCard[] = [
+const workSystem = [
   {
-    title: "Zero High-Pressure Sales",
-    body: "You get a clear recommendation and time to decide. We do not use urgency scripts, surprise add-ons, or a pitch that only works if you sign today.",
+    title: "Thoughtful Product Guidance",
+    body: "Every home and project is different. We help customers compare available products, styles, materials, and performance features.",
+    icon: Compass,
   },
   {
-    title: "Honest Technical Guidance",
-    body: "We walk through frame materials, glass packages, and hardware in plain language, including how each option handles Pacific Northwest rain, wind, and temperature swings.",
-    image: "/glass/triple-pane.jpg",
-    imageAlt:
-      "Cutaway of a triple-pane window frame showing the glass layers and internal profile",
+    title: "Attention to the Details",
+    body: "From product selection to measurements and installation planning, the details matter.",
+    icon: Ruler,
   },
   {
-    title: "Local Craftsmanship",
-    body: "Measurement, installation, and finish work stay with people who know Greater Seattle homes. Seventeen-plus years in the Pacific Northwest is how we plan the details that keep a job quiet and clean.",
-    image: "/portfolio/brick-window-before-after.jpg",
-    imageAlt: "Before and after of a replacement window installed in a brick home",
-  },
-  {
-    title: "Products Built for Decades",
-    body: "We specify windows, doors, and custom glass meant to perform for the long term, then stand behind the installation with manufacturer warranties and a crew you can call back.",
-    image: "/materials/wood-clad.jpg",
-    imageAlt: "Wood-clad double-hung windows looking out over a Pacific Northwest landscape",
+    title: "Professional Installation",
+    body: "Careful preparation, quality workmanship, and respect for the customer's home.",
+    icon: Wrench,
   },
 ];
 
@@ -124,43 +109,33 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="border-t border-[#DDE2E6] bg-[#EFEBE4]">
-          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
-              How we work
+        <section className="border-t border-[#DDE2E6] py-16 sm:py-20" aria-labelledby="work-system-title">
+          <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#1D2C43] sm:text-sm">
+              Our Work System
             </p>
-            <h2 className="mb-4 max-w-3xl font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
-              The Sound View Standard
+            <h2
+              id="work-system-title"
+              className="mb-3 font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl lg:text-5xl"
+            >
+              The Sound View Approach
             </h2>
-            <p className="mb-10 max-w-2xl text-base leading-relaxed text-slate-700 sm:text-lg">
-              Every consultation, measurement, and installation follows the same
-              standard: clear advice, careful work, and products chosen for this
-              climate.
-            </p>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {standards.map((item) => (
+            <div className="mx-auto mb-12 h-1 w-12 rounded-full bg-[#1D2C43] sm:mb-16" aria-hidden="true" />
+          </div>
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
+            {workSystem.map((item) => {
+              const Icon = item.icon;
+              return (
                 <article
                   key={item.title}
-                  className="min-w-0 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm"
+                  className="flex h-full flex-col justify-start rounded-2xl border border-slate-200/80 bg-white p-8 shadow-sm transition-shadow hover:shadow-md sm:p-10"
                 >
-                  {item.image ? (
-                    <div className="mb-4 overflow-hidden rounded-xl bg-[#EFEBE4]">
-                      <Image
-                        src={item.image}
-                        alt={item.imageAlt ?? ""}
-                        width={960}
-                        height={720}
-                        className="aspect-square w-full object-contain"
-                      />
-                    </div>
-                  ) : null}
-                  <h3 className="font-serif text-xl font-bold leading-snug text-[#1D2C43]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-700">{item.body}</p>
+                  <Icon className="mb-6 h-8 w-8 text-[#1D2C43]" strokeWidth={2.2} aria-hidden="true" />
+                  <h3 className="mb-4 text-xl font-bold text-[#1D2C43]">{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{item.body}</p>
                 </article>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </section>
 
