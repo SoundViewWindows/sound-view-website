@@ -22,7 +22,10 @@ const navigation: NavEntry[] = [
     label: "Services",
     items: services.map((service) => ({
       label: service.title,
-      href: `/services/${service.id}`,
+      href:
+        service.id === "door-replacement"
+          ? "/services/door-replacement/types"
+          : `/services/${service.id}`,
       serviceId: service.id,
     })),
   },
@@ -103,7 +106,13 @@ export function Header({ onServiceSelect, onRequestConsultation }: HeaderProps) 
   function selectService(event: MouseEvent, serviceId: string) {
     setOpenMenu(null);
     setMobileOpen(false);
-    if (!onServiceSelect || serviceId === "window-replacement") return;
+    if (
+      !onServiceSelect ||
+      serviceId === "window-replacement" ||
+      serviceId === "door-replacement"
+    ) {
+      return;
+    }
     event.preventDefault();
     onServiceSelect(serviceId);
   }
