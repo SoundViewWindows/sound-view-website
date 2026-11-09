@@ -38,7 +38,7 @@ const showrooms = [
     address: "12301 Lake City Way NE, Seattle, WA 98125",
     phone: "(206) 572-3411",
     phoneHref: "tel:2065723411",
-    note: "Monday through Friday, 8:00 AM to 5:00 PM. Saturday by appointment.",
+    note: "Monday through Friday, 8:00 AM to 4:30 PM. Closed Saturday and Sunday.",
   },
   {
     name: "West Queen Anne Showroom",
@@ -46,7 +46,7 @@ const showrooms = [
     address: "921 Elliott Ave W, Seattle, WA 98119",
     phone: "(206) 402-4229",
     phoneHref: "tel:2064024229",
-    note: "Monday through Friday, 8:00 AM to 5:00 PM. Saturday by appointment.",
+    note: "Monday through Friday, 8:00 AM to 4:30 PM. Closed Saturday and Sunday.",
   },
   {
     name: "Bellevue Showroom",
@@ -54,7 +54,7 @@ const showrooms = [
     address: "13555 NE Bel Red Rd Ste 207, Bellevue, WA 98005",
     phone: "(425) 417-3005",
     phoneHref: "tel:4254173005",
-    note: "Visits are scheduled by appointment only.",
+    note: "Open Monday through Friday by appointment only. Closed weekends.",
   },
 ];
 
