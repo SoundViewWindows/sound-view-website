@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 export const metadata: Metadata = {
   title: "Window Materials Guide | Sound View Window & Door",
   description:
-    "Compare fiberglass, vinyl, wood clad, and thermally broken aluminum windows for Greater Seattle weather.",
+    "Compare vinyl, wood, fiberglass, aluminum, and composite windows for Greater Seattle weather.",
 };
 
 export default function WindowMaterialsLayout({
