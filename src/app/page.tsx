@@ -69,10 +69,7 @@ export default function Home() {
   return (
     <div className="bg-[#FAF8F5] text-[#1B2A4A]">
     <div className="flex min-h-screen flex-col lg:h-dvh lg:min-h-0 lg:overflow-hidden">
-      <Header
-        onServiceSelect={chooseService}
-        onRequestConsultation={bookAppointment}
-      />
+      <Header onServiceSelect={chooseService} />
 
       <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 py-4 sm:px-5 lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_21rem] lg:px-5 lg:pb-3 lg:pt-6 xl:grid-cols-[minmax(0,1fr)_23rem]">
         <div className="relative z-20 flex min-h-0 flex-col gap-6 lg:h-full">

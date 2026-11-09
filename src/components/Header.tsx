@@ -12,7 +12,7 @@ type NavChild = {
 };
 
 type NavEntry =
-  | { kind: "link"; label: string; href: string; contact?: boolean }
+  | { kind: "link"; label: string; href: string }
   | { kind: "menu"; label: string; items: NavChild[] };
 
 const navigation: NavEntry[] = [
@@ -67,7 +67,7 @@ const navigation: NavEntry[] = [
       { label: "Blog", href: "/blog" },
     ],
   },
-  { kind: "link", label: "Contact Us", href: "/contact", contact: true },
+  { kind: "link", label: "Contact Us", href: "/contact" },
 ];
 
 const focusRing =
@@ -75,10 +75,9 @@ const focusRing =
 
 type HeaderProps = {
   onServiceSelect?: (serviceId: string) => void;
-  onRequestConsultation?: () => void;
 };
 
-export function Header({ onServiceSelect, onRequestConsultation }: HeaderProps) {
+export function Header({ onServiceSelect }: HeaderProps) {
   const baseId = useId();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -94,20 +93,6 @@ export function Header({ onServiceSelect, onRequestConsultation }: HeaderProps) 
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
-
-  function openConsultation(event: MouseEvent) {
-    const quote = document.getElementById("quote");
-    if (!quote) return;
-    event.preventDefault();
-    setMobileOpen(false);
-    setOpenMenu(null);
-    if (onRequestConsultation) {
-      onRequestConsultation();
-      return;
-    }
-    quote.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    document.getElementById("quote-name")?.focus();
-  }
 
   function selectService(event: MouseEvent, serviceId: string) {
     setOpenMenu(null);
@@ -154,7 +139,6 @@ export function Header({ onServiceSelect, onRequestConsultation }: HeaderProps) 
               <Link
                 key={entry.label}
                 href={entry.href}
-                onClick={entry.contact ? openConsultation : undefined}
                 className={`rounded-md px-2 py-2 text-[11px] font-medium uppercase tracking-wide text-[#1B2A4A] hover:bg-[#F3EFEA] xl:px-2.5 xl:text-xs ${focusRing}`}
               >
                 {entry.label}
@@ -177,13 +161,12 @@ export function Header({ onServiceSelect, onRequestConsultation }: HeaderProps) 
           )}
         </nav>
 
-        <button
-          type="button"
-          onClick={openConsultation}
+        <Link
+          href="/contact"
           className={`shrink-0 rounded-full bg-[#1B2A4A] px-3 py-2 text-xs font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] sm:px-4 sm:text-sm ${focusRing}`}
         >
           Request a Consultation
-        </button>
+        </Link>
 
         <button
           type="button"
@@ -208,7 +191,7 @@ export function Header({ onServiceSelect, onRequestConsultation }: HeaderProps) 
                 <Link
                   key={entry.label}
                   href={entry.href}
-                  onClick={entry.contact ? openConsultation : () => setMobileOpen(false)}
+                  onClick={() => setMobileOpen(false)}
                   className={`border-b border-[#1B2A4A]/10 px-2 py-3 text-sm font-medium uppercase tracking-wide text-[#1B2A4A] ${focusRing}`}
                 >
                   {entry.label}
