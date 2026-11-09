@@ -2,17 +2,17 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --background: #f7f5f0;
-  --foreground: #28323d;
-  --surface: #efebe4;
-  --ink: #1d2c43;
-  --navy: #1d2c43;
-  --navy-deep: #162433;
-  --bronze: #94734d;
-  --charcoal: #28323d;
-  --muted: #5d6875;
-  --line: #dde2e6;
-  --warm-white: #e7e0d5;
+  --background: #0b192c;
+  --foreground: #f1f5f9;
+  --surface: #132238;
+  --ink: #f1f5f9;
+  --navy: #0b192c;
+  --navy-deep: #07111e;
+  --bronze: #38bdf8;
+  --charcoal: #e2e8f0;
+  --muted: #94a3b8;
+  --line: #334155;
+  --warm-white: #132238;
 }
 
 @theme inline {
@@ -27,22 +27,13 @@
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-warm-white: var(--warm-white);
-  --color-slate-50: #efebe4;
-  --color-slate-100: #efebe4;
-  --color-slate-200: #dde2e6;
-  --color-slate-300: #dde2e6;
-  --color-slate-500: #5d6875;
-  --color-slate-600: #5d6875;
-  --color-slate-700: #28323d;
-  --color-slate-800: #28323d;
-  --color-slate-900: #1d2c43;
   --font-sans: var(--font-outfit);
-  --font-serif: var(--font-newsreader);
+  --font-serif: var(--font-outfit);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #0b192c;
+  color: #f1f5f9;
   font-family: var(--font-sans), "Segoe UI", sans-serif;
 }
 
@@ -51,5 +42,5 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline-color: var(--navy);
+  outline-color: #38bdf8;
 }

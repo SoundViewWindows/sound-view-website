@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
-import { Newsreader, Outfit } from "next/font/google";
+import { Outfit } from "next/font/google";
+import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import "./globals.css";
 
 const outfit = Outfit({
   variable: "--font-outfit",
-  subsets: ["latin"],
-});
-
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
   subsets: ["latin"],
 });
 
@@ -30,11 +26,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${newsreader.variable} h-full antialiased`}
+      className={`${outfit.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="flex min-h-screen flex-col bg-[#0B192C] text-slate-100">
         <JsonLd />
         {children}
+        <Footer />
       </body>
     </html>
   );
