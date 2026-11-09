@@ -48,17 +48,15 @@ export const services: Service[] = [
     title: "Glass Railing Installation",
     summary:
       "Modern interior and exterior glass railings designed to maximize open views.",
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Modern home with exterior glass railings",
+    image: "/services/glass-railing.jpg",
+    imageAlt: "Modern architectural glass railing on interior landing and staircase",
   },
   {
     id: "window-blinds-shades",
     title: "Window Blinds & Shades",
     summary:
       "Tailored light control, blackout options, and automated shades.",
-    image:
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Windows fitted with tailored shades",
+    image: "/services/blinds-shades.jpg",
+    imageAlt: "Custom tailored roller window shades in residential dining nook",
   },
 ];
