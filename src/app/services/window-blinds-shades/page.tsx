@@ -17,21 +17,31 @@ const treatments = [
     tagline: "CLEAN & MINIMALIST",
     title: "Roller & Solar Shades",
     copy: "Sleek low-profile design that cuts glare and protects interior flooring from UV damage while maintaining natural light.",
+    image: "/services/blinds/roller-solar-shades.jpg",
+    imageAlt:
+      "Custom dark solar roller shades on kitchen picture windows cutting glare and UV light",
   },
   {
     tagline: "MAXIMUM INSULATION",
     title: "Cellular / Honeycomb Shades",
     copy: "Honeycomb air pockets trap air along window glass, reducing heat loss during damp Seattle winters and keeping rooms cool in summer.",
+    image: "/services/blinds/cellular-honeycomb-shades.jpg",
+    imageAlt:
+      "Cordless insulating cellular honeycomb shades for cold weather window thermal efficiency",
   },
   {
     tagline: "CLASSIC LIGHT CONTROL",
     title: "Wood & Faux Wood Blinds",
     copy: "Timeless handcrafted slat styling with precision tilt control. Moisture-resistant composite options available for kitchens and bathrooms.",
+    image: "/services/blinds/wood-faux-wood-blinds.jpg",
+    imageAlt: "Warm natural wood horizontal slat blinds over residential living room windows",
   },
   {
     tagline: "CONNECTED LIVING",
     title: "Motorized & Smart Shades",
     copy: "Whisper-quiet automated shades synchronized with sunrise, sunset, or your smartphone and voice assistant routines.",
+    image: "/services/blinds/motorized-smart-shades.jpg",
+    imageAlt: "Hand holding wireless remote operating smart motorized roller window shade",
   },
 ];
 
@@ -92,19 +102,37 @@ export default function WindowBlindsShadesPage() {
         </section>
 
         <section aria-label="Treatment categories">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 pb-16 sm:px-6 md:grid-cols-2 lg:px-8 xl:grid-cols-4">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 pb-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
             {treatments.map((item) => (
               <article
                 key={item.title}
-                className="flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
+                className="flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-shadow hover:shadow-md"
               >
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-600">
-                  {item.tagline}
-                </p>
-                <h2 className="mt-3 font-serif text-2xl font-medium leading-tight text-[#1B2A4A]">
-                  {item.title}
-                </h2>
-                <p className="mt-3 text-sm leading-6 text-slate-700">{item.copy}</p>
+                <img
+                  src={item.image}
+                  alt={item.imageAlt}
+                  className="h-44 w-full rounded-t-2xl object-cover sm:h-48"
+                  loading="lazy"
+                />
+                <div className="flex flex-1 flex-col justify-between p-6">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                      {item.tagline}
+                    </p>
+                    <h2 className="mt-3 font-serif text-2xl font-medium leading-tight text-[#1B2A4A]">
+                      {item.title}
+                    </h2>
+                    <p className="mt-3 text-sm leading-6 text-slate-700">{item.copy}</p>
+                  </div>
+                  <a
+                    href={shopHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#1B2A4A] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  >
+                    Shop Style Online →
+                  </a>
+                </div>
               </article>
             ))}
           </div>
