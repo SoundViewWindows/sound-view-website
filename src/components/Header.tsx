@@ -162,7 +162,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
           href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className={`shrink-0 rounded-full bg-[#38BDF8] px-3 py-2 text-xs font-extrabold uppercase tracking-wide text-[#0B192C] transition-colors hover:bg-sky-300 sm:px-4 sm:text-sm ${focusRing}`}
+          className={`shrink-0 rounded-full bg-[#0B192C] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm transition-all duration-150 ease-in-out hover:bg-[#15263F] hover:shadow-md active:scale-[0.98] sm:text-sm ${focusRing}`}
         >
           Book Appointment
         </a>
@@ -244,7 +244,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
-              className={`my-3 inline-flex items-center justify-center rounded-full bg-[#38BDF8] px-4 py-3 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
+              className={`my-3 inline-flex items-center justify-center rounded-full bg-[#0B192C] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm transition-all duration-150 ease-in-out hover:bg-[#15263F] hover:shadow-md active:scale-[0.98] sm:text-sm ${focusRing}`}
             >
               Book Appointment
             </a>
