@@ -9,9 +9,14 @@ const paneCounts = ["1 Pane", "2 to 4 Panes", "5+ Panes"] as const;
 type GlassQuoteBoxProps = {
   glassType?: string;
   onGlassTypeChange?: (value: string) => void;
+  className?: string;
 };
 
-export function GlassQuoteBox({ glassType = "", onGlassTypeChange }: GlassQuoteBoxProps) {
+export function GlassQuoteBox({
+  glassType = "",
+  onGlassTypeChange,
+  className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xl sm:p-7",
+}: GlassQuoteBoxProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [zip, setZip] = useState("");
@@ -68,7 +73,7 @@ export function GlassQuoteBox({ glassType = "", onGlassTypeChange }: GlassQuoteB
   return (
     <aside
       id="glass-quote"
-      className="relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xl sm:p-7"
+      className={className}
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>

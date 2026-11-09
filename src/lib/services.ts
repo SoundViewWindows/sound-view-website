@@ -40,9 +40,8 @@ export const services: Service[] = [
     title: "Glass Replacement",
     summary: "New glass for broken, cracked, or foggy panes, without a new frame.",
     keywords: "Failed Seal IGU • Foggy Panes • Tempered Safety",
-    image:
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Insulated glass unit replacement for broken seals and foggy windows",
+    image: "/services/glass-replacement.jpg",
+    imageAlt: "Professional technicians replacing insulated glass unit and failed window seal",
   },
   {
     id: "glass-railing-installation",

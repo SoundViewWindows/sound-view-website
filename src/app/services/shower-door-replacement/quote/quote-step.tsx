@@ -24,35 +24,52 @@ export function ShowerQuoteStep() {
     <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-4 pb-4 pt-8 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
-          <div className="lg:col-span-7">
-            <ShowerStepNav
-              current="Your Estimate"
-              progress="Step 2 of 2: Get Your Free Upfront Estimate"
+        <section className="relative overflow-hidden py-12 lg:py-16">
+          <div className="absolute inset-0 z-0">
+            <img
+              src="/hero-quotes/shower-door-quote-hero.jpg"
+              alt="Custom frameless sliding glass shower enclosure in Seattle bathroom"
+              className="h-full w-full object-cover"
+              loading="eager"
+              fetchPriority="high"
             />
-            <h1 className="mb-4 font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
-              Your Custom Shower Door Estimate
-            </h1>
-            <p className="mb-6 max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
-              Review your chosen configuration, then share a few details so our
-              Seattle glass specialists can prepare upfront pricing.
-            </p>
-            <p className="inline-flex items-center justify-between gap-4 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm">
-              <span>Style: {styleName}</span>
-              <Link
-                href="/services/shower-door-replacement/types"
-                className="text-xs font-medium underline decoration-[#1D2C43]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
-              >
-                Edit
-              </Link>
-            </p>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1D2C43]/95 via-[#1D2C43]/80 to-[#1D2C43]/60" />
           </div>
-          <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
-            <div className="w-full max-w-md">
-              <ShowerDoorQuoteBox style={style} onStyleChange={setStyle} />
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
+              <div className="space-y-4 lg:col-span-6">
+                <ShowerStepNav
+                  current="Your Estimate"
+                  progress="Step 2 of 2: Get Your Free Upfront Estimate"
+                  onDark
+                />
+                <h1 className="font-serif text-3xl font-bold tracking-tight text-white drop-shadow-sm sm:text-4xl lg:text-5xl">
+                  Your Custom Shower Door Estimate
+                </h1>
+                <p className="max-w-lg text-sm leading-relaxed text-slate-200 drop-shadow-sm sm:text-base">
+                  Review your chosen configuration, then share a few details so our
+                  Seattle glass specialists can prepare upfront pricing.
+                </p>
+                <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white shadow-sm backdrop-blur-md">
+                  <span>Style: {styleName}</span>
+                  <Link
+                    href="/services/shower-door-replacement/types"
+                    className="ml-1 font-semibold text-amber-300 underline underline-offset-2 hover:text-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    Edit
+                  </Link>
+                </p>
+              </div>
+              <div className="lg:col-span-6">
+                <ShowerDoorQuoteBox
+                  className="relative w-full scroll-mt-6 rounded-2xl border border-slate-100 bg-white p-6 shadow-2xl sm:p-8"
+                  style={style}
+                  onStyleChange={setStyle}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        </section>
         <CostComparison service="shower-doors" />
       </main>
     </div>

@@ -178,7 +178,7 @@ export default function Home() {
                   alt={service.imageAlt}
                   fill
                   sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
-                  className="z-0 object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 z-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#1D2C43]/95 via-[#1D2C43]/50 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col justify-end p-4 sm:p-5">

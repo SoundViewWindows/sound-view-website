@@ -38,51 +38,65 @@ export function DoorQuoteStep() {
     <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-4 pb-8 pt-8 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
-          <div className="lg:col-span-7">
-            <DoorStepNav
-              current="Your Estimate"
-              progress="Step 3 of 3: Get Your Free Upfront Estimate"
+        <section className="relative overflow-hidden py-12 lg:py-16">
+          <div className="absolute inset-0 z-0">
+            <img
+              src="/hero-quotes/door-quote-hero.jpg"
+              alt="Modern black entry door with full glass sidelights and transom"
+              className="h-full w-full object-cover"
+              loading="eager"
+              fetchPriority="high"
             />
-            <h1 className="mb-4 font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
-              Your Custom Door Estimate
-            </h1>
-            <p className="mb-6 max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
-              Review your chosen door style and material, then share your project
-              details so our Seattle specialists can prepare an upfront quote.
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <p className="inline-flex items-center justify-between gap-4 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm">
-                <span>Style: {styleName}</span>
-                <Link
-                  href="/services/door-replacement/types"
-                  className="text-xs font-medium underline decoration-[#1D2C43]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
-                >
-                  Edit
-                </Link>
-              </p>
-              <p className="inline-flex items-center justify-between gap-4 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm">
-                <span>Material: {materialName}</span>
-                <Link
-                  href={`/services/door-replacement/materials?type=${typeSlug}`}
-                  className="text-xs font-medium underline decoration-[#1D2C43]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
-                >
-                  Edit
-                </Link>
-              </p>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1D2C43]/95 via-[#1D2C43]/80 to-[#1D2C43]/60" />
+          </div>
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
+              <div className="space-y-4 lg:col-span-6">
+                <DoorStepNav
+                  current="Your Estimate"
+                  progress="Step 3 of 3: Get Your Free Upfront Estimate"
+                  onDark
+                />
+                <h1 className="font-serif text-3xl font-bold tracking-tight text-white drop-shadow-sm sm:text-4xl lg:text-5xl">
+                  Your Custom Door Estimate
+                </h1>
+                <p className="max-w-lg text-sm leading-relaxed text-slate-200 drop-shadow-sm sm:text-base">
+                  Review your chosen door style and material, then share your project
+                  details so our Seattle specialists can prepare an upfront quote.
+                </p>
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white shadow-sm backdrop-blur-md">
+                    <span>Style: {styleName}</span>
+                    <Link
+                      href="/services/door-replacement/types"
+                      className="ml-1 font-semibold text-amber-300 underline underline-offset-2 hover:text-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    >
+                      Edit
+                    </Link>
+                  </p>
+                  <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white shadow-sm backdrop-blur-md">
+                    <span>Material: {materialName}</span>
+                    <Link
+                      href={`/services/door-replacement/materials?type=${typeSlug}`}
+                      className="ml-1 font-semibold text-amber-300 underline underline-offset-2 hover:text-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    >
+                      Edit
+                    </Link>
+                  </p>
+                </div>
+              </div>
+              <div className="lg:col-span-6">
+                <DoorQuoteBox
+                  className="relative w-full scroll-mt-6 rounded-2xl border border-slate-100 bg-white p-6 shadow-2xl sm:p-8"
+                  material={material}
+                  style={style}
+                  onMaterialChange={setMaterial}
+                  onStyleChange={setStyle}
+                />
+              </div>
             </div>
           </div>
-          <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
-            <div className="w-full max-w-md">
-              <DoorQuoteBox
-                material={material}
-                style={style}
-                onMaterialChange={setMaterial}
-                onStyleChange={setStyle}
-              />
-            </div>
-          </div>
-        </div>
+        </section>
         <CostComparison service="doors" />
       </main>
     </div>

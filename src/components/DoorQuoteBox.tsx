@@ -11,6 +11,7 @@ type DoorQuoteBoxProps = {
   style?: string;
   onMaterialChange?: (value: string) => void;
   onStyleChange?: (value: string) => void;
+  className?: string;
 };
 
 export function DoorQuoteBox({
@@ -18,6 +19,7 @@ export function DoorQuoteBox({
   style = "",
   onMaterialChange,
   onStyleChange,
+  className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xl sm:p-7",
 }: DoorQuoteBoxProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -82,7 +84,7 @@ export function DoorQuoteBox({
   return (
     <aside
       id="door-quote"
-      className="relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xl sm:p-7"
+      className={className}
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>

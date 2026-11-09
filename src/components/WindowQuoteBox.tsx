@@ -16,6 +16,7 @@ type WindowQuoteBoxProps = {
   style?: string;
   onMaterialChange?: (value: string) => void;
   onStyleChange?: (value: string) => void;
+  className?: string;
 };
 
 export function WindowQuoteBox({
@@ -23,6 +24,7 @@ export function WindowQuoteBox({
   style = "",
   onMaterialChange,
   onStyleChange,
+  className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-xl sm:p-5",
 }: WindowQuoteBoxProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -91,7 +93,7 @@ export function WindowQuoteBox({
   return (
     <aside
       id="window-quote"
-      className="relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-xl sm:p-5"
+      className={className}
     >
         <form noValidate className="flex flex-col gap-2.5" onSubmit={handleSubmit}>
           <div>
