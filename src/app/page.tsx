@@ -243,7 +243,7 @@ export default function Home() {
 
       <SoundViewDifference />
       <HowItWorks />
-      <Testimonials />
+      <RecentProjects />
       <FaqAndCta
         openIndex={openFaq}
         onToggle={(index) => setOpenFaq((current) => (current === index ? null : index))}
@@ -300,35 +300,24 @@ const stats = [
   { value: "17+", label: "Years Serving Greater Seattle" },
 ];
 
-const testimonials: {
-  name: string;
-  place: string;
-  quote: string;
-  image?: string;
-  initials?: string;
-}[] = [
+const recentProjects = [
   {
-    name: "David M.",
-    place: "Queen Anne, Seattle",
-    quote:
-      "Sound View replaced 12 original windows in our home with zero high-pressure sales tactics. The team walked us through our options, the installers arrived right on schedule, and the draft reduction this winter has been incredible.",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
+    tag: "Queen Anne, Seattle",
+    title: "Whole-Home Window Replacement",
+    body: "Removed 12 original drafty wood sash windows and installed energy-efficient, Low-E fiberglass replacement units. Seamlessly matched the historic exterior trim while significantly reducing winter heat loss.",
+    note: "Products: Milgard Fiberglass • Duration: 3 Days",
   },
   {
-    name: "Jennifer K.",
-    place: "Bellevue Homeowner",
-    quote:
-      "We needed a custom sliding patio door and a frameless glass shower door. The measurement team was precise down to the millimeter, and the finished installation looks like something out of an architectural magazine.",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80",
+    tag: "Bellevue, WA",
+    title: "Multi-Slide Door & Frameless Shower",
+    body: "Engineered and installed a custom 12-foot multi-slide patio door system to open the living space to the deck. Additionally, measured and installed a heavy glass frameless shower enclosure in the master suite.",
+    note: "Products: Andersen Architectural • Duration: 2 Days",
   },
   {
-    name: "Marcus & Elena R.",
-    place: "Lake City, Seattle",
-    quote:
-      "Easily the best contractor experience we have had in the Seattle area. Clear communication from the showroom visit to installation day, flawless finish trim work, and complete cleanup when they were done.",
-    initials: "ME",
+    tag: "Lake City, Seattle",
+    title: "IGU & Foggy Glass Restoration",
+    body: "Restored clarity and insulation to 8 failed window seals by replacing just the Insulated Glass Units (IGUs), preserving the original vinyl frames and saving the homeowner thousands compared to a full tear-out.",
+    note: "Products: Custom Cut IGU • Duration: 1 Day",
   },
 ];
 
@@ -440,46 +429,33 @@ function HowItWorks() {
   );
 }
 
-function Testimonials() {
+function RecentProjects() {
   return (
-    <section className="bg-[#1B2A4A] text-[#FAF8F5]">
+    <section className="bg-[#1B2A4A] text-white">
       <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-5 lg:py-24">
-        <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#FAF8F5]/70">
-          Our Happy Customers
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+          Proven Local Craftsmanship
         </p>
-        <h2 className="mt-4 max-w-3xl font-serif text-4xl tracking-tight sm:text-5xl">
-          Trusted By Homeowners Across Greater Seattle
+        <h2 className="mb-10 font-serif text-4xl font-bold text-white lg:text-5xl">
+          Recent Installations Across Greater Seattle
         </h2>
-        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((item) => (
-            <figure
-              key={item.name}
-              className="flex flex-col rounded-2xl bg-white p-6 text-[#1B2A4A] shadow-[0_12px_30px_rgba(0,0,0,0.16)]"
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {recentProjects.map((project) => (
+            <article
+              key={project.title}
+              className="flex flex-col justify-between rounded-2xl bg-white p-6 shadow-lg sm:p-8"
             >
-              <Stars />
-              <blockquote className="mt-4 flex-1 text-sm leading-6 text-[#1B2A4A]/85">
-                {item.quote}
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3">
-                <span className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-[#F4EFEA] text-sm font-medium text-[#1B2A4A]">
-                  {item.image ? (
-                    <Image
-                      src={item.image}
-                      alt=""
-                      fill
-                      sizes="48px"
-                      className="object-cover"
-                    />
-                  ) : (
-                    item.initials
-                  )}
-                </span>
-                <span>
-                  <span className="block font-medium">{item.name}</span>
-                  <span className="block text-sm text-[#1B2A4A]/70">{item.place}</span>
-                </span>
-              </figcaption>
-            </figure>
+              <div>
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                  {project.tag}
+                </p>
+                <h3 className="mb-2 text-lg font-bold text-[#1B2A4A]">{project.title}</h3>
+                <p className="text-sm leading-6 text-slate-600">{project.body}</p>
+              </div>
+              <p className="mt-4 border-t border-slate-100 pt-4 text-xs text-slate-500">
+                {project.note}
+              </p>
+            </article>
           ))}
         </div>
       </div>
@@ -575,18 +551,6 @@ function CheckIcon() {
       <rect x="2.5" y="2.5" width="15" height="15" rx="2" />
       <path strokeLinecap="round" strokeLinejoin="round" d="m6.5 10.2 2.3 2.3 4.7-5" />
     </svg>
-  );
-}
-
-function Stars() {
-  return (
-    <div className="flex gap-1 text-[#C4A35A]" aria-label="5 stars">
-      {Array.from({ length: 5 }, (_, index) => (
-        <svg key={index} aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 fill-current">
-          <path d="m10 1.8 2.1 4.3 4.7.7-3.4 3.3.8 4.7L10 12.6 5.8 14.8l.8-4.7L3.2 6.8l4.7-.7L10 1.8Z" />
-        </svg>
-      ))}
-    </div>
   );
 }
 
