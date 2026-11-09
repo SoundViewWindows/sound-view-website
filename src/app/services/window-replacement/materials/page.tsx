@@ -9,6 +9,7 @@ import { WindowQuoteBox } from "@/components/WindowQuoteBox";
 const materials = [
   {
     title: "Fiberglass",
+    quoteValue: "Fiberglass (e.g. Milgard Ultra)",
     detail: "Milgard Ultra Series",
     image: "/materials/fiberglass.jpg",
     alt: "Milgard Ultra Series Fiberglass Windows",
@@ -16,6 +17,7 @@ const materials = [
   },
   {
     title: "Premium Vinyl",
+    quoteValue: "Premium Vinyl",
     detail: "Low Maintenance",
     image: "/materials/vinyl.jpg",
     alt: "Premium Vinyl Bay Window Installation",
@@ -23,6 +25,7 @@ const materials = [
   },
   {
     title: "Wood & Wood-Clad",
+    quoteValue: "Wood & Wood-Clad (e.g. Andersen)",
     detail: "Andersen",
     image: "/materials/wood-clad.jpg",
     alt: "Andersen Wood and Wood-Clad Windows",
@@ -30,6 +33,7 @@ const materials = [
   },
   {
     title: "Thermally Broken Aluminum",
+    quoteValue: "Thermally Broken Aluminum",
     detail: "Architectural Lines",
     image: "/materials/aluminum.jpg",
     alt: "Thermally Broken Architectural Aluminum Windows",
@@ -38,16 +42,16 @@ const materials = [
 ];
 
 export default function WindowMaterialsPage() {
-  const [preference, setPreference] = useState("");
+  const [material, setMaterial] = useState("");
 
-  function requestMaterial(title: string) {
-    setPreference(title);
+  function requestMaterial(value: string) {
+    setMaterial(value);
     document.getElementById("window-quote")?.scrollIntoView({
       behavior: "smooth",
       block: "center",
     });
     window.setTimeout(() => {
-      document.getElementById("window-quote-preference")?.focus();
+      document.getElementById("window-quote-material")?.focus();
     }, 250);
   }
 
@@ -79,7 +83,7 @@ export default function WindowMaterialsPage() {
               </p>
             </div>
             <div className="w-full shrink-0 lg:max-h-full lg:w-96 lg:overflow-y-auto">
-              <WindowQuoteBox preference={preference} onPreferenceChange={setPreference} />
+              <WindowQuoteBox material={material} onMaterialChange={setMaterial} />
             </div>
           </div>
         </main>
@@ -113,7 +117,7 @@ export default function WindowMaterialsPage() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => requestMaterial(material.title)}
+                  onClick={() => requestMaterial(material.quoteValue)}
                   className="mt-5 w-full rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
                 >
                   Request Quote for this Material

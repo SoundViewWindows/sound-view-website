@@ -6,14 +6,14 @@ const windowCounts = ["1 to 5", "6 to 12", "13+"] as const;
 
 export const windowPreferences = {
   materials: [
-    "Fiberglass",
+    "Fiberglass (e.g. Milgard Ultra)",
     "Premium Vinyl",
-    "Wood & Wood-Clad",
+    "Wood & Wood-Clad (e.g. Andersen)",
     "Thermally Broken Aluminum",
   ],
   styles: [
     "Casement Windows",
-    "Double-Hung Window",
+    "Double-Hung Windows",
     "Single-Hung Windows",
     "Awning Windows",
     "Sliding Windows",
@@ -25,26 +25,37 @@ export const windowPreferences = {
 };
 
 type WindowQuoteBoxProps = {
-  preference?: string;
-  onPreferenceChange?: (value: string) => void;
+  material?: string;
+  style?: string;
+  onMaterialChange?: (value: string) => void;
+  onStyleChange?: (value: string) => void;
 };
 
 export function WindowQuoteBox({
-  preference = "",
-  onPreferenceChange,
+  material = "",
+  style = "",
+  onMaterialChange,
+  onStyleChange,
 }: WindowQuoteBoxProps) {
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [windowCount, setWindowCount] = useState("");
-  const [internalPreference, setInternalPreference] = useState("");
+  const [internalMaterial, setInternalMaterial] = useState("");
+  const [internalStyle, setInternalStyle] = useState("");
   const [errors, setErrors] = useState<{ name?: string; contact?: string; count?: string }>({});
   const [submittedName, setSubmittedName] = useState<string | null>(null);
 
-  const preferenceValue = onPreferenceChange ? preference : internalPreference;
+  const materialValue = onMaterialChange ? material : internalMaterial;
+  const styleValue = onStyleChange ? style : internalStyle;
 
-  function updatePreference(value: string) {
-    if (onPreferenceChange) onPreferenceChange(value);
-    else setInternalPreference(value);
+  function updateMaterial(value: string) {
+    if (onMaterialChange) onMaterialChange(value);
+    else setInternalMaterial(value);
+  }
+
+  function updateStyle(value: string) {
+    if (onStyleChange) onStyleChange(value);
+    else setInternalStyle(value);
   }
 
   function validate() {
@@ -158,33 +169,48 @@ export function WindowQuoteBox({
             {errors.count ? <FieldError message={errors.count} /> : null}
           </fieldset>
 
-          <label className="block text-xs font-medium text-[#1B2A4A]" htmlFor="window-quote-preference">
-            Preferred Material or Style
-            <span className="ml-1 font-normal text-slate-500">Optional</span>
-            <select
-              id="window-quote-preference"
-              name="preference"
-              value={preferenceValue}
-              onChange={(event) => updatePreference(event.target.value)}
-              className={`${inputClass(false)} mt-1.5`}
-            >
-              <option value="">No preference yet</option>
-              <optgroup label="Materials">
+          <div className="grid grid-cols-1 gap-3">
+            <label className="block" htmlFor="window-quote-material">
+              <span className="mb-1 block text-xs font-semibold text-slate-700">
+                Preferred Material
+                <span className="font-normal text-slate-500"> Optional</span>
+              </span>
+              <select
+                id="window-quote-material"
+                name="material"
+                value={materialValue}
+                onChange={(event) => updateMaterial(event.target.value)}
+                className={selectClass}
+              >
+                <option value="">No preference yet / Open to advice</option>
                 {windowPreferences.materials.map((item) => (
                   <option key={item} value={item}>
                     {item}
                   </option>
                 ))}
-              </optgroup>
-              <optgroup label="Styles">
+              </select>
+            </label>
+            <label className="block" htmlFor="window-quote-style">
+              <span className="mb-1 block text-xs font-semibold text-slate-700">
+                Preferred Window Style
+                <span className="font-normal text-slate-500"> Optional</span>
+              </span>
+              <select
+                id="window-quote-style"
+                name="style"
+                value={styleValue}
+                onChange={(event) => updateStyle(event.target.value)}
+                className={selectClass}
+              >
+                <option value="">No preference yet / Open to advice</option>
                 {windowPreferences.styles.map((item) => (
                   <option key={item} value={item}>
                     {item}
                   </option>
                 ))}
-              </optgroup>
-            </select>
-          </label>
+              </select>
+            </label>
+          </div>
 
           <button
             type="submit"
@@ -208,6 +234,11 @@ function FieldError({ message }: { message: string }) {
     </span>
   );
 }
+
+const selectClass = [
+  "w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800",
+  "focus:outline-none focus:ring-2 focus:ring-[#1B2A4A]",
+].join(" ");
 
 function inputClass(invalid: boolean) {
   return [

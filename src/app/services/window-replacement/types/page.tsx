@@ -16,6 +16,7 @@ const types = [
   },
   {
     title: "Double-Hung Window",
+    quoteValue: "Double-Hung Windows",
     detail: "Classic Versatility",
     image: "/types/double-hung.jpg",
     alt: "Double-hung window with sashes that tilt in for cleaning",
@@ -73,16 +74,16 @@ const types = [
 ];
 
 export default function WindowTypesPage() {
-  const [preference, setPreference] = useState("");
+  const [style, setStyle] = useState("");
 
-  function requestStyle(title: string) {
-    setPreference(title);
+  function requestStyle(value: string) {
+    setStyle(value);
     document.getElementById("window-quote")?.scrollIntoView({
       behavior: "smooth",
       block: "center",
     });
     window.setTimeout(() => {
-      document.getElementById("window-quote-preference")?.focus();
+      document.getElementById("window-quote-style")?.focus();
     }, 250);
   }
 
@@ -141,7 +142,7 @@ export default function WindowTypesPage() {
             </div>
             <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
               <div className="w-full max-w-md">
-                <WindowQuoteBox preference={preference} onPreferenceChange={setPreference} />
+                <WindowQuoteBox style={style} onStyleChange={setStyle} />
               </div>
             </div>
           </div>
@@ -175,7 +176,7 @@ export default function WindowTypesPage() {
                   </div>
                   <button
                     type="button"
-                    onClick={() => requestStyle(type.title)}
+                    onClick={() => requestStyle("quoteValue" in type ? type.quoteValue : type.title)}
                     className="mt-5 w-full rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
                   >
                     Request Quote for this Style
