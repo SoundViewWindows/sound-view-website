@@ -3,7 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { CountUp } from "@/components/CountUp";
 import { Header } from "@/components/Header";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { BOOKING_URL } from "@/config/links";
 import { QuoteRequestForm } from "@/components/quote-request-form";
 import { services } from "@/lib/services";
@@ -195,23 +197,25 @@ export default function Home() {
               </Link>
             ))}
           </section>
-          <section
-            aria-label="Company credentials"
-            className="mt-3 grid grid-cols-1 gap-2 rounded-xl border border-slate-200/80 bg-slate-50/80 p-2.5 text-center sm:grid-cols-3 sm:text-left"
-          >
-            <div>
-              <p className="text-sm font-semibold text-[#1B2A4A]">3 Puget Sound Showrooms</p>
-              <p className="mt-1 text-xs text-slate-500">Lake City • Queen Anne • Bellevue</p>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[#1B2A4A]">Authorized Factory Dealer</p>
-              <p className="mt-1 text-xs text-slate-500">Andersen • Milgard • Ply Gem</p>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[#1B2A4A]">Local Craftsmanship</p>
-              <p className="mt-1 text-xs text-slate-500">WA Licensed, Bonded & Insured</p>
-            </div>
-          </section>
+          <ScrollReveal>
+            <section
+              aria-label="Company credentials"
+              className="mt-3 grid grid-cols-1 gap-2 rounded-xl border border-slate-200/80 bg-slate-50/80 p-2.5 text-center sm:grid-cols-3 sm:text-left"
+            >
+              <div>
+                <p className="text-sm font-semibold text-[#1B2A4A]">3 Puget Sound Showrooms</p>
+                <p className="mt-1 text-xs text-slate-500">Lake City • Queen Anne • Bellevue</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[#1B2A4A]">Authorized Factory Dealer</p>
+                <p className="mt-1 text-xs text-slate-500">Andersen • Milgard • Ply Gem</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[#1B2A4A]">Local Craftsmanship</p>
+                <p className="mt-1 text-xs text-slate-500">WA Licensed, Bonded & Insured</p>
+              </div>
+            </section>
+          </ScrollReveal>
         </div>
 
         <aside
@@ -292,12 +296,6 @@ const steps = [
     title: "Custom Order & Installation",
     body: "We order your custom units directly from top manufacturers like Milgard and Andersen, coordinate a start date that fits your schedule, and complete the installation with certified local craftsmanship and full cleanup.",
   },
-];
-
-const stats = [
-  { value: "850+", label: "Completed Installations" },
-  { value: "4.9/5", label: "Average Customer Rating" },
-  { value: "17+", label: "Years Serving Greater Seattle" },
 ];
 
 const recentProjects = [
@@ -385,44 +383,63 @@ function SoundViewDifference() {
   );
 }
 
+const numberClass =
+  "text-4xl font-extrabold tracking-tight text-[#1B2A4A] sm:text-5xl";
+const statLabelClass =
+  "mt-1 text-xs font-medium uppercase tracking-wider text-slate-600 sm:text-sm";
+
 function HowItWorks() {
   return (
-    <section className="border-t border-[#1B2A4A]/10 bg-[#F4EFEA]">
+    <section className="border-t border-[#1B2A4A]/10 bg-[#FAF8F5]">
       <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-5 lg:py-24">
-        <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#1B2A4A]/70">
-          How It Works
-        </p>
-        <h2 className="mt-4 max-w-2xl font-serif text-4xl tracking-tight text-[#1B2A4A] sm:text-5xl">
-          Our Straightforward Process
-        </h2>
+        <ScrollReveal>
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#1B2A4A]/70">
+            How It Works
+          </p>
+          <h2 className="mt-4 max-w-2xl font-serif text-4xl tracking-tight text-[#1B2A4A] sm:text-5xl">
+            Our Straightforward Process
+          </h2>
+        </ScrollReveal>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {steps.map((step, index) => (
-            <article
-              key={step.title}
-              className="rounded-2xl bg-white p-6 shadow-[0_10px_30px_rgba(15,23,42,0.06)]"
-            >
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#1B2A4A] font-serif text-lg text-[#FAF8F5]">
-                {index + 1}
-              </span>
-              <h3 className="mt-5 font-serif text-2xl tracking-tight text-[#1B2A4A]">
-                {step.title}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-[#1B2A4A]/80">{step.body}</p>
-            </article>
+            <ScrollReveal key={step.title} delay={index * 150} className="h-full">
+              <article className="h-full rounded-2xl bg-white p-6 shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#1B2A4A] font-serif text-lg text-[#FAF8F5]">
+                  {index + 1}
+                </span>
+                <h3 className="mt-5 font-serif text-2xl tracking-tight text-[#1B2A4A]">
+                  {step.title}
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-[#1B2A4A]/80">{step.body}</p>
+              </article>
+            </ScrollReveal>
           ))}
         </div>
-        <dl className="mt-8 grid overflow-hidden rounded-2xl border border-[#1B2A4A]/10 bg-white sm:grid-cols-3">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="border-b border-[#1B2A4A]/10 px-6 py-6 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"
-            >
-              <dt className="font-serif text-4xl tracking-tight text-[#1B2A4A]">
-                {stat.value}
-              </dt>
-              <dd className="mt-1 text-sm text-[#1B2A4A]/75">{stat.label}</dd>
-            </div>
-          ))}
+        <dl className="mx-auto my-6 grid max-w-5xl grid-cols-1 divide-y divide-slate-200/80 border-y border-slate-200/80 py-8 text-center sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          <div className="px-4 py-6 sm:py-2">
+            <dt>
+              <CountUp end={850} suffix="+" duration={1300} className={numberClass} />
+            </dt>
+            <dd className={statLabelClass}>Completed Installations</dd>
+          </div>
+          <div className="px-4 py-6 sm:py-2">
+            <dt>
+              <CountUp
+                end={4.9}
+                decimals={1}
+                suffix="/5"
+                duration={1300}
+                className={numberClass}
+              />
+            </dt>
+            <dd className={statLabelClass}>Average Customer Rating</dd>
+          </div>
+          <div className="px-4 py-6 sm:py-2">
+            <dt>
+              <CountUp end={17} suffix="+" duration={1300} className={numberClass} />
+            </dt>
+            <dd className={statLabelClass}>Years Serving Greater Seattle</dd>
+          </div>
         </dl>
       </div>
     </section>
@@ -433,29 +450,30 @@ function RecentProjects() {
   return (
     <section className="bg-[#1B2A4A] text-white">
       <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-5 lg:py-24">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
-          Proven Local Craftsmanship
-        </p>
-        <h2 className="mb-10 font-serif text-4xl font-bold text-white lg:text-5xl">
-          Recent Installations Across Greater Seattle
-        </h2>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {recentProjects.map((project) => (
-            <article
-              key={project.title}
-              className="flex flex-col justify-between rounded-2xl bg-white p-6 shadow-lg sm:p-8"
-            >
-              <div>
-                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                  {project.tag}
+        <ScrollReveal>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+            Proven Local Craftsmanship
+          </p>
+          <h2 className="font-serif text-4xl font-bold text-white lg:text-5xl">
+            Recent Installations Across Greater Seattle
+          </h2>
+        </ScrollReveal>
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {recentProjects.map((project, index) => (
+            <ScrollReveal key={project.title} delay={index * 100} className="h-full">
+              <article className="flex h-full flex-col justify-between rounded-2xl bg-white p-6 shadow-lg sm:p-8">
+                <div>
+                  <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                    {project.tag}
+                  </p>
+                  <h3 className="mb-2 text-lg font-bold text-[#1B2A4A]">{project.title}</h3>
+                  <p className="text-sm leading-6 text-slate-600">{project.body}</p>
+                </div>
+                <p className="mt-4 border-t border-slate-100 pt-4 text-xs text-slate-500">
+                  {project.note}
                 </p>
-                <h3 className="mb-2 text-lg font-bold text-[#1B2A4A]">{project.title}</h3>
-                <p className="text-sm leading-6 text-slate-600">{project.body}</p>
-              </div>
-              <p className="mt-4 border-t border-slate-100 pt-4 text-xs text-slate-500">
-                {project.note}
-              </p>
-            </article>
+              </article>
+            </ScrollReveal>
           ))}
         </div>
       </div>
@@ -475,7 +493,7 @@ function FaqAndCta({
   return (
     <section className="bg-[#FAF8F5]">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 sm:px-5 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16 lg:py-24">
-        <div>
+        <ScrollReveal>
           <h2 className="font-serif text-4xl tracking-tight text-[#1B2A4A] sm:text-5xl">
             You Ask, We Answer
           </h2>
@@ -484,7 +502,7 @@ function FaqAndCta({
             answers about our products, precision measurement process, and
             certified installation.
           </p>
-        </div>
+        </ScrollReveal>
         <div className="divide-y divide-[#1B2A4A]/10 border-y border-[#1B2A4A]/10">
           {faqs.map((item, index) => {
             const open = openIndex === index;
@@ -517,14 +535,16 @@ function FaqAndCta({
       </div>
       <div className="border-t border-[#1B2A4A]/10 bg-[#F4EFEA]">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-5 lg:py-20">
-          <h2 className="font-serif text-4xl tracking-tight text-[#1B2A4A] sm:text-5xl">
-            Ready To Upgrade Your Home? Get A Quote Now!
-          </h2>
-          <p className="mt-5 text-lg leading-8 text-[#1B2A4A]/85">
-            Connect with our Seattle specialists to discuss your project,
-            explore top-tier products from brands like Milgard and Andersen, or
-            schedule a personalized consultation at one of our local showrooms.
-          </p>
+          <ScrollReveal>
+            <h2 className="font-serif text-4xl tracking-tight text-[#1B2A4A] sm:text-5xl">
+              Ready To Upgrade Your Home? Get A Quote Now!
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-[#1B2A4A]/85">
+              Connect with our Seattle specialists to discuss your project,
+              explore top-tier products from brands like Milgard and Andersen, or
+              schedule a personalized consultation at one of our local showrooms.
+            </p>
+          </ScrollReveal>
           <button
             type="button"
             onClick={onQuote}
