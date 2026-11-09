@@ -2,7 +2,14 @@
 
 import { useState, type FormEvent } from "react";
 import { QuoteThankYou } from "@/components/QuoteThankYou";
-import { doorMaterials, doorStyles } from "@/lib/door-funnel";
+import {
+  DOOR_MATERIAL_STORAGE_KEY,
+  doorMaterialAllowed,
+  doorMaterialSlugFromOption,
+  doorMaterialsForStyle,
+  doorStyleSlugFromOption,
+  doorStyles,
+} from "@/lib/door-funnel";
 
 const doorCounts = ["1 Door", "2 to 3 Doors", "4+ Doors"] as const;
 
@@ -41,9 +48,19 @@ export function DoorQuoteBox({
   }
 
   function updateStyle(value: string) {
+    const nextSlug = value ? doorStyleSlugFromOption(value) : "undecided";
+    const materialSlug = doorMaterialSlugFromOption(materialValue);
+    if (materialValue && !doorMaterialAllowed(nextSlug, materialSlug)) {
+      updateMaterial("");
+      sessionStorage.removeItem(DOOR_MATERIAL_STORAGE_KEY);
+    }
     if (onStyleChange) onStyleChange(value);
     else setInternalStyle(value);
   }
+
+  const materialOptions = doorMaterialsForStyle(
+    styleValue ? doorStyleSlugFromOption(styleValue) : null,
+  );
 
   function validate() {
     const next: FieldErrors = {};
@@ -230,7 +247,7 @@ export function DoorQuoteBox({
                 className={fieldClass}
               >
                 <option value="">No preference yet / Open to advice</option>
-                {doorMaterials.map((item) => (
+                {materialOptions.map((item) => (
                   <option key={item.slug} value={item.option}>
                     {item.option}
                   </option>

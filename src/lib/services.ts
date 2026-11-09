@@ -13,18 +13,16 @@ export const services: Service[] = [
     title: "Window Replacement",
     summary: "Energy efficient replacements built for Pacific Northwest weather.",
     keywords: "Casement • Double-Hung • Sliding • Bay & Bow",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Energy efficient replacement windows installed in a Seattle home",
+    image: "/images/services/window-replacement.png",
+    imageAlt: "Professional window replacement and installation technician",
   },
   {
     id: "door-replacement",
     title: "Door Replacement",
     summary: "Entry, patio, and French doors installed with a precise fit.",
     keywords: "Entry Doors • Multi-Slide Patio • French Doors",
-    image:
-      "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Custom exterior entry door and patio door installation in King County",
+    image: "/images/services/door-replacement.jpg",
+    imageAlt: "Sound View technician installing an exterior entry door",
   },
   {
     id: "shower-door-replacement",

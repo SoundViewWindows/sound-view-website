@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DoorQuoteBox } from "@/components/DoorQuoteBox";
 import { CostComparison } from "@/components/CostComparison";
 import { DoorStepNav } from "@/components/DoorStepNav";
 import { Header } from "@/components/Header";
 import {
+  DOOR_MATERIAL_STORAGE_KEY,
   doorChoiceLabel,
+  doorMaterialAllowed,
   doorMaterialFromSlug,
   doorMaterials,
   doorStyleFromSlug,
@@ -17,16 +19,41 @@ import {
 } from "@/lib/door-funnel";
 
 export function DoorQuoteStep() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const typeParam = searchParams.get("type");
   const materialParam = searchParams.get("material");
-  const [style, setStyle] = useState(doorStyleFromSlug(typeParam)?.option ?? "");
-  const [material, setMaterial] = useState(doorMaterialFromSlug(materialParam)?.option ?? "");
+  const initialStyle = doorStyleFromSlug(typeParam);
+  const initialMaterial = doorMaterialFromSlug(materialParam);
+  const initialMaterialAllowed =
+    !initialMaterial || doorMaterialAllowed(initialStyle?.slug ?? null, initialMaterial.slug);
+  const [style, setStyle] = useState(initialStyle?.option ?? "");
+  const [material, setMaterial] = useState(
+    initialMaterialAllowed ? initialMaterial?.option ?? "" : "",
+  );
 
   useEffect(() => {
-    setStyle(doorStyleFromSlug(typeParam)?.option ?? "");
-    setMaterial(doorMaterialFromSlug(materialParam)?.option ?? "");
-  }, [typeParam, materialParam]);
+    const nextStyle = doorStyleFromSlug(typeParam);
+    const nextMaterial = doorMaterialFromSlug(materialParam);
+    const allowed =
+      !nextMaterial || doorMaterialAllowed(nextStyle?.slug ?? null, nextMaterial.slug);
+    setStyle(nextStyle?.option ?? "");
+    setMaterial(allowed && nextMaterial ? nextMaterial.option : "");
+    if (allowed && nextMaterial) {
+      sessionStorage.setItem(DOOR_MATERIAL_STORAGE_KEY, nextMaterial.slug);
+    } else {
+      sessionStorage.removeItem(DOOR_MATERIAL_STORAGE_KEY);
+    }
+    if (materialParam && materialParam !== "undecided" && !allowed) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("material");
+      const query = params.toString();
+      router.replace(
+        query ? `/services/door-replacement/quote?${query}` : "/services/door-replacement/quote",
+        { scroll: false },
+      );
+    }
+  }, [materialParam, router, searchParams, typeParam]);
 
   const styleName = doorChoiceLabel(doorStyles.find((item) => item.option === style) ?? null);
   const materialName = doorChoiceLabel(
