@@ -46,6 +46,7 @@ const navigation: NavEntry[] = [
       },
     ],
   },
+  { kind: "link", label: "Portfolio", href: "/portfolio" },
   {
     kind: "menu",
     label: "Showrooms",
