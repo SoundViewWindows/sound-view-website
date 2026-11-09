@@ -24,15 +24,17 @@ const navigation: NavEntry[] = [
     items: services.map((service) => ({
       label: service.title,
       href:
-        service.id === "door-replacement"
-          ? "/services/door-replacement/types"
-          : service.id === "shower-door-replacement"
-            ? "/services/shower-door-replacement/types"
-            : service.id === "glass-replacement"
-              ? "/services/glass-replacement/types"
-              : service.id === "window-blinds-shades"
-                ? "/services/window-blinds-shades"
-                : `/services/${service.id}`,
+        service.id === "window-replacement"
+          ? "/services/window-replacement/types"
+          : service.id === "door-replacement"
+            ? "/services/door-replacement/types"
+            : service.id === "shower-door-replacement"
+              ? "/services/shower-door-replacement/types"
+              : service.id === "glass-replacement"
+                ? "/services/glass-replacement/types"
+                : service.id === "window-blinds-shades"
+                  ? "/services/window-blinds-shades"
+                  : `/services/${service.id}`,
       serviceId: service.id,
     })),
   },
@@ -48,7 +50,6 @@ const navigation: NavEntry[] = [
       { label: "Blog & Guides", href: "/blog" },
     ],
   },
-  { kind: "link", label: "Portfolio", href: "/portfolio" },
   {
     kind: "menu",
     label: "Showrooms",
@@ -61,6 +62,7 @@ const navigation: NavEntry[] = [
       },
     ],
   },
+  { kind: "link", label: "Portfolio", href: "/portfolio" },
   { kind: "link", label: "About", href: "/about" },
   { kind: "link", label: "Contact Us", href: "/contact" },
 ];
