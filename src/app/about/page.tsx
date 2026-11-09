@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 const workSystem = [
   {
@@ -60,14 +60,14 @@ const showrooms = [
 
 export default function AboutPage() {
   return (
-    <div className="bg-[#F7F5F0] text-[#28323D]">
+    <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
+                <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
                   Home
                 </Link>
               </li>
@@ -78,13 +78,13 @@ export default function AboutPage() {
             </ol>
           </nav>
 
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
             Local Pacific Northwest Craftsmanship
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
             A Consultative Approach to Windows, Doors, and Glass
           </h1>
-          <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
+          <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Sound View Window & Door was founded on a simple premise: homeowners
             deserve honest guidance, technical expertise, and zero high-pressure
             sales tactics. We help Puget Sound homeowners and builders navigate
@@ -94,7 +94,7 @@ export default function AboutPage() {
           <div className="mt-6 flex flex-wrap gap-4">
             <a
               href="#showrooms"
-              className={`inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
+              className={`inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Explore Our Showrooms
             </a>
@@ -102,21 +102,21 @@ export default function AboutPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
+              className={`inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Book Appointment
             </a>
           </div>
         </section>
 
-        <section className="border-t border-[#DDE2E6] py-16 sm:py-20" aria-labelledby="work-system-title">
+        <section className="border-t border-slate-700 py-16 sm:py-20" aria-labelledby="work-system-title">
           <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#1D2C43] sm:text-sm">
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-white sm:text-sm">
               Our Work System
             </p>
             <h2
               id="work-system-title"
-              className="mb-3 font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl lg:text-5xl"
+              className="mb-3 text-3xl font-bold text-white sm:text-4xl lg:text-5xl"
             >
               The Sound View Approach
             </h2>
@@ -128,26 +128,26 @@ export default function AboutPage() {
               return (
                 <article
                   key={item.title}
-                  className="flex h-full flex-col justify-start rounded-2xl border border-slate-200/80 bg-white p-8 shadow-sm transition-shadow hover:shadow-md sm:p-10"
+                  className="flex h-full flex-col justify-start rounded-2xl border border-slate-700/80 bg-[#132238] p-8 shadow-sm transition-shadow hover:shadow-md sm:p-10"
                 >
-                  <Icon className="mb-6 h-8 w-8 text-[#1D2C43]" strokeWidth={2.2} aria-hidden="true" />
-                  <h3 className="mb-4 text-xl font-bold text-[#1D2C43]">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{item.body}</p>
+                  <Icon className="mb-6 h-8 w-8 text-white" strokeWidth={2.2} aria-hidden="true" />
+                  <h3 className="mb-4 text-xl font-bold text-white">{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-slate-300 sm:text-base">{item.body}</p>
                 </article>
               );
             })}
           </div>
         </section>
 
-        <section id="showrooms" className="scroll-mt-8 border-t border-[#DDE2E6]">
+        <section id="showrooms" className="scroll-mt-8 border-t border-slate-700">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
               Visit in person
             </p>
-            <h2 className="mb-4 max-w-3xl font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
+            <h2 className="mb-4 max-w-3xl text-3xl font-bold text-white sm:text-4xl">
               Showrooms across Greater Seattle
             </h2>
-            <p className="mb-10 max-w-2xl text-base leading-relaxed text-slate-700 sm:text-lg">
+            <p className="mb-10 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
               See operable windows, doors, and custom glass before you decide.
               Bring plans, photos, or a rough idea. We will help you sort the
               options.
@@ -156,20 +156,20 @@ export default function AboutPage() {
               {showrooms.map((room) => (
                 <article
                   key={room.href}
-                  className="flex flex-col rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm"
+                  className="flex flex-col rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm"
                 >
-                  <h3 className="font-serif text-2xl font-bold text-[#1D2C43]">{room.name}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-700">{room.address}</p>
+                  <h3 className="text-2xl font-bold text-white">{room.name}</h3>
+                  <p className="mt-3 text-sm leading-6 text-slate-300">{room.address}</p>
                   <a
                     href={room.phoneHref}
-                    className={`mt-2 w-fit text-sm font-medium text-[#1D2C43] underline-offset-4 hover:underline ${focusRing}`}
+                    className={`mt-2 w-fit text-sm font-medium text-white underline-offset-4 hover:underline ${focusRing}`}
                   >
                     {room.phone}
                   </a>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{room.note}</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-300">{room.note}</p>
                   <Link
                     href={room.href}
-                    className={`mt-6 inline-flex w-fit items-center justify-center rounded-lg bg-[#1D2C43] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
+                    className={`mt-6 inline-flex w-fit items-center justify-center rounded-lg bg-[#1D2C43] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
                   >
                     View showroom
                   </Link>
@@ -181,7 +181,7 @@ export default function AboutPage() {
 
         <section className="bg-[#1D2C43]">
           <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
-            <h2 className="font-serif text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="text-3xl font-bold text-white sm:text-4xl">
               Ready for a showroom visit?
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85">
@@ -192,7 +192,7 @@ export default function AboutPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-8 inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-medium text-[#1D2C43] transition-colors hover:bg-[#EFEBE4] ${focusRing}`}
+              className={`mt-8 inline-flex items-center justify-center rounded-lg bg-[#132238] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#132238] ${focusRing}`}
             >
               Book Appointment
             </a>

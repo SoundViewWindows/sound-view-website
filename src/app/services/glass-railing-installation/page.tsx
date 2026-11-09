@@ -26,18 +26,18 @@ const highlights = [
 
 export default function GlassRailingPage() {
   return (
-    <div className="bg-[#F7F5F0] text-[#28323D]">
+    <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="flex min-w-0 flex-col items-start lg:col-span-7">
-              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
                 <ol className="flex flex-wrap items-center gap-2">
                   <li>
                     <Link
                       href="/"
-                      className="rounded-sm hover:text-[#1D2C43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+                      className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                     >
                       Home
                     </Link>
@@ -52,13 +52,13 @@ export default function GlassRailingPage() {
                   </li>
                 </ol>
               </nav>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
                 Architectural Glass Systems
               </p>
-              <h1 className="mb-4 max-w-full font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
+              <h1 className="mb-4 max-w-full text-4xl font-bold leading-tight text-white lg:text-5xl">
                 Custom Glass Railings Engineered for Unobstructed Views
               </h1>
-              <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
+              <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
                 Open up your deck, balcony, or interior staircase with
                 precision-measured tempered glass railing systems designed to
                 withstand Pacific Northwest marine conditions.
@@ -68,7 +68,7 @@ export default function GlassRailingPage() {
                   href="https://sound-view-window-door.myshopify.com/collections/shower-glass-hardware"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+                  className="flex items-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                 >
                   <BagIcon />
                   Shop Railing Hardware Online
@@ -89,10 +89,10 @@ export default function GlassRailingPage() {
             {highlights.map((item) => (
               <article
                 key={item.title}
-                className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm"
+                className="rounded-xl border border-slate-100 bg-[#132238] p-6 shadow-sm"
               >
-                <h2 className="font-serif text-2xl text-[#1D2C43]">{item.title}</h2>
-                <p className="mt-3 text-sm leading-6 text-slate-700">{item.body}</p>
+                <h2 className="text-2xl text-white">{item.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-300">{item.body}</p>
               </article>
             ))}
           </div>

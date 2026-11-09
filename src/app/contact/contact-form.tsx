@@ -64,11 +64,11 @@ export function ContactForm() {
 
   if (submittedName) {
     return (
-      <div className="rounded-xl bg-[#EFEBE4] px-5 py-8">
-        <h3 className="font-serif text-2xl font-bold text-[#1D2C43]">
+      <div className="rounded-xl bg-[#132238] px-5 py-8">
+        <h3 className="text-2xl font-bold text-white">
           Thank you, {submittedName}.
         </h3>
-        <p className="mt-3 text-sm leading-6 text-slate-700">
+        <p className="mt-3 text-sm leading-6 text-slate-300">
           Your message is in. A local specialist will follow up during operating
           hours, typically within 2 business hours. No high-pressure sales calls.
         </p>
@@ -179,11 +179,11 @@ export function ContactForm() {
 
       <button
         type="submit"
-        className="w-full rounded-lg bg-[#1D2C43] py-3 font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+        className="w-full rounded-lg bg-[#1D2C43] py-3 font-medium text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
       >
         Submit Message
       </button>
-      <p className="text-center text-sm text-slate-500">
+      <p className="text-center text-sm text-slate-400">
         We respect your privacy and never sell your information.
       </p>
     </form>
@@ -204,10 +204,10 @@ function Field({
   children: ReactNode;
 }) {
   return (
-    <label htmlFor={id} className="flex flex-col gap-1.5 text-sm font-medium text-[#1D2C43]">
+    <label htmlFor={id} className="flex flex-col gap-1.5 text-sm font-medium text-white">
       <span>
         {label}
-        {required ? <span className="text-[#1D2C43]"> *</span> : null}
+        {required ? <span className="text-white"> *</span> : null}
       </span>
       {children}
       {error ? (
@@ -221,8 +221,8 @@ function Field({
 
 function inputClass(invalid: boolean) {
   return [
-    "w-full rounded-lg border bg-white px-3 py-2.5 text-sm font-normal text-[#28323D] outline-none transition",
-    "placeholder:text-slate-400 focus:border-[#1D2C43] focus:ring-2 focus:ring-[#1D2C43]/20",
-    invalid ? "border-[#8C3A32]" : "border-slate-200",
+    "w-full rounded-lg border bg-[#132238] px-3 py-2.5 text-sm font-normal text-slate-100 outline-none transition",
+    "placeholder:text-slate-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-400",
+    invalid ? "border-[#8C3A32]" : "border-slate-700",
   ].join(" ");
 }

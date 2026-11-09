@@ -13,7 +13,7 @@ import {
 } from "@/lib/window-funnel";
 
 const cardClass =
-  "group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-[#15263F] shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#38BDF8] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
+  "group flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#38BDF8] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 export function ManufacturersStep() {
   const searchParams = useSearchParams();
@@ -38,7 +38,7 @@ export function ManufacturersStep() {
               href={windowStepHref("types", { material: materialSlug })}
             />
           </div>
-          <h1 className="mb-4 max-w-3xl font-serif text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+          <h1 className="mb-4 max-w-3xl text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
             Choose a Window Manufacturer
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
@@ -66,12 +66,12 @@ export function ManufacturersStep() {
                     <span className="block text-xs font-semibold uppercase tracking-wider text-[#38BDF8]">
                       {brand.detail}
                     </span>
-                    <span className="mt-1 block font-serif text-2xl text-white">{brand.name}</span>
+                    <span className="mt-1 block text-2xl text-white">{brand.name}</span>
                   </span>
                 </span>
                 <span className="flex flex-grow flex-col justify-between p-6">
                   <span className="block text-sm leading-6 text-[#94A3B8]">{brand.body}</span>
-                  <span className="mt-5 block w-full rounded-lg bg-[#0B192C] px-4 py-2.5 text-center text-sm font-medium text-white transition-colors group-hover:bg-[#132C46]">
+                  <span className="mt-5 block w-full rounded-lg bg-[#0B192C] px-4 py-2.5 text-center text-sm font-medium text-white transition-colors group-hover:bg-sky-300">
                     {brand.slug === "recommend" ? "Let an Expert Recommend" : "Select This Manufacturer"}
                   </span>
                 </span>

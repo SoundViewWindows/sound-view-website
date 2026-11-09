@@ -5,7 +5,7 @@ export default function ShowerQuotePage() {
   return (
     <Suspense
       fallback={
-        <p className="bg-[#F7F5F0] px-4 py-16 text-center text-[#1D2C43]">
+        <p className="bg-[#132238] px-4 py-16 text-center text-white">
           Loading your estimate.
         </p>
       }

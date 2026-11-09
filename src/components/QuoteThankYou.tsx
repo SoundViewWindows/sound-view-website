@@ -71,7 +71,7 @@ export function QuoteThankYou({
       aria-live="polite"
       className={
         framed
-          ? "relative flex w-full scroll-mt-6 flex-col items-center justify-center rounded-2xl border border-slate-200/80 bg-white p-6 text-center shadow-xl sm:p-8"
+          ? "relative flex w-full scroll-mt-6 flex-col items-center justify-center rounded-2xl border border-slate-700/80 bg-[#132238] p-6 text-center shadow-xl sm:p-8"
           : "flex w-full flex-col items-center justify-center text-center"
       }
     >
@@ -90,26 +90,26 @@ export function QuoteThankYou({
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="mb-2 font-serif text-2xl font-bold text-[#1D2C43] outline-none"
+        className="mb-2 text-2xl font-bold text-white outline-none"
       >
         Thank You, Your Quote Request Is Received!
       </h2>
-      <p className="mb-6 max-w-sm text-sm leading-relaxed text-slate-600">
+      <p className="mb-6 max-w-sm text-sm leading-relaxed text-slate-300">
         Our local Pacific Northwest specialists are reviewing your project
         specifications. A team member will follow up with your upfront estimate
         in under 2 business hours.
       </p>
-      <div className="mb-6 w-full rounded-xl border border-slate-200/80 bg-[#F7F5F0] p-5 text-left">
-        <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+      <div className="mb-6 w-full rounded-xl border border-slate-700/80 bg-[#132238] p-5 text-left">
+        <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
           While You Wait
         </p>
-        <h3 className="mb-1 font-semibold text-[#1D2C43]">{offer.title}</h3>
-        <p className="mb-4 text-sm leading-relaxed text-slate-600">{offer.body}</p>
+        <h3 className="mb-1 font-semibold text-white">{offer.title}</h3>
+        <p className="mb-4 text-sm leading-relaxed text-slate-300">{offer.body}</p>
         <a
           href={offer.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-4 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-[#162433]"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-4 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-sky-300"
         >
           {offer.button}
           <ExternalLinkIcon />
@@ -118,7 +118,7 @@ export function QuoteThankYou({
       <button
         type="button"
         onClick={onReset}
-        className="text-sm font-medium text-[#5D6875] underline decoration-[#1D2C43]/25 underline-offset-4 transition-colors hover:text-[#1D2C43]"
+        className="text-sm font-medium text-slate-300 underline decoration-[#1D2C43]/25 underline-offset-4 transition-colors hover:text-white"
       >
         Submit another project request
       </button>

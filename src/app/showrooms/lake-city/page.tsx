@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 const hours = [
   { day: "Monday through Friday", time: "8:00 AM to 4:30 PM" },
@@ -38,14 +38,14 @@ const directionsHref =
 
 export default function LakeCityShowroomPage() {
   return (
-    <div className="bg-[#F7F5F0] text-[#28323D]">
+    <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8">
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
+                <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
                   Home
                 </Link>
               </li>
@@ -60,13 +60,13 @@ export default function LakeCityShowroomPage() {
             </ol>
           </nav>
 
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
             North Seattle Flagship Showroom
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
             Visit Our Lake City Showroom
           </h1>
-          <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
+          <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Explore full-scale operable window displays, exterior doors, frameless
             shower enclosures, and hardware in person. Touch the materials, test
             the smooth glide of precision sashes, and consult with local Northwest
@@ -78,13 +78,13 @@ export default function LakeCityShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
+              className={`rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Book a Showroom Visit
             </a>
             <a
               href="tel:2065723411"
-              className={`flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3 font-medium text-slate-800 transition-colors hover:bg-slate-50 ${focusRing}`}
+              className={`flex items-center gap-2 rounded-lg border border-slate-300 bg-[#132238] px-6 py-3 font-medium text-slate-800 transition-colors hover:bg-slate-50 ${focusRing}`}
             >
               <PhoneIcon />
               Call (206) 572-3411
@@ -93,7 +93,7 @@ export default function LakeCityShowroomPage() {
               href={directionsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-[#1D2C43] transition-colors hover:bg-white ${focusRing}`}
+              className={`flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-white transition-colors hover:bg-[#132238] ${focusRing}`}
             >
               <MapPinIcon />
               Get Directions
@@ -102,7 +102,7 @@ export default function LakeCityShowroomPage() {
         </section>
 
         <section className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-6 px-4 pb-10 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div className="relative h-80 overflow-hidden rounded-2xl border border-slate-200/80 shadow-md sm:h-96">
+          <div className="relative h-80 overflow-hidden rounded-2xl border border-slate-700/80 shadow-md sm:h-96">
             <Image
               src="/showrooms/lake-city.jpg"
               alt="Sound View Window and Door storefront on Lake City Way NE"
@@ -113,43 +113,43 @@ export default function LakeCityShowroomPage() {
             />
           </div>
 
-          <article className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
+          <article className="flex flex-col justify-between rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
             <div>
-              <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Showroom Address
               </h2>
-              <p className="text-lg font-bold text-[#1D2C43]">
+              <p className="text-lg font-bold text-white">
                 12301 Lake City Way NE, Seattle, WA 98125
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">
                 Convenient storefront parking directly in front of the showroom.
               </p>
             </div>
 
             <div className="mt-8">
-              <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Hours of Operation
               </h2>
-              <dl className="space-y-2 text-sm text-slate-700 sm:text-base">
+              <dl className="space-y-2 text-sm text-slate-300 sm:text-base">
                 {hours.map((row) => (
                   <div key={row.day} className="flex items-baseline justify-between gap-4">
                     <dt>{row.day}</dt>
-                    <dd className="text-right font-medium text-[#1D2C43]">{row.time}</dd>
+                    <dd className="text-right font-medium text-white">{row.time}</dd>
                   </div>
                 ))}
               </dl>
-              <p className="mt-2 text-xs font-medium text-slate-500">
+              <p className="mt-2 text-xs font-medium text-slate-400">
                 Showrooms and phone lines are closed on weekends and major holidays.
               </p>
             </div>
 
             <div className="mt-8">
-              <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Direct Line
               </h2>
               <a
                 href="tel:2065723411"
-                className={`text-lg font-bold text-[#1D2C43] underline-offset-4 hover:underline ${focusRing}`}
+                className={`text-lg font-bold text-white underline-offset-4 hover:underline ${focusRing}`}
               >
                 (206) 572-3411
               </a>
@@ -161,26 +161,26 @@ export default function LakeCityShowroomPage() {
           <iframe
             src="https://maps.google.com/maps?q=12301+Lake+City+Way+NE,+Seattle,+WA+98125&t=&z=15&ie=UTF8&iwloc=&output=embed"
             title="Map of the Lake City showroom at 12301 Lake City Way NE, Seattle, WA 98125"
-            className="h-80 w-full rounded-2xl border border-slate-200 shadow-sm"
+            className="h-80 w-full rounded-2xl border border-slate-700 shadow-sm"
             loading="lazy"
             allowFullScreen
           />
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <h2 className="mb-8 font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
+          <h2 className="mb-8 text-3xl font-bold text-white sm:text-4xl">
             What You Can Explore In Person
           </h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => (
               <article
                 key={feature.title}
-                className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8"
+                className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8"
               >
-                <h3 className="mb-3 font-serif text-2xl font-bold text-[#1D2C43]">
+                <h3 className="mb-3 text-2xl font-bold text-white">
                   {feature.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+                <p className="text-sm leading-relaxed text-slate-300 sm:text-base">
                   {feature.body}
                 </p>
               </article>
@@ -189,11 +189,11 @@ export default function LakeCityShowroomPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-          <div className="rounded-2xl border border-slate-200/80 bg-white px-6 py-10 text-center shadow-sm sm:px-10 sm:py-12">
-            <h2 className="font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
+          <div className="rounded-2xl border border-slate-700/80 bg-[#132238] px-6 py-10 text-center shadow-sm sm:px-10 sm:py-12">
+            <h2 className="text-3xl font-bold text-white sm:text-4xl">
               Schedule One-on-One Showroom Time
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
               Walk-ins are always welcome during business hours, but booking
               ahead pairs you with a dedicated window and door specialist
               prepared for your specific project plans.
@@ -202,7 +202,7 @@ export default function LakeCityShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
+              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Book an Appointment
             </a>

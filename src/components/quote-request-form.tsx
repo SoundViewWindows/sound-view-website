@@ -201,7 +201,7 @@ export function QuoteRequestForm({
             errors.media ? "border-[#8C3A32]" : "border-white/25"
           }`}
         >
-          <span className="shrink-0 rounded-md bg-white px-2.5 py-1 text-[11px] font-semibold text-[#0B192C]">
+          <span className="shrink-0 rounded-md bg-[#132238] px-2.5 py-1 text-[11px] font-semibold text-[#0B192C]">
             Choose file
           </span>
           <span className="min-w-0 flex-1 truncate text-xs font-medium text-slate-200">
@@ -271,8 +271,8 @@ function Field({
 function inputClass(invalid: boolean, fixedHeight = true) {
   return [
     fixedHeight ? "h-9" : "h-auto",
-    "w-full rounded-lg border bg-white px-3 py-1.5 text-xs font-normal text-[#28323D] outline-none transition",
-    "focus:border-[#1D2C43] focus:ring-2 focus:ring-[#1D2C43]/20",
-    invalid ? "border-[#8C3A32]" : "border-slate-200",
+    "w-full rounded-lg border bg-[#132238] px-3 py-1.5 text-xs font-normal text-slate-100 outline-none transition",
+    "focus:border-sky-400 focus:ring-2 focus:ring-sky-400",
+    invalid ? "border-[#8C3A32]" : "border-slate-700",
   ].join(" ");
 }

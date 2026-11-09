@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const focusRing =
-  "rounded-sm hover:text-[#1D2C43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
+  "rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 const darkFocusRing =
   "rounded-sm text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
@@ -24,7 +24,7 @@ export function GlassStepNav({
 
   return (
     <div className="mb-4">
-      <nav aria-label="Breadcrumb" className={onDark ? "mb-4 text-xs text-slate-300" : "mb-4 text-sm text-slate-500"}>
+      <nav aria-label="Breadcrumb" className={onDark ? "mb-4 text-xs text-slate-300" : "mb-4 text-sm text-slate-400"}>
         <ol className="flex flex-wrap items-center gap-2">
           {crumbs.map((item, index) => (
             <li key={item.label} className={index > 0 ? "flex items-center gap-2" : undefined}>
@@ -46,7 +46,7 @@ export function GlassStepNav({
         className={
           onDark
             ? "text-xs font-bold uppercase tracking-wider text-amber-300"
-            : "text-xs font-semibold uppercase tracking-wider text-slate-600"
+            : "text-xs font-semibold uppercase tracking-wider text-slate-300"
         }
       >
         {progress}

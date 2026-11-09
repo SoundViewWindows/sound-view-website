@@ -78,13 +78,13 @@ export default function Home() {
       <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 py-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start lg:px-5 lg:py-3 xl:grid-cols-[minmax(0,1fr)_23rem]">
         <div className="relative z-20 flex min-h-0 flex-col">
           <div className="relative z-30 mx-auto flex w-full shrink-0 flex-col items-center text-center">
-            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-slate-500 sm:text-sm">
+            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-slate-400 sm:text-sm">
               Seattle, Bellevue & Greater Puget Sound
             </p>
-            <h1 className="mb-1.5 font-serif text-3xl font-bold tracking-tight text-white lg:text-4xl">
+            <h1 className="mb-1.5 text-3xl font-bold tracking-tight text-white lg:text-4xl">
               Sound View Window & Door
             </h1>
-            <p className="mb-4 max-w-2xl text-sm text-slate-600">
+            <p className="mb-4 max-w-2xl text-sm text-slate-300">
               Relaxed consultations, honest answers, and zero pressure to buy
             </p>
             <div className="mb-4 flex flex-wrap items-center justify-center gap-3">
@@ -175,7 +175,7 @@ export default function Home() {
                               ? "/services/window-blinds-shades"
                               : `/services/${service.id}`
                 }
-                className="group relative h-48 cursor-pointer overflow-hidden rounded-xl border border-slate-200/50 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:h-52 md:h-56"
+                className="group relative h-48 cursor-pointer overflow-hidden rounded-xl border border-slate-700/50 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:h-52 md:h-56"
               >
                 <Image
                   src={service.image}
@@ -208,19 +208,19 @@ export default function Home() {
           <ScrollReveal>
             <section
               aria-label="Company credentials"
-              className="mt-3 grid grid-cols-1 gap-2 rounded-xl border border-slate-200/80 bg-slate-50/80 p-2.5 text-center sm:grid-cols-3 sm:text-left"
+              className="mt-3 grid grid-cols-1 gap-2 rounded-xl border border-slate-700/80 bg-slate-50/80 p-2.5 text-center sm:grid-cols-3 sm:text-left"
             >
               <div>
                 <p className="text-sm font-semibold text-white">3 Puget Sound Showrooms</p>
-                <p className="mt-1 text-xs text-slate-500">Lake City • Queen Anne • Bellevue</p>
+                <p className="mt-1 text-xs text-slate-400">Lake City • Queen Anne • Bellevue</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-white">Authorized Factory Dealer</p>
-                <p className="mt-1 text-xs text-slate-500">Andersen • Milgard • Ply Gem</p>
+                <p className="mt-1 text-xs text-slate-400">Andersen • Milgard • Ply Gem</p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-white">Local Craftsmanship</p>
-                <p className="mt-1 text-xs text-slate-500">WA Licensed, Bonded & Insured</p>
+                <p className="mt-1 text-xs text-slate-400">WA Licensed, Bonded & Insured</p>
               </div>
             </section>
           </ScrollReveal>
@@ -228,7 +228,7 @@ export default function Home() {
 
         <aside
           id="quote"
-          className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-[#15263F] shadow-md"
+          className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-md"
         >
           {quoteSubmitted ? null : (
             <div className="border-b border-sky-400/50 bg-[#0B192C] px-6 py-5 sm:py-6">
@@ -246,7 +246,7 @@ export default function Home() {
           <div
             className={
               quoteSubmitted
-                ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto bg-[#15263F] p-4 text-center sm:p-5"
+                ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto bg-[#132238] p-4 text-center sm:p-5"
                 : "min-h-0 flex-1 px-4 pb-4 pt-4 sm:px-5 sm:pb-5 sm:pt-5"
             }
           >
@@ -362,7 +362,7 @@ function SoundViewDifference() {
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#94A3B8]">
             The Sound View Difference
           </p>
-          <h2 className="mt-4 font-serif text-4xl tracking-tight text-white sm:text-5xl">
+          <h2 className="mt-4 text-4xl tracking-tight text-white sm:text-5xl">
             A Seamless Experience From Start To Finish
           </h2>
           <p className="mt-6 max-w-xl text-lg leading-8 text-[#94A3B8]">
@@ -381,7 +381,7 @@ function SoundViewDifference() {
             ))}
           </ul>
         </div>
-        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-[#0F1E33] shadow-[0_12px_40px_rgba(15,23,42,0.08)]">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-[#11223A] shadow-[0_12px_40px_rgba(15,23,42,0.08)]">
           <Image
             src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1600&q=80"
             alt="Bright living room with large windows and a door opening onto trees"
@@ -398,7 +398,7 @@ function SoundViewDifference() {
 const numberClass =
   "text-4xl font-extrabold tracking-tight text-white sm:text-5xl";
 const statLabelClass =
-  "mt-1 text-xs font-medium uppercase tracking-wider text-slate-600 sm:text-sm";
+  "mt-1 text-xs font-medium uppercase tracking-wider text-slate-300 sm:text-sm";
 
 function HowItWorks() {
   return (
@@ -408,18 +408,18 @@ function HowItWorks() {
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#94A3B8]">
             How It Works
           </p>
-          <h2 className="mt-4 max-w-2xl font-serif text-4xl tracking-tight text-white sm:text-5xl">
+          <h2 className="mt-4 max-w-2xl text-4xl tracking-tight text-white sm:text-5xl">
             Our Straightforward Process
           </h2>
         </ScrollReveal>
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {steps.map((step, index) => (
             <ScrollReveal key={step.title} delay={index * 150} className="h-full">
-              <article className="h-full rounded-2xl bg-[#15263F] p-6 shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#38BDF8] font-serif text-lg text-[#0A192F]">
+              <article className="h-full rounded-2xl bg-[#132238] p-6 shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#38BDF8] text-lg text-[#0A192F]">
                   {index + 1}
                 </span>
-                <h3 className="mt-5 font-serif text-2xl tracking-tight text-white">
+                <h3 className="mt-5 text-2xl tracking-tight text-white">
                   {step.title}
                 </h3>
                 <p className="mt-3 text-sm leading-6 text-[#94A3B8]">{step.body}</p>
@@ -427,7 +427,7 @@ function HowItWorks() {
             </ScrollReveal>
           ))}
         </div>
-        <dl className="mx-auto my-6 grid max-w-5xl grid-cols-1 divide-y divide-slate-200/80 border-y border-slate-200/80 py-8 text-center sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        <dl className="mx-auto my-6 grid max-w-5xl grid-cols-1 divide-y divide-slate-700/80 border-y border-slate-700/80 py-8 text-center sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           <div className="px-4 py-6 sm:py-2">
             <dt>
               <CountUp end={850} suffix="+" duration={1300} className={numberClass} />
@@ -460,7 +460,7 @@ function HowItWorks() {
 
 function HomeownerReviews() {
   return (
-    <section className="bg-[#0F1E33] py-8 sm:py-10" aria-label="Homeowner testimonials">
+    <section className="bg-[#11223A] py-8 sm:py-10" aria-label="Homeowner testimonials">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <ScrollReveal>
           <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -511,7 +511,7 @@ function FaqAndCta({
     <section className="bg-[#0B192C]">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 sm:px-5 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16 lg:py-24">
         <ScrollReveal>
-          <h2 className="font-serif text-4xl tracking-tight text-white sm:text-5xl">
+          <h2 className="text-4xl tracking-tight text-white sm:text-5xl">
             You Ask, We Answer
           </h2>
           <p className="mt-5 max-w-md text-lg leading-8 text-[#94A3B8]">
@@ -550,10 +550,10 @@ function FaqAndCta({
           })}
         </div>
       </div>
-      <div className="border-t border-[#1E3A5F] bg-[#0F1E33]">
+      <div className="border-t border-[#1E3A5F] bg-[#11223A]">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-5 lg:py-20">
           <ScrollReveal>
-            <h2 className="font-serif text-4xl tracking-tight text-white sm:text-5xl">
+            <h2 className="text-4xl tracking-tight text-white sm:text-5xl">
               Ready To Upgrade Your Home? Get A Quote Now!
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#94A3B8]">

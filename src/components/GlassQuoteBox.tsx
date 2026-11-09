@@ -15,7 +15,7 @@ type GlassQuoteBoxProps = {
 export function GlassQuoteBox({
   glassType = "",
   onGlassTypeChange,
-  className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xl sm:p-7",
+  className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-xl sm:p-7",
 }: GlassQuoteBoxProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -77,8 +77,8 @@ export function GlassQuoteBox({
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
-            <h2 className="text-xl font-bold text-[#1D2C43]">Get a Quick Glass Estimate</h2>
-            <p className="mt-1 text-xs text-slate-600">
+            <h2 className="text-xl font-bold text-white">Get a Quick Glass Estimate</h2>
+            <p className="mt-1 text-xs text-slate-300">
               Restore clarity and insulation without replacing your entire window frame.
             </p>
           </div>
@@ -175,10 +175,10 @@ export function GlassQuoteBox({
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setPaneCount(count)}
-                    className={`w-full rounded-full px-2 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43] ${
+                    className={`w-full rounded-full px-2 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
                       selected
                         ? "bg-[#1D2C43] text-white"
-                        : "bg-[#EFEBE4] text-[#1D2C43] hover:bg-[#EFEBE4]"
+                        : "bg-[#132238] text-white hover:bg-[#132238]"
                     }`}
                   >
                     {count}
@@ -192,7 +192,7 @@ export function GlassQuoteBox({
           <div>
             <label className={labelClass} htmlFor="glass-quote-notes">
               Project Notes
-              <span className="font-normal text-slate-500"> Optional</span>
+              <span className="font-normal text-slate-400"> Optional</span>
             </label>
             <textarea
               id="glass-quote-notes"
@@ -208,7 +208,7 @@ export function GlassQuoteBox({
           <label className="block" htmlFor="glass-quote-type">
             <span className={labelClass}>
               Preferred Glass Type
-              <span className="font-normal text-slate-500"> Optional</span>
+              <span className="font-normal text-slate-400"> Optional</span>
             </span>
             <select
               id="glass-quote-type"
@@ -228,11 +228,11 @@ export function GlassQuoteBox({
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-[#1D2C43] py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+            className="w-full rounded-lg bg-[#1D2C43] py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
           >
             Request Upfront Pricing
           </button>
-          <p className="text-center text-[11px] text-slate-500">
+          <p className="text-center text-[11px] text-slate-400">
             We never share your information. Typical response time under 2 business hours.
           </p>
         </form>
@@ -256,10 +256,10 @@ function FieldError({ message }: { message: string }) {
   );
 }
 
-const labelClass = "mb-1 block text-xs font-semibold text-slate-700";
+const labelClass = "mb-1 block text-xs font-semibold text-slate-300";
 
 const fieldClass =
-  "w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1D2C43]";
+  "w-full px-3 py-2 text-sm bg-[#132238] border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400";
 
 function inputClass(invalid: boolean) {
   return invalid ? `${fieldClass} border-[#8C3A32]` : fieldClass;

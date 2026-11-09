@@ -41,7 +41,7 @@ export function WindowStepNav({
 
   return (
     <div className="mb-6">
-      <nav aria-label="Breadcrumb" className={onDark ? "mb-4 text-xs text-slate-300" : "mb-4 text-sm text-slate-500"}>
+      <nav aria-label="Breadcrumb" className={onDark ? "mb-4 text-xs text-slate-300" : "mb-4 text-sm text-slate-400"}>
         <ol className="flex flex-wrap items-center gap-2">
           {crumbs.map((item, index) => (
             <li key={item.label} className={index > 0 ? "flex items-center gap-2" : undefined}>
@@ -65,13 +65,13 @@ export function WindowStepNav({
           const circle =
             state === "current"
               ? onDark
-                ? "bg-white text-[#0B192C] ring-2 ring-[#38BDF8] ring-offset-2 ring-offset-[#0B192C]"
-                : "bg-[#0B192C] text-white ring-2 ring-[#38BDF8] ring-offset-2 ring-offset-[#F7F5F0]"
+                ? "bg-[#132238] text-[#0B192C] ring-2 ring-[#38BDF8] ring-offset-2 ring-offset-[#0B192C]"
+                : "bg-[#0B192C] text-white ring-2 ring-[#38BDF8] ring-offset-2 ring-offset-[#0B192C]"
               : state === "complete"
                 ? "bg-[#38BDF8] text-[#0B192C]"
                 : onDark
                   ? "border border-white/30 bg-white/10 text-slate-300"
-                  : "border border-slate-300 bg-white text-slate-500";
+                  : "border border-slate-300 bg-[#132238] text-slate-400";
           const label =
             state === "current"
               ? onDark
@@ -83,7 +83,7 @@ export function WindowStepNav({
                   : "text-[#0B192C]"
                 : onDark
                   ? "text-slate-400"
-                  : "text-slate-500";
+                  : "text-slate-400";
           const content = (
             <span className="flex flex-col items-center gap-2 text-center">
               <span className={`relative z-10 flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ${circle}`}>

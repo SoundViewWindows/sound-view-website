@@ -47,16 +47,16 @@ const treatments = [
 
 export default function WindowBlindsShadesPage() {
   return (
-    <div className="bg-[#F7F5F0] text-[#28323D]">
+    <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
                 <Link
                   href="/"
-                  className="rounded-sm hover:text-[#1D2C43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+                  className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                 >
                   Home
                 </Link>
@@ -71,13 +71,13 @@ export default function WindowBlindsShadesPage() {
               </li>
             </ol>
           </nav>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
             CUSTOM WINDOW TREATMENTS
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
             Custom Blinds and Motorized Shades Tailored to Your Home
           </h1>
-          <p className="mb-8 max-w-2xl text-base leading-relaxed text-slate-700 sm:text-lg">
+          <p className="mb-8 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Enhance privacy, soften natural sunlight, and boost insulation with
             premium custom blinds and motorized window shades engineered for
             Pacific Northwest living.
@@ -87,7 +87,7 @@ export default function WindowBlindsShadesPage() {
               href={shopHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
             >
               <ShoppingBagIcon />
               Shop Window Treatments Online
@@ -103,7 +103,7 @@ export default function WindowBlindsShadesPage() {
                 href={shopHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:border-slate-300 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+                className="group flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-sm transition-all duration-300 hover:border-slate-300 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 <div className="relative h-44 w-full overflow-hidden bg-slate-100 sm:h-48">
                   <img
@@ -115,17 +115,17 @@ export default function WindowBlindsShadesPage() {
                 </div>
                 <div className="flex flex-1 flex-col justify-between p-5 sm:p-6">
                   <div>
-                    <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
                       {item.tagline}
                     </p>
-                    <h2 className="mb-2 text-lg font-bold text-[#1D2C43] transition-colors group-hover:text-[#162433]">
+                    <h2 className="mb-2 text-lg font-bold text-white transition-colors group-hover:text-slate-100">
                       {item.title}
                     </h2>
-                    <p className="mb-4 text-xs leading-relaxed text-slate-600 sm:text-sm">
+                    <p className="mb-4 text-xs leading-relaxed text-slate-300 sm:text-sm">
                       {item.copy}
                     </p>
                   </div>
-                  <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-xs font-semibold text-[#1D2C43] group-hover:underline">
+                  <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-xs font-semibold text-white group-hover:underline">
                     Shop Style Online
                     <span className="transition-transform duration-300 group-hover:translate-x-1">
                       →
@@ -140,7 +140,7 @@ export default function WindowBlindsShadesPage() {
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
           <div className="rounded-2xl bg-[#1D2C43] px-6 py-10 text-[#FFFFFF] sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
             <div className="max-w-2xl">
-              <h2 className="font-serif text-3xl font-medium leading-tight sm:text-4xl">
+              <h2 className="text-3xl font-medium leading-tight sm:text-4xl">
                 Order Custom Window Treatments Directly Online
               </h2>
               <p className="mt-3 text-base leading-7 text-[#FFFFFF]/80">
@@ -152,7 +152,7 @@ export default function WindowBlindsShadesPage() {
               href={shopHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#F7F5F0] px-6 py-3 text-sm font-medium text-[#1D2C43] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F7F5F0] lg:mt-0"
+              className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#132238] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#132238] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F7F5F0] lg:mt-0"
             >
               Visit Our Window Treatments Shop
               <ExternalLinkIcon />

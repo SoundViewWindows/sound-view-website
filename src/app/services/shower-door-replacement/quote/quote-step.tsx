@@ -21,7 +21,7 @@ export function ShowerQuoteStep() {
   const styleName = showerChoiceLabel(showerStyles.find((item) => item.option === style) ?? null);
 
   return (
-    <div className="bg-[#F7F5F0] text-[#28323D]">
+    <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
         <section className="relative overflow-hidden py-12 lg:py-16">
@@ -43,7 +43,7 @@ export function ShowerQuoteStep() {
                   progress="Step 2 of 2: Get Your Free Upfront Estimate"
                   onDark
                 />
-                <h1 className="font-serif text-3xl font-bold tracking-tight text-white drop-shadow-sm sm:text-4xl lg:text-5xl">
+                <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-sm sm:text-4xl lg:text-5xl">
                   Your Custom Shower Door Estimate
                 </h1>
                 <p className="max-w-lg text-sm leading-relaxed text-slate-200 drop-shadow-sm sm:text-base">
@@ -62,7 +62,7 @@ export function ShowerQuoteStep() {
               </div>
               <div className="lg:col-span-6">
                 <ShowerDoorQuoteBox
-                  className="relative w-full scroll-mt-6 rounded-2xl border border-slate-100 bg-white p-6 shadow-2xl sm:p-8"
+                  className="relative w-full scroll-mt-6 rounded-2xl border border-slate-100 bg-[#132238] p-6 shadow-2xl sm:p-8"
                   style={style}
                   onStyleChange={setStyle}
                 />

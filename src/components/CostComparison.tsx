@@ -155,21 +155,21 @@ export function CostComparison({ service = "windows" }: { service?: ServiceType 
   const copy = comparisons[service];
 
   return (
-    <section className="bg-[#F7F5F0] pb-16 pt-2 text-[#28323D]" aria-label="Cost of waiting versus upgrading">
+    <section className="bg-[#132238] pb-16 pt-2 text-slate-100" aria-label="Cost of waiting versus upgrading">
       <div className="mx-auto max-w-5xl px-4">
-        <p className="mb-2 text-center text-xs font-bold uppercase tracking-wider text-slate-500">
+        <p className="mb-2 text-center text-xs font-bold uppercase tracking-wider text-slate-400">
           The Cost of Waiting vs. Upgrading
         </p>
-        <h2 className="mb-2 text-center font-serif text-2xl font-bold text-[#1D2C43] sm:text-3xl">
+        <h2 className="mb-2 text-center text-2xl font-bold text-white sm:text-3xl">
           {copy.headline}
         </h2>
-        <p className="mx-auto mb-8 max-w-2xl text-center text-sm text-slate-600 sm:text-base">
+        <p className="mx-auto mb-8 max-w-2xl text-center text-sm text-slate-300 sm:text-base">
           {subtitle}
         </p>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <article className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm sm:p-8">
+          <article className="rounded-2xl border border-slate-700/90 bg-[#132238] p-6 shadow-sm sm:p-8">
             <header className="mb-5 flex items-center justify-between gap-3">
-              <h3 className="font-serif text-xl font-bold text-[#1D2C43]">{copy.oldTitle}</h3>
+              <h3 className="text-xl font-bold text-white">{copy.oldTitle}</h3>
               <Mark tone="problem" label="Problem" />
             </header>
             <ul className="space-y-4">
@@ -178,9 +178,9 @@ export function CostComparison({ service = "windows" }: { service?: ServiceType 
               ))}
             </ul>
           </article>
-          <article className="relative rounded-2xl border-2 border-emerald-500/30 bg-white p-6 shadow-md sm:p-8">
+          <article className="relative rounded-2xl border-2 border-emerald-500/30 bg-[#132238] p-6 shadow-md sm:p-8">
             <header className="mb-5 flex items-center justify-between gap-3">
-              <h3 className="font-serif text-xl font-bold text-[#1D2C43]">{copy.newTitle}</h3>
+              <h3 className="text-xl font-bold text-white">{copy.newTitle}</h3>
               <Mark tone="value" label="Upgrade" />
             </header>
             <ul className="space-y-4">
@@ -190,7 +190,7 @@ export function CostComparison({ service = "windows" }: { service?: ServiceType 
             </ul>
           </article>
         </div>
-        <p className="mt-6 text-center text-xs text-slate-500">
+        <p className="mt-6 text-center text-xs text-slate-400">
           Upfront pricing takes under 60 seconds with zero sales pressure and zero obligation.
         </p>
       </div>
@@ -202,8 +202,8 @@ function Item({ tone, item }: { tone: "problem" | "value"; item: ComparisonItem 
   return (
     <li className="flex gap-3">
       <Mark tone={tone} />
-      <p className="text-sm leading-6 text-slate-600">
-        <span className="font-semibold text-[#1D2C43]">{item.title}: </span>
+      <p className="text-sm leading-6 text-slate-300">
+        <span className="font-semibold text-white">{item.title}: </span>
         {item.body}
       </p>
     </li>

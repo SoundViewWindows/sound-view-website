@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import type { BlogPost } from "@/data/blogPosts";
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 export type BlogCard = Pick<
   BlogPost,
@@ -32,10 +32,10 @@ export function BlogIndex({
   return (
     <main>
       <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-        <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+        <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
-              <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
+              <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
                 Home
               </Link>
             </li>
@@ -50,13 +50,13 @@ export function BlogIndex({
           </ol>
         </nav>
 
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
           Pacific Northwest Homeowner Guides
         </p>
-        <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
+        <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
           Expert Advice on Windows, Doors, and Glass
         </h1>
-        <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
+        <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
           Straightforward, technical advice from local specialists to help you
           plan upgrades, understand building science, and make confident
           investments in your home.
@@ -78,7 +78,7 @@ export function BlogIndex({
                 className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${focusRing} ${
                   active
                     ? "border-[#1D2C43] bg-[#1D2C43] text-[#FFFFFF]"
-                    : "border-slate-200 bg-white text-[#1D2C43] hover:border-[#1D2C43]/40 hover:bg-[#EFEBE4]"
+                    : "border-slate-700 bg-[#132238] text-white hover:border-[#1D2C43]/40 hover:bg-[#132238]"
                 }`}
               >
                 {item}
@@ -92,7 +92,7 @@ export function BlogIndex({
         <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
           <Link
             href={`/blog/${featured.slug}`}
-            className={`group grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-shadow hover:shadow-md lg:grid-cols-2 ${focusRing}`}
+            className={`group grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-sm transition-shadow hover:shadow-md lg:grid-cols-2 ${focusRing}`}
           >
             <div className="overflow-hidden">
               <Cover
@@ -104,15 +104,15 @@ export function BlogIndex({
             <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
               <div className="mb-4 flex flex-wrap items-center gap-3">
                 <CategoryPill>{featured.category}</CategoryPill>
-                <span className="text-sm text-slate-500">{featured.readTime}</span>
+                <span className="text-sm text-slate-400">{featured.readTime}</span>
               </div>
-              <h2 className="font-serif text-3xl font-bold leading-tight text-[#1D2C43] transition-colors group-hover:text-[#162433] sm:text-4xl">
+              <h2 className="text-3xl font-bold leading-tight text-white transition-colors group-hover:text-slate-100 sm:text-4xl">
                 {featured.title}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-slate-700 sm:text-lg">
+              <p className="mt-4 text-base leading-relaxed text-slate-300 sm:text-lg">
                 {featured.excerpt}
               </p>
-              <span className="mt-8 inline-flex w-fit items-center justify-center rounded-lg bg-[#1D2C43] px-5 py-3 text-sm font-medium text-white transition-colors group-hover:bg-[#162433]">
+              <span className="mt-8 inline-flex w-fit items-center justify-center rounded-lg bg-[#1D2C43] px-5 py-3 text-sm font-medium text-white transition-colors group-hover:bg-sky-300">
                 Read Guide
               </span>
             </div>
@@ -120,7 +120,7 @@ export function BlogIndex({
         </section>
       ) : (
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <p className="rounded-2xl border border-slate-200/80 bg-white px-6 py-10 text-slate-700 shadow-sm">
+          <p className="rounded-2xl border border-slate-700/80 bg-[#132238] px-6 py-10 text-slate-300 shadow-sm">
             No guides in this category yet.
           </p>
         </section>
@@ -128,7 +128,7 @@ export function BlogIndex({
 
       {recent.length > 0 ? (
         <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-          <h2 className="mb-6 font-serif text-2xl font-bold text-[#1D2C43]">
+          <h2 className="mb-6 text-2xl font-bold text-white">
             Recent Articles
           </h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -136,7 +136,7 @@ export function BlogIndex({
               <Link
                 key={post.id || post.slug}
                 href={`/blog/${post.slug}`}
-                className={`group flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-shadow hover:shadow-md ${focusRing}`}
+                className={`group flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-sm transition-shadow hover:shadow-md ${focusRing}`}
               >
                 <div>
                   <div className="overflow-hidden">
@@ -149,16 +149,16 @@ export function BlogIndex({
                   <div className="p-6">
                     <div className="mb-3 flex flex-wrap items-center gap-3">
                       <CategoryPill>{post.category}</CategoryPill>
-                      <span className="text-sm text-slate-500">{post.readTime}</span>
+                      <span className="text-sm text-slate-400">{post.readTime}</span>
                     </div>
-                    <h3 className="font-serif text-xl font-bold leading-snug text-[#1D2C43] transition-colors group-hover:text-[#162433]">
+                    <h3 className="text-xl font-bold leading-snug text-white transition-colors group-hover:text-slate-100">
                       {post.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-600">{post.excerpt}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-300">{post.excerpt}</p>
                   </div>
                 </div>
                 <div className="px-6 pb-6">
-                  <span className="inline-flex items-center gap-2 text-sm font-medium text-[#1D2C43] group-hover:underline">
+                  <span className="inline-flex items-center gap-2 text-sm font-medium text-white group-hover:underline">
                     Read article
                     <span
                       aria-hidden="true"
@@ -179,14 +179,14 @@ export function BlogIndex({
 
 function Cover({ src, alt, className }: { src: string; alt: string; className: string }) {
   if (!src) {
-    return <div className={`bg-[#EFEBE4] ${className}`} aria-hidden="true" />;
+    return <div className={`bg-[#132238] ${className}`} aria-hidden="true" />;
   }
   return <img src={src} alt={alt} className={className} />;
 }
 
 function CategoryPill({ children }: { children: string }) {
   return (
-    <span className="inline-flex rounded-full bg-[#EFEBE4] px-3 py-1 text-xs font-semibold tracking-wide text-[#1D2C43] transition-colors duration-200">
+    <span className="inline-flex rounded-full bg-[#132238] px-3 py-1 text-xs font-semibold tracking-wide text-white transition-colors duration-200">
       {children}
     </span>
   );

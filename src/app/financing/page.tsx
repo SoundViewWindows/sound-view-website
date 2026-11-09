@@ -19,16 +19,16 @@ const verificationItems = [
 
 export default function FinancingPage() {
   return (
-    <div className="bg-[#F7F5F0] text-[#28323D]">
+    <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
                 <Link
                   href="/"
-                  className="rounded-sm hover:text-[#1D2C43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+                  className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                 >
                   Home
                 </Link>
@@ -43,13 +43,13 @@ export default function FinancingPage() {
               </li>
             </ol>
           </nav>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
             Payment Options & Plans
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
             Flexible Financing for Your Pacific Northwest Home
           </h1>
-          <p className="mb-8 max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
+          <p className="mb-8 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Sound View Window & Door partners with Synchrony Bank to offer
             competitive, straightforward financing solutions with convenient
             monthly payments so you can complete your project without
@@ -59,7 +59,7 @@ export default function FinancingPage() {
             href={synchronyHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
           >
             Apply for Financing
             <ExternalLinkIcon />
@@ -67,22 +67,22 @@ export default function FinancingPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <h2 className="mb-3 text-center font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
+          <h2 className="mb-3 text-center text-3xl font-bold text-white sm:text-4xl">
             Your Financing Checklist
           </h2>
-          <p className="mx-auto mb-10 max-w-2xl text-center text-base text-slate-600 sm:text-lg">
+          <p className="mx-auto mb-10 max-w-2xl text-center text-base text-slate-300 sm:text-lg">
             Follow these simple, straightforward steps to secure your financing
             plan and proceed seamlessly with your project setup.
           </p>
           <div className="mx-auto max-w-4xl space-y-6">
-            <article className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
               <CheckBadge />
               <h3 className="mb-2 mt-4 text-xl font-bold text-slate-900">1. Apply</h3>
-              <p className="text-base leading-7 text-slate-700">
+              <p className="text-base leading-7 text-slate-300">
                 First, you must apply for a credit line directly through Synchrony
                 to secure your account.
               </p>
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-700">
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-300">
                 <li>
                   The Process: Complete the Synchrony application form. Once
                   approved, you will be issued a Synchrony Account Number. Please
@@ -93,23 +93,23 @@ export default function FinancingPage() {
                 href={synchronyHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+                className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 APPLY FOR FINANCING
                 <ExternalLinkIcon />
               </a>
             </article>
 
-            <article className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
               <CheckBadge />
               <h3 className="mb-2 mt-4 text-xl font-bold text-slate-900">
                 2. Notify Your Sales Representative
               </h3>
-              <p className="text-base leading-7 text-slate-700">
+              <p className="text-base leading-7 text-slate-300">
                 Once you have your account number, contact your Sales rep to
                 update your project terms.
               </p>
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-700">
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-300">
                 <li>
                   Provide your info: Give your rep your new Synchrony Account
                   Number.
@@ -126,16 +126,16 @@ export default function FinancingPage() {
               </ul>
             </article>
 
-            <article className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
               <CheckBadge />
               <h3 className="mb-2 mt-4 text-xl font-bold text-slate-900">
                 3. Review And Sign Your Quote
               </h3>
-              <p className="text-base leading-7 text-slate-700">
+              <p className="text-base leading-7 text-slate-300">
                 After your rep resends the quote, you must authorize the new
                 terms.
               </p>
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-700">
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-300">
                 <li>
                   Review: Look for an email notification that your quote has been
                   updated. Log in to our portal to confirm the deposit has been
@@ -145,18 +145,18 @@ export default function FinancingPage() {
               </ul>
             </article>
 
-            <article className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
               <CheckBadge />
               <h3 className="mb-2 mt-4 text-xl font-bold text-slate-900">
                 4. Provide Final Verification Details
               </h3>
-              <p className="text-base leading-7 text-slate-700">
+              <p className="text-base leading-7 text-slate-300">
                 To finalize the connection between your Synchrony account and
                 your project, we require a few specific details for the
                 lender&apos;s secure portal. You can provide these to your rep via
                 phone or email.
               </p>
-              <p className="mt-5 rounded-xl border border-[#94734D]/40 bg-[#EFEBE4] px-4 py-3 text-sm leading-6 text-[#28323D]">
+              <p className="mt-5 rounded-xl border border-[#94734D]/40 bg-[#132238] px-4 py-3 text-sm leading-6 text-slate-100">
                 Important: You do NOT select your financing plan online during
                 the initial application. We process your plan selection on our
                 end during this final step.
@@ -164,7 +164,7 @@ export default function FinancingPage() {
               <p className="mb-3 mt-5 text-base font-medium text-slate-900">
                 Please provide the following to your Sales Rep:
               </p>
-              <ol className="list-decimal space-y-2 pl-5 text-base leading-7 text-slate-700">
+              <ol className="list-decimal space-y-2 pl-5 text-base leading-7 text-slate-300">
                 {verificationItems.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
@@ -173,39 +173,39 @@ export default function FinancingPage() {
           </div>
         </section>
 
-        <section className="border-t border-[#DDE2E6] bg-[#EFEBE4]">
+        <section className="border-t border-slate-700 bg-[#132238]">
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-20">
             <div>
-              <h2 className="font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
+              <h2 className="text-3xl font-bold text-white sm:text-4xl">
                 Questions About Your Financing?
               </h2>
               <span
                 aria-hidden="true"
                 className="mt-4 block h-1 w-16 rounded-full bg-[#94734D]"
               />
-              <p className="mt-5 max-w-xl text-base leading-7 text-slate-700 sm:text-lg">
+              <p className="mt-5 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">
                 Our team can help you understand the next steps and coordinate
                 the necessary updates to your project quote.
               </p>
               <a
                 href="tel:2064024229"
-                className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-[#1D2C43] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+                className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-white underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 <PhoneIcon />
                 (206) 402-4229
               </a>
             </div>
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-8 shadow-sm">
-              <h3 className="font-serif text-2xl font-bold text-[#1D2C43]">
+            <div className="rounded-2xl border border-slate-700/80 bg-[#132238] p-8 shadow-sm">
+              <h3 className="text-2xl font-bold text-white">
                 Start a Conversation
               </h3>
-              <p className="mt-3 text-base leading-7 text-slate-600">
+              <p className="mt-3 text-base leading-7 text-slate-300">
                 We are ready to design a tailored financing roadmap that
                 perfectly fits your home improvement goals.
               </p>
               <Link
                 href="/contact"
-                className="mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+                className="mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 CONTACT SOUND VIEW
               </Link>

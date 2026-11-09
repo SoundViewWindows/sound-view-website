@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 const videos = [
   {
@@ -54,14 +54,14 @@ const projects = [
 
 export default function PortfolioPage() {
   return (
-    <div className="bg-[#F7F5F0] text-[#28323D]">
+    <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
+                <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
                   Home
                 </Link>
               </li>
@@ -72,13 +72,13 @@ export default function PortfolioPage() {
             </ol>
           </nav>
 
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
             Proven Pacific Northwest Craftsmanship
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight lg:text-5xl">
             Our Real-World Installations
           </h1>
-          <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
+          <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Explore our recent window replacements, custom door upgrades, and
             architectural glass projects across Greater Seattle. Watch our
             certified crew in action and review actual before-and-after
@@ -87,10 +87,10 @@ export default function PortfolioPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
-          <h2 className="mb-3 font-serif text-3xl font-bold text-[#1D2C43]">
+          <h2 className="mb-3 text-3xl font-bold text-white">
             Watch Our Installers in the Field
           </h2>
-          <p className="mb-8 max-w-2xl text-slate-600">
+          <p className="mb-8 max-w-2xl text-slate-300">
             See the care, precision flashing, and clean craftsmanship that goes
             into every Puget Sound installation.
           </p>
@@ -98,7 +98,7 @@ export default function PortfolioPage() {
             {videos.map((video) => (
               <article
                 key={video.src}
-                className="flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm"
+                className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-sm"
               >
                 <div className="relative w-full overflow-hidden rounded-t-2xl bg-black pb-[56.25%]">
                   <iframe
@@ -110,8 +110,8 @@ export default function PortfolioPage() {
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-5 sm:p-6">
-                  <h3 className="font-serif text-xl font-bold text-[#1D2C43]">{video.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{video.description}</p>
+                  <h3 className="text-xl font-bold text-white">{video.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">{video.description}</p>
                 </div>
               </article>
             ))}
@@ -119,10 +119,10 @@ export default function PortfolioPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-3 font-serif text-3xl font-bold text-[#1D2C43]">
+          <h2 className="mb-3 text-3xl font-bold text-white">
             Real Transformations Across Greater Seattle
           </h2>
-          <p className="mb-8 max-w-2xl text-slate-600">
+          <p className="mb-8 max-w-2xl text-slate-300">
             Direct comparisons of drafty, aged units replaced with high-efficiency
             modern systems.
           </p>
@@ -131,7 +131,7 @@ export default function PortfolioPage() {
               <Link
                 key={project.src}
                 href={project.href}
-                className={`group block h-full rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-7 ${focusRing}`}
+                className={`group block h-full rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm transition-shadow hover:shadow-md sm:p-7 ${focusRing}`}
               >
                 <div className="mb-4 overflow-hidden rounded-2xl">
                   <Image
@@ -139,17 +139,17 @@ export default function PortfolioPage() {
                     alt={project.alt}
                     width={819}
                     height={1024}
-                    className="h-auto w-full border border-slate-200/80 object-cover shadow-md transition-transform duration-500 ease-out group-hover:scale-105"
+                    className="h-auto w-full border border-slate-700/80 object-cover shadow-md transition-transform duration-500 ease-out group-hover:scale-105"
                   />
                 </div>
-                <p className="mb-2 w-fit rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                <p className="mb-2 w-fit rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-300">
                   {project.badge}
                 </p>
-                <h3 className="font-serif text-2xl font-bold text-[#1D2C43] transition-colors group-hover:text-[#162433]">
+                <h3 className="text-2xl font-bold text-white transition-colors group-hover:text-slate-100">
                   {project.title}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{project.copy}</p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#1D2C43] group-hover:underline">
+                <p className="mt-2 text-sm leading-6 text-slate-300">{project.copy}</p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:underline">
                   Explore window options
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     →
@@ -162,7 +162,7 @@ export default function PortfolioPage() {
 
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-16 max-w-5xl rounded-3xl bg-[#1D2C43] p-8 text-center text-white shadow-lg sm:p-12">
-            <h2 className="font-serif text-3xl font-bold">Ready to Upgrade Your Home Openings?</h2>
+            <h2 className="text-3xl font-bold">Ready to Upgrade Your Home Openings?</h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85">
               Get upfront pricing and honest guidance on your window, door, or
               glass project from local specialists who take pride in every
@@ -171,7 +171,7 @@ export default function PortfolioPage() {
             <div className="mt-6 flex flex-wrap justify-center gap-4">
               <Link
                 href="/services/window-replacement/materials"
-                className={`rounded-lg bg-white px-6 py-3 font-semibold text-[#1D2C43] transition-colors hover:bg-slate-100 ${focusRing}`}
+                className={`rounded-lg bg-[#132238] px-6 py-3 font-semibold text-white transition-colors hover:bg-slate-100 ${focusRing}`}
               >
                 Start Your Window Estimate
               </Link>

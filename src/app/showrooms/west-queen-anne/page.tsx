@@ -34,18 +34,18 @@ const features = [
 ];
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 export default function WestQueenAnneShowroomPage() {
   return (
-    <div className="bg-[#F7F5F0] text-[#28323D]">
+    <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8">
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
+                <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
                   Home
                 </Link>
               </li>
@@ -60,13 +60,13 @@ export default function WestQueenAnneShowroomPage() {
             </ol>
           </nav>
 
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
             Central Seattle Showroom
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
             Visit Our West Queen Anne Showroom
           </h1>
-          <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
+          <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Experience premier window styles, custom door systems, and architectural
             glass hardware in the heart of Seattle. Test operability firsthand and
             consult with our seasoned window and door specialists.
@@ -77,13 +77,13 @@ export default function WestQueenAnneShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
+              className={`inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Book a Showroom Visit
             </a>
             <a
               href="tel:2064024229"
-              className={`inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3 font-medium text-slate-800 transition-colors hover:bg-slate-50 ${focusRing}`}
+              className={`inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-[#132238] px-6 py-3 font-medium text-slate-800 transition-colors hover:bg-slate-50 ${focusRing}`}
             >
               <PhoneIcon />
               Call (206) 402-4229
@@ -92,7 +92,7 @@ export default function WestQueenAnneShowroomPage() {
               href={directionsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-[#1D2C43] transition-colors hover:bg-white ${focusRing}`}
+              className={`inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-white transition-colors hover:bg-[#132238] ${focusRing}`}
             >
               <MapPinIcon />
               Get Directions
@@ -107,27 +107,27 @@ export default function WestQueenAnneShowroomPage() {
               alt="Sound View Window & Door storefront at 921 Elliott Ave W in West Queen Anne"
               width={1200}
               height={800}
-              className="h-80 w-full rounded-2xl border border-slate-200/80 object-cover shadow-md sm:h-96"
+              className="h-80 w-full rounded-2xl border border-slate-700/80 object-cover shadow-md sm:h-96"
             />
-            <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
+            <div className="flex flex-col justify-between rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
               <div>
-                <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Showroom Address
                 </h2>
-                <p className="text-lg font-bold text-[#1D2C43]">
+                <p className="text-lg font-bold text-white">
                   921 Elliott Ave W, Seattle, WA 98119
                 </p>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
+                <p className="mt-2 text-sm leading-6 text-slate-300">
                   Conveniently located along the Elliott Avenue corridor with dedicated
                   customer parking.
                 </p>
               </div>
 
               <div className="mt-8">
-                <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Hours of Operation
                 </h2>
-                <dl className="mt-2 space-y-2 text-sm text-[#1D2C43]">
+                <dl className="mt-2 space-y-2 text-sm text-white">
                   {hours.map((row) => (
                     <div key={row.day} className="flex flex-wrap justify-between gap-x-6 gap-y-1">
                       <dt>{row.day}</dt>
@@ -135,18 +135,18 @@ export default function WestQueenAnneShowroomPage() {
                     </div>
                   ))}
                 </dl>
-                <p className="mt-2 text-xs font-medium text-slate-500">
+                <p className="mt-2 text-xs font-medium text-slate-400">
                   Showrooms and phone lines are closed on weekends and major holidays.
                 </p>
               </div>
 
               <div className="mt-8">
-                <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Direct Line
                 </h2>
                 <a
                   href="tel:2064024229"
-                  className={`text-lg font-bold text-[#1D2C43] underline-offset-4 hover:underline ${focusRing}`}
+                  className={`text-lg font-bold text-white underline-offset-4 hover:underline ${focusRing}`}
                 >
                   (206) 402-4229
                 </a>
@@ -158,7 +158,7 @@ export default function WestQueenAnneShowroomPage() {
             <iframe
               src="https://maps.google.com/maps?q=921+Elliott+Ave+W,+Seattle,+WA+98119&t=&z=15&ie=UTF8&iwloc=&output=embed"
               title="Map of the West Queen Anne showroom at 921 Elliott Ave W, Seattle"
-              className="h-80 w-full rounded-2xl border border-slate-200 shadow-sm"
+              className="h-80 w-full rounded-2xl border border-slate-700 shadow-sm"
               loading="lazy"
               allowFullScreen
             />
@@ -166,30 +166,30 @@ export default function WestQueenAnneShowroomPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-          <h2 className="mb-8 font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
+          <h2 className="mb-8 text-3xl font-bold text-white sm:text-4xl">
             What You Can Explore In Person
           </h2>
           <div className="grid gap-6 md:grid-cols-3">
             {features.map((feature) => (
               <article
                 key={feature.title}
-                className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8"
+                className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8"
               >
-                <h3 className="mb-3 font-serif text-xl font-bold text-[#1D2C43]">
+                <h3 className="mb-3 text-xl font-bold text-white">
                   {feature.title}
                 </h3>
-                <p className="text-base leading-7 text-slate-700">{feature.body}</p>
+                <p className="text-base leading-7 text-slate-300">{feature.body}</p>
               </article>
             ))}
           </div>
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-10">
-            <h2 className="font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
+          <div className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-10">
+            <h2 className="text-3xl font-bold text-white sm:text-4xl">
               Plan Your Visit with an Expert
             </h2>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-slate-700 sm:text-lg">
+            <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg">
               Whether you are a homeowner planning a retrofit or a builder reviewing
               blueprint takeoffs, our Queen Anne specialists provide relaxed,
               pressure-free guidance.
@@ -198,7 +198,7 @@ export default function WestQueenAnneShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
+              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Book an Appointment
             </a>
