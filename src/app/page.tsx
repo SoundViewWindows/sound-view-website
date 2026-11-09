@@ -107,7 +107,7 @@ export default function Home() {
                   aria-expanded={phoneOpen}
                   aria-controls="showroom-phones"
                   onClick={() => setPhoneOpen((open) => !open)}
-                  className="flex items-center justify-center gap-2 rounded-full border border-white/20 bg-[#0B192C] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                  className="flex items-center justify-center gap-2 rounded-full border border-white bg-white px-4 py-2 text-sm font-medium text-[#0B192C] transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                 >
                   <PhoneIcon />
                   Give Us a Call
@@ -208,19 +208,25 @@ export default function Home() {
           <ScrollReveal>
             <section
               aria-label="Company credentials"
-              className="mt-3 grid grid-cols-1 gap-2 rounded-xl border border-slate-700/80 bg-slate-50/80 p-2.5 text-center sm:grid-cols-3 sm:text-left"
+              className="mt-3 grid grid-cols-1 divide-y divide-slate-700/60 rounded-xl border border-slate-700/60 bg-[#132238] px-6 py-3 text-center shadow-lg sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:text-left"
             >
-              <div>
-                <p className="text-sm font-semibold text-white">3 Puget Sound Showrooms</p>
-                <p className="mt-1 text-xs text-slate-400">Lake City • Queen Anne • Bellevue</p>
+              <div className="py-3 sm:px-4 sm:py-0 sm:pl-0">
+                <p className="text-sm font-bold tracking-wide text-white">3 Puget Sound Showrooms</p>
+                <p className="mt-0.5 text-xs text-slate-300">
+                  Lake City <span className="text-sky-400">•</span> Queen Anne{" "}
+                  <span className="text-sky-400">•</span> Bellevue
+                </p>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-white">Authorized Factory Dealer</p>
-                <p className="mt-1 text-xs text-slate-400">Andersen • Milgard • Ply Gem</p>
+              <div className="py-3 sm:px-4 sm:py-0">
+                <p className="text-sm font-bold tracking-wide text-white">Authorized Factory Dealer</p>
+                <p className="mt-0.5 text-xs text-slate-300">
+                  Andersen <span className="text-sky-400">•</span> Milgard{" "}
+                  <span className="text-sky-400">•</span> Ply Gem
+                </p>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-white">Local Craftsmanship</p>
-                <p className="mt-1 text-xs text-slate-400">WA Licensed, Bonded & Insured</p>
+              <div className="py-3 sm:px-4 sm:py-0 sm:pr-0">
+                <p className="text-sm font-bold tracking-wide text-white">Local Craftsmanship</p>
+                <p className="mt-0.5 text-xs text-slate-300">WA Licensed, Bonded & Insured</p>
               </div>
             </section>
           </ScrollReveal>

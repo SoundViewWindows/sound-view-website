@@ -135,9 +135,9 @@ export default function EnergyRebatesPage() {
                 key={step.number}
                 className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm"
               >
-                <p className="mb-2 text-2xl font-black text-white">{step.number}</p>
-                <h3 className="mb-2 text-lg font-bold text-slate-900">{step.heading}</h3>
-                <p className="text-sm leading-relaxed text-slate-300">{step.text}</p>
+                <p className="mb-1 text-xl font-extrabold text-sky-400">{step.number}</p>
+                <h3 className="mb-2 block text-base font-bold text-white sm:text-lg">{step.heading}</h3>
+                <p className="text-sm font-normal leading-relaxed text-slate-300">{step.text}</p>
               </article>
             ))}
           </div>

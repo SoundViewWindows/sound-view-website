@@ -77,8 +77,8 @@ export default function FinancingPage() {
           <div className="mx-auto max-w-4xl space-y-6">
             <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
               <CheckBadge />
-              <h3 className="mb-2 mt-4 text-xl font-bold text-slate-900">1. Apply</h3>
-              <p className="text-base leading-7 text-slate-300">
+              <h3 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">1. Apply</h3>
+              <p className="text-sm font-normal leading-relaxed text-slate-300">
                 First, you must apply for a credit line directly through Synchrony
                 to secure your account.
               </p>
@@ -102,10 +102,10 @@ export default function FinancingPage() {
 
             <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
               <CheckBadge />
-              <h3 className="mb-2 mt-4 text-xl font-bold text-slate-900">
+              <h3 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">
                 2. Notify Your Sales Representative
               </h3>
-              <p className="text-base leading-7 text-slate-300">
+              <p className="text-sm font-normal leading-relaxed text-slate-300">
                 Once you have your account number, contact your Sales rep to
                 update your project terms.
               </p>
@@ -128,10 +128,10 @@ export default function FinancingPage() {
 
             <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
               <CheckBadge />
-              <h3 className="mb-2 mt-4 text-xl font-bold text-slate-900">
+              <h3 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">
                 3. Review And Sign Your Quote
               </h3>
-              <p className="text-base leading-7 text-slate-300">
+              <p className="text-sm font-normal leading-relaxed text-slate-300">
                 After your rep resends the quote, you must authorize the new
                 terms.
               </p>
@@ -147,10 +147,10 @@ export default function FinancingPage() {
 
             <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
               <CheckBadge />
-              <h3 className="mb-2 mt-4 text-xl font-bold text-slate-900">
+              <h3 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">
                 4. Provide Final Verification Details
               </h3>
-              <p className="text-base leading-7 text-slate-300">
+              <p className="text-sm font-normal leading-relaxed text-slate-300">
                 To finalize the connection between your Synchrony account and
                 your project, we require a few specific details for the
                 lender&apos;s secure portal. You can provide these to your rep via
@@ -161,7 +161,7 @@ export default function FinancingPage() {
                 the initial application. We process your plan selection on our
                 end during this final step.
               </p>
-              <p className="mb-3 mt-5 text-base font-medium text-slate-900">
+              <p className="mb-3 mt-5 text-lg font-bold text-white">
                 Please provide the following to your Sales Rep:
               </p>
               <ol className="list-decimal space-y-2 pl-5 text-base leading-7 text-slate-300">
@@ -189,7 +189,7 @@ export default function FinancingPage() {
               </p>
               <a
                 href="tel:2064024229"
-                className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-white underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-sky-400 underline-offset-4 hover:text-sky-300 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 <PhoneIcon />
                 (206) 402-4229
