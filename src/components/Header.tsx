@@ -25,9 +25,11 @@ const navigation: NavEntry[] = [
       href:
         service.id === "door-replacement"
           ? "/services/door-replacement/types"
-          : service.id === "shower-door-replacement"
+          :         service.id === "shower-door-replacement"
             ? "/services/shower-door-replacement/types"
-            : `/services/${service.id}`,
+            : service.id === "glass-replacement"
+              ? "/services/glass-replacement/types"
+              : `/services/${service.id}`,
       serviceId: service.id,
     })),
   },
@@ -112,7 +114,8 @@ export function Header({ onServiceSelect, onRequestConsultation }: HeaderProps) 
       !onServiceSelect ||
       serviceId === "window-replacement" ||
       serviceId === "door-replacement" ||
-      serviceId === "shower-door-replacement"
+      serviceId === "shower-door-replacement" ||
+      serviceId === "glass-replacement"
     ) {
       return;
     }
