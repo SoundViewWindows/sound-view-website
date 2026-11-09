@@ -132,7 +132,11 @@ export default function Home() {
             {services.map((service) => (
               <Link
                 key={service.id}
-                href={`/services/${service.id}`}
+                href={
+                  service.id === "window-replacement"
+                    ? "/services/window-replacement/types"
+                    : `/services/${service.id}`
+                }
                 className="group flex min-h-0 cursor-pointer flex-col overflow-hidden rounded-xl border border-[#1B2A4A]/10 bg-white text-left shadow-[0_1px_2px_rgba(15,23,42,0.05)] transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
               >
                 <span className="relative m-2.5 mb-0 block aspect-[16/10] overflow-hidden rounded-lg bg-[#F4EFEA] lg:aspect-auto lg:h-[120px]">

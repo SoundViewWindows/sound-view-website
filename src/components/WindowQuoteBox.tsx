@@ -1,27 +1,13 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { windowMaterials, windowStyles } from "@/lib/window-funnel";
 
 const windowCounts = ["1 to 5", "6 to 12", "13+"] as const;
 
 export const windowPreferences = {
-  materials: [
-    "Fiberglass (e.g. Milgard Ultra)",
-    "Premium Vinyl",
-    "Wood & Wood-Clad (e.g. Andersen)",
-    "Thermally Broken Aluminum",
-  ],
-  styles: [
-    "Casement Windows",
-    "Double-Hung Windows",
-    "Single-Hung Windows",
-    "Awning Windows",
-    "Sliding Windows",
-    "Picture Windows",
-    "Bay Windows",
-    "Bow Windows",
-    "Custom Windows",
-  ],
+  materials: windowMaterials.map((item) => item.option),
+  styles: windowStyles.map((item) => item.option),
 };
 
 type WindowQuoteBoxProps = {
@@ -40,6 +26,7 @@ export function WindowQuoteBox({
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [windowCount, setWindowCount] = useState("");
+  const [notes, setNotes] = useState("");
   const [internalMaterial, setInternalMaterial] = useState("");
   const [internalStyle, setInternalStyle] = useState("");
   const [errors, setErrors] = useState<{ name?: string; contact?: string; count?: string }>({});
@@ -144,7 +131,7 @@ export function WindowQuoteBox({
           </label>
 
           <fieldset className="mb-3">
-            <legend className="text-xs font-medium text-[#1B2A4A]">Window Count</legend>
+            <legend className="text-xs font-medium text-[#1B2A4A]">Approximate Window Count</legend>
             <div className="mt-1.5 grid grid-cols-3 gap-2">
               {windowCounts.map((count) => {
                 const selected = windowCount === count;
@@ -168,6 +155,20 @@ export function WindowQuoteBox({
             </div>
             {errors.count ? <FieldError message={errors.count} /> : null}
           </fieldset>
+
+          <label className="mb-3 block text-xs font-medium text-[#1B2A4A]" htmlFor="window-quote-notes">
+            Project Notes
+            <span className="font-normal text-slate-500"> Optional</span>
+            <textarea
+              id="window-quote-notes"
+              name="notes"
+              rows={3}
+              value={notes}
+              onChange={(event) => setNotes(event.target.value)}
+              placeholder="Rooms, sizes, or anything you want us to know."
+              className={`${inputClass(false)} mt-1.5`}
+            />
+          </label>
 
           <div className="grid grid-cols-1 gap-3">
             <label className="block" htmlFor="window-quote-material">
