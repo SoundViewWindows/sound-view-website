@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { QuoteThankYou } from "@/components/QuoteThankYou";
 import {
   DOOR_MATERIAL_STORAGE_KEY,
+  doorManufacturers,
   doorMaterialAllowed,
   doorMaterialSlugFromOption,
   doorMaterialsForStyle,
@@ -16,16 +17,20 @@ const doorCounts = ["1 Door", "2 to 3 Doors", "4+ Doors"] as const;
 type DoorQuoteBoxProps = {
   material?: string;
   style?: string;
+  manufacturer?: string;
   onMaterialChange?: (value: string) => void;
   onStyleChange?: (value: string) => void;
+  onManufacturerChange?: (value: string) => void;
   className?: string;
 };
 
 export function DoorQuoteBox({
   material = "",
   style = "",
+  manufacturer = "",
   onMaterialChange,
   onStyleChange,
+  onManufacturerChange,
   className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-xl sm:p-7",
 }: DoorQuoteBoxProps) {
   const [name, setName] = useState("");
@@ -36,11 +41,13 @@ export function DoorQuoteBox({
   const [notes, setNotes] = useState("");
   const [internalMaterial, setInternalMaterial] = useState("");
   const [internalStyle, setInternalStyle] = useState("");
+  const [internalManufacturer, setInternalManufacturer] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const materialValue = onMaterialChange ? material : internalMaterial;
   const styleValue = onStyleChange ? style : internalStyle;
+  const manufacturerValue = onManufacturerChange ? manufacturer : internalManufacturer;
 
   function updateMaterial(value: string) {
     if (onMaterialChange) onMaterialChange(value);
@@ -56,6 +63,11 @@ export function DoorQuoteBox({
     }
     if (onStyleChange) onStyleChange(value);
     else setInternalStyle(value);
+  }
+
+  function updateManufacturer(value: string) {
+    if (onManufacturerChange) onManufacturerChange(value);
+    else setInternalManufacturer(value);
   }
 
   const materialOptions = doorMaterialsForStyle(
@@ -276,6 +288,27 @@ export function DoorQuoteBox({
               </select>
             </label>
           </div>
+
+          <label className="block" htmlFor="door-quote-manufacturer">
+            <span className={labelClass}>
+              Preferred Manufacturer
+              <span className="font-normal text-slate-400"> Optional</span>
+            </span>
+            <select
+              id="door-quote-manufacturer"
+              name="manufacturer"
+              value={manufacturerValue}
+              onChange={(event) => updateManufacturer(event.target.value)}
+              className={fieldClass}
+            >
+              <option value="">No preference yet / Open to advice</option>
+              {doorManufacturers.map((item) => (
+                <option key={item.slug} value={item.option}>
+                  {item.option}
+                </option>
+              ))}
+            </select>
+          </label>
 
           <button
             type="submit"

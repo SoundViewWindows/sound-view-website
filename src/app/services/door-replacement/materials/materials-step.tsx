@@ -12,6 +12,7 @@ import {
   doorMaterialAllowed,
   doorMaterialFromSlug,
   doorMaterialsForStyle,
+  doorStepHref,
   doorStyleFromSlug,
 } from "@/lib/door-funnel";
 
@@ -19,7 +20,8 @@ export function DoorMaterialsStep() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const style = doorStyleFromSlug(searchParams.get("type"));
-  const typeSlug = style?.slug ?? "undecided";
+  const typeSlug = style?.slug ?? searchParams.get("type") ?? "undecided";
+  const manufacturerSlug = searchParams.get("manufacturer") ?? undefined;
   const materials = doorMaterialsForStyle(style?.slug);
   const materialParam = searchParams.get("material");
   const urlMaterial = doorMaterialFromSlug(materialParam);
@@ -67,8 +69,10 @@ export function DoorMaterialsStep() {
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
           <DoorStepNav
-            current="Choose Material"
-            progress="Step 2 of 3: Choose Your Door Material"
+            step={2}
+            type={typeSlug}
+            material={selectedSlug ?? "undecided"}
+            manufacturer={manufacturerSlug}
           />
           <p className="mb-4 inline-flex flex-wrap items-center gap-3 rounded-full border border-[#38BDF8]/40 bg-white/10 px-4 py-2 text-sm text-white">
             <span>
@@ -97,7 +101,12 @@ export function DoorMaterialsStep() {
               return (
                 <Link
                   key={material.slug}
-                  href={`/services/door-replacement/quote?type=${typeSlug}&material=${material.slug}`}
+                  href={doorStepHref("manufacturers", {
+                    type: typeSlug,
+                    material: material.slug,
+                    manufacturer: manufacturerSlug,
+                  })}
+                  onClick={() => sessionStorage.setItem(DOOR_MATERIAL_STORAGE_KEY, material.slug)}
                   aria-current={selected ? "true" : undefined}
                   className={`group flex flex-col overflow-hidden rounded-2xl border bg-[#132238] shadow-xl transition-all duration-200 hover:-translate-y-1 hover:border-sky-400/80 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
                     selected
@@ -139,11 +148,15 @@ export function DoorMaterialsStep() {
           </div>
           <div className="mx-auto max-w-7xl px-4 py-10 text-center sm:px-6 lg:px-8">
             <Link
-              href={`/services/door-replacement/quote?type=${typeSlug}&material=undecided`}
+              href={doorStepHref("manufacturers", {
+                type: typeSlug,
+                material: "undecided",
+                manufacturer: manufacturerSlug,
+              })}
               onClick={clearStoredMaterial}
               className="inline-flex rounded-full border border-white px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#38BDF8] hover:text-[#0B192C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
             >
-              Not sure yet? Proceed to Quote
+              Not sure yet? Continue to Manufacturers
             </Link>
           </div>
         </section>

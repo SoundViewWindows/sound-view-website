@@ -10,7 +10,7 @@ export default function DoorTypesPage() {
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-          <DoorStepNav current="Choose Style" progress="Step 1 of 3: Choose Your Door Style" />
+          <DoorStepNav step={1} />
           <h1 className="mb-4 max-w-3xl text-4xl font-bold leading-tight text-white lg:text-5xl">
             Select the Door Style for Your Home
           </h1>

@@ -237,14 +237,14 @@ export default function Home() {
           className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-md"
         >
           {quoteSubmitted ? null : (
-            <div className="border-b border-sky-400/50 bg-[#0B192C] px-6 py-5 sm:py-6">
-              <p className="mb-1 text-xs font-bold uppercase tracking-widest text-sky-300 sm:text-sm">
+            <div className="border border-white/20 bg-white px-6 py-5 shadow-md sm:py-6">
+              <p className="mb-0.5 block text-xs font-extrabold uppercase tracking-widest text-sky-600">
                 Special Offer
               </p>
-              <p className="mb-1 text-2xl font-extrabold leading-tight text-white text-balance sm:text-3xl">
+              <p className="text-xl font-extrabold leading-tight text-[#0B192C] sm:text-2xl">
                 Save 10% on Labor
               </p>
-              <p className="text-sm font-medium text-slate-200 sm:text-base">
+              <p className="mt-0.5 text-xs font-medium text-slate-600 sm:text-sm">
                 Book your project by November 30th.
               </p>
             </div>

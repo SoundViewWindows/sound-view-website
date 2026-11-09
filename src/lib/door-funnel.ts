@@ -150,3 +150,90 @@ export function doorMaterialSlugFromOption(option: string) {
 export function doorChoiceLabel(choice: { name: string } | null) {
   return choice?.name ?? "Open to advice";
 }
+
+export const doorManufacturers: DoorChoice[] = [
+  {
+    slug: "therma-tru",
+    name: "Therma-Tru",
+    option: "Therma-Tru",
+    detail: "Premium Fiberglass Entry",
+    image: "",
+    alt: "Therma-Tru fiberglass entry door",
+    body: "Premium fiberglass entry systems built for insulation, security, and a finished look at the front door.",
+  },
+  {
+    slug: "simpson",
+    name: "Simpson Door Company",
+    option: "Simpson Door Company",
+    detail: "Custom Wood Craftsmanship",
+    image: "",
+    alt: "Simpson wood door",
+    body: "Custom wood doors with craftsmanship suited to traditional Pacific Northwest homes.",
+  },
+  {
+    slug: "codel",
+    name: "Codel Doors",
+    option: "Codel Doors",
+    detail: "Pre-Hung Doors",
+    image: "",
+    alt: "Codel pre-hung door",
+    body: "Durable exterior and interior pre-hung doors made for straightforward replacement openings.",
+  },
+  {
+    slug: "andersen",
+    name: "Andersen Windows & Doors",
+    option: "Andersen Windows & Doors",
+    detail: "Patio and French Doors",
+    image: "",
+    alt: "Andersen patio and French doors",
+    body: "Architectural patio and French doors with finishes that hold up in wet weather.",
+  },
+  {
+    slug: "milgard",
+    name: "Milgard",
+    option: "Milgard",
+    detail: "Patio and Sliding Doors",
+    image: "",
+    alt: "Milgard sliding patio door",
+    body: "High-performance patio and sliding doors built for Pacific Northwest rain and marine air.",
+  },
+  {
+    slug: "western-window-systems",
+    name: "Western Window Systems",
+    option: "Western Window Systems",
+    detail: "Moving Glass Walls",
+    image: "",
+    alt: "Western Window Systems multi-slide door",
+    body: "Multi-slide and moving glass walls that open wide patio and indoor-outdoor rooms.",
+  },
+  {
+    slug: "recommend",
+    name: "Let an Expert Recommend",
+    option: "Let an Expert Recommend",
+    detail: "No Preference",
+    image: "",
+    alt: "Let a Sound View specialist recommend a door manufacturer",
+    body: "Share the opening and the budget. A local specialist will match a brand after looking at the door.",
+  },
+];
+
+export function doorManufacturerFromSlug(slug: string | null) {
+  if (!slug || slug === "undecided") return null;
+  return doorManufacturers.find((item) => item.slug === slug) ?? null;
+}
+
+export function doorManufacturerSlugFromOption(option: string) {
+  return doorManufacturers.find((item) => item.option === option)?.slug ?? "undecided";
+}
+
+export function doorStepHref(
+  step: "types" | "materials" | "manufacturers" | "quote",
+  params: { type?: string; material?: string; manufacturer?: string } = {},
+) {
+  const search = new URLSearchParams();
+  if (step !== "types" && params.type) search.set("type", params.type);
+  if (step !== "types" && params.material) search.set("material", params.material);
+  if (step !== "types" && params.manufacturer) search.set("manufacturer", params.manufacturer);
+  const query = search.toString();
+  return `/services/door-replacement/${step}${query ? `?${query}` : ""}`;
+}

@@ -10,9 +10,12 @@ import { Header } from "@/components/Header";
 import {
   DOOR_MATERIAL_STORAGE_KEY,
   doorChoiceLabel,
+  doorManufacturerFromSlug,
+  doorManufacturers,
   doorMaterialAllowed,
   doorMaterialFromSlug,
   doorMaterials,
+  doorStepHref,
   doorStyleFromSlug,
   doorStyleSlugFromOption,
   doorStyles,
@@ -23,22 +26,27 @@ export function DoorQuoteStep() {
   const searchParams = useSearchParams();
   const typeParam = searchParams.get("type");
   const materialParam = searchParams.get("material");
+  const manufacturerParam = searchParams.get("manufacturer");
   const initialStyle = doorStyleFromSlug(typeParam);
   const initialMaterial = doorMaterialFromSlug(materialParam);
+  const initialManufacturer = doorManufacturerFromSlug(manufacturerParam);
   const initialMaterialAllowed =
     !initialMaterial || doorMaterialAllowed(initialStyle?.slug ?? null, initialMaterial.slug);
   const [style, setStyle] = useState(initialStyle?.option ?? "");
   const [material, setMaterial] = useState(
     initialMaterialAllowed ? initialMaterial?.option ?? "" : "",
   );
+  const [manufacturer, setManufacturer] = useState(initialManufacturer?.option ?? "");
 
   useEffect(() => {
     const nextStyle = doorStyleFromSlug(typeParam);
     const nextMaterial = doorMaterialFromSlug(materialParam);
     const allowed =
       !nextMaterial || doorMaterialAllowed(nextStyle?.slug ?? null, nextMaterial.slug);
+    const nextManufacturer = doorManufacturerFromSlug(manufacturerParam);
     setStyle(nextStyle?.option ?? "");
     setMaterial(allowed && nextMaterial ? nextMaterial.option : "");
+    setManufacturer(nextManufacturer?.option ?? "");
     if (allowed && nextMaterial) {
       sessionStorage.setItem(DOOR_MATERIAL_STORAGE_KEY, nextMaterial.slug);
     } else {
@@ -53,13 +61,22 @@ export function DoorQuoteStep() {
         { scroll: false },
       );
     }
-  }, [materialParam, router, searchParams, typeParam]);
+  }, [manufacturerParam, materialParam, router, searchParams, typeParam]);
 
   const styleName = doorChoiceLabel(doorStyles.find((item) => item.option === style) ?? null);
   const materialName = doorChoiceLabel(
     doorMaterials.find((item) => item.option === material) ?? null,
   );
+  const manufacturerName = doorChoiceLabel(
+    doorManufacturers.find((item) => item.option === manufacturer) ?? null,
+  );
   const typeSlug = doorStyleSlugFromOption(style);
+  const materialSlug =
+    doorMaterials.find((item) => item.option === material)?.slug ?? materialParam ?? "undecided";
+  const manufacturerSlug =
+    doorManufacturers.find((item) => item.option === manufacturer)?.slug ??
+    manufacturerParam ??
+    "undecided";
 
   return (
     <div className="bg-[#0B192C] text-slate-100">
@@ -80,36 +97,39 @@ export function DoorQuoteStep() {
             <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
               <div className="space-y-4 lg:col-span-6">
                 <DoorStepNav
-                  current="Your Estimate"
-                  progress="Step 3 of 3: Get Your Free Upfront Estimate"
-                  onDark
+                  step={4}
+                  type={typeSlug}
+                  material={materialSlug}
+                  manufacturer={manufacturerSlug}
                 />
                 <h1 className="text-3xl font-extrabold tracking-tight text-white drop-shadow-sm sm:text-4xl lg:text-5xl">
-                  Your Custom Door Estimate
+                  Your Free Door Quote
                 </h1>
                 <p className="max-w-lg text-sm leading-relaxed text-slate-200 drop-shadow-sm sm:text-base">
-                  Review your chosen door style and material, then share your project
-                  details so our Seattle specialists can prepare an upfront quote.
+                  Review your door type, material, and manufacturer, then share your
+                  project details so our Seattle specialists can prepare an upfront quote.
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white shadow-sm backdrop-blur-md">
-                    <span>Style: {styleName}</span>
-                    <Link
-                      href="/services/door-replacement/types"
-                      className="ml-1 font-semibold text-sky-300 underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    >
-                      Edit
-                    </Link>
-                  </p>
-                  <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white shadow-sm backdrop-blur-md">
-                    <span>Material: {materialName}</span>
-                    <Link
-                      href={`/services/door-replacement/materials?type=${typeSlug}`}
-                      className="ml-1 font-semibold text-sky-300 underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    >
-                      Edit
-                    </Link>
-                  </p>
+                  <SummaryBadge
+                    label={`Door Type: ${styleName}`}
+                    href={doorStepHref("types")}
+                  />
+                  <SummaryBadge
+                    label={`Material: ${materialName}`}
+                    href={doorStepHref("materials", {
+                      type: typeSlug,
+                      material: materialSlug,
+                      manufacturer: manufacturerSlug,
+                    })}
+                  />
+                  <SummaryBadge
+                    label={`Manufacturer: ${manufacturerName}`}
+                    href={doorStepHref("manufacturers", {
+                      type: typeSlug,
+                      material: materialSlug,
+                      manufacturer: manufacturerSlug,
+                    })}
+                  />
                 </div>
               </div>
               <div className="lg:col-span-6">
@@ -117,8 +137,10 @@ export function DoorQuoteStep() {
                   className="relative w-full scroll-mt-6 rounded-2xl border border-slate-700/70 bg-[#11223A] p-6 shadow-2xl sm:p-8"
                   material={material}
                   style={style}
+                  manufacturer={manufacturer}
                   onMaterialChange={setMaterial}
                   onStyleChange={setStyle}
+                  onManufacturerChange={setManufacturer}
                 />
               </div>
             </div>
@@ -127,5 +149,19 @@ export function DoorQuoteStep() {
         <CostComparison service="doors" />
       </main>
     </div>
+  );
+}
+
+function SummaryBadge({ label, href }: { label: string; href: string }) {
+  return (
+    <p className="inline-flex items-center gap-2 rounded-full border border-[#38BDF8]/40 bg-[#132238] px-4 py-1.5 text-xs font-medium text-white shadow-sm">
+      <span>{label}</span>
+      <Link
+        href={href}
+        className="ml-1 font-semibold text-sky-300 underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+      >
+        Edit
+      </Link>
+    </p>
   );
 }
