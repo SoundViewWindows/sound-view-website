@@ -25,7 +25,7 @@ const navigation: NavEntry[] = [
       href:
         service.id === "door-replacement"
           ? "/services/door-replacement/types"
-          :         service.id === "shower-door-replacement"
+          : service.id === "shower-door-replacement"
             ? "/services/shower-door-replacement/types"
             : service.id === "glass-replacement"
               ? "/services/glass-replacement/types"
@@ -115,7 +115,8 @@ export function Header({ onServiceSelect, onRequestConsultation }: HeaderProps) 
       serviceId === "window-replacement" ||
       serviceId === "door-replacement" ||
       serviceId === "shower-door-replacement" ||
-      serviceId === "glass-replacement"
+      serviceId === "glass-replacement" ||
+      serviceId === "glass-railing-installation"
     ) {
       return;
     }

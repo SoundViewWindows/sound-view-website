@@ -1,0 +1,112 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { GlassRailingRequest, RequestInstallationButton } from "@/components/GlassRailingRequest";
+import { Header } from "@/components/Header";
+
+export const metadata: Metadata = {
+  title: "Glass Railing Installation | Sound View Window & Door",
+  description:
+    "Tempered glass railings for decks, balconies, and staircases across the Greater Seattle Area.",
+};
+
+const highlights = [
+  {
+    title: "Tempered Safety Glass",
+    body: "Heat-treated panels sized for the opening so the railing stays clear, strong, and comfortable to live with.",
+  },
+  {
+    title: "Marine-Ready Hardware",
+    body: "Spigots, posts, and clamps chosen for damp Pacific Northwest air, including homes near the water.",
+  },
+  {
+    title: "Measured On Site",
+    body: "A local installer checks the deck, balcony, or stair before the glass is ordered, so the fit stays precise.",
+  },
+];
+
+export default function GlassRailingPage() {
+  return (
+    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+      <Header />
+      <main>
+        <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="flex min-w-0 flex-col items-start lg:col-span-7">
+              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+                <ol className="flex flex-wrap items-center gap-2">
+                  <li>
+                    <Link
+                      href="/"
+                      className="rounded-sm hover:text-[#1B2A4A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <span>Services</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <span aria-current="page">Glass Railing Installation</span>
+                  </li>
+                </ol>
+              </nav>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Architectural Glass Systems
+              </p>
+              <h1 className="mb-4 max-w-full font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+                Custom Glass Railings Engineered for Unobstructed Views
+              </h1>
+              <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
+                Open up your deck, balcony, or interior staircase with
+                precision-measured tempered glass railing systems designed to
+                withstand Pacific Northwest marine conditions.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="https://sound-view-window-door.myshopify.com/collections/shower-glass-hardware"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg bg-[#1B2A4A] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#15223C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                >
+                  <BagIcon />
+                  Shop Railing Hardware Online
+                </a>
+                <RequestInstallationButton />
+              </div>
+            </div>
+            <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
+              <div className="w-full max-w-md">
+                <GlassRailingRequest />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section>
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 pb-20 sm:px-6 md:grid-cols-3 lg:px-8">
+            {highlights.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm"
+              >
+                <h2 className="font-serif text-2xl text-[#1B2A4A]">{item.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-700">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
+function BagIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 7h10l-.7 9.1a1 1 0 0 1-1 .9H6.7a1 1 0 0 1-1-.9L5 7Z" />
+      <path strokeLinecap="round" d="M8 7V5.5A2 2 0 0 1 10 3.5v0a2 2 0 0 1 2 2V7" />
+    </svg>
+  );
+}
