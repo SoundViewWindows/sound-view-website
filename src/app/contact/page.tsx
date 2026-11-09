@@ -101,7 +101,7 @@ export default function ContactPage() {
                 Monday through Friday: 8:00 AM to 4:30 PM
               </p>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                Saturday consultations available by appointment. Closed Sunday.
+                Closed Saturday and Sunday. Inquiries submitted over the weekend will be returned first thing Monday morning.
               </p>
             </article>
 

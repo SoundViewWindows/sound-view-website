@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Newsreader, Outfit } from "next/font/google";
+import { JsonLd } from "@/components/JsonLd";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${outfit.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <JsonLd />
         {children}
       </body>
     </html>

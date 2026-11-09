@@ -14,9 +14,8 @@ const directionsHref =
   "https://www.google.com/maps/dir/?api=1&destination=921+Elliott+Ave+W,+Seattle,+WA+98119";
 
 const hours = [
-  { day: "Monday through Friday", time: "8:00 AM to 5:00 PM" },
-  { day: "Saturday", time: "By Appointment" },
-  { day: "Sunday", time: "Closed" },
+  { day: "Monday through Friday", time: "8:00 AM to 4:30 PM" },
+  { day: "Saturday & Sunday", time: "Closed" },
 ];
 
 const features = [
@@ -136,6 +135,9 @@ export default function WestQueenAnneShowroomPage() {
                     </div>
                   ))}
                 </dl>
+                <p className="mt-2 text-xs font-medium text-slate-500">
+                  Showrooms and phone lines are closed on weekends and major holidays.
+                </p>
               </div>
 
               <div className="mt-8">

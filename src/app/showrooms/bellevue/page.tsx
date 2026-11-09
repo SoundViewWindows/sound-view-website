@@ -125,19 +125,24 @@ export default function BellevueShowroomPage() {
 
               <div className="mt-8">
                 <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Showroom Access
+                  Hours of Operation
                 </h2>
-                <div className="mt-2 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
-                  <ul className="space-y-1">
-                    <li>Monday through Friday: Open By Appointment</li>
-                    <li>Saturday: Open By Appointment</li>
-                    <li>Sunday: Closed</li>
-                  </ul>
-                  <p className="mt-2">
-                    Please book ahead online or call before arriving so our team
-                    can prepare your consultation materials.
-                  </p>
-                </div>
+                <dl className="mt-2 space-y-2 text-sm text-[#1D2C43]">
+                  <div className="flex flex-wrap justify-between gap-x-6 gap-y-1">
+                    <dt>Monday through Friday</dt>
+                    <dd className="font-medium">By appointment only</dd>
+                  </div>
+                  <div className="flex flex-wrap justify-between gap-x-6 gap-y-1">
+                    <dt>Saturday &amp; Sunday</dt>
+                    <dd className="font-medium">Closed</dd>
+                  </div>
+                </dl>
+                <p className="mt-2 text-sm leading-6 text-slate-700">
+                  Open Monday through Friday by appointment only. Closed weekends.
+                </p>
+                <p className="mt-2 text-xs font-medium text-slate-500">
+                  Showrooms and phone lines are closed on weekends and major holidays.
+                </p>
               </div>
 
               <div className="mt-8">
