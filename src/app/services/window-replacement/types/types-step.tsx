@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/Header";
+import { SelectionCard } from "@/components/SelectionCard";
 import { WindowStepNav } from "@/components/WindowStepNav";
 import {
   choiceLabel,
@@ -11,9 +11,6 @@ import {
   windowStepHref,
   windowStyles,
 } from "@/lib/window-funnel";
-
-const cardClass =
-  "group flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-xl transition-all duration-200 hover:-translate-y-1 hover:border-sky-400/80 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 export function TypesStep() {
   const searchParams = useSearchParams();
@@ -47,38 +44,19 @@ export function TypesStep() {
         <section>
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
             {windowStyles.map((style) => (
-              <Link
+              <SelectionCard
                 key={style.slug}
                 href={windowStepHref("manufacturers", {
                   material: materialSlug,
                   type: style.slug,
                 })}
-                className={cardClass}
-              >
-                <div className="relative h-52 w-full">
-                  <Image
-                    src={style.image}
-                    alt={style.alt}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <span className="flex flex-grow flex-col justify-between p-6">
-                  <span>
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[#0284C7]">
-                      {style.detail}
-                    </span>
-                    <span className="mb-2 mt-2 block text-xl font-bold text-white">
-                      {style.name}
-                    </span>
-                    <span className="block text-sm leading-6 text-[#94A3B8]">{style.body}</span>
-                  </span>
-                  <span className="mt-5 block w-full rounded-xl bg-[#38BDF8] px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-[#0B192C] transition-all group-hover:bg-sky-300 group-hover:shadow-lg group-hover:shadow-sky-500/25">
-                    Select This Style
-                  </span>
-                </span>
-              </Link>
+                image={style.image}
+                alt={style.alt}
+                title={style.name}
+                description={style.body}
+                detail={style.detail}
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              />
             ))}
           </div>
           <div className="mx-auto max-w-7xl px-4 py-10 text-center sm:px-6 lg:px-8">
