@@ -13,9 +13,16 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Sound View Window & Door",
+  title: "Sound View Window & Door | Seattle Window, Door & Glass Replacement",
   description:
-    "High-performance replacement windows, doors, and custom glass for Pacific Northwest homes in the Greater Seattle Area.",
+    "Premier Seattle window replacement, custom doors, frameless shower enclosures, and glass repair. Visit our showrooms in Lake City, West Queen Anne, and Bellevue.",
+  openGraph: {
+    title: "Sound View Window & Door | Seattle Window, Door & Glass Replacement",
+    description:
+      "Premier Seattle window replacement, custom doors, frameless shower enclosures, and glass repair. Visit our showrooms in Lake City, West Queen Anne, and Bellevue.",
+    type: "website",
+    locale: "en_US",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

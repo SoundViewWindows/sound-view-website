@@ -70,7 +70,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#FAF8F5] text-[#1B2A4A]">
-    <div className="flex min-h-screen flex-col lg:h-dvh lg:min-h-0 lg:overflow-hidden">
+    <div className="flex min-h-screen flex-col lg:min-h-dvh">
       <Header onServiceSelect={chooseService} />
 
       <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 py-4 sm:px-5 lg:min-h-0 lg:grid-cols-[minmax(0,1fr)_21rem] lg:px-5 lg:pb-3 lg:pt-6 xl:grid-cols-[minmax(0,1fr)_23rem]">
@@ -79,6 +79,9 @@ export default function Home() {
             <h1 className="font-serif text-4xl font-medium tracking-tight text-[#1B2A4A] lg:text-5xl">
               Sound View Window & Door
             </h1>
+            <p className="mt-1 text-sm font-medium tracking-wide text-[#1B2A4A]/70">
+              Seattle, Bellevue & Greater Puget Sound
+            </p>
             <p className="mt-2 max-w-2xl text-lg leading-snug text-[#1B2A4A]/80 lg:text-xl">
               Relaxed consultations, honest answers, and zero pressure to buy
             </p>
@@ -168,7 +171,7 @@ export default function Home() {
                 }
                 className="group flex min-h-0 cursor-pointer flex-col overflow-hidden rounded-xl border border-[#1B2A4A]/10 bg-white text-left shadow-[0_1px_2px_rgba(15,23,42,0.05)] transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
               >
-                <span className="relative m-2.5 mb-0 block aspect-[16/10] overflow-hidden rounded-lg bg-[#F4EFEA] lg:aspect-auto lg:h-[120px]">
+                <span className="relative m-2.5 mb-0 block h-44 overflow-hidden rounded-lg bg-[#F4EFEA] sm:h-48 md:h-52">
                   <Image
                     src={service.image}
                     alt={service.imageAlt}
@@ -178,15 +181,36 @@ export default function Home() {
                   />
                 </span>
                 <span className="flex shrink-0 flex-col p-2.5">
-                  <span className="font-serif text-sm font-medium leading-tight tracking-tight text-[#0F172A] transition-colors duration-200 group-hover:text-[#1B2A4A]">
+                  <h3 className="font-serif text-sm font-medium leading-tight tracking-tight text-[#0F172A] transition-colors duration-200 group-hover:text-[#1B2A4A]">
                     {service.title}
-                  </span>
-                  <span className="mt-1 line-clamp-2 text-xs leading-tight text-[#1B2A4A]/80">
+                  </h3>
+                  <p className="mt-1 line-clamp-2 text-xs leading-tight text-[#1B2A4A]/80">
                     {service.summary}
+                  </p>
+                  <p className="mt-2 text-xs font-medium text-slate-500">{service.keywords}</p>
+                  <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#1B2A4A] hover:underline">
+                    Explore Options →
                   </span>
                 </span>
               </Link>
             ))}
+          </section>
+          <section
+            aria-label="Company credentials"
+            className="mt-4 grid grid-cols-1 gap-3 rounded-xl border border-slate-200/80 bg-slate-50/80 p-4 text-center sm:grid-cols-3 sm:text-left lg:mt-auto"
+          >
+            <div>
+              <p className="text-sm font-semibold text-[#1B2A4A]">3 Puget Sound Showrooms</p>
+              <p className="mt-1 text-xs text-slate-500">Lake City • Queen Anne • Bellevue</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-[#1B2A4A]">Authorized Factory Dealer</p>
+              <p className="mt-1 text-xs text-slate-500">Andersen • Milgard • Ply Gem</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-[#1B2A4A]">Local Craftsmanship</p>
+              <p className="mt-1 text-xs text-slate-500">WA Licensed, Bonded & Insured</p>
+            </div>
           </section>
         </div>
 

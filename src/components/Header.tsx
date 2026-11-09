@@ -45,6 +45,7 @@ const navigation: NavEntry[] = [
         label: "Energy Rebates for Windows & Doors",
         href: "/energy-rebates",
       },
+      { label: "Blog & Guides", href: "/blog" },
     ],
   },
   { kind: "link", label: "Portfolio", href: "/portfolio" },
@@ -229,6 +230,13 @@ export function Header({ onServiceSelect }: HeaderProps) {
                 </div>
               ),
             )}
+            <Link
+              href="/blog"
+              onClick={() => setMobileOpen(false)}
+              className={`border-b border-[#1B2A4A]/10 px-2 py-3 text-sm font-medium uppercase tracking-wide text-[#1B2A4A] ${focusRing}`}
+            >
+              Blog
+            </Link>
             <a
               href={BOOKING_URL}
               target="_blank"
