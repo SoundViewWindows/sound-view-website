@@ -162,7 +162,7 @@ export default function AboutPage() {
                   <p className="mt-3 text-sm leading-6 text-slate-300">{room.address}</p>
                   <a
                     href={room.phoneHref}
-                    className={`mt-2 w-fit text-sm font-medium text-white underline-offset-4 hover:underline ${focusRing}`}
+                    className={`mt-2 w-fit text-sm font-semibold text-sky-300 underline-offset-4 hover:text-sky-200 hover:underline ${focusRing}`}
                   >
                     {room.phone}
                   </a>

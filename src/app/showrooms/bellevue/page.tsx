@@ -151,7 +151,7 @@ export default function BellevueShowroomPage() {
                 </h2>
                 <a
                   href="tel:4254173005"
-                  className={`text-lg font-bold text-white underline-offset-4 hover:underline ${focusRing}`}
+                  className={`text-lg font-bold text-sky-300 underline-offset-4 hover:text-sky-200 hover:underline ${focusRing}`}
                 >
                   (425) 417-3005
                 </a>
