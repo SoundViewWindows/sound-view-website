@@ -174,9 +174,11 @@ export function QuoteRequestForm({
           className={inputClass(Boolean(errors.projectType))}
           aria-invalid={Boolean(errors.projectType)}
         >
-          <option value="">Select a service</option>
+          <option value="" className="bg-white text-[#0B192C]">
+            Select a service
+          </option>
           {services.map((service) => (
-            <option key={service.id} value={service.id}>
+            <option key={service.id} value={service.id} className="bg-white text-[#0B192C]">
               {service.title}
             </option>
           ))}
@@ -270,9 +272,9 @@ function Field({
 
 function inputClass(invalid: boolean, fixedHeight = true) {
   return [
-    fixedHeight ? "h-9" : "h-auto",
-    "w-full rounded-lg border bg-[#132238] px-3 py-1.5 text-xs font-normal text-slate-100 outline-none transition",
-    "focus:border-sky-400 focus:ring-2 focus:ring-sky-400",
-    invalid ? "border-[#8C3A32]" : "border-slate-700",
+    fixedHeight ? "h-8 sm:h-9" : "h-auto",
+    "w-full rounded-lg border !bg-white px-3 py-1.5 text-xs font-medium text-[#0B192C] scheme-light placeholder:text-slate-400",
+    "focus:!bg-white focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400",
+    invalid ? "border-[#8C3A32]" : "border-slate-200",
   ].join(" ");
 }
