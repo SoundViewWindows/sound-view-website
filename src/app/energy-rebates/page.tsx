@@ -84,7 +84,7 @@ export default function EnergyRebatesPage() {
               </li>
             </ol>
           </nav>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
             Local Utility Incentives
           </p>
           <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
@@ -108,7 +108,7 @@ export default function EnergyRebatesPage() {
               className={`group flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8 ${focusRing}`}
             >
               <div>
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
                   {provider.tagline}
                 </p>
                 <h2 className="mb-3 text-2xl font-bold text-white transition-colors group-hover:text-slate-100">
@@ -116,7 +116,7 @@ export default function EnergyRebatesPage() {
                 </h2>
                 <p className="text-sm leading-relaxed text-slate-300">{provider.description}</p>
               </div>
-              <span className="mt-8 inline-flex items-center justify-center gap-2 self-start rounded-lg bg-[#1D2C43] px-5 py-3 text-sm font-medium text-white transition-colors group-hover:bg-sky-300">
+              <span className="mt-8 inline-flex items-center justify-center gap-2 self-start rounded-lg bg-[#38BDF8] px-5 py-3 text-sm font-medium text-[#0B192C] transition-colors group-hover:bg-sky-300">
                 {provider.cta}
                 <ExternalLinkIcon />
               </span>
@@ -147,12 +147,12 @@ export default function EnergyRebatesPage() {
           <div className="rounded-2xl border border-slate-700/80 bg-[#132238] p-8 text-center shadow-sm sm:p-10">
             <span
               aria-hidden="true"
-              className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#1D2C43] text-lg font-bold text-white"
+              className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#38BDF8] text-lg font-bold text-[#0B192C]"
             >
               i
             </span>
             <h2 className="mb-2 text-2xl font-bold text-white">Please Confirm Program Details</h2>
-            <span aria-hidden="true" className="mx-auto mb-6 block h-0.5 w-12 bg-[#1D2C43]" />
+            <span aria-hidden="true" className="mx-auto mb-6 block h-0.5 w-12 bg-[#38BDF8]" />
             <p className="mx-auto max-w-3xl text-sm leading-relaxed text-slate-300">
               Rebate availability, eligibility requirements, incentive amounts, and
               application deadlines can change. Programs may require specific

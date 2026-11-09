@@ -201,7 +201,7 @@ export function QuoteRequestForm({
             errors.media ? "border-[#8C3A32]" : "border-white/25"
           }`}
         >
-          <span className="shrink-0 rounded-md bg-[#132238] px-2.5 py-1 text-[11px] font-semibold text-[#0B192C]">
+          <span className="shrink-0 rounded-md bg-white px-2.5 py-1 text-[11px] font-semibold text-[#0B192C]">
             Choose file
           </span>
           <span className="min-w-0 flex-1 truncate text-xs font-medium text-slate-200">
@@ -231,7 +231,7 @@ export function QuoteRequestForm({
         type="submit"
         disabled={isSubmitting}
         aria-busy={isSubmitting}
-        className="flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#38BDF8] py-2.5 text-sm font-bold uppercase tracking-wider text-[#0B192C] shadow-md shadow-sky-500/20 transition-all duration-150 hover:bg-sky-300 hover:shadow-sky-400/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-70 sm:py-3"
+        className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-[#38BDF8] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] shadow-md shadow-sky-500/20 transition-all hover:bg-sky-300 hover:shadow-lg hover:shadow-sky-500/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-70 sm:py-3"
       >
         {isSubmitting ? "Submitting" : "Submit Quote Request"}
         {isSubmitting ? null : (
@@ -260,7 +260,7 @@ function Field({
       </span>
       {children}
       {error ? (
-        <span id={`${id}-error`} role="alert" className="font-normal text-[#8C3A32]">
+        <span id={`${id}-error`} role="alert" className="font-normal text-red-300">
           {error}
         </span>
       ) : null}

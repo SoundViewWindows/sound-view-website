@@ -81,7 +81,7 @@ export default function Home() {
             <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-slate-400 sm:text-sm">
               Seattle, Bellevue & Greater Puget Sound
             </p>
-            <h1 className="mb-1.5 text-3xl font-bold tracking-tight text-white lg:text-4xl">
+            <h1 className="mb-1.5 text-3xl font-extrabold tracking-tight text-white lg:text-4xl">
               Sound View Window & Door
             </h1>
             <p className="mb-4 max-w-2xl text-sm text-slate-300">

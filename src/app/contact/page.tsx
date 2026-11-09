@@ -38,7 +38,7 @@ export default function ContactPage() {
             </ol>
           </nav>
 
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
             Connect with our team
           </p>
           <h1 className="mb-4 text-4xl font-bold text-white lg:text-5xl">
@@ -135,7 +135,7 @@ export default function ContactPage() {
                 <Link
                   key={showroom.href}
                   href={showroom.href}
-                  className={`flex items-center gap-2 rounded-xl border-2 border-[#1D2C43] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#1D2C43] hover:text-white ${focusRing}`}
+                  className={`flex items-center gap-2 rounded-xl border-2 border-sky-400 px-6 py-3 font-semibold text-sky-300 transition-colors hover:bg-[#38BDF8] hover:text-[#0B192C] ${focusRing}`}
                 >
                   <MapPinIcon />
                   {showroom.label}

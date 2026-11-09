@@ -109,7 +109,7 @@ export function QuoteThankYou({
           href={offer.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-4 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-sky-300"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#38BDF8] px-4 py-3 font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-sky-300"
         >
           {offer.button}
           <ExternalLinkIcon />
@@ -118,7 +118,7 @@ export function QuoteThankYou({
       <button
         type="button"
         onClick={onReset}
-        className="text-sm font-medium text-slate-300 underline decoration-[#1D2C43]/25 underline-offset-4 transition-colors hover:text-white"
+        className="text-sm font-medium text-slate-300 underline decoration-sky-400/40 underline-offset-4 transition-colors hover:text-white"
       >
         Submit another project request
       </button>

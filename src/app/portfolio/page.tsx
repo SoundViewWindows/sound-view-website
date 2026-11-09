@@ -72,7 +72,7 @@ export default function PortfolioPage() {
             </ol>
           </nav>
 
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
             Proven Pacific Northwest Craftsmanship
           </p>
           <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight lg:text-5xl">
@@ -161,9 +161,9 @@ export default function PortfolioPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto mb-16 max-w-5xl rounded-3xl bg-[#1D2C43] p-8 text-center text-white shadow-lg sm:p-12">
-            <h2 className="text-3xl font-bold">Ready to Upgrade Your Home Openings?</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85">
+          <div className="mx-auto mb-16 max-w-5xl rounded-3xl border border-slate-700/80 bg-[#11223A] p-8 text-center shadow-lg sm:p-12">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white">Ready to Upgrade Your Home Openings?</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-300">
               Get upfront pricing and honest guidance on your window, door, or
               glass project from local specialists who take pride in every
               install.
@@ -171,7 +171,7 @@ export default function PortfolioPage() {
             <div className="mt-6 flex flex-wrap justify-center gap-4">
               <Link
                 href="/services/window-replacement/materials"
-                className={`rounded-lg bg-[#132238] px-6 py-3 font-semibold text-white transition-colors hover:bg-slate-100 ${focusRing}`}
+                className={`rounded-xl bg-[#38BDF8] px-6 py-3 font-extrabold uppercase tracking-wide text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
               >
                 Start Your Window Estimate
               </Link>

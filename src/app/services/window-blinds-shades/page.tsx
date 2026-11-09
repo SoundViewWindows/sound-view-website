@@ -71,7 +71,7 @@ export default function WindowBlindsShadesPage() {
               </li>
             </ol>
           </nav>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
             CUSTOM WINDOW TREATMENTS
           </p>
           <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
@@ -87,7 +87,7 @@ export default function WindowBlindsShadesPage() {
               href={shopHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
             >
               <ShoppingBagIcon />
               Shop Window Treatments Online
@@ -152,7 +152,7 @@ export default function WindowBlindsShadesPage() {
               href={shopHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#132238] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#132238] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F7F5F0] lg:mt-0"
+              className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#38BDF8] px-6 py-3 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] lg:mt-0"
             >
               Visit Our Window Treatments Shop
               <ExternalLinkIcon />

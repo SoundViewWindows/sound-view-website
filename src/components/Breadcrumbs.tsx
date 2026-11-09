@@ -8,14 +8,14 @@ export type Crumb = {
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
     <nav aria-label="Breadcrumb">
-      <ol className="flex flex-wrap items-center gap-2 text-sm text-slate-300">
+      <ol className="flex flex-wrap items-center gap-2 text-sm text-slate-400">
         {items.map((item, index) => (
           <li key={item.label} className="flex items-center gap-2">
             {index > 0 ? <span aria-hidden="true">/</span> : null}
             {item.href ? (
               <Link
                 href={item.href}
-                className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                className="rounded-sm text-slate-400 hover:text-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 {item.label}
               </Link>

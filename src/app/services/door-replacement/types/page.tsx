@@ -26,7 +26,7 @@ export default function DoorTypesPage() {
               <Link
                 key={style.slug}
                 href={`/services/door-replacement/materials?type=${style.slug}`}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-xl transition-all duration-200 hover:-translate-y-1 hover:border-sky-400/80 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 <div className="relative h-52 w-full">
                   <Image
@@ -39,7 +39,7 @@ export default function DoorTypesPage() {
                 </div>
                 <span className="flex flex-grow flex-col justify-between p-6">
                   <span>
-                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                    <span className="text-xs font-bold uppercase tracking-wider text-sky-300">
                       {style.detail}
                     </span>
                     <span className="mb-2 mt-2 block text-xl font-bold text-white">
@@ -47,7 +47,7 @@ export default function DoorTypesPage() {
                     </span>
                     <span className="block text-sm leading-6 text-slate-300">{style.body}</span>
                   </span>
-                  <span className="mt-5 block w-full rounded-lg bg-[#1D2C43] px-4 py-2.5 text-center text-sm font-medium text-white transition-colors group-hover:bg-sky-300">
+                  <span className="mt-5 block w-full rounded-xl bg-[#38BDF8] px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-[#0B192C] transition-all group-hover:bg-sky-300 group-hover:shadow-lg group-hover:shadow-sky-500/25">
                     Select This Style
                   </span>
                 </span>
@@ -57,7 +57,7 @@ export default function DoorTypesPage() {
           <div className="mx-auto max-w-7xl px-4 py-10 text-center sm:px-6 lg:px-8">
             <Link
               href="/services/door-replacement/materials?type=undecided"
-              className="inline-flex rounded-full border border-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#132238] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+              className="inline-flex rounded-full border border-white px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#38BDF8] hover:text-[#0B192C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
             >
               Not sure yet? Skip to Materials
             </Link>

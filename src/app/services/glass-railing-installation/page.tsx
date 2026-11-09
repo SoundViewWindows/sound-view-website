@@ -52,7 +52,7 @@ export default function GlassRailingPage() {
                   </li>
                 </ol>
               </nav>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
                 Architectural Glass Systems
               </p>
               <h1 className="mb-4 max-w-full text-4xl font-bold leading-tight text-white lg:text-5xl">
@@ -68,7 +68,7 @@ export default function GlassRailingPage() {
                   href="https://sound-view-window-door.myshopify.com/collections/shower-glass-hardware"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                  className="flex items-center gap-2 rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                 >
                   <BagIcon />
                   Shop Railing Hardware Online
@@ -89,7 +89,7 @@ export default function GlassRailingPage() {
             {highlights.map((item) => (
               <article
                 key={item.title}
-                className="rounded-xl border border-slate-100 bg-[#132238] p-6 shadow-sm"
+                className="rounded-xl border border-slate-700/70 bg-[#11223A] p-6 shadow-sm"
               >
                 <h2 className="text-2xl text-white">{item.title}</h2>
                 <p className="mt-3 text-sm leading-6 text-slate-300">{item.body}</p>

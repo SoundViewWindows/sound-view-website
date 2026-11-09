@@ -13,7 +13,7 @@ import {
 } from "@/lib/window-funnel";
 
 const cardClass =
-  "group flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#38BDF8] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
+  "group flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-xl transition-all duration-200 hover:-translate-y-1 hover:border-sky-400/80 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 export function ManufacturersStep() {
   const searchParams = useSearchParams();
@@ -71,7 +71,7 @@ export function ManufacturersStep() {
                 </span>
                 <span className="flex flex-grow flex-col justify-between p-6">
                   <span className="block text-sm leading-6 text-[#94A3B8]">{brand.body}</span>
-                  <span className="mt-5 block w-full rounded-lg bg-[#0B192C] px-4 py-2.5 text-center text-sm font-medium text-white transition-colors group-hover:bg-sky-300">
+                  <span className="mt-5 block w-full rounded-xl bg-[#38BDF8] px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-[#0B192C] transition-all group-hover:bg-sky-300 group-hover:shadow-lg group-hover:shadow-sky-500/25">
                     {brand.slug === "recommend" ? "Let an Expert Recommend" : "Select This Manufacturer"}
                   </span>
                 </span>

@@ -50,7 +50,7 @@ export function BlogIndex({
           </ol>
         </nav>
 
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+        <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
           Pacific Northwest Homeowner Guides
         </p>
         <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
@@ -77,8 +77,8 @@ export function BlogIndex({
                 onClick={() => setFilter(item)}
                 className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${focusRing} ${
                   active
-                    ? "border-[#1D2C43] bg-[#1D2C43] text-[#FFFFFF]"
-                    : "border-slate-700 bg-[#132238] text-white hover:border-[#1D2C43]/40 hover:bg-[#132238]"
+                    ? "border-sky-400 bg-sky-400 text-[#0B192C]"
+                    : "border-slate-700 bg-[#132238] text-white hover:border-sky-400/70"
                 }`}
               >
                 {item}
@@ -112,7 +112,7 @@ export function BlogIndex({
               <p className="mt-4 text-base leading-relaxed text-slate-300 sm:text-lg">
                 {featured.excerpt}
               </p>
-              <span className="mt-8 inline-flex w-fit items-center justify-center rounded-lg bg-[#1D2C43] px-5 py-3 text-sm font-medium text-white transition-colors group-hover:bg-sky-300">
+              <span className="mt-8 inline-flex w-fit items-center justify-center rounded-lg bg-[#38BDF8] px-5 py-3 text-sm font-medium text-[#0B192C] transition-colors group-hover:bg-sky-300">
                 Read Guide
               </span>
             </div>

@@ -89,12 +89,12 @@ async function Article({
         ) : null}
 
         <div
-          className="prose prose-lg max-w-none leading-relaxed text-slate-300 prose-headings:prose-headings:font-bold prose-headings:text-white prose-a:text-white prose-img:rounded-2xl"
+          className="prose prose-lg max-w-none leading-relaxed text-slate-300 prose-invert prose-headings:font-sans prose-headings:font-bold prose-headings:text-white prose-a:text-white prose-img:rounded-2xl"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
         <aside className="mt-12 rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <p className="text-xs font-bold uppercase tracking-wider text-sky-300">
             Local team
           </p>
           <h2 className="mt-2 text-2xl font-bold text-white">
@@ -107,7 +107,7 @@ async function Article({
           </p>
           <Link
             href="/contact"
-            className={`mt-5 inline-flex text-sm font-medium text-white underline decoration-[#1D2C43]/30 underline-offset-4 hover:decoration-[#1D2C43] ${focusRing}`}
+            className={`mt-5 inline-flex text-sm font-medium text-white underline decoration-sky-400/40 underline-offset-4 hover:decoration-sky-300 ${focusRing}`}
           >
             Contact the team
           </Link>
@@ -192,10 +192,10 @@ function ArticleFallback() {
   return (
     <main>
       <div className="mx-auto max-w-4xl animate-pulse px-4 py-12 sm:px-6">
-        <div className="mb-6 h-4 w-48 rounded bg-[#1D2C43]/10" />
-        <div className="mb-4 h-4 w-40 rounded bg-[#1D2C43]/10" />
-        <div className="mb-8 h-12 w-full max-w-xl rounded bg-[#1D2C43]/10" />
-        <div className="h-80 rounded-3xl bg-[#1D2C43]/10 sm:h-96" />
+        <div className="mb-6 h-4 w-48 rounded bg-white/10" />
+        <div className="mb-4 h-4 w-40 rounded bg-white/10" />
+        <div className="mb-8 h-12 w-full max-w-xl rounded bg-white/10" />
+        <div className="h-80 rounded-3xl bg-white/10 sm:h-96" />
       </div>
     </main>
   );

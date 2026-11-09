@@ -16,7 +16,7 @@ export function RequestInstallationButton() {
     <a
       href="#railing-install"
       onClick={scrollToRequest}
-      className="flex items-center gap-2 rounded-lg border border-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#132238] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+      className="flex items-center gap-2 rounded-lg border border-sky-400/70 px-6 py-3 text-sm font-medium text-sky-300 transition-colors hover:bg-sky-400/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
     >
       Request Professional Installation
     </a>
@@ -175,7 +175,7 @@ export function GlassRailingRequest() {
           </div>
           <button
             type="submit"
-            className="w-full rounded-lg bg-[#1D2C43] py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+            className="w-full rounded-xl bg-[#38BDF8] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] shadow-md shadow-sky-500/20 transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
           >
             Request Professional Installation
           </button>
@@ -196,16 +196,16 @@ type FieldErrors = {
 
 function FieldError({ message }: { message: string }) {
   return (
-    <span role="alert" className="mt-1 block text-xs font-normal text-[#8C3A32]">
+    <span role="alert" className="mt-1 block text-xs font-normal text-red-300">
       {message}
     </span>
   );
 }
 
-const labelClass = "mb-1 block text-xs font-semibold text-slate-300";
+const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-white";
 
 const fieldClass =
-  "w-full px-3 py-2 text-sm bg-[#132238] border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400";
+  "w-full rounded-lg border border-slate-600 bg-white px-3 py-2 text-sm text-[#0B192C] placeholder:text-slate-500 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400";
 
 function inputClass(invalid: boolean) {
   return invalid ? `${fieldClass} border-[#8C3A32]` : fieldClass;

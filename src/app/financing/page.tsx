@@ -43,7 +43,7 @@ export default function FinancingPage() {
               </li>
             </ol>
           </nav>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
             Payment Options & Plans
           </p>
           <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
@@ -59,7 +59,7 @@ export default function FinancingPage() {
             href={synchronyHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
           >
             Apply for Financing
             <ExternalLinkIcon />
@@ -93,7 +93,7 @@ export default function FinancingPage() {
                 href={synchronyHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-semibold tracking-wide text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 APPLY FOR FINANCING
                 <ExternalLinkIcon />
@@ -205,7 +205,7 @@ export default function FinancingPage() {
               </p>
               <Link
                 href="/contact"
-                className="mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                className="mt-6 inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-semibold tracking-wide text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 CONTACT SOUND VIEW
               </Link>

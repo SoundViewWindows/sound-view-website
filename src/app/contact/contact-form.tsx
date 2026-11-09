@@ -179,7 +179,7 @@ export function ContactForm() {
 
       <button
         type="submit"
-        className="w-full rounded-lg bg-[#1D2C43] py-3 font-medium text-white transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+        className="w-full rounded-xl bg-[#38BDF8] py-3.5 font-extrabold uppercase tracking-wide text-[#0B192C] shadow-md shadow-sky-500/20 transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
       >
         Submit Message
       </button>
@@ -211,7 +211,7 @@ function Field({
       </span>
       {children}
       {error ? (
-        <span id={`${id}-error`} role="alert" className="text-xs font-normal text-[#8C3A32]">
+        <span id={`${id}-error`} role="alert" className="text-xs font-normal text-red-300">
           {error}
         </span>
       ) : null}

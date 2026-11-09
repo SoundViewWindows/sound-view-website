@@ -60,7 +60,7 @@ export default function LakeCityShowroomPage() {
             </ol>
           </nav>
 
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
             North Seattle Flagship Showroom
           </p>
           <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
@@ -78,13 +78,13 @@ export default function LakeCityShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
+              className={`rounded-lg bg-[#38BDF8] px-6 py-3 font-medium text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Book a Showroom Visit
             </a>
             <a
               href="tel:2065723411"
-              className={`flex items-center gap-2 rounded-lg border border-slate-300 bg-[#132238] px-6 py-3 font-medium text-slate-800 transition-colors hover:bg-slate-50 ${focusRing}`}
+              className={`flex items-center gap-2 rounded-lg border border-sky-400/70 bg-[#132238] px-6 py-3 font-semibold text-sky-300 transition-colors hover:bg-sky-400/10 ${focusRing}`}
             >
               <PhoneIcon />
               Call (206) 572-3411
@@ -202,7 +202,7 @@ export default function LakeCityShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
+              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3 font-medium text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Book an Appointment
             </a>

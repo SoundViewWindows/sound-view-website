@@ -78,7 +78,7 @@ export default function AboutPage() {
             </ol>
           </nav>
 
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
             Local Pacific Northwest Craftsmanship
           </p>
           <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
@@ -94,7 +94,7 @@ export default function AboutPage() {
           <div className="mt-6 flex flex-wrap gap-4">
             <a
               href="#showrooms"
-              className={`inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
+              className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Explore Our Showrooms
             </a>
@@ -102,7 +102,7 @@ export default function AboutPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
+              className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Book Appointment
             </a>
@@ -120,7 +120,7 @@ export default function AboutPage() {
             >
               The Sound View Approach
             </h2>
-            <div className="mx-auto mb-12 h-1 w-12 rounded-full bg-[#1D2C43] sm:mb-16" aria-hidden="true" />
+            <div className="mx-auto mb-12 h-1 w-12 rounded-full bg-[#38BDF8] sm:mb-16" aria-hidden="true" />
           </div>
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
             {workSystem.map((item) => {
@@ -141,7 +141,7 @@ export default function AboutPage() {
 
         <section id="showrooms" className="scroll-mt-8 border-t border-slate-700">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
+            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
               Visit in person
             </p>
             <h2 className="mb-4 max-w-3xl text-3xl font-bold text-white sm:text-4xl">
@@ -169,7 +169,7 @@ export default function AboutPage() {
                   <p className="mt-3 text-sm leading-6 text-slate-300">{room.note}</p>
                   <Link
                     href={room.href}
-                    className={`mt-6 inline-flex w-fit items-center justify-center rounded-lg bg-[#1D2C43] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-sky-300 ${focusRing}`}
+                    className={`mt-6 inline-flex w-fit items-center justify-center rounded-lg bg-[#38BDF8] px-5 py-2.5 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
                   >
                     View showroom
                   </Link>
@@ -179,7 +179,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="bg-[#1D2C43]">
+        <section className="bg-[#11223A]">
           <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
             <h2 className="text-3xl font-bold text-white sm:text-4xl">
               Ready for a showroom visit?
@@ -192,7 +192,7 @@ export default function AboutPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-8 inline-flex items-center justify-center rounded-lg bg-[#132238] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#132238] ${focusRing}`}
+              className={`mt-8 inline-flex items-center justify-center rounded-xl bg-[#38BDF8] px-6 py-3 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Book Appointment
             </a>
