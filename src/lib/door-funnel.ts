@@ -98,8 +98,8 @@ export const doorMaterials: DoorChoice[] = [
     name: "Composite",
     option: "Composite",
     detail: "Stable Hybrid",
-    image: "/doors/steel.jpg",
-    alt: "Solid composite door panel with a smooth face",
+    image: "/images/materials/composite-doors.jpg",
+    alt: "Modern black composite entry door with divided glass lites and matching sidelights",
     body: "A blended door material that resists moisture and holds its finish with very little maintenance.",
   },
 ];
