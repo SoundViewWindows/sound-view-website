@@ -212,7 +212,7 @@ export function WindowQuoteBox({
                     className={`w-full rounded-full px-2 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
                       selected
                         ? "bg-[#38BDF8] text-[#0B192C]"
-                        : "bg-[#132238] text-white hover:bg-[#132238]"
+                        : "border border-slate-600 bg-[#0B192C] text-white hover:border-sky-400"
                     }`}
                   >
                     {count}
