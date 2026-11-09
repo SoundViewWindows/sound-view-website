@@ -12,12 +12,15 @@ export const windowPreferences = {
     "Thermally Broken Aluminum",
   ],
   styles: [
-    "Casement",
-    "Double-Hung & Single-Hung",
-    "Horizontal Sliding",
-    "Picture & Architectural Direct-Set",
-    "Bay & Bow",
-    "Awning",
+    "Casement Windows",
+    "Double-Hung Window",
+    "Single-Hung Windows",
+    "Awning Windows",
+    "Sliding Windows",
+    "Picture Windows",
+    "Bay Windows",
+    "Bow Windows",
+    "Custom Windows",
   ],
 };
 

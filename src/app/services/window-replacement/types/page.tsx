@@ -1,106 +1,191 @@
-import type { Metadata } from "next";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { Header } from "@/components/Header";
 import { WindowQuoteBox } from "@/components/WindowQuoteBox";
-
-export const metadata: Metadata = {
-  title: "Window Styles & Operating Types | Sound View Window & Door",
-  description:
-    "Casement, hung, sliding, picture, bay, and awning windows for Greater Seattle homes.",
-};
 
 const types = [
   {
     title: "Casement Windows",
-    body: "A side hinge opens the full sash for strong ventilation. The compression seal closes tightly against rain and wind.",
-    icon: "casement",
+    detail: "Maximum Ventilation",
+    image: "/types/casement.jpg",
+    alt: "Open casement windows looking onto a sunny courtyard",
+    body: "Hinged on the side and cranks outward. Compression seals create an airtight barrier against Pacific Northwest rain and wind.",
   },
   {
-    title: "Double-Hung & Single-Hung",
-    body: "A classic stacked sash. Tilt-in hardware lets you clean the glass from inside the room.",
-    icon: "hung",
+    title: "Double-Hung Window",
+    detail: "Classic Versatility",
+    image: "/types/double-hung.jpg",
+    alt: "Double-hung window with sashes that tilt in for cleaning",
+    body: "Both upper and lower sashes slide vertically and tilt inward for effortless interior glass cleaning.",
   },
   {
-    title: "Horizontal Sliding",
-    body: "Sashes glide sideways, which suits wide openings, hallways, and rooms where a swing would get in the way.",
-    icon: "slider",
-  },
-  {
-    title: "Picture & Architectural Direct-Set",
-    body: "Fixed glass with no operating hardware. These units keep the view clear and usually earn the best thermal ratings.",
-    icon: "picture",
-  },
-  {
-    title: "Bay & Bow Windows",
-    body: "A projection of several units that adds interior space and brings light in from more than one direction.",
-    icon: "bay",
+    title: "Single-Hung Windows",
+    detail: "Timeless Simplicity",
+    image: "/types/single-hung.jpg",
+    alt: "Single-hung window above a kitchen counter",
+    body: "A fixed top sash with an operable bottom sash. Clean lines, dependable performance, and cost-effective efficiency.",
   },
   {
     title: "Awning Windows",
-    body: "Hinged at the top so the sash opens out. You can vent a room and still keep Seattle drizzle off the sill.",
-    icon: "awning",
+    detail: "Rain-Ready Airflow",
+    image: "/types/awning.jpg",
+    alt: "Awning window opened outward above a garden and pool",
+    body: "Hinged at the top to swing outward from the bottom. Allows fresh ventilation even during light Seattle showers.",
   },
-] as const;
+  {
+    title: "Sliding Windows",
+    detail: "Effortless Glide",
+    image: "/types/sliding.jpg",
+    alt: "Wood-framed sliding window opened to a patio",
+    body: "Sashes glide smoothly horizontally along precision tracks. Ideal for wide openings, patios, and outdoor walkways.",
+  },
+  {
+    title: "Picture Windows",
+    detail: "Unobstructed Panoramas",
+    image: "/types/picture.jpg",
+    alt: "A row of picture windows looking out to the water",
+    body: "Non-operable direct-set glass that maximizes natural light, thermal performance, and beautiful Puget Sound views.",
+  },
+  {
+    title: "Bay Windows",
+    detail: "Dimensional Space",
+    image: "/types/bay.jpg",
+    alt: "Exterior bay window with a metal roof and stone base",
+    body: "Three-panel architectural projection that adds floor space, comfortable seating nooks, and multi-angle outdoor views.",
+  },
+  {
+    title: "Bow Windows",
+    detail: "Elegant Curves",
+    image: "/types/bow.jpg",
+    alt: "Curved bow window with a built-in window seat",
+    body: "Four to six gently angled window panes forming a soft curve that floods living rooms and dining areas with panoramic light.",
+  },
+  {
+    title: "Custom Windows",
+    detail: "Architectural Specialty",
+    image: "/types/custom.jpg",
+    alt: "Custom arched window with divided lites in a brick wall",
+    body: "Radius arches, geometric trapezoids, and bespoke direct-set frames crafted specifically to match unique home architecture.",
+  },
+];
 
 export default function WindowTypesPage() {
+  const [preference, setPreference] = useState("");
+
+  function requestStyle(title: string) {
+    setPreference(title);
+    document.getElementById("window-quote")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+    window.setTimeout(() => {
+      document.getElementById("window-quote-preference")?.focus();
+    }, 250);
+  }
+
   return (
     <div className="bg-[#FAF8F5] text-[#1B2A4A]">
-      <div className="flex min-h-screen flex-col lg:h-dvh lg:min-h-0 lg:overflow-hidden">
-        <Header />
-        <main className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col px-4 py-4 sm:px-5 lg:min-h-0 lg:px-5 lg:py-5">
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Services" },
-              { label: "Window Replacement", href: "/services/window-replacement" },
-              { label: "Types" },
-            ]}
-          />
-          <div className="mt-4 flex min-h-0 flex-1 flex-col gap-6 lg:flex-row lg:items-center">
-            <div className="min-w-0 flex-1">
-              <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#1B2A4A]/70">
-                Window Replacement
+      <Header />
+      <main>
+        <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="flex min-w-0 flex-col items-start lg:col-span-7">
+              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
+                <ol className="flex flex-wrap items-center gap-2">
+                  <li>
+                    <Link
+                      href="/"
+                      className="rounded-sm hover:text-[#1B2A4A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <span>Services</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <Link
+                      href="/services/window-replacement"
+                      className="rounded-sm hover:text-[#1B2A4A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                    >
+                      Window Replacement
+                    </Link>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <span aria-current="page">Window Types</span>
+                  </li>
+                </ol>
+              </nav>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Window Operating Styles
               </p>
-              <h1 className="mt-3 max-w-3xl font-serif text-4xl font-medium tracking-tight text-[#1B2A4A] lg:text-5xl">
+              <h1 className="mb-4 max-w-full font-serif text-3xl font-bold leading-tight text-[#1B2A4A] sm:text-4xl lg:text-5xl">
                 Window Styles & Operating Types
               </h1>
-              <p className="mt-4 max-w-2xl text-lg leading-8 text-[#1B2A4A]/85">
-                The right operating style depends on the room. We help you match
-                ventilation, cleaning, and the view for each opening in the house.
+              <p className="mb-6 max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
+                Explore operating styles and configurations tailored for Pacific
+                Northwest weather, natural light, and easy room ventilation.
               </p>
+              <Link
+                href="/services/window-replacement/materials"
+                className="inline-flex items-center gap-2 rounded-full border border-[#1B2A4A] px-6 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+              >
+                View Window Materials
+              </Link>
             </div>
-            <div className="w-full shrink-0 lg:max-h-full lg:w-96 lg:overflow-y-auto">
-              <WindowQuoteBox />
+            <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
+              <div className="w-full max-w-md">
+                <WindowQuoteBox preference={preference} onPreferenceChange={setPreference} />
+              </div>
             </div>
           </div>
-        </main>
-      </div>
-
-      <section className="border-t border-[#1B2A4A]/10 bg-[#F4EFEA]">
-        <div className="mx-auto grid max-w-[1440px] gap-5 px-4 py-16 sm:px-5 md:grid-cols-2 lg:grid-cols-3 lg:py-20">
-          {types.map((type) => (
-            <article key={type.title} className="rounded-2xl bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.05)]">
-              <WindowGlyph kind={type.icon} />
-              <h2 className="mt-4 font-serif text-2xl tracking-tight text-[#1B2A4A]">{type.title}</h2>
-              <p className="mt-3 text-sm leading-6 text-[#1B2A4A]/80">{type.body}</p>
-            </article>
-          ))}
         </div>
-      </section>
-    </div>
-  );
-}
 
-function WindowGlyph({ kind }: { kind: (typeof types)[number]["icon"] }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 64 48" className="h-12 w-16 text-[#1B2A4A]">
-      <rect x="2" y="2" width="60" height="44" rx="3" fill="#F4EFEA" stroke="currentColor" strokeWidth="2" />
-      {kind === "casement" ? <path d="M8 8h20v32H8zM32 24h22" fill="none" stroke="currentColor" strokeWidth="2" /> : null}
-      {kind === "hung" ? <path d="M8 24h48M32 8v32" fill="none" stroke="currentColor" strokeWidth="2" /> : null}
-      {kind === "slider" ? <path d="M32 8v32M14 24h12M40 24h12" fill="none" stroke="currentColor" strokeWidth="2" /> : null}
-      {kind === "picture" ? <rect x="12" y="10" width="40" height="28" fill="none" stroke="currentColor" strokeWidth="2" /> : null}
-      {kind === "bay" ? <path d="M8 40 20 8h24l12 32" fill="none" stroke="currentColor" strokeWidth="2" /> : null}
-      {kind === "awning" ? <path d="M8 14h48M8 14l24 18 24-18" fill="none" stroke="currentColor" strokeWidth="2" /> : null}
-    </svg>
+        <section>
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 pb-20 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
+            {types.map((type) => (
+              <article
+                key={type.title}
+                className="flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-200 hover:shadow-md"
+              >
+                <div className="relative h-52 w-full">
+                  <Image
+                    src={type.image}
+                    alt={type.alt}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-grow flex-col justify-between p-6">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                      {type.detail}
+                    </p>
+                    <h2 className="mb-2 mt-2 font-serif text-xl font-bold text-[#1B2A4A]">
+                      {type.title}
+                    </h2>
+                    <p className="text-sm leading-6 text-[#1B2A4A]/80">{type.body}</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => requestStyle(type.title)}
+                    className="mt-5 w-full rounded-lg border border-slate-300 px-4 py-2.5 text-center text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  >
+                    Request Quote for this Style
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
