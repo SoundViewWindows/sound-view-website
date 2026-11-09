@@ -26,7 +26,7 @@ const highlights = [
 
 export default function GlassRailingPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
@@ -37,7 +37,7 @@ export default function GlassRailingPage() {
                   <li>
                     <Link
                       href="/"
-                      className="rounded-sm hover:text-[#1B2A4A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                      className="rounded-sm hover:text-[#1D2C43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                     >
                       Home
                     </Link>
@@ -55,7 +55,7 @@ export default function GlassRailingPage() {
               <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
                 Architectural Glass Systems
               </p>
-              <h1 className="mb-4 max-w-full font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+              <h1 className="mb-4 max-w-full font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
                 Custom Glass Railings Engineered for Unobstructed Views
               </h1>
               <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -68,7 +68,7 @@ export default function GlassRailingPage() {
                   href="https://sound-view-window-door.myshopify.com/collections/shower-glass-hardware"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-lg bg-[#1B2A4A] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#15223C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="flex items-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                 >
                   <BagIcon />
                   Shop Railing Hardware Online
@@ -91,7 +91,7 @@ export default function GlassRailingPage() {
                 key={item.title}
                 className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm"
               >
-                <h2 className="font-serif text-2xl text-[#1B2A4A]">{item.title}</h2>
+                <h2 className="font-serif text-2xl text-[#1D2C43]">{item.title}</h2>
                 <p className="mt-3 text-sm leading-6 text-slate-700">{item.body}</p>
               </article>
             ))}

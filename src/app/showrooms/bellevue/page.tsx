@@ -32,18 +32,18 @@ const features = [
 ];
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
 
 export default function BellevueShowroomPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className={`rounded-sm hover:text-[#1B2A4A] ${focusRing}`}>
+                <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
                   Home
                 </Link>
               </li>
@@ -58,10 +58,10 @@ export default function BellevueShowroomPage() {
             </ol>
           </nav>
 
-          <p className="mb-3 inline-flex items-center rounded-full border border-amber-300/60 bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-900">
+          <p className="mb-3 inline-flex items-center rounded-full border border-[#94734D]/50 bg-[#EFEBE4] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#1D2C43]">
             Eastside Showroom (By Appointment Only)
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
             Visit Our Bellevue Showroom
           </h1>
           <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -76,7 +76,7 @@ export default function BellevueShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center rounded-lg bg-[#1B2A4A] px-6 py-3 font-medium text-white transition-colors hover:bg-[#15223C] ${focusRing}`}
+              className={`inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
             >
               Book a Showroom Visit
             </a>
@@ -91,7 +91,7 @@ export default function BellevueShowroomPage() {
               href={directionsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-[#1B2A4A] transition-colors hover:bg-white ${focusRing}`}
+              className={`inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-[#1D2C43] transition-colors hover:bg-white ${focusRing}`}
             >
               <MapPinIcon />
               Get Directions
@@ -114,7 +114,7 @@ export default function BellevueShowroomPage() {
                 <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Showroom Address
                 </h2>
-                <p className="text-lg font-bold text-[#1B2A4A]">
+                <p className="text-lg font-bold text-[#1D2C43]">
                   13555 NE Bel Red Rd Ste 207, Bellevue, WA 98005
                 </p>
                 <p className="mt-2 text-sm leading-6 text-slate-600">
@@ -146,7 +146,7 @@ export default function BellevueShowroomPage() {
                 </h2>
                 <a
                   href="tel:4254173005"
-                  className={`text-lg font-bold text-[#1B2A4A] underline-offset-4 hover:underline ${focusRing}`}
+                  className={`text-lg font-bold text-[#1D2C43] underline-offset-4 hover:underline ${focusRing}`}
                 >
                   (425) 417-3005
                 </a>
@@ -166,7 +166,7 @@ export default function BellevueShowroomPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-          <h2 className="mb-8 font-serif text-3xl font-bold text-[#1B2A4A] sm:text-4xl">
+          <h2 className="mb-8 font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
             What You Can Explore In Person
           </h2>
           <div className="grid gap-6 md:grid-cols-3">
@@ -175,7 +175,7 @@ export default function BellevueShowroomPage() {
                 key={feature.title}
                 className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8"
               >
-                <h3 className="mb-3 font-serif text-xl font-bold text-[#1B2A4A]">
+                <h3 className="mb-3 font-serif text-xl font-bold text-[#1D2C43]">
                   {feature.title}
                 </h3>
                 <p className="text-base leading-7 text-slate-700">{feature.body}</p>
@@ -186,7 +186,7 @@ export default function BellevueShowroomPage() {
 
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-10">
-            <h2 className="font-serif text-3xl font-bold text-[#1B2A4A] sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
               Reserve Your Private Showroom Consultation
             </h2>
             <p className="mt-4 max-w-3xl text-base leading-7 text-slate-700 sm:text-lg">
@@ -198,7 +198,7 @@ export default function BellevueShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1B2A4A] px-6 py-3 font-medium text-white transition-colors hover:bg-[#15223C] ${focusRing}`}
+              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
             >
               Book an Appointment
             </a>

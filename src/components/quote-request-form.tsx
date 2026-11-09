@@ -98,7 +98,7 @@ export function QuoteRequestForm({
   return (
     <form noValidate className="flex flex-col space-y-2.5" onSubmit={handleSubmit}>
       <div>
-        <h2 className="mb-0.5 font-serif text-xl font-bold text-[#1B2A4A]">
+        <h2 className="mb-0.5 font-serif text-xl font-bold text-[#1D2C43]">
           Request a Free Quote
         </h2>
         <p className="mb-3 text-xs text-slate-500">
@@ -197,11 +197,11 @@ export function QuoteRequestForm({
           accept="image/*,video/*"
           multiple
           onChange={(event) => setFiles(Array.from(event.target.files ?? []))}
-          className="block w-full text-xs text-[#1B2A4A] file:mr-3 file:rounded-full file:border-0 file:bg-[#F4EFEA] file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-[#1B2A4A] focus:outline-none"
+          className="block w-full text-xs text-[#1D2C43] file:mr-3 file:rounded-full file:border-0 file:bg-[#EFEBE4] file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-[#1D2C43] focus:outline-none"
           aria-invalid={Boolean(errors.media)}
         />
         {files.length > 0 ? (
-          <p className="text-xs text-[#1B2A4A]/70">
+          <p className="text-xs text-[#5D6875]">
             {files.length} file{files.length === 1 ? "" : "s"} selected
           </p>
         ) : null}
@@ -209,7 +209,7 @@ export function QuoteRequestForm({
 
       <button
         type="submit"
-        className="rounded-lg bg-[#1B2A4A] py-2.5 text-xs font-semibold uppercase tracking-wider text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+        className="rounded-lg bg-[#1D2C43] py-2.5 text-xs font-semibold uppercase tracking-wider text-[#FFFFFF] transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
       >
         Submit Quote Request
       </button>
@@ -229,7 +229,7 @@ function Field({
   children: ReactNode;
 }) {
   return (
-    <label htmlFor={id} className="flex flex-col gap-1 text-xs font-medium text-[#1B2A4A]">
+    <label htmlFor={id} className="flex flex-col gap-1 text-xs font-medium text-[#1D2C43]">
       {label}
       {children}
       {error ? (
@@ -244,8 +244,8 @@ function Field({
 function inputClass(invalid: boolean, fixedHeight = true) {
   return [
     fixedHeight ? "h-9" : "h-auto",
-    "w-full rounded-lg border bg-white px-3 py-1.5 text-xs font-normal text-[#0F172A] outline-none transition",
-    "focus:border-[#1B2A4A] focus:ring-2 focus:ring-[#1B2A4A]/20",
+    "w-full rounded-lg border bg-white px-3 py-1.5 text-xs font-normal text-[#28323D] outline-none transition",
+    "focus:border-[#1D2C43] focus:ring-2 focus:ring-[#1D2C43]/20",
     invalid ? "border-[#8C3A32]" : "border-slate-200",
   ].join(" ");
 }

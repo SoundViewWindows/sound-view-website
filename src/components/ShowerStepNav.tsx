@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const focusRing =
-  "rounded-sm hover:text-[#1B2A4A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]";
+  "rounded-sm hover:text-[#1D2C43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
 
 export function ShowerStepNav({
   current,

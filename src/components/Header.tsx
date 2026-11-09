@@ -66,7 +66,7 @@ const navigation: NavEntry[] = [
 ];
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
 
 type HeaderProps = {
   onServiceSelect?: (serviceId: string) => void;
@@ -108,7 +108,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
   }
 
   return (
-    <header className="relative z-40 shrink-0 border-b border-[#1B2A4A]/10 bg-[#FAF8F5]">
+    <header className="relative z-40 shrink-0 border-b border-[#DDE2E6] bg-[#F7F5F0]">
       <div className="mx-auto flex max-w-[1440px] items-center gap-2 px-4 py-2.5 sm:gap-3 sm:px-5">
         <Link
           href="/"
@@ -122,7 +122,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
             preload
             className="h-10 w-10 shrink-0 object-contain"
           />
-          <span className="font-serif text-[13px] leading-tight tracking-tight text-[#0F172A] sm:text-base">
+          <span className="font-serif text-[13px] leading-tight tracking-tight text-[#162433] sm:text-base">
             <span className="block">Sound View</span>
             <span className="block">Window & Door</span>
           </span>
@@ -134,7 +134,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
               <Link
                 key={entry.label}
                 href={entry.href}
-                className={`rounded-md px-2 py-2 text-[11px] font-medium uppercase tracking-wide text-[#1B2A4A] hover:bg-[#F3EFEA] xl:px-2.5 xl:text-xs ${focusRing}`}
+                className={`rounded-md px-2 py-2 text-[11px] font-medium uppercase tracking-wide text-[#1D2C43] hover:bg-[#EFEBE4] xl:px-2.5 xl:text-xs ${focusRing}`}
               >
                 {entry.label}
               </Link>
@@ -160,14 +160,14 @@ export function Header({ onServiceSelect }: HeaderProps) {
           href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className={`shrink-0 rounded-full bg-[#1B2A4A] px-3 py-2 text-xs font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] sm:px-4 sm:text-sm ${focusRing}`}
+          className={`shrink-0 rounded-full bg-[#1D2C43] px-3 py-2 text-xs font-medium text-[#FFFFFF] transition-colors hover:bg-[#162433] sm:px-4 sm:text-sm ${focusRing}`}
         >
           Book Appointment
         </a>
 
         <button
           type="button"
-          className={`inline-flex h-10 w-10 items-center justify-center rounded-md text-[#1B2A4A] hover:bg-[#F3EFEA] lg:hidden ${focusRing}`}
+          className={`inline-flex h-10 w-10 items-center justify-center rounded-md text-[#1D2C43] hover:bg-[#EFEBE4] lg:hidden ${focusRing}`}
           aria-expanded={mobileOpen}
           aria-controls={`${baseId}-mobile`}
           onClick={() => setMobileOpen((open) => !open)}
@@ -180,7 +180,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
       {mobileOpen ? (
         <div
           id={`${baseId}-mobile`}
-          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-[#1B2A4A]/10 bg-[#FAF8F5] shadow-lg lg:hidden"
+          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-[#DDE2E6] bg-[#F7F5F0] shadow-lg lg:hidden"
         >
           <nav aria-label="Mobile" className="mx-auto flex max-w-[1440px] flex-col px-4 py-2 sm:px-5">
             {navigation.map((entry) =>
@@ -189,15 +189,15 @@ export function Header({ onServiceSelect }: HeaderProps) {
                   key={entry.label}
                   href={entry.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`border-b border-[#1B2A4A]/10 px-2 py-3 text-sm font-medium uppercase tracking-wide text-[#1B2A4A] ${focusRing}`}
+                  className={`border-b border-[#DDE2E6] px-2 py-3 text-sm font-medium uppercase tracking-wide text-[#1D2C43] ${focusRing}`}
                 >
                   {entry.label}
                 </Link>
               ) : (
-                <div key={entry.label} className="border-b border-[#1B2A4A]/10">
+                <div key={entry.label} className="border-b border-[#DDE2E6]">
                   <button
                     type="button"
-                    className={`flex w-full items-center justify-between px-2 py-3 text-left text-sm font-medium uppercase tracking-wide text-[#1B2A4A] ${focusRing}`}
+                    className={`flex w-full items-center justify-between px-2 py-3 text-left text-sm font-medium uppercase tracking-wide text-[#1D2C43] ${focusRing}`}
                     aria-expanded={mobileSection === entry.label}
                     onClick={() =>
                       setMobileSection((current) =>
@@ -209,7 +209,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
                     <Chevron open={mobileSection === entry.label} />
                   </button>
                   {mobileSection === entry.label ? (
-                    <ul className="mb-2 border-t border-[#1B2A4A]/10">
+                    <ul className="mb-2 border-t border-[#DDE2E6]">
                       {entry.items.map((item) => (
                         <li key={item.href}>
                           <Link
@@ -219,7 +219,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
                                 ? selectService(event, item.serviceId)
                                 : setMobileOpen(false)
                             }
-                            className={`block px-4 py-3 text-sm text-[#1B2A4A] hover:bg-[#F3EFEA] ${focusRing}`}
+                            className={`block px-4 py-3 text-sm text-[#1D2C43] hover:bg-[#EFEBE4] ${focusRing}`}
                           >
                             {item.label}
                           </Link>
@@ -233,7 +233,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
             <Link
               href="/blog"
               onClick={() => setMobileOpen(false)}
-              className={`border-b border-[#1B2A4A]/10 px-2 py-3 text-sm font-medium uppercase tracking-wide text-[#1B2A4A] ${focusRing}`}
+              className={`border-b border-[#DDE2E6] px-2 py-3 text-sm font-medium uppercase tracking-wide text-[#1D2C43] ${focusRing}`}
             >
               Blog
             </Link>
@@ -242,7 +242,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
-              className={`my-3 inline-flex items-center justify-center rounded-full bg-[#1B2A4A] px-4 py-3 text-sm font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] ${focusRing}`}
+              className={`my-3 inline-flex items-center justify-center rounded-full bg-[#1D2C43] px-4 py-3 text-sm font-medium text-[#FFFFFF] transition-colors hover:bg-[#162433] ${focusRing}`}
             >
               Book Appointment
             </a>
@@ -285,7 +285,7 @@ function DesktopMenu({
     >
       <button
         type="button"
-        className={`flex items-center gap-1 rounded-md px-2 py-2 text-[11px] font-medium uppercase tracking-wide text-[#1B2A4A] hover:bg-[#F3EFEA] xl:px-2.5 xl:text-xs ${focusRing}`}
+        className={`flex items-center gap-1 rounded-md px-2 py-2 text-[11px] font-medium uppercase tracking-wide text-[#1D2C43] hover:bg-[#EFEBE4] xl:px-2.5 xl:text-xs ${focusRing}`}
         aria-expanded={open}
         aria-controls={menuId}
         onClick={(event) => {
@@ -298,15 +298,15 @@ function DesktopMenu({
       </button>
       {open ? (
         <div id={menuId} className="absolute left-0 top-full z-50 pt-2">
-          <ul className="min-w-64 rounded-xl border border-[#1B2A4A]/10 bg-[#FAF8F5] py-1 shadow-lg">
+          <ul className="min-w-64 rounded-xl border border-[#DDE2E6] bg-[#F7F5F0] py-1 shadow-lg">
             {items.map((item) => (
-              <li key={item.href} className="border-b border-[#1B2A4A]/10 last:border-b-0">
+              <li key={item.href} className="border-b border-[#DDE2E6] last:border-b-0">
                 <Link
                   href={item.href}
                   onClick={(event) =>
                     item.serviceId ? onServiceSelect(event, item.serviceId) : onClose()
                   }
-                  className={`block px-4 py-3 text-sm normal-case tracking-normal text-[#1B2A4A] hover:bg-[#F3EFEA] ${focusRing}`}
+                  className={`block px-4 py-3 text-sm normal-case tracking-normal text-[#1D2C43] hover:bg-[#EFEBE4] ${focusRing}`}
                 >
                   {item.label}
                 </Link>

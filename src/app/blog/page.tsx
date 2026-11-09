@@ -24,7 +24,7 @@ const cards: BlogCard[] = blogPosts.map(
 
 export default function BlogPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <BlogIndex posts={cards} categories={[...blogCategories]} />
     </div>

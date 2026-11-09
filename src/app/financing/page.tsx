@@ -19,7 +19,7 @@ const verificationItems = [
 
 export default function FinancingPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
@@ -28,7 +28,7 @@ export default function FinancingPage() {
               <li>
                 <Link
                   href="/"
-                  className="rounded-sm hover:text-[#1B2A4A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="rounded-sm hover:text-[#1D2C43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                 >
                   Home
                 </Link>
@@ -46,7 +46,7 @@ export default function FinancingPage() {
           <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
             Payment Options & Plans
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
             Flexible Financing for Your Pacific Northwest Home
           </h1>
           <p className="mb-8 max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -59,7 +59,7 @@ export default function FinancingPage() {
             href={synchronyHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1B2A4A] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
           >
             Apply for Financing
             <ExternalLinkIcon />
@@ -67,7 +67,7 @@ export default function FinancingPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <h2 className="mb-3 text-center font-serif text-3xl font-bold text-[#1B2A4A] sm:text-4xl">
+          <h2 className="mb-3 text-center font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
             Your Financing Checklist
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-center text-base text-slate-600 sm:text-lg">
@@ -93,7 +93,7 @@ export default function FinancingPage() {
                 href={synchronyHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#1B2A4A] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
               >
                 APPLY FOR FINANCING
                 <ExternalLinkIcon />
@@ -156,7 +156,7 @@ export default function FinancingPage() {
                 lender&apos;s secure portal. You can provide these to your rep via
                 phone or email.
               </p>
-              <p className="mt-5 rounded-xl border border-amber-200/80 bg-amber-50 px-4 py-3 text-sm leading-6 text-slate-800">
+              <p className="mt-5 rounded-xl border border-[#94734D]/40 bg-[#EFEBE4] px-4 py-3 text-sm leading-6 text-[#28323D]">
                 Important: You do NOT select your financing plan online during
                 the initial application. We process your plan selection on our
                 end during this final step.
@@ -173,15 +173,15 @@ export default function FinancingPage() {
           </div>
         </section>
 
-        <section className="border-t border-[#1B2A4A]/10 bg-[#F3EFEA]">
+        <section className="border-t border-[#DDE2E6] bg-[#EFEBE4]">
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-20">
             <div>
-              <h2 className="font-serif text-3xl font-bold text-[#1B2A4A] sm:text-4xl">
+              <h2 className="font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
                 Questions About Your Financing?
               </h2>
               <span
                 aria-hidden="true"
-                className="mt-4 block h-1 w-16 rounded-full bg-[#1B2A4A]"
+                className="mt-4 block h-1 w-16 rounded-full bg-[#94734D]"
               />
               <p className="mt-5 max-w-xl text-base leading-7 text-slate-700 sm:text-lg">
                 Our team can help you understand the next steps and coordinate
@@ -189,14 +189,14 @@ export default function FinancingPage() {
               </p>
               <a
                 href="tel:2064024229"
-                className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-[#1B2A4A] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-[#1D2C43] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
               >
                 <PhoneIcon />
                 (206) 402-4229
               </a>
             </div>
             <div className="rounded-2xl border border-slate-200/80 bg-white p-8 shadow-sm">
-              <h3 className="font-serif text-2xl font-bold text-[#1B2A4A]">
+              <h3 className="font-serif text-2xl font-bold text-[#1D2C43]">
                 Start a Conversation
               </h3>
               <p className="mt-3 text-base leading-7 text-slate-600">
@@ -205,7 +205,7 @@ export default function FinancingPage() {
               </p>
               <Link
                 href="/contact"
-                className="mt-6 inline-flex items-center justify-center rounded-lg bg-[#1B2A4A] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                className="mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
               >
                 CONTACT SOUND VIEW
               </Link>

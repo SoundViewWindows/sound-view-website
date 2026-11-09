@@ -59,18 +59,18 @@ const steps = [
 ];
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
 
 export default function EnergyRebatesPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className={`rounded-sm hover:text-[#1B2A4A] ${focusRing}`}>
+                <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
                   Home
                 </Link>
               </li>
@@ -87,7 +87,7 @@ export default function EnergyRebatesPage() {
           <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
             Local Utility Incentives
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
             Save on Energy-Efficient Windows &amp; Doors in Washington
           </h1>
           <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -108,7 +108,7 @@ export default function EnergyRebatesPage() {
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
                   {provider.tagline}
                 </p>
-                <h2 className="mb-3 font-serif text-2xl font-bold text-[#1B2A4A]">
+                <h2 className="mb-3 font-serif text-2xl font-bold text-[#1D2C43]">
                   {provider.title}
                 </h2>
                 <p className="text-sm leading-relaxed text-slate-600">{provider.description}</p>
@@ -117,7 +117,7 @@ export default function EnergyRebatesPage() {
                 href={provider.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`mt-8 inline-flex items-center justify-center gap-2 self-start rounded-lg bg-[#1B2A4A] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#0F172A] ${focusRing}`}
+                className={`mt-8 inline-flex items-center justify-center gap-2 self-start rounded-lg bg-[#1D2C43] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
               >
                 {provider.cta}
                 <ExternalLinkIcon />
@@ -127,17 +127,17 @@ export default function EnergyRebatesPage() {
         </section>
 
         <section className="pb-4">
-          <h2 className="mb-3 text-center font-serif text-3xl font-bold text-[#1B2A4A] sm:text-4xl">
+          <h2 className="mb-3 text-center font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
             Before You Start Your Project
           </h2>
-          <span aria-hidden="true" className="mx-auto mb-10 block h-1 w-10 rounded bg-[#1B2A4A]" />
+          <span aria-hidden="true" className="mx-auto mb-10 block h-1 w-10 rounded bg-[#94734D]" />
           <div className="mx-auto mb-12 grid max-w-7xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
             {steps.map((step) => (
               <article
                 key={step.number}
                 className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm"
               >
-                <p className="mb-2 text-2xl font-black text-[#1B2A4A]">{step.number}</p>
+                <p className="mb-2 text-2xl font-black text-[#1D2C43]">{step.number}</p>
                 <h3 className="mb-2 text-lg font-bold text-slate-900">{step.heading}</h3>
                 <p className="text-sm leading-relaxed text-slate-600">{step.text}</p>
               </article>
@@ -149,12 +149,12 @@ export default function EnergyRebatesPage() {
           <div className="rounded-2xl border border-slate-200/80 bg-white p-8 text-center shadow-sm sm:p-10">
             <span
               aria-hidden="true"
-              className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#1B2A4A] text-lg font-bold text-white"
+              className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#1D2C43] text-lg font-bold text-white"
             >
               i
             </span>
-            <h2 className="mb-2 text-2xl font-bold text-[#1B2A4A]">Please Confirm Program Details</h2>
-            <span aria-hidden="true" className="mx-auto mb-6 block h-0.5 w-12 bg-[#1B2A4A]" />
+            <h2 className="mb-2 text-2xl font-bold text-[#1D2C43]">Please Confirm Program Details</h2>
+            <span aria-hidden="true" className="mx-auto mb-6 block h-0.5 w-12 bg-[#1D2C43]" />
             <p className="mx-auto max-w-3xl text-sm leading-relaxed text-slate-600">
               Rebate availability, eligibility requirements, incentive amounts, and
               application deadlines can change. Programs may require specific

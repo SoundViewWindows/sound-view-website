@@ -72,7 +72,7 @@ export function GlassQuoteBox({ glassType = "", onGlassTypeChange }: GlassQuoteB
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
-            <h2 className="text-xl font-bold text-[#1B2A4A]">Get a Quick Glass Estimate</h2>
+            <h2 className="text-xl font-bold text-[#1D2C43]">Get a Quick Glass Estimate</h2>
             <p className="mt-1 text-xs text-slate-600">
               Restore clarity and insulation without replacing your entire window frame.
             </p>
@@ -170,10 +170,10 @@ export function GlassQuoteBox({ glassType = "", onGlassTypeChange }: GlassQuoteB
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setPaneCount(count)}
-                    className={`w-full rounded-full px-2 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A] ${
+                    className={`w-full rounded-full px-2 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43] ${
                       selected
-                        ? "bg-[#1B2A4A] text-white"
-                        : "bg-[#F4EFEA] text-[#1B2A4A] hover:bg-[#F3EFEA]"
+                        ? "bg-[#1D2C43] text-white"
+                        : "bg-[#EFEBE4] text-[#1D2C43] hover:bg-[#EFEBE4]"
                     }`}
                   >
                     {count}
@@ -223,7 +223,7 @@ export function GlassQuoteBox({ glassType = "", onGlassTypeChange }: GlassQuoteB
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-[#1B2A4A] py-3 text-sm font-medium text-white transition-colors hover:bg-[#15223C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+            className="w-full rounded-lg bg-[#1D2C43] py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
           >
             Request Upfront Pricing
           </button>
@@ -254,7 +254,7 @@ function FieldError({ message }: { message: string }) {
 const labelClass = "mb-1 block text-xs font-semibold text-slate-700";
 
 const fieldClass =
-  "w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1B2A4A]";
+  "w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1D2C43]";
 
 function inputClass(invalid: boolean) {
   return invalid ? `${fieldClass} border-[#8C3A32]` : fieldClass;

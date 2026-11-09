@@ -90,7 +90,7 @@ export function QuoteThankYou({
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="mb-2 font-serif text-2xl font-bold text-[#1B2A4A] outline-none"
+        className="mb-2 font-serif text-2xl font-bold text-[#1D2C43] outline-none"
       >
         Thank You, Your Quote Request Is Received!
       </h2>
@@ -99,17 +99,17 @@ export function QuoteThankYou({
         specifications. A team member will follow up with your upfront estimate
         in under 2 business hours.
       </p>
-      <div className="mb-6 w-full rounded-xl border border-slate-200/80 bg-[#FAF8F5] p-5 text-left">
+      <div className="mb-6 w-full rounded-xl border border-slate-200/80 bg-[#F7F5F0] p-5 text-left">
         <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
           While You Wait
         </p>
-        <h3 className="mb-1 font-semibold text-[#1B2A4A]">{offer.title}</h3>
+        <h3 className="mb-1 font-semibold text-[#1D2C43]">{offer.title}</h3>
         <p className="mb-4 text-sm leading-relaxed text-slate-600">{offer.body}</p>
         <a
           href={offer.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#1B2A4A] px-4 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-[#15223C]"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#1D2C43] px-4 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-[#162433]"
         >
           {offer.button}
           <ExternalLinkIcon />
@@ -118,7 +118,7 @@ export function QuoteThankYou({
       <button
         type="button"
         onClick={onReset}
-        className="text-sm font-medium text-[#1B2A4A]/80 underline decoration-[#1B2A4A]/25 underline-offset-4 transition-colors hover:text-[#1B2A4A]"
+        className="text-sm font-medium text-[#5D6875] underline decoration-[#1D2C43]/25 underline-offset-4 transition-colors hover:text-[#1D2C43]"
       >
         Submit another project request
       </button>

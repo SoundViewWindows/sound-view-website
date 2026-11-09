@@ -5,7 +5,7 @@ export default function DoorQuotePage() {
   return (
     <Suspense
       fallback={
-        <p className="bg-[#FAF8F5] px-4 py-16 text-center text-[#1B2A4A]">
+        <p className="bg-[#F7F5F0] px-4 py-16 text-center text-[#1D2C43]">
           Loading your estimate.
         </p>
       }

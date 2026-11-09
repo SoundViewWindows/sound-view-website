@@ -26,7 +26,7 @@ const highlights = [
 
 export default function WindowReplacementPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
@@ -37,7 +37,7 @@ export default function WindowReplacementPage() {
                   <li>
                     <Link
                       href="/"
-                      className="rounded-sm hover:text-[#1B2A4A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                      className="rounded-sm hover:text-[#1D2C43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                     >
                       Home
                     </Link>
@@ -55,7 +55,7 @@ export default function WindowReplacementPage() {
               <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
                 Precision Window Replacement
               </p>
-              <h1 className="mb-4 max-w-full font-serif text-3xl font-bold leading-tight text-[#1B2A4A] sm:text-4xl lg:text-5xl">
+              <h1 className="mb-4 max-w-full font-serif text-3xl font-bold leading-tight text-[#1D2C43] sm:text-4xl lg:text-5xl">
                 Engineered for Pacific Northwest Weather, Installed With Care
               </h1>
               <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -66,14 +66,14 @@ export default function WindowReplacementPage() {
               <div className="mt-2 flex flex-wrap gap-4">
                 <Link
                   href="/services/window-replacement/materials"
-                  className="flex items-center gap-2 rounded-lg bg-[#1B2A4A] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#15223C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="flex items-center gap-2 rounded-lg bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                 >
                   Window Materials
                   <ArrowIcon />
                 </Link>
                 <Link
                   href="/services/window-replacement/types"
-                  className="flex items-center gap-2 rounded-lg border border-[#1B2A4A] px-6 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="flex items-center gap-2 rounded-lg border border-[#1D2C43] px-6 py-3 text-sm font-medium text-[#1D2C43] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                 >
                   Window Types
                   <ArrowIcon />
@@ -95,7 +95,7 @@ export default function WindowReplacementPage() {
                 key={item.title}
                 className="rounded-xl border border-slate-100 bg-white p-6 shadow-sm"
               >
-                <h2 className="font-serif text-2xl text-[#1B2A4A]">{item.title}</h2>
+                <h2 className="font-serif text-2xl text-[#1D2C43]">{item.title}</h2>
                 <p className="mt-3 text-sm leading-6 text-slate-700">{item.body}</p>
               </article>
             ))}

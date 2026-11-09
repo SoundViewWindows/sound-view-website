@@ -16,7 +16,7 @@ export function RequestInstallationButton() {
     <a
       href="#railing-install"
       onClick={scrollToRequest}
-      className="flex items-center gap-2 rounded-lg border border-[#1B2A4A] px-6 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+      className="flex items-center gap-2 rounded-lg border border-[#1D2C43] px-6 py-3 text-sm font-medium text-[#1D2C43] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
     >
       Request Professional Installation
     </a>
@@ -76,7 +76,7 @@ export function GlassRailingRequest() {
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
-            <h2 className="text-xl font-bold text-[#1B2A4A]">Request Professional Installation</h2>
+            <h2 className="text-xl font-bold text-[#1D2C43]">Request Professional Installation</h2>
             <p className="mt-1 text-xs text-slate-600">
               No pressure, upfront guidance from local Pacific Northwest specialists.
             </p>
@@ -175,7 +175,7 @@ export function GlassRailingRequest() {
           </div>
           <button
             type="submit"
-            className="w-full rounded-lg bg-[#1B2A4A] py-3 text-sm font-medium text-white transition-colors hover:bg-[#15223C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+            className="w-full rounded-lg bg-[#1D2C43] py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
           >
             Request Professional Installation
           </button>
@@ -205,7 +205,7 @@ function FieldError({ message }: { message: string }) {
 const labelClass = "mb-1 block text-xs font-semibold text-slate-700";
 
 const fieldClass =
-  "w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1B2A4A]";
+  "w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1D2C43]";
 
 function inputClass(invalid: boolean) {
   return invalid ? `${fieldClass} border-[#8C3A32]` : fieldClass;

@@ -53,11 +53,11 @@ export function ConsultationForm() {
 
   if (submittedName) {
     return (
-      <div className="rounded-xl bg-[#F4EFEA] px-5 py-6">
-        <h3 className="font-serif text-2xl text-[#1B2A4A]">
+      <div className="rounded-xl bg-[#EFEBE4] px-5 py-6">
+        <h3 className="font-serif text-2xl text-[#1D2C43]">
           Thank you, {submittedName}.
         </h3>
-        <p className="mt-2 text-sm leading-6 text-[#1B2A4A]/80">
+        <p className="mt-2 text-sm leading-6 text-[#5D6875]">
           Your consultation request is ready. We will follow up to schedule
           in-home measuring, fabric matching, and installation.
         </p>
@@ -135,7 +135,7 @@ export function ConsultationForm() {
       </Field>
       <button
         type="submit"
-        className="inline-flex w-full items-center justify-center rounded-full bg-[#1B2A4A] px-6 py-3 text-sm font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A] sm:w-auto"
+        className="inline-flex w-full items-center justify-center rounded-full bg-[#1D2C43] px-6 py-3 text-sm font-medium text-[#FFFFFF] transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43] sm:w-auto"
       >
         Request Consultation
       </button>
@@ -155,7 +155,7 @@ function Field({
   children: ReactNode;
 }) {
   return (
-    <label htmlFor={id} className="flex flex-col gap-1.5 text-sm font-medium text-[#1B2A4A]">
+    <label htmlFor={id} className="flex flex-col gap-1.5 text-sm font-medium text-[#1D2C43]">
       {label}
       {children}
       {error ? (
@@ -169,8 +169,8 @@ function Field({
 
 function inputClass(invalid: boolean) {
   return [
-    "w-full rounded-lg border bg-white px-3 py-2.5 text-sm font-normal text-[#0F172A] outline-none transition",
-    "focus:border-[#1B2A4A] focus:ring-2 focus:ring-[#1B2A4A]/20",
+    "w-full rounded-lg border bg-white px-3 py-2.5 text-sm font-normal text-[#28323D] outline-none transition",
+    "focus:border-[#1D2C43] focus:ring-2 focus:ring-[#1D2C43]/20",
     invalid ? "border-[#8C3A32]" : "border-slate-200",
   ].join(" ");
 }

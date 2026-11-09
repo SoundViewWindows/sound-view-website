@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DoorQuoteBox } from "@/components/DoorQuoteBox";
+import { CostComparison } from "@/components/CostComparison";
 import { DoorStepNav } from "@/components/DoorStepNav";
 import { Header } from "@/components/Header";
 import {
@@ -34,7 +35,7 @@ export function DoorQuoteStep() {
   const typeSlug = doorStyleSlugFromOption(style);
 
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-4 pb-8 pt-8 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
@@ -43,7 +44,7 @@ export function DoorQuoteStep() {
               current="Your Estimate"
               progress="Step 3 of 3: Get Your Free Upfront Estimate"
             />
-            <h1 className="mb-4 font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+            <h1 className="mb-4 font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
               Your Custom Door Estimate
             </h1>
             <p className="mb-6 max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -55,7 +56,7 @@ export function DoorQuoteStep() {
                 <span>Style: {styleName}</span>
                 <Link
                   href="/services/door-replacement/types"
-                  className="text-xs font-medium underline decoration-[#1B2A4A]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="text-xs font-medium underline decoration-[#1D2C43]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                 >
                   Edit
                 </Link>
@@ -64,7 +65,7 @@ export function DoorQuoteStep() {
                 <span>Material: {materialName}</span>
                 <Link
                   href={`/services/door-replacement/materials?type=${typeSlug}`}
-                  className="text-xs font-medium underline decoration-[#1B2A4A]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="text-xs font-medium underline decoration-[#1D2C43]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                 >
                   Edit
                 </Link>
@@ -82,6 +83,7 @@ export function DoorQuoteStep() {
             </div>
           </div>
         </div>
+        <CostComparison service="doors" />
       </main>
     </div>
   );

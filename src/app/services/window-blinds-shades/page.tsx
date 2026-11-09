@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
+import { CostComparison } from "@/components/CostComparison";
 import { ConsultationForm } from "./consultation-form";
 
 export const metadata: Metadata = {
@@ -47,7 +48,7 @@ const treatments = [
 
 export default function WindowBlindsShadesPage() {
   return (
-    <div className="scroll-smooth bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="scroll-smooth bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
@@ -56,7 +57,7 @@ export default function WindowBlindsShadesPage() {
               <li>
                 <Link
                   href="/"
-                  className="rounded-sm hover:text-[#1B2A4A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="rounded-sm hover:text-[#1D2C43] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                 >
                   Home
                 </Link>
@@ -74,7 +75,7 @@ export default function WindowBlindsShadesPage() {
           <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
             CUSTOM WINDOW TREATMENTS
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
             Custom Blinds and Motorized Shades Tailored to Your Home
           </h1>
           <p className="mb-8 max-w-2xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -87,14 +88,14 @@ export default function WindowBlindsShadesPage() {
               href={shopHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1B2A4A] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1D2C43] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
             >
               <ShoppingBagIcon />
               Shop Window Treatments Online
             </a>
             <a
               href="#measurement-consultation"
-              className="inline-flex items-center justify-center rounded-full border border-[#1B2A4A] px-6 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-[#1B2A4A] hover:text-[#FAF8F5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+              className="inline-flex items-center justify-center rounded-full border border-[#1D2C43] px-6 py-3 text-sm font-medium text-[#1D2C43] transition-colors hover:bg-[#1D2C43] hover:text-[#FFFFFF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
             >
               Request In-Home Consultation
             </a>
@@ -119,7 +120,7 @@ export default function WindowBlindsShadesPage() {
                     <p className="text-xs font-semibold uppercase tracking-wider text-slate-600">
                       {item.tagline}
                     </p>
-                    <h2 className="mt-3 font-serif text-2xl font-medium leading-tight text-[#1B2A4A]">
+                    <h2 className="mt-3 font-serif text-2xl font-medium leading-tight text-[#1D2C43]">
                       {item.title}
                     </h2>
                     <p className="mt-3 text-sm leading-6 text-slate-700">{item.copy}</p>
@@ -128,7 +129,7 @@ export default function WindowBlindsShadesPage() {
                     href={shopHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#1B2A4A] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                    className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#1D2C43] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                   >
                     Shop Style Online →
                   </a>
@@ -139,12 +140,12 @@ export default function WindowBlindsShadesPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <div className="rounded-2xl bg-[#1B2A4A] px-6 py-10 text-[#FAF8F5] sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
+          <div className="rounded-2xl bg-[#1D2C43] px-6 py-10 text-[#FFFFFF] sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
             <div className="max-w-2xl">
               <h2 className="font-serif text-3xl font-medium leading-tight sm:text-4xl">
                 Order Custom Window Treatments Directly Online
               </h2>
-              <p className="mt-3 text-base leading-7 text-[#FAF8F5]/80">
+              <p className="mt-3 text-base leading-7 text-[#FFFFFF]/80">
                 Explore fabric samples, operating systems, and size options
                 ready to ship directly to your door through our online catalog.
               </p>
@@ -153,7 +154,7 @@ export default function WindowBlindsShadesPage() {
               href={shopHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#FAF8F5] px-6 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FAF8F5] lg:mt-0"
+              className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#F7F5F0] px-6 py-3 text-sm font-medium text-[#1D2C43] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F7F5F0] lg:mt-0"
             >
               Visit Our Window Treatments Shop
               <ExternalLinkIcon />
@@ -169,7 +170,7 @@ export default function WindowBlindsShadesPage() {
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-600">
               In-home service
             </p>
-            <h2 className="mt-2 font-serif text-3xl font-medium leading-tight text-[#1B2A4A] sm:text-4xl">
+            <h2 className="mt-2 font-serif text-3xl font-medium leading-tight text-[#1D2C43] sm:text-4xl">
               Measurement and Consultation
             </h2>
             <p className="mt-3 max-w-2xl text-base leading-7 text-slate-700">
@@ -182,6 +183,7 @@ export default function WindowBlindsShadesPage() {
             </div>
           </div>
         </section>
+        <CostComparison service="blinds-shades" />
       </main>
     </div>
   );

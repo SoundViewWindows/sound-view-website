@@ -35,18 +35,18 @@ const features = [
 ];
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
 
 export default function WestQueenAnneShowroomPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className={`rounded-sm hover:text-[#1B2A4A] ${focusRing}`}>
+                <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
                   Home
                 </Link>
               </li>
@@ -64,7 +64,7 @@ export default function WestQueenAnneShowroomPage() {
           <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
             Central Seattle Showroom
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
             Visit Our West Queen Anne Showroom
           </h1>
           <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -78,7 +78,7 @@ export default function WestQueenAnneShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center rounded-lg bg-[#1B2A4A] px-6 py-3 font-medium text-white transition-colors hover:bg-[#15223C] ${focusRing}`}
+              className={`inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
             >
               Book a Showroom Visit
             </a>
@@ -93,7 +93,7 @@ export default function WestQueenAnneShowroomPage() {
               href={directionsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-[#1B2A4A] transition-colors hover:bg-white ${focusRing}`}
+              className={`inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-[#1D2C43] transition-colors hover:bg-white ${focusRing}`}
             >
               <MapPinIcon />
               Get Directions
@@ -115,7 +115,7 @@ export default function WestQueenAnneShowroomPage() {
                 <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Showroom Address
                 </h2>
-                <p className="text-lg font-bold text-[#1B2A4A]">
+                <p className="text-lg font-bold text-[#1D2C43]">
                   921 Elliott Ave W, Seattle, WA 98119
                 </p>
                 <p className="mt-2 text-sm leading-6 text-slate-600">
@@ -128,7 +128,7 @@ export default function WestQueenAnneShowroomPage() {
                 <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Hours of Operation
                 </h2>
-                <dl className="mt-2 space-y-2 text-sm text-[#1B2A4A]">
+                <dl className="mt-2 space-y-2 text-sm text-[#1D2C43]">
                   {hours.map((row) => (
                     <div key={row.day} className="flex flex-wrap justify-between gap-x-6 gap-y-1">
                       <dt>{row.day}</dt>
@@ -144,7 +144,7 @@ export default function WestQueenAnneShowroomPage() {
                 </h2>
                 <a
                   href="tel:2064024229"
-                  className={`text-lg font-bold text-[#1B2A4A] underline-offset-4 hover:underline ${focusRing}`}
+                  className={`text-lg font-bold text-[#1D2C43] underline-offset-4 hover:underline ${focusRing}`}
                 >
                   (206) 402-4229
                 </a>
@@ -164,7 +164,7 @@ export default function WestQueenAnneShowroomPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-          <h2 className="mb-8 font-serif text-3xl font-bold text-[#1B2A4A] sm:text-4xl">
+          <h2 className="mb-8 font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
             What You Can Explore In Person
           </h2>
           <div className="grid gap-6 md:grid-cols-3">
@@ -173,7 +173,7 @@ export default function WestQueenAnneShowroomPage() {
                 key={feature.title}
                 className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8"
               >
-                <h3 className="mb-3 font-serif text-xl font-bold text-[#1B2A4A]">
+                <h3 className="mb-3 font-serif text-xl font-bold text-[#1D2C43]">
                   {feature.title}
                 </h3>
                 <p className="text-base leading-7 text-slate-700">{feature.body}</p>
@@ -184,7 +184,7 @@ export default function WestQueenAnneShowroomPage() {
 
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-10">
-            <h2 className="font-serif text-3xl font-bold text-[#1B2A4A] sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
               Plan Your Visit with an Expert
             </h2>
             <p className="mt-4 max-w-3xl text-base leading-7 text-slate-700 sm:text-lg">
@@ -196,7 +196,7 @@ export default function WestQueenAnneShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1B2A4A] px-6 py-3 font-medium text-white transition-colors hover:bg-[#15223C] ${focusRing}`}
+              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
             >
               Book an Appointment
             </a>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
 
 const videos = [
   {
@@ -52,14 +52,14 @@ const projects = [
 
 export default function PortfolioPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className={`rounded-sm hover:text-[#1B2A4A] ${focusRing}`}>
+                <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
                   Home
                 </Link>
               </li>
@@ -85,7 +85,7 @@ export default function PortfolioPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
-          <h2 className="mb-3 font-serif text-3xl font-bold text-[#1B2A4A]">
+          <h2 className="mb-3 font-serif text-3xl font-bold text-[#1D2C43]">
             Watch Our Installers in the Field
           </h2>
           <p className="mb-8 max-w-2xl text-slate-600">
@@ -108,7 +108,7 @@ export default function PortfolioPage() {
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-5 sm:p-6">
-                  <h3 className="font-serif text-xl font-bold text-[#1B2A4A]">{video.title}</h3>
+                  <h3 className="font-serif text-xl font-bold text-[#1D2C43]">{video.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-slate-600">{video.description}</p>
                 </div>
               </article>
@@ -117,7 +117,7 @@ export default function PortfolioPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-3 font-serif text-3xl font-bold text-[#1B2A4A]">
+          <h2 className="mb-3 font-serif text-3xl font-bold text-[#1D2C43]">
             Real Transformations Across Greater Seattle
           </h2>
           <p className="mb-8 max-w-2xl text-slate-600">
@@ -140,7 +140,7 @@ export default function PortfolioPage() {
                 <p className="mb-2 w-fit rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
                   {project.badge}
                 </p>
-                <h3 className="font-serif text-2xl font-bold text-[#1B2A4A]">{project.title}</h3>
+                <h3 className="font-serif text-2xl font-bold text-[#1D2C43]">{project.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-600">{project.copy}</p>
               </article>
             ))}
@@ -148,7 +148,7 @@ export default function PortfolioPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto mb-16 max-w-5xl rounded-3xl bg-[#1B2A4A] p-8 text-center text-white shadow-lg sm:p-12">
+          <div className="mx-auto mb-16 max-w-5xl rounded-3xl bg-[#1D2C43] p-8 text-center text-white shadow-lg sm:p-12">
             <h2 className="font-serif text-3xl font-bold">Ready to Upgrade Your Home Openings?</h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85">
               Get upfront pricing and honest guidance on your window, door, or
@@ -158,7 +158,7 @@ export default function PortfolioPage() {
             <div className="mt-6 flex flex-wrap justify-center gap-4">
               <Link
                 href="/services/window-replacement/types"
-                className={`rounded-lg bg-white px-6 py-3 font-semibold text-[#1B2A4A] transition-colors hover:bg-slate-100 ${focusRing}`}
+                className={`rounded-lg bg-white px-6 py-3 font-semibold text-[#1D2C43] transition-colors hover:bg-slate-100 ${focusRing}`}
               >
                 Start Your Window Estimate
               </Link>

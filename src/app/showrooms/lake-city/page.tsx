@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
 
 const hours = [
   { day: "Monday through Friday", time: "8:00 AM to 5:00 PM" },
@@ -39,14 +39,14 @@ const directionsHref =
 
 export default function LakeCityShowroomPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className={`rounded-sm hover:text-[#1B2A4A] ${focusRing}`}>
+                <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
                   Home
                 </Link>
               </li>
@@ -64,7 +64,7 @@ export default function LakeCityShowroomPage() {
           <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
             North Seattle Flagship Showroom
           </p>
-          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
             Visit Our Lake City Showroom
           </h1>
           <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -79,7 +79,7 @@ export default function LakeCityShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`rounded-lg bg-[#1B2A4A] px-6 py-3 font-medium text-white transition-colors hover:bg-[#15223C] ${focusRing}`}
+              className={`rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
             >
               Book a Showroom Visit
             </a>
@@ -94,7 +94,7 @@ export default function LakeCityShowroomPage() {
               href={directionsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-[#1B2A4A] transition-colors hover:bg-white ${focusRing}`}
+              className={`flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-[#1D2C43] transition-colors hover:bg-white ${focusRing}`}
             >
               <MapPinIcon />
               Get Directions
@@ -119,7 +119,7 @@ export default function LakeCityShowroomPage() {
               <h2 className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Showroom Address
               </h2>
-              <p className="text-lg font-bold text-[#1B2A4A]">
+              <p className="text-lg font-bold text-[#1D2C43]">
                 12301 Lake City Way NE, Seattle, WA 98125
               </p>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
@@ -135,7 +135,7 @@ export default function LakeCityShowroomPage() {
                 {hours.map((row) => (
                   <div key={row.day} className="flex items-baseline justify-between gap-4">
                     <dt>{row.day}</dt>
-                    <dd className="text-right font-medium text-[#1B2A4A]">{row.time}</dd>
+                    <dd className="text-right font-medium text-[#1D2C43]">{row.time}</dd>
                   </div>
                 ))}
               </dl>
@@ -147,7 +147,7 @@ export default function LakeCityShowroomPage() {
               </h2>
               <a
                 href="tel:2065723411"
-                className={`text-lg font-bold text-[#1B2A4A] underline-offset-4 hover:underline ${focusRing}`}
+                className={`text-lg font-bold text-[#1D2C43] underline-offset-4 hover:underline ${focusRing}`}
               >
                 (206) 572-3411
               </a>
@@ -166,7 +166,7 @@ export default function LakeCityShowroomPage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <h2 className="mb-8 font-serif text-3xl font-bold text-[#1B2A4A] sm:text-4xl">
+          <h2 className="mb-8 font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
             What You Can Explore In Person
           </h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -175,7 +175,7 @@ export default function LakeCityShowroomPage() {
                 key={feature.title}
                 className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8"
               >
-                <h3 className="mb-3 font-serif text-2xl font-bold text-[#1B2A4A]">
+                <h3 className="mb-3 font-serif text-2xl font-bold text-[#1D2C43]">
                   {feature.title}
                 </h3>
                 <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -188,7 +188,7 @@ export default function LakeCityShowroomPage() {
 
         <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-slate-200/80 bg-white px-6 py-10 text-center shadow-sm sm:px-10 sm:py-12">
-            <h2 className="font-serif text-3xl font-bold text-[#1B2A4A] sm:text-4xl">
+            <h2 className="font-serif text-3xl font-bold text-[#1D2C43] sm:text-4xl">
               Schedule One-on-One Showroom Time
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
@@ -200,7 +200,7 @@ export default function LakeCityShowroomPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1B2A4A] px-6 py-3 font-medium text-white transition-colors hover:bg-[#15223C] ${focusRing}`}
+              className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1D2C43] px-6 py-3 font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
             >
               Book an Appointment
             </a>

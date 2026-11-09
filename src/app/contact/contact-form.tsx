@@ -64,8 +64,8 @@ export function ContactForm() {
 
   if (submittedName) {
     return (
-      <div className="rounded-xl bg-[#F3EFEA] px-5 py-8">
-        <h3 className="font-serif text-2xl font-bold text-[#1B2A4A]">
+      <div className="rounded-xl bg-[#EFEBE4] px-5 py-8">
+        <h3 className="font-serif text-2xl font-bold text-[#1D2C43]">
           Thank you, {submittedName}.
         </h3>
         <p className="mt-3 text-sm leading-6 text-slate-700">
@@ -179,7 +179,7 @@ export function ContactForm() {
 
       <button
         type="submit"
-        className="w-full rounded-lg bg-[#1B2A4A] py-3 font-medium text-white transition-colors hover:bg-[#15223C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+        className="w-full rounded-lg bg-[#1D2C43] py-3 font-medium text-white transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
       >
         Submit Message
       </button>
@@ -204,10 +204,10 @@ function Field({
   children: ReactNode;
 }) {
   return (
-    <label htmlFor={id} className="flex flex-col gap-1.5 text-sm font-medium text-[#1B2A4A]">
+    <label htmlFor={id} className="flex flex-col gap-1.5 text-sm font-medium text-[#1D2C43]">
       <span>
         {label}
-        {required ? <span className="text-[#1B2A4A]"> *</span> : null}
+        {required ? <span className="text-[#1D2C43]"> *</span> : null}
       </span>
       {children}
       {error ? (
@@ -221,8 +221,8 @@ function Field({
 
 function inputClass(invalid: boolean) {
   return [
-    "w-full rounded-lg border bg-white px-3 py-2.5 text-sm font-normal text-[#0F172A] outline-none transition",
-    "placeholder:text-slate-400 focus:border-[#1B2A4A] focus:ring-2 focus:ring-[#1B2A4A]/20",
+    "w-full rounded-lg border bg-white px-3 py-2.5 text-sm font-normal text-[#28323D] outline-none transition",
+    "placeholder:text-slate-400 focus:border-[#1D2C43] focus:ring-2 focus:ring-[#1D2C43]/20",
     invalid ? "border-[#8C3A32]" : "border-slate-200",
   ].join(" ");
 }

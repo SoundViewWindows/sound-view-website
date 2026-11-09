@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Header } from "@/components/Header";
+import { CostComparison } from "@/components/CostComparison";
 import { WindowQuoteBox } from "@/components/WindowQuoteBox";
 import { WindowStepNav } from "@/components/WindowStepNav";
 import {
@@ -32,7 +33,7 @@ export function QuoteStep() {
   const typeSlug = styleSlugFromOption(style);
 
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-8 px-4 pb-20 pt-8 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
@@ -41,7 +42,7 @@ export function QuoteStep() {
               current="Your Estimate"
               progress="Step 3 of 3: Get Your Free Upfront Estimate"
             />
-            <h1 className="mb-4 font-serif text-3xl font-bold leading-tight text-[#1B2A4A] sm:text-4xl lg:text-5xl">
+            <h1 className="mb-4 font-serif text-3xl font-bold leading-tight text-[#1D2C43] sm:text-4xl lg:text-5xl">
               Your Custom Window Estimate
             </h1>
             <p className="mb-6 max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -53,7 +54,7 @@ export function QuoteStep() {
                 <span>Style: {styleName}</span>
                 <Link
                   href="/services/window-replacement/types"
-                  className="text-xs font-medium underline decoration-[#1B2A4A]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="text-xs font-medium underline decoration-[#1D2C43]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                 >
                   Edit
                 </Link>
@@ -62,7 +63,7 @@ export function QuoteStep() {
                 <span>Material: {materialName}</span>
                 <Link
                   href={`/services/window-replacement/materials?type=${typeSlug}`}
-                  className="text-xs font-medium underline decoration-[#1B2A4A]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                  className="text-xs font-medium underline decoration-[#1D2C43]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
                 >
                   Edit
                 </Link>
@@ -80,6 +81,7 @@ export function QuoteStep() {
             </div>
           </div>
         </div>
+        <CostComparison service="windows" />
       </main>
     </div>
   );

@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import type { BlogPost } from "@/data/blogPosts";
 
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]";
 
 export type BlogCard = Pick<
   BlogPost,
@@ -35,7 +35,7 @@ export function BlogIndex({
         <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-500">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
-              <Link href="/" className={`rounded-sm hover:text-[#1B2A4A] ${focusRing}`}>
+              <Link href="/" className={`rounded-sm hover:text-[#1D2C43] ${focusRing}`}>
                 Home
               </Link>
             </li>
@@ -53,7 +53,7 @@ export function BlogIndex({
         <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
           Pacific Northwest Homeowner Guides
         </p>
-        <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+        <h1 className="mb-4 max-w-4xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
           Expert Advice on Windows, Doors, and Glass
         </h1>
         <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -77,8 +77,8 @@ export function BlogIndex({
                 onClick={() => setFilter(item)}
                 className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${focusRing} ${
                   active
-                    ? "border-[#1B2A4A] bg-[#1B2A4A] text-[#FAF8F5]"
-                    : "border-slate-200 bg-white text-[#1B2A4A] hover:border-[#1B2A4A]/40 hover:bg-[#F3EFEA]"
+                    ? "border-[#1D2C43] bg-[#1D2C43] text-[#FFFFFF]"
+                    : "border-slate-200 bg-white text-[#1D2C43] hover:border-[#1D2C43]/40 hover:bg-[#EFEBE4]"
                 }`}
               >
                 {item}
@@ -101,7 +101,7 @@ export function BlogIndex({
                 <CategoryPill>{featured.category}</CategoryPill>
                 <span className="text-sm text-slate-500">{featured.readTime}</span>
               </div>
-              <h2 className="font-serif text-3xl font-bold leading-tight text-[#1B2A4A] sm:text-4xl">
+              <h2 className="font-serif text-3xl font-bold leading-tight text-[#1D2C43] sm:text-4xl">
                 {featured.title}
               </h2>
               <p className="mt-4 text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -109,7 +109,7 @@ export function BlogIndex({
               </p>
               <Link
                 href={`/blog/${featured.slug}`}
-                className={`mt-8 inline-flex w-fit items-center justify-center rounded-lg bg-[#1B2A4A] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#0F172A] ${focusRing}`}
+                className={`mt-8 inline-flex w-fit items-center justify-center rounded-lg bg-[#1D2C43] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
               >
                 Read Guide
               </Link>
@@ -126,7 +126,7 @@ export function BlogIndex({
 
       {recent.length > 0 ? (
         <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-          <h2 className="mb-6 font-serif text-2xl font-bold text-[#1B2A4A]">
+          <h2 className="mb-6 font-serif text-2xl font-bold text-[#1D2C43]">
             Recent Articles
           </h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -142,7 +142,7 @@ export function BlogIndex({
                       <CategoryPill>{post.category}</CategoryPill>
                       <span className="text-sm text-slate-500">{post.readTime}</span>
                     </div>
-                    <h3 className="font-serif text-xl font-bold leading-snug text-[#1B2A4A]">
+                    <h3 className="font-serif text-xl font-bold leading-snug text-[#1D2C43]">
                       {post.title}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-slate-600">{post.excerpt}</p>
@@ -151,7 +151,7 @@ export function BlogIndex({
                 <div className="px-6 pb-6">
                   <Link
                     href={`/blog/${post.slug}`}
-                    className={`inline-flex items-center gap-2 text-sm font-medium text-[#1B2A4A] hover:underline ${focusRing}`}
+                    className={`inline-flex items-center gap-2 text-sm font-medium text-[#1D2C43] hover:underline ${focusRing}`}
                   >
                     Read article
                     <span aria-hidden="true">&rarr;</span>
@@ -168,14 +168,14 @@ export function BlogIndex({
 
 function Cover({ src, alt, className }: { src: string; alt: string; className: string }) {
   if (!src) {
-    return <div className={`bg-[#F3EFEA] ${className}`} aria-hidden="true" />;
+    return <div className={`bg-[#EFEBE4] ${className}`} aria-hidden="true" />;
   }
   return <img src={src} alt={alt} className={className} />;
 }
 
 function CategoryPill({ children }: { children: string }) {
   return (
-    <span className="inline-flex rounded-full bg-[#F3EFEA] px-3 py-1 text-xs font-semibold tracking-wide text-[#1B2A4A] transition-colors duration-200">
+    <span className="inline-flex rounded-full bg-[#EFEBE4] px-3 py-1 text-xs font-semibold tracking-wide text-[#1D2C43] transition-colors duration-200">
       {children}
     </span>
   );

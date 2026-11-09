@@ -6,7 +6,7 @@ import { showerStyles } from "@/lib/shower-funnel";
 
 export default function ShowerTypesPage() {
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
@@ -14,7 +14,7 @@ export default function ShowerTypesPage() {
             current="Choose Style"
             progress="Step 1 of 2: Choose Your Shower Door Style"
           />
-          <h1 className="mb-4 max-w-3xl font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+          <h1 className="mb-4 max-w-3xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
             Select the Shower Door Style for Your Bathroom
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -29,7 +29,7 @@ export default function ShowerTypesPage() {
               <Link
                 key={style.slug}
                 href={`/services/shower-door-replacement/quote?type=${style.slug}`}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
               >
                 <div className="relative h-52 w-full">
                   <Image
@@ -45,12 +45,12 @@ export default function ShowerTypesPage() {
                     <span className="text-xs font-semibold uppercase tracking-wider text-slate-600">
                       {style.detail}
                     </span>
-                    <span className="mb-2 mt-2 block font-serif text-xl font-bold text-[#1B2A4A]">
+                    <span className="mb-2 mt-2 block font-serif text-xl font-bold text-[#1D2C43]">
                       {style.name}
                     </span>
-                    <span className="block text-sm leading-6 text-[#1B2A4A]/80">{style.body}</span>
+                    <span className="block text-sm leading-6 text-[#5D6875]">{style.body}</span>
                   </span>
-                  <span className="mt-5 block w-full rounded-lg bg-[#1B2A4A] px-4 py-2.5 text-center text-sm font-medium text-white transition-colors group-hover:bg-[#15223C]">
+                  <span className="mt-5 block w-full rounded-lg bg-[#1D2C43] px-4 py-2.5 text-center text-sm font-medium text-white transition-colors group-hover:bg-[#162433]">
                     Select This Style
                   </span>
                 </span>
@@ -60,7 +60,7 @@ export default function ShowerTypesPage() {
           <div className="mx-auto max-w-7xl px-4 py-10 text-center sm:px-6 lg:px-8">
             <Link
               href="/services/shower-door-replacement/quote?type=undecided"
-              className="inline-flex rounded-full border border-[#1B2A4A] px-6 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+              className="inline-flex rounded-full border border-[#1D2C43] px-6 py-3 text-sm font-medium text-[#1D2C43] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
             >
               Not sure yet? Skip to Quote
             </Link>

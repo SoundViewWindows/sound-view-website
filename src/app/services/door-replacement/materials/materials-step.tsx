@@ -13,7 +13,7 @@ export function DoorMaterialsStep() {
   const typeSlug = style?.slug ?? "undecided";
 
   return (
-    <div className="bg-[#FAF8F5] text-[#1B2A4A]">
+    <div className="bg-[#F7F5F0] text-[#28323D]">
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
@@ -21,16 +21,16 @@ export function DoorMaterialsStep() {
             current="Choose Material"
             progress="Step 2 of 3: Choose Your Door Material"
           />
-          <p className="mb-4 inline-flex flex-wrap items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-[#1B2A4A]">
+          <p className="mb-4 inline-flex flex-wrap items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-[#1D2C43]">
             <span>Selected Style: {doorChoiceLabel(style)}</span>
             <Link
               href="/services/door-replacement/types"
-              className="font-medium underline decoration-[#1B2A4A]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+              className="font-medium underline decoration-[#1D2C43]/30 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
             >
               Change
             </Link>
           </p>
-          <h1 className="mb-4 max-w-3xl font-serif text-4xl font-bold leading-tight text-[#1B2A4A] lg:text-5xl">
+          <h1 className="mb-4 max-w-3xl font-serif text-4xl font-bold leading-tight text-[#1D2C43] lg:text-5xl">
             Select Your Door Material
           </h1>
           <p className="max-w-xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -45,7 +45,7 @@ export function DoorMaterialsStep() {
               <Link
                 key={material.slug}
                 href={`/services/door-replacement/quote?type=${typeSlug}&material=${material.slug}`}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
               >
                 <div className="relative h-52 w-full">
                   <Image
@@ -61,12 +61,12 @@ export function DoorMaterialsStep() {
                     <span className="text-xs font-semibold uppercase tracking-wider text-slate-600">
                       {material.detail}
                     </span>
-                    <span className="mb-2 mt-2 block font-serif text-xl font-bold text-[#1B2A4A]">
+                    <span className="mb-2 mt-2 block font-serif text-xl font-bold text-[#1D2C43]">
                       {material.name}
                     </span>
-                    <span className="block text-sm leading-6 text-[#1B2A4A]/80">{material.body}</span>
+                    <span className="block text-sm leading-6 text-[#5D6875]">{material.body}</span>
                   </span>
-                  <span className="mt-5 block w-full rounded-lg bg-[#1B2A4A] px-4 py-2.5 text-center text-sm font-medium text-white transition-colors group-hover:bg-[#15223C]">
+                  <span className="mt-5 block w-full rounded-lg bg-[#1D2C43] px-4 py-2.5 text-center text-sm font-medium text-white transition-colors group-hover:bg-[#162433]">
                     Select This Material
                   </span>
                 </span>
@@ -76,7 +76,7 @@ export function DoorMaterialsStep() {
           <div className="mx-auto max-w-7xl px-4 py-10 text-center sm:px-6 lg:px-8">
             <Link
               href={`/services/door-replacement/quote?type=${typeSlug}&material=undecided`}
-              className="inline-flex rounded-full border border-[#1B2A4A] px-6 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+              className="inline-flex rounded-full border border-[#1D2C43] px-6 py-3 text-sm font-medium text-[#1D2C43] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
             >
               Not sure yet? Proceed to Quote
             </Link>
