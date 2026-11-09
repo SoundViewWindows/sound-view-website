@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent, type ReactNode } from "react";
+import { ArrowRight } from "lucide-react";
 import { QuoteThankYou, quoteServiceFromProject } from "@/components/QuoteThankYou";
 import { services } from "@/lib/services";
 
@@ -30,6 +31,7 @@ export function QuoteRequestForm({
   const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function validate(nextFiles: File[]) {
     const nextErrors: FieldErrors = {};
@@ -71,9 +73,12 @@ export function QuoteRequestForm({
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     const nextErrors = validate(files);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
+      setIsSubmitting(false);
       const firstInvalid = Object.keys(nextErrors)[0];
       document.getElementById(`quote-${firstInvalid}`)?.focus();
       return;
@@ -89,6 +94,7 @@ export function QuoteRequestForm({
         service={quoteServiceFromProject(projectType)}
         onReset={() => {
           setIsSubmitted(false);
+          setIsSubmitting(false);
           onSubmittedChange?.(false);
         }}
       />
@@ -223,9 +229,14 @@ export function QuoteRequestForm({
 
       <button
         type="submit"
-        className="rounded-lg bg-[#1D2C43] py-2.5 text-xs font-semibold uppercase tracking-wider text-[#FFFFFF] transition-colors hover:bg-[#162433] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
+        disabled={isSubmitting}
+        aria-busy={isSubmitting}
+        className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-[#38BDF8] py-4 text-base font-extrabold uppercase tracking-wider text-[#0B192C] shadow-lg shadow-sky-500/25 transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:bg-sky-300 hover:shadow-sky-400/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:translate-y-0 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 sm:py-4.5 sm:text-lg"
       >
-        Submit Quote Request
+        {isSubmitting ? "Submitting" : "Submit Quote Request"}
+        {isSubmitting ? null : (
+          <ArrowRight className="ml-2 inline-block h-5 w-5 stroke-[2.5]" aria-hidden="true" />
+        )}
       </button>
     </form>
   );
