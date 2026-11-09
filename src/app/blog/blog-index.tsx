@@ -1,26 +1,30 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { blogCategories, blogPosts, type BlogCategory } from "@/data/blogPosts";
+import type { BlogPost } from "@/data/blogPosts";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]";
 
-type Filter = "All" | BlogCategory;
+export type BlogCard = Pick<
+  BlogPost,
+  "id" | "slug" | "title" | "category" | "date" | "readTime" | "excerpt" | "coverImage"
+>;
 
-const filters: Filter[] = ["All", ...blogCategories];
-
-export function BlogIndex() {
-  const [filter, setFilter] = useState<Filter>("All");
+export function BlogIndex({
+  posts,
+  categories,
+}: {
+  posts: BlogCard[];
+  categories: string[];
+}) {
+  const filters = ["All", ...categories];
+  const [filter, setFilter] = useState("All");
 
   const visible = useMemo(
-    () =>
-      filter === "All"
-        ? blogPosts
-        : blogPosts.filter((post) => post.category === filter),
-    [filter],
+    () => (filter === "All" ? posts : posts.filter((post) => post.category === filter)),
+    [filter, posts],
   );
 
   const [featured, ...recent] = visible;
@@ -87,16 +91,11 @@ export function BlogIndex() {
       {featured ? (
         <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
           <article className="grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm lg:grid-cols-2">
-            <div className="relative h-64 w-full sm:h-80 lg:h-full lg:min-h-[24rem]">
-              <Image
-                src={featured.coverImage}
-                alt={featured.imageAlt}
-                fill
-                priority
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
+            <Cover
+              src={featured.coverImage}
+              alt=""
+              className="h-64 w-full object-cover sm:h-80 lg:h-full lg:min-h-[24rem]"
+            />
             <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
               <div className="mb-4 flex flex-wrap items-center gap-3">
                 <CategoryPill>{featured.category}</CategoryPill>
@@ -120,8 +119,7 @@ export function BlogIndex() {
       ) : (
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
           <p className="rounded-2xl border border-slate-200/80 bg-white px-6 py-10 text-slate-700 shadow-sm">
-            No guides in this category yet. New notes on shower glass and
-            architectural glass are in progress.
+            No guides in this category yet.
           </p>
         </section>
       )}
@@ -134,19 +132,11 @@ export function BlogIndex() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {recent.map((post) => (
               <article
-                key={post.slug}
+                key={post.id || post.slug}
                 className="flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-shadow hover:shadow-md"
               >
                 <div>
-                  <div className="relative h-48 w-full">
-                    <Image
-                      src={post.coverImage}
-                      alt={post.imageAlt}
-                      fill
-                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      className="h-48 w-full object-cover"
-                    />
-                  </div>
+                  <Cover src={post.coverImage} alt="" className="h-48 w-full object-cover" />
                   <div className="p-6">
                     <div className="mb-3 flex flex-wrap items-center gap-3">
                       <CategoryPill>{post.category}</CategoryPill>
@@ -155,9 +145,7 @@ export function BlogIndex() {
                     <h3 className="font-serif text-xl font-bold leading-snug text-[#1B2A4A]">
                       {post.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                      {post.excerpt}
-                    </p>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600">{post.excerpt}</p>
                   </div>
                 </div>
                 <div className="px-6 pb-6">
@@ -176,6 +164,13 @@ export function BlogIndex() {
       ) : null}
     </main>
   );
+}
+
+function Cover({ src, alt, className }: { src: string; alt: string; className: string }) {
+  if (!src) {
+    return <div className={`bg-[#F3EFEA] ${className}`} aria-hidden="true" />;
+  }
+  return <img src={src} alt={alt} className={className} />;
 }
 
 function CategoryPill({ children }: { children: string }) {

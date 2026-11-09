@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Header } from "@/components/Header";
-import { getBlogPost, blogPosts, type BlogBlock } from "@/data/blogPosts";
+import { BOOKING_URL } from "@/config/links";
+import { blogPosts, getBlogPost, type BlogPost } from "@/data/blogPosts";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]";
@@ -42,6 +42,7 @@ async function Article({
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) notFound();
+  const cta = ctaFor(post);
 
   return (
     <main>
@@ -79,29 +80,25 @@ async function Article({
           {post.title}
         </h1>
 
-        <div className="relative mb-10 h-80 w-full overflow-hidden rounded-3xl shadow-sm sm:h-96">
-          <Image
+        {post.coverImage ? (
+          <img
             src={post.coverImage}
-            alt={post.imageAlt}
-            fill
-            priority
-            sizes="(min-width: 896px) 896px, 100vw"
-            className="h-80 w-full object-cover sm:h-96"
+            alt=""
+            className="mb-10 h-80 w-full rounded-3xl object-cover shadow-sm sm:h-96"
           />
-        </div>
+        ) : null}
 
-        <div className="space-y-6 text-lg leading-relaxed text-slate-700">
-          {post.content.map((block, index) => (
-            <Block key={index} block={block} />
-          ))}
-        </div>
+        <div
+          className="prose prose-lg max-w-none leading-relaxed text-slate-700 prose-headings:font-serif prose-headings:font-bold prose-headings:text-[#1B2A4A] prose-a:text-[#1B2A4A] prose-img:rounded-2xl"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
 
         <aside className="mt-12 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-wider text-slate-600">
             Local team
           </p>
           <h2 className="mt-2 font-serif text-2xl font-bold text-[#1B2A4A]">
-            Written by the Sound View Technical Advisory Team
+            Written by the Sound View Advisory Team
           </h2>
           <p className="mt-3 text-base leading-relaxed text-slate-700">
             Specialists in replacement windows, doors, and custom glass for
@@ -117,25 +114,25 @@ async function Article({
         </aside>
 
         <aside className="mt-6 rounded-2xl bg-[#1B2A4A] p-6 text-[#FAF8F5] shadow-sm sm:p-8">
-          <h2 className="font-serif text-2xl font-bold">{post.cta.heading}</h2>
+          <h2 className="font-serif text-2xl font-bold">{cta.heading}</h2>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#FAF8F5]/85">
-            {post.cta.body}
+            {cta.body}
           </p>
-          {post.cta.external ? (
+          {cta.external ? (
             <a
-              href={post.cta.href}
+              href={cta.href}
               target="_blank"
               rel="noopener noreferrer"
               className={`mt-6 inline-flex rounded-lg bg-[#FAF8F5] px-5 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-white ${focusRing}`}
             >
-              {post.cta.label}
+              {cta.label}
             </a>
           ) : (
             <Link
-              href={post.cta.href}
+              href={cta.href}
               className={`mt-6 inline-flex rounded-lg bg-[#FAF8F5] px-5 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-white ${focusRing}`}
             >
-              {post.cta.label}
+              {cta.label}
             </Link>
           )}
         </aside>
@@ -144,31 +141,51 @@ async function Article({
   );
 }
 
-function Block({ block }: { block: BlogBlock }) {
-  if (block.type === "heading") {
-    return (
-      <h2 className="pt-4 font-serif text-2xl font-bold leading-snug text-[#1B2A4A] sm:text-3xl">
-        {block.text}
-      </h2>
-    );
+function ctaFor(post: BlogPost) {
+  const hay = `${post.title} ${post.slug}`.toLowerCase();
+  if (/showroom|about sound view/.test(hay)) {
+    return {
+      heading: "See the products in a local showroom",
+      body: "Book a visit to compare windows, doors, and glass with a specialist who works on Greater Seattle homes.",
+      label: "Book a Showroom Visit",
+      href: BOOKING_URL,
+      external: true,
+    };
   }
-  if (block.type === "list") {
-    return (
-      <ul className="list-disc space-y-2 pl-6">
-        {block.items.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    );
+  if (/shower/.test(hay)) {
+    return {
+      heading: "Plan a custom shower enclosure",
+      body: "Start with the shower configurator and tell us the layout, glass, and hardware you want to compare.",
+      label: "Start the Shower Configurator",
+      href: "/services/shower-door-replacement/types",
+      external: false,
+    };
   }
-  if (block.type === "quote") {
-    return (
-      <blockquote className="rounded-2xl border border-slate-200/80 border-l-4 border-l-[#1B2A4A] bg-white px-6 py-5 font-serif text-xl leading-relaxed text-[#1B2A4A] shadow-sm">
-        {block.text}
-      </blockquote>
-    );
+  if (/glass replacement|measure window glass|obscure glass/.test(hay)) {
+    return {
+      heading: "Price a glass-only replacement",
+      body: "If the frame is still sound, walk through the glass configurator before replacing the whole opening.",
+      label: "Start the Glass Configurator",
+      href: "/services/glass-replacement/types",
+      external: false,
+    };
   }
-  return <p>{block.text}</p>;
+  if (post.category === "Doors" || (/\bdoors?\b/.test(hay) && !/window/.test(hay))) {
+    return {
+      heading: "Compare entry and patio doors",
+      body: "Use the door configurator to record style and material, then review the options that hold up in a wet winter.",
+      label: "Start the Door Configurator",
+      href: "/services/door-replacement/types",
+      external: false,
+    };
+  }
+  return {
+    heading: "Compare window packages for your openings",
+    body: "Walk through style, frame material, and project details in the three-step window configurator.",
+    label: "Start the Window Configurator",
+    href: "/services/window-replacement/types",
+    external: false,
+  };
 }
 
 function ArticleFallback() {
