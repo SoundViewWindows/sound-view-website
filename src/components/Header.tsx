@@ -29,7 +29,9 @@ const navigation: NavEntry[] = [
             ? "/services/shower-door-replacement/types"
             : service.id === "glass-replacement"
               ? "/services/glass-replacement/types"
-              : `/services/${service.id}`,
+              : service.id === "window-blinds-shades"
+                ? "/services/window-blinds-shades"
+                : `/services/${service.id}`,
       serviceId: service.id,
     })),
   },
@@ -37,7 +39,7 @@ const navigation: NavEntry[] = [
     kind: "menu",
     label: "Resources",
     items: [
-      { label: "Financing", href: "/resources/financing" },
+      { label: "Financing", href: "/financing" },
       {
         label: "Energy Rebates for Windows & Doors",
         href: "/resources/energy-rebates",
@@ -116,6 +118,7 @@ export function Header({ onServiceSelect, onRequestConsultation }: HeaderProps) 
       serviceId === "door-replacement" ||
       serviceId === "shower-door-replacement" ||
       serviceId === "glass-replacement" ||
+      serviceId === "window-blinds-shades" ||
       serviceId === "glass-railing-installation"
     ) {
       return;
