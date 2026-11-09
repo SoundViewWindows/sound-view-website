@@ -40,6 +40,7 @@ const projects = [
     badge: "MASONRY OPENING RETROFIT",
     title: "Brick Exterior Single-Hung Window Replacement",
     copy: "Removed aged drafty single-pane wood sash set into masonry and installed a custom-sized, energy-efficient replacement unit with seamless exterior trim and tight perimeter seals.",
+    href: "/services/window-replacement/types",
   },
   {
     src: "/portfolio/siding-slider-before-after.jpg",
@@ -47,6 +48,7 @@ const projects = [
     badge: "SIDING PRESERVATION INSTALL",
     title: "Horizontal Sliding Window Upgrade",
     copy: "Upgraded an outdated gridded aluminum slider with a high-performance, smooth-glide vinyl slider, boosting thermal insulation and opening up natural garden light.",
+    href: "/services/window-replacement/types",
   },
 ];
 
@@ -126,23 +128,34 @@ export default function PortfolioPage() {
           </p>
           <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-2">
             {projects.map((project) => (
-              <article
+              <Link
                 key={project.src}
-                className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-7"
+                href={project.href}
+                className={`group block h-full rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-7 ${focusRing}`}
               >
-                <Image
-                  src={project.src}
-                  alt={project.alt}
-                  width={819}
-                  height={1024}
-                  className="mb-4 h-auto w-full rounded-2xl border border-slate-200/80 object-cover shadow-md"
-                />
+                <div className="mb-4 overflow-hidden rounded-2xl">
+                  <Image
+                    src={project.src}
+                    alt={project.alt}
+                    width={819}
+                    height={1024}
+                    className="h-auto w-full border border-slate-200/80 object-cover shadow-md transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                </div>
                 <p className="mb-2 w-fit rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
                   {project.badge}
                 </p>
-                <h3 className="font-serif text-2xl font-bold text-[#1D2C43]">{project.title}</h3>
+                <h3 className="font-serif text-2xl font-bold text-[#1D2C43] transition-colors group-hover:text-[#162433]">
+                  {project.title}
+                </h3>
                 <p className="mt-2 text-sm leading-6 text-slate-600">{project.copy}</p>
-              </article>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#1D2C43] group-hover:underline">
+                  Explore window options
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </span>
+              </Link>
             ))}
           </div>
         </section>

@@ -100,29 +100,27 @@ export default function EnergyRebatesPage() {
 
         <section className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 pb-16 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
           {providers.map((provider) => (
-            <article
+            <a
               key={provider.title}
-              className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-8"
+              href={provider.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8 ${focusRing}`}
             >
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-600">
                   {provider.tagline}
                 </p>
-                <h2 className="mb-3 font-serif text-2xl font-bold text-[#1D2C43]">
+                <h2 className="mb-3 font-serif text-2xl font-bold text-[#1D2C43] transition-colors group-hover:text-[#162433]">
                   {provider.title}
                 </h2>
                 <p className="text-sm leading-relaxed text-slate-600">{provider.description}</p>
               </div>
-              <a
-                href={provider.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`mt-8 inline-flex items-center justify-center gap-2 self-start rounded-lg bg-[#1D2C43] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
-              >
+              <span className="mt-8 inline-flex items-center justify-center gap-2 self-start rounded-lg bg-[#1D2C43] px-5 py-3 text-sm font-medium text-white transition-colors group-hover:bg-[#162433]">
                 {provider.cta}
                 <ExternalLinkIcon />
-              </a>
-            </article>
+              </span>
+            </a>
           ))}
         </section>
 
