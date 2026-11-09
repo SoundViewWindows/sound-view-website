@@ -11,8 +11,8 @@ const offers: Record<
   door: {
     title: "Browse Matching Door Hardware Online",
     body: "Explore our collection of premium exterior handlesets, smart locks, and hinge finishes ready to complement your new doors.",
-    button: "Shop Door Hardware & Storefront",
-    href: "https://sound-view-window-door.myshopify.com/",
+    button: "Shop Matching Door Hardware",
+    href: "https://sound-view-window-door.myshopify.com/collections/door-hardware",
   },
   shower: {
     title: "Explore Shower Glass Hardware & Accessories",
@@ -23,13 +23,13 @@ const offers: Record<
   window: {
     title: "Explore Custom Window Treatments",
     body: "Browse motorized shades, cellular honeycomb blinds, and drapery solutions designed to fit your new window openings.",
-    button: "Shop Window Treatments",
+    button: "Shop Matching Window Treatments",
     href: "https://sound-view-window-door.myshopify.com/collections/window-treatments",
   },
   glass: {
     title: "Explore the Sound View Hardware Storefront",
     body: "Find contractor-grade glass hardware, weatherstripping, and specialized fittings directly through our online store.",
-    button: "Visit Sound View Shopify Store",
+    button: "Visit Sound View Hardware Storefront",
     href: "https://sound-view-window-door.myshopify.com/",
   },
 };
