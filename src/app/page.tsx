@@ -7,10 +7,22 @@ import { Header } from "@/components/Header";
 import { QuoteRequestForm } from "@/components/quote-request-form";
 import { services } from "@/lib/services";
 
-const showroomPhones = [
+type ShowroomPhone = {
+  name: string;
+  display: string;
+  href: string;
+  note?: string;
+};
+
+const showroomPhones: ShowroomPhone[] = [
   { name: "Lake City", display: "(206) 572-3411", href: "tel:2065723411" },
   { name: "West Queen Anne", display: "(206) 402-4229", href: "tel:2064024229" },
-  { name: "Bellevue", display: "(425) 417-3005", href: "tel:4254173005" },
+  {
+    name: "Bellevue",
+    display: "(425) 417-3005",
+    href: "tel:4254173005",
+    note: "Showroom visits by appointment only",
+  },
 ];
 
 export default function Home() {
@@ -99,7 +111,7 @@ export default function Home() {
                 {phoneOpen ? (
                   <ul
                     id="showroom-phones"
-                    className="absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-2"
+                    className="absolute left-1/2 top-full z-50 w-80 min-w-[320px] -translate-x-1/2 pt-2"
                   >
                     <li className="overflow-hidden rounded-xl border border-[#1B2A4A]/10 bg-[#FAF8F5] shadow-lg">
                       <ul>
@@ -110,10 +122,17 @@ export default function Home() {
                           >
                             <a
                               href={location.href}
-                              className="flex items-center justify-between gap-3 px-4 py-3 text-sm text-[#1B2A4A] hover:bg-[#F4EFEA] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1B2A4A]"
+                              className="block px-4 py-3 text-sm text-[#1B2A4A] hover:bg-[#F4EFEA] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#1B2A4A]"
                             >
-                              <span>{location.name}</span>
-                              <span className="font-medium">{location.display}</span>
+                              <span className="flex items-center justify-between gap-4">
+                                <span>{location.name}</span>
+                                <span className="shrink-0 font-medium">{location.display}</span>
+                              </span>
+                              {location.note ? (
+                                <span className="mt-0.5 block text-[11px] font-normal italic text-slate-500">
+                                  {location.note}
+                                </span>
+                              ) : null}
                             </a>
                           </li>
                         ))}
@@ -137,7 +156,9 @@ export default function Home() {
                     ? "/services/window-replacement/types"
                     : service.id === "door-replacement"
                       ? "/services/door-replacement/types"
-                      : `/services/${service.id}`
+                      : service.id === "shower-door-replacement"
+                        ? "/services/shower-door-replacement/types"
+                        : `/services/${service.id}`
                 }
                 className="group flex min-h-0 cursor-pointer flex-col overflow-hidden rounded-xl border border-[#1B2A4A]/10 bg-white text-left shadow-[0_1px_2px_rgba(15,23,42,0.05)] transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
               >
