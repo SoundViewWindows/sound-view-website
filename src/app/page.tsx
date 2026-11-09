@@ -116,28 +116,32 @@ export default function Home() {
                 {phoneOpen ? (
                   <ul
                     id="showroom-phones"
-                    className="absolute left-1/2 top-full z-50 w-96 min-w-[360px] -translate-x-1/2 pt-2"
+                    className="absolute left-1/2 top-full z-50 w-[min(24rem,calc(100vw-2rem))] -translate-x-1/2 pt-2"
                   >
-                    <li className="overflow-hidden rounded-xl border border-[#1E3A5F] bg-[#0B192C] shadow-lg">
+                    <li className="overflow-hidden rounded-xl border border-slate-700 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-md">
                       <ul>
                         {showroomPhones.map((location) => (
                           <li
                             key={location.href}
-                            className="border-b border-[#1E3A5F] last:border-b-0"
+                            className="border-b border-slate-700 last:border-b-0"
                           >
                             <a
                               href={location.href}
-                              className="flex items-center justify-between gap-4 p-3 text-sm text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#38BDF8]"
+                              className="flex items-center justify-between gap-4 py-3 text-sm focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#38BDF8]"
                             >
                               <span className="flex min-w-0 items-center">
-                                <span className="font-medium text-slate-900">{location.name}</span>
+                                <span className="text-sm font-semibold text-white transition-colors hover:text-sky-400">
+                                  {location.name}
+                                </span>
                                 {location.appointmentOnly ? (
-                                  <span className="ml-2 inline-flex shrink-0 items-center whitespace-nowrap rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-[11px] font-semibold text-white">
+                                  <span className="ml-2 inline-flex shrink-0 items-center whitespace-nowrap rounded-full border border-sky-800 bg-sky-950/80 px-2 py-0.5 text-[11px] text-sky-200">
                                     By Appointment Only
                                   </span>
                                 ) : null}
                               </span>
-                              <span className="shrink-0 font-bold">{location.display}</span>
+                              <span className="shrink-0 text-sm font-bold tracking-wide text-sky-400">
+                                {location.display}
+                              </span>
                             </a>
                           </li>
                         ))}

@@ -98,10 +98,10 @@ export function QuoteRequestForm({
   return (
     <form noValidate className="flex flex-col space-y-2.5" onSubmit={handleSubmit}>
       <div>
-        <h2 className="mb-0.5 font-serif text-xl font-bold text-[#1D2C43]">
+        <h2 className="mb-1.5 text-2xl font-bold text-white sm:text-3xl">
           Request a Free Quote
         </h2>
-        <p className="mb-3 text-xs text-slate-500">
+        <p className="mb-3 text-sm font-normal text-slate-200">
           Get in touch with our installation experts today.
         </p>
       </div>
@@ -191,14 +191,14 @@ export function QuoteRequestForm({
 
       <Field label="Photos or videos" id="quote-media" error={errors.media}>
         <div
-          className={`relative flex h-9 items-center gap-2 overflow-hidden rounded-lg border bg-white px-1.5 focus-within:border-[#1D2C43] focus-within:ring-2 focus-within:ring-[#1D2C43]/20 ${
-            errors.media ? "border-[#8C3A32]" : "border-slate-200"
+          className={`relative flex h-9 items-center gap-2 overflow-hidden rounded-lg border bg-[#0B192C] px-1.5 focus-within:border-white focus-within:ring-2 focus-within:ring-white/30 ${
+            errors.media ? "border-[#8C3A32]" : "border-white/25"
           }`}
         >
-          <span className="shrink-0 rounded-md bg-[#1D2C43] px-2.5 py-1 text-[11px] font-semibold text-white">
+          <span className="shrink-0 rounded-md bg-white px-2.5 py-1 text-[11px] font-semibold text-[#0B192C]">
             Choose file
           </span>
-          <span className="min-w-0 flex-1 truncate text-xs font-normal text-[#5D6875]">
+          <span className="min-w-0 flex-1 truncate text-xs font-medium text-slate-200">
             {files.length === 0
               ? "Attach photos or videos"
               : files.map((file) => file.name).join(", ")}
@@ -215,7 +215,7 @@ export function QuoteRequestForm({
           />
         </div>
         {files.length > 0 ? (
-          <p className="text-xs font-normal text-[#5D6875]">
+          <p className="text-xs font-medium text-slate-200">
             {files.length} file{files.length === 1 ? "" : "s"} selected
           </p>
         ) : null}
@@ -243,8 +243,10 @@ function Field({
   children: ReactNode;
 }) {
   return (
-    <label htmlFor={id} className="flex flex-col gap-1 text-xs font-medium text-[#1D2C43]">
-      {label}
+    <label htmlFor={id} className="block">
+      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-white">
+        {label}
+      </span>
       {children}
       {error ? (
         <span id={`${id}-error`} role="alert" className="font-normal text-[#8C3A32]">
