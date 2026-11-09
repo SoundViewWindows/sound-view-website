@@ -5,10 +5,10 @@ const crumbLink =
   "rounded-sm text-slate-400 hover:text-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 const steps = [
-  { id: 1, label: "1. Materials", name: "Materials", key: "materials" },
-  { id: 2, label: "2. Types", name: "Types", key: "types" },
-  { id: 3, label: "3. Manufacturers", name: "Manufacturers", key: "manufacturers" },
-  { id: 4, label: "4. Free Quote", name: "Free Quote", key: "quote" },
+  { id: 1, label: "Materials", name: "Materials", key: "materials" },
+  { id: 2, label: "Types", name: "Types", key: "types" },
+  { id: 3, label: "Manufacturers", name: "Manufacturers", key: "manufacturers" },
+  { id: 4, label: "Free Quote", name: "Free Quote", key: "quote" },
 ] as const;
 
 export function WindowStepNav({
