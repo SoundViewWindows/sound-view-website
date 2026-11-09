@@ -39,8 +39,8 @@ export function ScrollReveal({ children, delay = 0, className = "" }: ScrollReve
     <div
       ref={ref}
       style={{ transitionDelay: visible ? `${delay}ms` : "0ms" }}
-      className={`translate-y-6 opacity-0 transition-all duration-700 ease-out motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none ${
-        visible ? "translate-y-0 opacity-100" : ""
+      className={`transition-all duration-700 ease-out motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
       } ${className}`}
     >
       {children}

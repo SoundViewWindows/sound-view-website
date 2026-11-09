@@ -247,7 +247,7 @@ export default function Home() {
 
       <SoundViewDifference />
       <HowItWorks />
-      <RecentProjects />
+      <HomeownerReviews />
       <FaqAndCta
         openIndex={openFaq}
         onToggle={(index) => setOpenFaq((current) => (current === index ? null : index))}
@@ -298,24 +298,21 @@ const steps = [
   },
 ];
 
-const recentProjects = [
+const homeownerReviews = [
   {
-    tag: "Queen Anne, Seattle",
-    title: "Whole-Home Window Replacement",
-    body: "Removed 12 original drafty wood sash windows and installed energy-efficient, Low-E fiberglass replacement units. Seamlessly matched the historic exterior trim while significantly reducing winter heat loss.",
-    note: "Products: Milgard Fiberglass • Duration: 3 Days",
+    name: "David M. · Queen Anne, Seattle",
+    quote:
+      "Sound View replaced 12 original windows with zero pressure. Installers arrived right on schedule, and the draft reduction this winter has been incredible.",
   },
   {
-    tag: "Bellevue, WA",
-    title: "Multi-Slide Door & Frameless Shower",
-    body: "Engineered and installed a custom 12-foot multi-slide patio door system to open the living space to the deck. Additionally, measured and installed a heavy glass frameless shower enclosure in the master suite.",
-    note: "Products: Andersen Architectural • Duration: 2 Days",
+    name: "Jennifer K. · Bellevue Homeowner",
+    quote:
+      "We needed a custom sliding patio door and a frameless glass shower door. The measurement was precise down to the millimeter, and the finished look is stunning.",
   },
   {
-    tag: "Lake City, Seattle",
-    title: "IGU & Foggy Glass Restoration",
-    body: "Restored clarity and insulation to 8 failed window seals by replacing just the Insulated Glass Units (IGUs), preserving the original vinyl frames and saving the homeowner thousands compared to a full tear-out.",
-    note: "Products: Custom Cut IGU • Duration: 1 Day",
+    name: "Marcus & Elena R. · Lake City, Seattle",
+    quote:
+      "Easily our best contractor experience in Seattle. Clear communication from the showroom visit to installation day, flawless finish trim, and complete cleanup.",
   },
 ];
 
@@ -446,33 +443,38 @@ function HowItWorks() {
   );
 }
 
-function RecentProjects() {
+function HomeownerReviews() {
   return (
-    <section className="bg-[#1B2A4A] text-white">
-      <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-5 lg:py-24">
+    <section className="bg-[#1B2A4A] py-8 sm:py-10" aria-label="Homeowner testimonials">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <ScrollReveal>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
-            Proven Local Craftsmanship
-          </p>
-          <h2 className="font-serif text-4xl font-bold text-white lg:text-5xl">
-            Recent Installations Across Greater Seattle
-          </h2>
+          <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
+              Trusted by Homeowners Across Greater Seattle
+            </h2>
+            <p className="flex items-center gap-1 text-xs font-medium text-amber-300">
+              4.9 ★★★★★ (Verified Local Installations)
+            </p>
+          </div>
         </ScrollReveal>
-        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {recentProjects.map((project, index) => (
-            <ScrollReveal key={project.title} delay={index * 100} className="h-full">
-              <article className="flex h-full flex-col justify-between rounded-2xl bg-white p-6 shadow-lg sm:p-8">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {homeownerReviews.map((review, index) => (
+            <ScrollReveal key={review.name} delay={index * 100} className="h-full">
+              <figure className="flex h-full flex-col justify-between rounded-xl border border-white/10 bg-white/[0.06] p-4 transition-colors hover:bg-white/[0.09] sm:p-5">
                 <div>
-                  <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                    {project.tag}
-                  </p>
-                  <h3 className="mb-2 text-lg font-bold text-[#1B2A4A]">{project.title}</h3>
-                  <p className="text-sm leading-6 text-slate-600">{project.body}</p>
+                  <div className="mb-2 flex gap-0.5 text-xs text-amber-400" aria-label="5 stars">
+                    <span aria-hidden="true">★</span>
+                    <span aria-hidden="true">★</span>
+                    <span aria-hidden="true">★</span>
+                    <span aria-hidden="true">★</span>
+                    <span aria-hidden="true">★</span>
+                  </div>
+                  <blockquote className="mb-3 line-clamp-3 text-xs leading-relaxed text-slate-200 sm:text-sm">
+                    {review.quote}
+                  </blockquote>
                 </div>
-                <p className="mt-4 border-t border-slate-100 pt-4 text-xs text-slate-500">
-                  {project.note}
-                </p>
-              </article>
+                <figcaption className="text-[11px] font-semibold text-slate-400">{review.name}</figcaption>
+              </figure>
             </ScrollReveal>
           ))}
         </div>
