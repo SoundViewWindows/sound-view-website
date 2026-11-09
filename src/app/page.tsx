@@ -207,7 +207,7 @@ export default function Home() {
           <div
             className={
               quoteSubmitted
-                ? "flex min-h-0 flex-1 flex-col items-center justify-center overflow-y-auto bg-white p-6 sm:p-8"
+                ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto bg-white p-6 sm:p-8"
                 : "min-h-0 flex-1 overflow-y-auto px-4 py-3"
             }
           >
