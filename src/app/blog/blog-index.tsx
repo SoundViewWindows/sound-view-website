@@ -90,31 +90,33 @@ export function BlogIndex({
 
       {featured ? (
         <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-          <article className="grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm lg:grid-cols-2">
-            <Cover
-              src={featured.coverImage}
-              alt=""
-              className="h-64 w-full object-cover sm:h-80 lg:h-full lg:min-h-[24rem]"
-            />
+          <Link
+            href={`/blog/${featured.slug}`}
+            className={`group grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-shadow hover:shadow-md lg:grid-cols-2 ${focusRing}`}
+          >
+            <div className="overflow-hidden">
+              <Cover
+                src={featured.coverImage}
+                alt=""
+                className="h-64 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 sm:h-80 lg:h-full lg:min-h-[24rem]"
+              />
+            </div>
             <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
               <div className="mb-4 flex flex-wrap items-center gap-3">
                 <CategoryPill>{featured.category}</CategoryPill>
                 <span className="text-sm text-slate-500">{featured.readTime}</span>
               </div>
-              <h2 className="font-serif text-3xl font-bold leading-tight text-[#1D2C43] sm:text-4xl">
+              <h2 className="font-serif text-3xl font-bold leading-tight text-[#1D2C43] transition-colors group-hover:text-[#162433] sm:text-4xl">
                 {featured.title}
               </h2>
               <p className="mt-4 text-base leading-relaxed text-slate-700 sm:text-lg">
                 {featured.excerpt}
               </p>
-              <Link
-                href={`/blog/${featured.slug}`}
-                className={`mt-8 inline-flex w-fit items-center justify-center rounded-lg bg-[#1D2C43] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#162433] ${focusRing}`}
-              >
+              <span className="mt-8 inline-flex w-fit items-center justify-center rounded-lg bg-[#1D2C43] px-5 py-3 text-sm font-medium text-white transition-colors group-hover:bg-[#162433]">
                 Read Guide
-              </Link>
+              </span>
             </div>
-          </article>
+          </Link>
         </section>
       ) : (
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
@@ -131,33 +133,42 @@ export function BlogIndex({
           </h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {recent.map((post) => (
-              <article
+              <Link
                 key={post.id || post.slug}
-                className="flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-shadow hover:shadow-md"
+                href={`/blog/${post.slug}`}
+                className={`group flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-shadow hover:shadow-md ${focusRing}`}
               >
                 <div>
-                  <Cover src={post.coverImage} alt="" className="h-48 w-full object-cover" />
+                  <div className="overflow-hidden">
+                    <Cover
+                      src={post.coverImage}
+                      alt=""
+                      className="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    />
+                  </div>
                   <div className="p-6">
                     <div className="mb-3 flex flex-wrap items-center gap-3">
                       <CategoryPill>{post.category}</CategoryPill>
                       <span className="text-sm text-slate-500">{post.readTime}</span>
                     </div>
-                    <h3 className="font-serif text-xl font-bold leading-snug text-[#1D2C43]">
+                    <h3 className="font-serif text-xl font-bold leading-snug text-[#1D2C43] transition-colors group-hover:text-[#162433]">
                       {post.title}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-slate-600">{post.excerpt}</p>
                   </div>
                 </div>
                 <div className="px-6 pb-6">
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className={`inline-flex items-center gap-2 text-sm font-medium text-[#1D2C43] hover:underline ${focusRing}`}
-                  >
+                  <span className="inline-flex items-center gap-2 text-sm font-medium text-[#1D2C43] group-hover:underline">
                     Read article
-                    <span aria-hidden="true">&rarr;</span>
-                  </Link>
+                    <span
+                      aria-hidden="true"
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </section>

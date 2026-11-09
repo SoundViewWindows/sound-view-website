@@ -191,8 +191,11 @@ export default function Home() {
                   <p className="mb-2 truncate text-[10px] font-medium text-[#E7E0D5] sm:text-[11px]">
                     {service.keywords}
                   </p>
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-white transition-colors hover:text-[#E7E0D5]">
-                    Explore Options →
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-white transition-colors group-hover:text-[#E7E0D5]">
+                    Explore Options
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
                   </span>
                 </div>
               </Link>

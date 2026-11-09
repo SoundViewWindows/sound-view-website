@@ -105,36 +105,41 @@ export default function WindowBlindsShadesPage() {
         <section aria-label="Treatment categories">
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 pb-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
             {treatments.map((item) => (
-              <article
+              <a
                 key={item.title}
-                className="flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-shadow hover:shadow-md"
+                href={shopHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:border-slate-300 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
               >
-                <img
-                  src={item.image}
-                  alt={item.imageAlt}
-                  className="h-44 w-full rounded-t-2xl object-cover sm:h-48"
-                  loading="lazy"
-                />
-                <div className="flex flex-1 flex-col justify-between p-6">
+                <div className="relative h-44 w-full overflow-hidden bg-slate-100 sm:h-48">
+                  <img
+                    src={item.image}
+                    alt={item.imageAlt}
+                    className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col justify-between p-5 sm:p-6">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                    <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                       {item.tagline}
                     </p>
-                    <h2 className="mt-3 font-serif text-2xl font-medium leading-tight text-[#1D2C43]">
+                    <h2 className="mb-2 text-lg font-bold text-[#1D2C43] transition-colors group-hover:text-[#162433]">
                       {item.title}
                     </h2>
-                    <p className="mt-3 text-sm leading-6 text-slate-700">{item.copy}</p>
+                    <p className="mb-4 text-xs leading-relaxed text-slate-600 sm:text-sm">
+                      {item.copy}
+                    </p>
                   </div>
-                  <a
-                    href={shopHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#1D2C43] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D2C43]"
-                  >
-                    Shop Style Online →
-                  </a>
+                  <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-xs font-semibold text-[#1D2C43] group-hover:underline">
+                    Shop Style Online
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </span>
                 </div>
-              </article>
+              </a>
             ))}
           </div>
         </section>
