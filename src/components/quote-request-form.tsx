@@ -231,11 +231,11 @@ export function QuoteRequestForm({
         type="submit"
         disabled={isSubmitting}
         aria-busy={isSubmitting}
-        className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-[#38BDF8] py-4 text-base font-extrabold uppercase tracking-wider text-[#0B192C] shadow-lg shadow-sky-500/25 transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:bg-sky-300 hover:shadow-sky-400/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white active:translate-y-0 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0 sm:py-4.5 sm:text-lg"
+        className="flex w-full cursor-pointer items-center justify-center rounded-lg bg-[#38BDF8] py-2.5 text-sm font-bold uppercase tracking-wider text-[#0B192C] shadow-md shadow-sky-500/20 transition-all duration-150 hover:bg-sky-300 hover:shadow-sky-400/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:opacity-70 sm:py-3"
       >
         {isSubmitting ? "Submitting" : "Submit Quote Request"}
         {isSubmitting ? null : (
-          <ArrowRight className="ml-2 inline-block h-5 w-5 stroke-[2.5]" aria-hidden="true" />
+          <ArrowRight className="ml-1.5 inline-block h-4 w-4 stroke-[2.5]" aria-hidden="true" />
         )}
       </button>
     </form>
