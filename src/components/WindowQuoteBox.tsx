@@ -2,28 +2,33 @@
 
 import { useState, type FormEvent } from "react";
 import { QuoteThankYou } from "@/components/QuoteThankYou";
-import { windowMaterials, windowStyles } from "@/lib/window-funnel";
+import { windowManufacturers, windowMaterials, windowStyles } from "@/lib/window-funnel";
 
 const windowCounts = ["1 to 5", "6 to 12", "13+"] as const;
 
 export const windowPreferences = {
   materials: windowMaterials.map((item) => item.option),
   styles: windowStyles.map((item) => item.option),
+  manufacturers: windowManufacturers.map((item) => item.option),
 };
 
 type WindowQuoteBoxProps = {
   material?: string;
   style?: string;
+  manufacturer?: string;
   onMaterialChange?: (value: string) => void;
   onStyleChange?: (value: string) => void;
+  onManufacturerChange?: (value: string) => void;
   className?: string;
 };
 
 export function WindowQuoteBox({
   material = "",
   style = "",
+  manufacturer = "",
   onMaterialChange,
   onStyleChange,
+  onManufacturerChange,
   className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-xl sm:p-5",
 }: WindowQuoteBoxProps) {
   const [name, setName] = useState("");
@@ -34,11 +39,13 @@ export function WindowQuoteBox({
   const [notes, setNotes] = useState("");
   const [internalMaterial, setInternalMaterial] = useState("");
   const [internalStyle, setInternalStyle] = useState("");
+  const [internalManufacturer, setInternalManufacturer] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const materialValue = onMaterialChange ? material : internalMaterial;
   const styleValue = onStyleChange ? style : internalStyle;
+  const manufacturerValue = onManufacturerChange ? manufacturer : internalManufacturer;
 
   function updateMaterial(value: string) {
     if (onMaterialChange) onMaterialChange(value);
@@ -48,6 +55,11 @@ export function WindowQuoteBox({
   function updateStyle(value: string) {
     if (onStyleChange) onStyleChange(value);
     else setInternalStyle(value);
+  }
+
+  function updateManufacturer(value: string) {
+    if (onManufacturerChange) onManufacturerChange(value);
+    else setInternalManufacturer(value);
   }
 
   function validate() {
@@ -269,6 +281,27 @@ export function WindowQuoteBox({
               </select>
             </label>
           </div>
+
+          <label className="block" htmlFor="window-quote-manufacturer">
+            <span className={labelClass}>
+              Preferred Manufacturer
+              <span className="font-normal text-slate-500"> Optional</span>
+            </span>
+            <select
+              id="window-quote-manufacturer"
+              name="manufacturer"
+              value={manufacturerValue}
+              onChange={(event) => updateManufacturer(event.target.value)}
+              className={selectClass}
+            >
+              <option value="">No preference yet / Open to advice</option>
+              {windowPreferences.manufacturers.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </label>
 
           <button
             type="submit"
