@@ -151,7 +151,7 @@ export default function Home() {
 
           <section
             aria-label="Services"
-            className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3"
+            className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
           >
             {services.map((service) => (
               <Link
@@ -171,29 +171,30 @@ export default function Home() {
                               ? "/services/window-blinds-shades"
                               : `/services/${service.id}`
                 }
-                className="group flex min-h-0 cursor-pointer flex-col rounded-xl border border-slate-200/80 bg-white p-3 text-left shadow-sm transition-shadow hover:shadow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
+                className="group relative h-48 cursor-pointer overflow-hidden rounded-xl border border-slate-200/50 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A] sm:h-52 md:h-56"
               >
-                <span className="relative mb-2 block h-24 w-full overflow-hidden rounded-lg bg-[#F4EFEA] sm:h-28">
-                  <Image
-                    src={service.image}
-                    alt={service.imageAlt}
-                    fill
-                    sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
-                    className="object-cover"
-                  />
-                </span>
-                <h3 className="mb-1 line-clamp-1 text-sm font-bold text-[#1B2A4A]">
-                  {service.title}
-                </h3>
-                <p className="mb-1.5 line-clamp-2 text-[11px] leading-snug text-slate-600">
-                  {service.summary}
-                </p>
-                <p className="mb-1.5 truncate text-[10px] font-medium text-slate-400">
-                  {service.keywords}
-                </p>
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#1B2A4A] hover:underline">
-                  Explore Options →
-                </span>
+                <Image
+                  src={service.image}
+                  alt={service.imageAlt}
+                  fill
+                  sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
+                  className="z-0 object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#1B2A4A]/90 via-[#1B2A4A]/40 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col justify-end p-4 sm:p-5">
+                  <h3 className="mb-1 text-base font-bold text-white drop-shadow-md sm:text-lg">
+                    {service.title}
+                  </h3>
+                  <p className="mb-1.5 line-clamp-2 text-[11px] leading-snug text-slate-100 drop-shadow-sm sm:text-xs">
+                    {service.summary}
+                  </p>
+                  <p className="mb-2 truncate text-[10px] font-medium text-amber-300 sm:text-[11px]">
+                    {service.keywords}
+                  </p>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-white transition-colors hover:text-amber-300">
+                    Explore Options →
+                  </span>
+                </div>
               </Link>
             ))}
           </section>
