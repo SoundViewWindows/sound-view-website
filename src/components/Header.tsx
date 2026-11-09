@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useState, type MouseEvent } from "react";
+import { BOOKING_URL } from "@/config/links";
 import { services } from "@/lib/services";
 
 type NavChild = {
@@ -154,12 +155,14 @@ export function Header({ onServiceSelect }: HeaderProps) {
           )}
         </nav>
 
-        <Link
-          href="/contact"
+        <a
+          href={BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className={`shrink-0 rounded-full bg-[#1B2A4A] px-3 py-2 text-xs font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] sm:px-4 sm:text-sm ${focusRing}`}
         >
-          Request a Consultation
-        </Link>
+          Book Appointment
+        </a>
 
         <button
           type="button"
@@ -226,6 +229,15 @@ export function Header({ onServiceSelect }: HeaderProps) {
                 </div>
               ),
             )}
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
+              className={`my-3 inline-flex items-center justify-center rounded-full bg-[#1B2A4A] px-4 py-3 text-sm font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] ${focusRing}`}
+            >
+              Book Appointment
+            </a>
           </nav>
         </div>
       ) : null}

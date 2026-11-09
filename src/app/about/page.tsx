@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
+import { BOOKING_URL } from "@/config/links";
 
 export const metadata: Metadata = {
   title: "About Us | Sound View Window & Door",
@@ -97,12 +98,14 @@ export default function AboutPage() {
             >
               Explore Our Showrooms
             </a>
-            <Link
-              href="/contact"
-              className={`inline-flex items-center justify-center rounded-lg border border-[#1B2A4A] bg-transparent px-6 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-[#F3EFEA] ${focusRing}`}
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center justify-center rounded-lg bg-[#1B2A4A] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#0F172A] ${focusRing}`}
             >
-              Request a Consultation
-            </Link>
+              Book Appointment
+            </a>
           </div>
         </section>
 
@@ -172,6 +175,26 @@ export default function AboutPage() {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="bg-[#1B2A4A]">
+          <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
+            <h2 className="font-serif text-3xl font-bold text-white sm:text-4xl">
+              Ready for a showroom visit?
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/85">
+              Book a time with a specialist and we will walk through windows,
+              doors, and glass with you.
+            </p>
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`mt-8 inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-medium text-[#1B2A4A] transition-colors hover:bg-[#F3EFEA] ${focusRing}`}
+            >
+              Book Appointment
+            </a>
           </div>
         </section>
       </main>

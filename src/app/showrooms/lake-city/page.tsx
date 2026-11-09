@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
+import { BOOKING_URL } from "@/config/links";
 
 export const metadata: Metadata = {
   title: "Lake City Showroom | Sound View Window & Door",
@@ -74,12 +75,14 @@ export default function LakeCityShowroomPage() {
           </p>
 
           <div className="mt-6 flex flex-wrap gap-4">
-            <Link
-              href="/contact"
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className={`rounded-lg bg-[#1B2A4A] px-6 py-3 font-medium text-white transition-colors hover:bg-[#15223C] ${focusRing}`}
             >
               Book a Showroom Visit
-            </Link>
+            </a>
             <a
               href="tel:2065723411"
               className={`flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3 font-medium text-slate-800 transition-colors hover:bg-slate-50 ${focusRing}`}
@@ -193,12 +196,14 @@ export default function LakeCityShowroomPage() {
               ahead pairs you with a dedicated window and door specialist
               prepared for your specific project plans.
             </p>
-            <Link
-              href="/contact"
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className={`mt-6 inline-flex items-center justify-center rounded-lg bg-[#1B2A4A] px-6 py-3 font-medium text-white transition-colors hover:bg-[#15223C] ${focusRing}`}
             >
               Book an Appointment
-            </Link>
+            </a>
           </div>
         </section>
       </main>

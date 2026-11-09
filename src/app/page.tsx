@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Header } from "@/components/Header";
+import { BOOKING_URL } from "@/config/links";
 import { QuoteRequestForm } from "@/components/quote-request-form";
 import { services } from "@/lib/services";
 
@@ -49,7 +50,7 @@ export default function Home() {
     };
   }, []);
 
-  function bookAppointment() {
+  function focusQuote() {
     document.getElementById("quote-name")?.focus();
     document.getElementById("quote")?.scrollIntoView({
       behavior: "smooth",
@@ -82,13 +83,14 @@ export default function Home() {
               Relaxed consultations, honest answers, and zero pressure to buy
             </p>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-              <button
-                type="button"
-                onClick={bookAppointment}
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-full bg-[#1B2A4A] px-6 py-3 text-base font-medium text-[#FAF8F5] transition-colors hover:bg-[#0F172A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1B2A4A]"
               >
-                Book an Appointment
-              </button>
+                Book Appointment
+              </a>
               <div
                 ref={phoneMenuRef}
                 className="relative"
@@ -227,7 +229,7 @@ export default function Home() {
       <FaqAndCta
         openIndex={openFaq}
         onToggle={(index) => setOpenFaq((current) => (current === index ? null : index))}
-        onQuote={bookAppointment}
+        onQuote={focusQuote}
       />
     </div>
   );
