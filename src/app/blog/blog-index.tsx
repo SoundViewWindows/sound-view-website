@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { BlogPost } from "@/data/blogPosts";
 
 const focusRing =
@@ -28,8 +28,31 @@ export function BlogIndex({
   posts: BlogCard[];
   categories: string[];
 }) {
-  const filters = ["All", ...categories];
+  const filters = useMemo(() => ["All", ...categories], [categories]);
   const [filter, setFilter] = useState("All");
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    const update = () => {
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      setCanScrollLeft(el.scrollLeft > 4);
+      setCanScrollRight(maxScroll - el.scrollLeft > 4);
+    };
+
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => {
+      el.removeEventListener("scroll", update);
+      observer.disconnect();
+    };
+  }, [filters]);
 
   const visible = useMemo(
     () =>
@@ -74,29 +97,50 @@ export function BlogIndex({
           investments in your home.
         </p>
 
-        <div
-          className="mt-8 flex gap-2 overflow-x-auto pb-1"
-          role="toolbar"
-          aria-label="Filter guides by category"
-        >
-          {filters.map((item) => {
-            const active = filter === item;
-            return (
-              <button
-                key={item}
-                type="button"
-                aria-pressed={active}
-                onClick={() => setFilter(item)}
-                className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${focusRing} ${
-                  active
-                    ? "border-sky-400 bg-sky-400 text-[#0B192C]"
-                    : "border-slate-700 bg-[#132238] text-white hover:border-sky-400/70"
-                }`}
-              >
-                {item}
-              </button>
-            );
-          })}
+        <div className="relative mt-8">
+          <div
+            ref={scrollerRef}
+            className="flex gap-2 overflow-x-auto overscroll-x-contain scroll-px-8 py-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            role="toolbar"
+            aria-label="Filter guides by category"
+          >
+            {filters.map((item) => {
+              const active = filter === item;
+              return (
+                <button
+                  key={item}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => setFilter(item)}
+                  onFocus={(event) =>
+                    event.currentTarget.scrollIntoView({
+                      inline: "nearest",
+                      block: "nearest",
+                    })
+                  }
+                  className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${focusRing} ${
+                    active
+                      ? "border-sky-400 bg-sky-400 text-[#0B192C]"
+                      : "border-slate-700 bg-[#132238] text-white hover:border-sky-400/70"
+                  }`}
+                >
+                  {item}
+                </button>
+              );
+            })}
+          </div>
+          <div
+            aria-hidden="true"
+            className={`pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-[#0B192C] to-transparent transition-opacity duration-200 ${
+              canScrollLeft ? "opacity-100" : "opacity-0"
+            }`}
+          />
+          <div
+            aria-hidden="true"
+            className={`pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[#0B192C] to-transparent transition-opacity duration-200 ${
+              canScrollRight ? "opacity-100" : "opacity-0"
+            }`}
+          />
         </div>
       </section>
 
