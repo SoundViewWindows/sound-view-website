@@ -71,28 +71,28 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-[#0B192C] text-[#E2E8F0]">
+    <div className="bg-home-canvas text-[#E7EEF3]">
     <div className="flex min-h-screen flex-col">
       <Header onServiceSelect={chooseService} />
 
       <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 py-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start lg:px-5 lg:py-3 xl:grid-cols-[minmax(0,1fr)_23rem]">
         <div className="relative z-20 flex min-h-0 flex-col">
-          <div className="relative z-30 mx-auto flex w-full shrink-0 flex-col items-center text-center">
-            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-slate-400 sm:text-sm">
+          <div className="relative z-30 flex w-full shrink-0 flex-col items-center pt-6 pb-8 text-center md:pt-8 md:pb-10">
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-home-accent sm:text-sm">
               Seattle, Bellevue & Greater Puget Sound
             </p>
-            <h1 className="mb-1.5 text-3xl font-extrabold tracking-tight text-white lg:text-4xl">
+            <h1 className="mb-3 w-full text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
               Sound View Window & Door
             </h1>
-            <p className="mb-4 max-w-2xl text-sm text-slate-300">
+            <p className="mx-auto mb-6 max-w-2xl text-base font-normal leading-relaxed text-slate-200 sm:text-lg md:text-xl">
               Relaxed consultations, honest answers, and zero pressure to buy
             </p>
-            <div className="relative mb-4 flex w-full flex-wrap items-center justify-center gap-3 sm:w-auto">
+            <div className="relative flex w-full flex-wrap items-center justify-center gap-4">
               <a
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-[#38BDF8] px-4 py-2 text-sm font-medium text-[#0A192F] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                className="rounded-full bg-home-accent px-4 py-2 text-sm font-medium text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
               >
                 Book Appointment
               </a>
@@ -175,7 +175,7 @@ export default function Home() {
                               ? "/services/window-blinds-shades"
                               : `/services/${service.id}`
                 }
-                className="group relative h-48 cursor-pointer overflow-hidden rounded-xl border border-slate-700/50 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:h-52 md:h-56"
+                className="group relative h-48 cursor-pointer overflow-hidden rounded-xl border border-[#8AA0B2]/35 bg-home-panel/80 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent sm:h-52 md:h-56"
               >
                 <Image
                   src={service.image}
@@ -184,7 +184,8 @@ export default function Home() {
                   sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
                   className="absolute inset-0 z-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0B192C]/95 via-[#0B192C]/50 to-transparent" />
+                <div className="absolute inset-0 z-10 bg-[#1A2B38]/40" />
+                <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#1A2B38]/95 via-[#1A2B38]/55 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col justify-end p-4 sm:p-5">
                   <h3 className="mb-1 text-base font-bold text-white drop-shadow-md sm:text-lg">
                     {service.title}
@@ -192,10 +193,10 @@ export default function Home() {
                   <p className="mb-1.5 line-clamp-2 text-[11px] leading-snug text-slate-100 drop-shadow-sm sm:text-xs">
                     {service.summary}
                   </p>
-                  <p className="mb-2 truncate text-[10px] font-medium text-[#BAE6FD] sm:text-[11px]">
+                  <p className="mb-2 truncate text-[10px] font-medium text-home-accent sm:text-[11px]">
                     {service.keywords}
                   </p>
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-white transition-colors group-hover:text-[#BAE6FD]">
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-white transition-colors group-hover:text-home-accent">
                     Explore Options
                     <span className="transition-transform duration-300 group-hover:translate-x-1">
                       →
@@ -208,20 +209,20 @@ export default function Home() {
           <ScrollReveal>
             <section
               aria-label="Company credentials"
-              className="mt-3 grid grid-cols-1 divide-y divide-slate-700/60 rounded-xl border border-slate-700/60 bg-[#132238] px-6 py-3 text-center shadow-lg sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:text-left"
+              className="mt-3 grid grid-cols-1 divide-y divide-home-line rounded-xl border border-[#8AA0B2]/30 bg-home-panel/80 px-6 py-3 text-center shadow-lg sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:text-left"
             >
               <div className="py-3 sm:px-4 sm:py-0 sm:pl-0">
                 <p className="text-sm font-bold tracking-wide text-white">3 Puget Sound Showrooms</p>
                 <p className="mt-0.5 text-xs text-slate-300">
-                  Lake City <span className="text-sky-400">•</span> Queen Anne{" "}
-                  <span className="text-sky-400">•</span> Bellevue
+                  Lake City <span className="text-home-accent">•</span> Queen Anne{" "}
+                  <span className="text-home-accent">•</span> Bellevue
                 </p>
               </div>
               <div className="py-3 sm:px-4 sm:py-0">
                 <p className="text-sm font-bold tracking-wide text-white">Authorized Factory Dealer</p>
                 <p className="mt-0.5 text-xs text-slate-300">
-                  Andersen <span className="text-sky-400">•</span> Milgard{" "}
-                  <span className="text-sky-400">•</span> Ply Gem
+                  Andersen <span className="text-home-accent">•</span> Milgard{" "}
+                  <span className="text-home-accent">•</span> Ply Gem
                 </p>
               </div>
               <div className="py-3 sm:px-4 sm:py-0 sm:pr-0">
@@ -234,17 +235,17 @@ export default function Home() {
 
         <aside
           id="quote"
-          className="flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-4 shadow-2xl sm:p-5"
+          className="relative z-10 mx-auto flex w-full max-w-md flex-col rounded-[28px] border border-[#1A6496] bg-home-deep p-6 text-white shadow-2xl shadow-slate-950/30 sm:p-7"
         >
           {quoteSubmitted ? null : (
-            <div className="mb-3 rounded-xl border border-sky-100 bg-sky-50/70 p-3 sm:p-3.5">
-              <p className="mb-0.5 block text-[11px] font-extrabold uppercase tracking-widest text-sky-700 sm:text-xs">
+            <div className="mb-5 rounded-2xl border border-white/15 bg-white/10 p-4 text-left">
+              <p className="mb-0.5 block text-[11px] font-black uppercase tracking-wider text-home-accent">
                 Special Offer
               </p>
-              <p className="text-xl font-extrabold leading-tight text-[#0B192C] sm:text-2xl">
+              <p className="mb-0.5 text-2xl font-black leading-snug tracking-tight text-white">
                 Save 10% on Labor
               </p>
-              <p className="mt-0.5 text-xs font-medium text-slate-600">
+              <p className="text-xs font-medium text-home-mist">
                 Book your project by November 30th.
               </p>
             </div>
@@ -362,7 +363,7 @@ const faqs = [
 
 function SoundViewDifference() {
   return (
-    <section className="border-t border-[#1E3A5F] bg-[#0B192C]">
+    <section className="border-t border-home-line bg-home-canvas">
       <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-4 py-16 sm:px-5 lg:grid-cols-2 lg:gap-16 lg:py-24">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#94A3B8]">
@@ -387,7 +388,7 @@ function SoundViewDifference() {
             ))}
           </ul>
         </div>
-        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-[#11223A] shadow-[0_12px_40px_rgba(15,23,42,0.08)]">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-home-panel shadow-[0_12px_40px_rgba(15,23,42,0.18)]">
           <Image
             src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1600&q=80"
             alt="Bright living room with large windows and a door opening onto trees"
@@ -408,7 +409,7 @@ const statLabelClass =
 
 function HowItWorks() {
   return (
-    <section className="border-t border-[#1E3A5F] bg-[#0B192C]">
+    <section className="border-t border-home-line bg-home-canvas">
       <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-5 lg:py-24">
         <ScrollReveal>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#94A3B8]">
@@ -421,8 +422,8 @@ function HowItWorks() {
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {steps.map((step, index) => (
             <ScrollReveal key={step.title} delay={index * 150} className="h-full">
-              <article className="h-full rounded-2xl bg-[#132238] p-6 shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#38BDF8] text-lg text-[#0A192F]">
+              <article className="h-full rounded-2xl border border-[#8AA0B2]/25 bg-home-panel/80 p-6 shadow-[0_10px_30px_rgba(15,23,42,0.16)]">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-home-accent text-lg text-[#062033]">
                   {index + 1}
                 </span>
                 <h3 className="mt-5 text-2xl tracking-tight text-white">
@@ -433,7 +434,7 @@ function HowItWorks() {
             </ScrollReveal>
           ))}
         </div>
-        <dl className="mx-auto my-6 grid max-w-5xl grid-cols-1 divide-y divide-slate-700/80 border-y border-slate-700/80 py-8 text-center sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        <dl className="mx-auto my-6 grid max-w-5xl grid-cols-1 divide-y divide-home-line border-y border-home-line py-8 text-center sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           <div className="px-4 py-6 sm:py-2">
             <dt>
               <CountUp end={850} suffix="+" duration={1300} className={numberClass} />
@@ -466,14 +467,14 @@ function HowItWorks() {
 
 function HomeownerReviews() {
   return (
-    <section className="bg-[#11223A] py-8 sm:py-10" aria-label="Homeowner testimonials">
+    <section className="bg-[#1A2834] py-8 sm:py-10" aria-label="Homeowner testimonials">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <ScrollReveal>
           <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
               Trusted by Homeowners Across Greater Seattle
             </h2>
-            <p className="flex items-center gap-1 text-xs font-medium text-[#BAE6FD]">
+            <p className="flex items-center gap-1 text-xs font-medium text-home-accent">
               4.9 ★★★★★ (Verified Local Installations)
             </p>
           </div>
@@ -481,9 +482,9 @@ function HomeownerReviews() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {homeownerReviews.map((review, index) => (
             <ScrollReveal key={review.name} delay={index * 100} className="h-full">
-              <figure className="flex h-full flex-col justify-between rounded-xl border border-white/10 bg-white/[0.06] p-4 transition-colors hover:bg-white/[0.09] sm:p-5">
+              <figure className="flex h-full flex-col justify-between rounded-xl border border-[#8AA0B2]/25 bg-[#243544]/55 p-4 transition-colors hover:bg-[#243544]/75 sm:p-5">
                 <div>
-                  <div className="mb-2 flex gap-0.5 text-xs text-[#BAE6FD]" aria-label="5 stars">
+                  <div className="mb-2 flex gap-0.5 text-xs text-home-accent" aria-label="5 stars">
                     <span aria-hidden="true">★</span>
                     <span aria-hidden="true">★</span>
                     <span aria-hidden="true">★</span>
@@ -494,7 +495,7 @@ function HomeownerReviews() {
                     {review.quote}
                   </blockquote>
                 </div>
-                <figcaption className="text-[11px] font-semibold text-[#BAE6FD]">{review.name}</figcaption>
+                <figcaption className="text-[11px] font-semibold text-home-accent">{review.name}</figcaption>
               </figure>
             </ScrollReveal>
           ))}
@@ -514,7 +515,7 @@ function FaqAndCta({
   onQuote: () => void;
 }) {
   return (
-    <section className="bg-[#0B192C]">
+    <section className="bg-home-canvas">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 sm:px-5 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16 lg:py-24">
         <ScrollReveal>
           <h2 className="text-4xl tracking-tight text-white sm:text-5xl">
@@ -526,7 +527,7 @@ function FaqAndCta({
             certified installation.
           </p>
         </ScrollReveal>
-        <div className="divide-y divide-[#1E3A5F] border-y border-[#1E3A5F]">
+        <div className="divide-y divide-home-line border-y border-home-line">
           {faqs.map((item, index) => {
             const open = openIndex === index;
             return (
@@ -556,7 +557,7 @@ function FaqAndCta({
           })}
         </div>
       </div>
-      <div className="border-t border-[#1E3A5F] bg-[#11223A]">
+      <div className="border-t border-home-line bg-home-panel">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-5 lg:py-20">
           <ScrollReveal>
             <h2 className="text-4xl tracking-tight text-white sm:text-5xl">
@@ -571,7 +572,7 @@ function FaqAndCta({
           <button
             type="button"
             onClick={onQuote}
-            className="mt-8 rounded-full bg-[#38BDF8] px-6 py-3 text-base font-medium text-[#0A192F] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+            className="mt-8 rounded-full bg-home-accent px-6 py-3 text-base font-medium text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
           >
             Get A Free Quote
           </button>

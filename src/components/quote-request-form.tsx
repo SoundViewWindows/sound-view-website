@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent, type ReactNode } from "react";
-import { ArrowRight } from "lucide-react";
 import { QuoteThankYou, quoteServiceFromProject } from "@/components/QuoteThankYou";
 import { services } from "@/lib/services";
 
@@ -102,12 +101,12 @@ export function QuoteRequestForm({
   }
 
   return (
-    <form noValidate className="flex flex-col space-y-2.5" onSubmit={handleSubmit}>
+    <form noValidate className="flex flex-col space-y-3" onSubmit={handleSubmit}>
       <div>
-        <h2 className="text-xl font-extrabold leading-tight text-[#0B192C] sm:text-2xl">
+        <h2 className="mb-1 text-2xl font-black tracking-tight text-white">
           Request a Free Quote
         </h2>
-        <p className="mb-3 text-xs font-normal text-slate-600 sm:text-sm">
+        <p className="mb-5 text-xs text-home-mist sm:text-sm">
           Get in touch with our installation experts today.
         </p>
       </div>
@@ -119,12 +118,13 @@ export function QuoteRequestForm({
           autoComplete="name"
           value={name}
           onChange={(event) => setName(event.target.value)}
+          placeholder="Your Name"
           className={inputClass(Boolean(errors.name))}
           aria-invalid={Boolean(errors.name)}
         />
       </Field>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-3">
         <Field label="Phone" id="quote-phone" error={errors.phone}>
           <input
             id="quote-phone"
@@ -134,6 +134,7 @@ export function QuoteRequestForm({
             inputMode="tel"
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
+            placeholder="Phone Number"
             className={inputClass(Boolean(errors.phone))}
             aria-invalid={Boolean(errors.phone)}
           />
@@ -160,6 +161,7 @@ export function QuoteRequestForm({
           autoComplete="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
+          placeholder="Email Address"
           className={inputClass(Boolean(errors.email))}
           aria-invalid={Boolean(errors.email)}
         />
@@ -174,11 +176,11 @@ export function QuoteRequestForm({
           className={inputClass(Boolean(errors.projectType))}
           aria-invalid={Boolean(errors.projectType)}
         >
-          <option value="" className="bg-white text-[#0B192C]">
+          <option value="" className="bg-[#FFFFFF] text-[#0F172A]">
             Select a service
           </option>
           {services.map((service) => (
-            <option key={service.id} value={service.id} className="bg-white text-[#0B192C]">
+            <option key={service.id} value={service.id} className="bg-[#FFFFFF] text-[#0F172A]">
               {service.title}
             </option>
           ))}
@@ -190,6 +192,7 @@ export function QuoteRequestForm({
           id="quote-details"
           name="details"
           rows={2}
+          placeholder="Briefly describe your installation needs..."
           value={details}
           onChange={(event) => setDetails(event.target.value)}
           className={`${inputClass(Boolean(errors.details), false)} resize-none`}
@@ -199,14 +202,18 @@ export function QuoteRequestForm({
 
       <Field label="Photos or videos" id="quote-media" error={errors.media}>
         <div
-          className={`group relative flex h-8 items-center gap-2 overflow-hidden rounded-lg border bg-slate-50/60 px-1.5 focus-within:border-sky-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-sky-400/30 sm:h-9 ${
-            errors.media ? "border-red-600" : "border-slate-300"
+          className={`relative flex w-full cursor-pointer items-center gap-3 overflow-hidden rounded-xl border bg-[#FFFFFF] p-1.5 focus-within:border-[#38BDF8] focus-within:ring-2 focus-within:ring-[#38BDF8]/20 ${
+            errors.media ? "border-red-600" : "border-[#E2E8F0]"
           }`}
         >
-          <span className="shrink-0 rounded border border-slate-300 bg-slate-100 px-2.5 py-1 text-xs text-slate-800 group-hover:bg-slate-200">
+          <span className="shrink-0 rounded-lg border border-[#E2E8F0] bg-[#F1F5F9] px-3 py-1.5 text-xs font-bold text-[#334155]">
             Choose file
           </span>
-          <span className="min-w-0 flex-1 truncate text-[11px] text-slate-500">
+          <span
+            className={`truncate text-xs sm:text-sm ${
+              files.length === 0 ? "text-[#94A3B8]" : "text-[#334155]"
+            }`}
+          >
             {files.length === 0
               ? "Attach photos or videos"
               : files.map((file) => file.name).join(", ")}
@@ -218,26 +225,23 @@ export function QuoteRequestForm({
             accept="image/jpeg,image/png,image/webp,image/gif,image/heic,image/heif,video/mp4,video/quicktime,video/webm,video/*"
             multiple
             onChange={(event) => setFiles(Array.from(event.target.files ?? []))}
-            className="absolute inset-0 cursor-pointer opacity-0"
+            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
             aria-invalid={Boolean(errors.media)}
           />
         </div>
-        {files.length > 0 ? (
-          <p className="text-[11px] text-slate-500">
-            {files.length} file{files.length === 1 ? "" : "s"} selected
-          </p>
-        ) : null}
       </Field>
 
       <button
         type="submit"
         disabled={isSubmitting}
         aria-busy={isSubmitting}
-        className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-[#38BDF8] py-2.5 text-xs font-extrabold uppercase tracking-wider text-[#0B192C] shadow-md shadow-sky-500/20 transition-all hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:cursor-not-allowed disabled:opacity-70 sm:py-3 sm:text-sm"
+        className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 sm:text-sm"
       >
         {isSubmitting ? "Submitting" : "Submit Quote Request"}
         {isSubmitting ? null : (
-          <ArrowRight className="ml-1.5 inline-block h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+          <span className="text-base font-bold" aria-hidden="true">
+            →
+          </span>
         )}
       </button>
     </form>
@@ -257,12 +261,12 @@ function Field({
 }) {
   return (
     <label htmlFor={id} className="block">
-      <span className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-slate-800">
+      <span className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-wider text-white">
         {label}
       </span>
       {children}
       {error ? (
-        <span id={`${id}-error`} role="alert" className="font-normal text-red-700">
+        <span id={`${id}-error`} role="alert" className="font-normal text-red-300">
           {error}
         </span>
       ) : null}
@@ -272,9 +276,9 @@ function Field({
 
 function inputClass(invalid: boolean, fixedHeight = true) {
   return [
-    fixedHeight ? "h-8 sm:h-9" : "h-auto",
-    "w-full rounded-lg border border-slate-300 bg-slate-50/60 px-3 py-1 text-xs font-medium text-slate-900 scheme-light placeholder:text-slate-400 sm:text-sm",
-    "focus:border-sky-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-400/30",
+    fixedHeight ? "" : "resize-none",
+    "w-full rounded-xl border border-[#E2E8F0] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#0F172A] shadow-sm scheme-light transition-all placeholder:text-[#94A3B8]",
+    "focus:border-[#38BDF8] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/20",
     invalid ? "border-red-600" : "",
   ].join(" ");
 }

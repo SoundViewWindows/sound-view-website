@@ -27,6 +27,12 @@
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-warm-white: var(--warm-white);
+  --color-home-canvas: #243544;
+  --color-home-panel: #1c303f;
+  --color-home-deep: #003d6b;
+  --color-home-line: #3e5160;
+  --color-home-accent: #4ec6ff;
+  --color-home-mist: #c5d5e1;
   --font-sans: var(--font-outfit);
   --font-serif: var(--font-outfit);
 }
