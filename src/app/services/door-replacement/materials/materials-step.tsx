@@ -126,7 +126,6 @@ export function DoorMaterialsStep() {
                   alt={material.alt}
                   title={material.name}
                   description={material.body}
-                  detail={material.detail}
                   sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 />
               );
