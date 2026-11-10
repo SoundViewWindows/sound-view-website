@@ -4,14 +4,13 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Header } from "@/components/Header";
 import { BOOKING_URL } from "@/config/links";
-import { blogPosts, getBlogPost, type BlogPost } from "@/data/blogPosts";
+import { getBlogPost, type BlogPost } from "@/data/blogPosts";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
-export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
-}
+// No generateStaticParams while blogPosts is empty. Cache Components rejects
+// an empty param list. Article pages still resolve by slug once posts return.
 
 export async function generateMetadata(
   props: PageProps<"/blog/[slug]">,

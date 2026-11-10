@@ -121,7 +121,9 @@ export function BlogIndex({
       ) : (
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
           <p className="rounded-2xl border border-slate-700/80 bg-[#132238] px-6 py-10 text-slate-300 shadow-sm">
-            No guides in this category yet.
+            {filter === "All"
+              ? "No guides published yet."
+              : "No guides in this category yet."}
           </p>
         </section>
       )}
