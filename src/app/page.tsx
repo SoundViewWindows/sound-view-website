@@ -346,7 +346,7 @@ const faqs = [
   {
     question: "What Is The Project Timeline?",
     answer:
-      "Custom windows and doors are built to your measurements, so manufacturing usually takes a few weeks after the order is placed. We tell you the expected lead time before you commit. Installation for a typical home is often finished in one to a few days, depending on how many openings we are replacing.",
+      "Because every window and door is custom built to the exact architectural specifications of your home, timelines vary from project to project. Lead times and installation scheduling depend on material availability, manufacturer production queues, and total project scope. Your project specialist will communicate clear, personalized timeline expectations directly with you during your initial consultation and provide ongoing updates as your order progresses.",
   },
   {
     question: "How Much Do Replacements Cost?",
@@ -356,7 +356,7 @@ const faqs = [
   {
     question: "What Happens If A Product Has An Issue Or Damage While Under Warranty?",
     answer:
-      "We work directly with manufacturers such as Milgard and Andersen. If a product has a covered defect, we help you through the manufacturer warranty. Our installation work is covered as well, and we stay with you until the issue is resolved.",
+      "All products are backed by their respective manufacturer warranties, which cover material defects and component performance according to each brand's specific terms. Should a warranty issue arise, our team can help provide the necessary product documentation and connect you with the manufacturer's warranty claim process.",
   },
 ];
 
@@ -546,7 +546,7 @@ function FaqAndCta({
                   }`}
                 >
                   <div className="overflow-hidden" aria-hidden={!open}>
-                    <p className="pb-5 pr-8 text-sm leading-6 text-[#94A3B8]">
+                    <p className="pb-5 pr-8 text-sm leading-6 text-slate-300">
                       {item.answer}
                     </p>
                   </div>
