@@ -322,19 +322,28 @@ const steps = [
 
 const homeownerReviews = [
   {
-    name: "David M. · Queen Anne, Seattle",
+    name: "David M.",
+    place: "Queen Anne, Seattle",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
     quote:
-      "Sound View replaced 12 original windows with zero pressure. Installers arrived right on schedule, and the draft reduction this winter has been incredible.",
+      "Sound View replaced 12 original windows in our home with zero high-pressure sales tactics. The team walked us through our options, the installers arrived right on schedule, and the draft reduction this winter has been incredible.",
   },
   {
-    name: "Jennifer K. · Bellevue Homeowner",
+    name: "Jennifer K.",
+    place: "Bellevue Homeowner",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80",
     quote:
-      "We needed a custom sliding patio door and a frameless glass shower door. The measurement was precise down to the millimeter, and the finished look is stunning.",
+      "We needed a custom sliding patio door and a frameless glass shower door. The measurement team was precise down to the millimeter, and the finished installation looks like something out of an architectural magazine.",
   },
   {
-    name: "Marcus & Elena R. · Lake City, Seattle",
+    name: "Marcus & Elena R.",
+    place: "Lake City, Seattle",
+    image:
+      "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=200&q=80",
     quote:
-      "Easily our best contractor experience in Seattle. Clear communication from the showroom visit to installation day, flawless finish trim, and complete cleanup.",
+      "Easily the best contractor experience we've had in the Seattle area. Clear communication from the showroom visit to installation day, flawless finish trim work, and complete cleanup when they were done.",
   },
 ];
 
@@ -352,7 +361,7 @@ const faqs = [
   {
     question: "How Much Do Replacements Cost?",
     answer:
-      "Price depends on how many openings you are replacing, the frame material, the glass package, and the size of each unit. After we understand the project, we prepare an upfront estimate so you can see the full scope before you decide.",
+      "Costs depend on window size, framing material, glass efficiency packages, and structural opening requirements. We provide transparent, itemized quotes with no hidden fees or surprise upcharges.",
   },
   {
     question: "What Happens If A Product Has An Issue Or Damage While Under Warranty?",
@@ -363,38 +372,42 @@ const faqs = [
 
 function SoundViewDifference() {
   return (
-    <section className="border-t border-home-line bg-home-canvas">
-      <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-4 py-16 sm:px-5 lg:grid-cols-2 lg:gap-16 lg:py-24">
+    <section className="w-full border-y border-slate-100 bg-white py-16 text-slate-900 sm:py-20 lg:py-24">
+      <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-4 sm:px-5 lg:grid-cols-2 lg:gap-16">
         <div>
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#94A3B8]">
+          <p className="mb-3 block text-xs font-bold uppercase tracking-widest text-sky-600 sm:text-sm">
             The Sound View Difference
           </p>
-          <h2 className="mt-4 text-4xl tracking-tight text-white sm:text-5xl">
+          <h2 className="mb-6 text-3xl font-black leading-tight tracking-tight text-[#0B192C] sm:text-4xl lg:text-5xl">
             A Seamless Experience From Start To Finish
           </h2>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-[#94A3B8]">
+          <p className="mb-6 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
             Replacing your windows and doors should not feel stressful. We guide
             you through selecting the right high-efficiency products, verify
             exact measurements, and complete your installation with precision
             and care: zero high-pressure sales tactics, just honest advice and
             quality craftsmanship.
           </p>
-          <ul className="mt-8 space-y-3">
+          <div className="my-6 w-full max-w-md border-t border-slate-200/80" />
+          <ul className="space-y-3">
             {differencePoints.map((point) => (
-              <li key={point} className="flex items-start gap-3 text-white">
-                <CheckIcon />
-                <span className="leading-6">{point}</span>
+              <li
+                key={point}
+                className="flex items-center gap-3 text-sm font-semibold text-slate-800 sm:text-base"
+              >
+                <span className="h-1.5 w-1.5 shrink-0 rounded-sm bg-slate-900" />
+                <span>{point}</span>
               </li>
             ))}
           </ul>
         </div>
-        <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-home-panel shadow-[0_12px_40px_rgba(15,23,42,0.18)]">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-slate-100 shadow-xl lg:aspect-[5/4]">
           <Image
             src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1600&q=80"
             alt="Bright living room with large windows and a door opening onto trees"
             fill
             sizes="(min-width: 1024px) 40vw, 100vw"
-            className="object-cover"
+            className="object-cover object-center"
           />
         </div>
       </div>
@@ -402,60 +415,65 @@ function SoundViewDifference() {
   );
 }
 
-const numberClass =
-  "text-4xl font-extrabold tracking-tight text-white sm:text-5xl";
-const statLabelClass =
-  "mt-1 text-xs font-medium uppercase tracking-wider text-slate-300 sm:text-sm";
+const accentStatClass =
+  "mb-2 block text-4xl font-black tracking-tight text-[#0090c8] sm:text-5xl lg:text-6xl";
+const navyStatClass =
+  "mb-2 block text-4xl font-black tracking-tight text-[#0c1f38] sm:text-5xl lg:text-6xl";
+const statLabelClass = "text-sm font-medium text-[#1e293b] sm:text-base";
 
 function HowItWorks() {
   return (
-    <section className="border-t border-home-line bg-home-canvas">
-      <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-5 lg:py-24">
+    <section className="bg-[#f4fafd]">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <ScrollReveal>
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#94A3B8]">
+          <p className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#608b9e] sm:text-sm">
             How It Works
           </p>
-          <h2 className="mt-4 max-w-2xl text-4xl tracking-tight text-white sm:text-5xl">
+          <h2 className="mb-12 text-left text-3xl font-black tracking-tight text-[#0c1f38] sm:text-4xl lg:text-5xl">
             Our Straightforward Process
           </h2>
         </ScrollReveal>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-12">
           {steps.map((step, index) => (
             <ScrollReveal key={step.title} delay={index * 150} className="h-full">
-              <article className="h-full rounded-2xl border border-[#8AA0B2]/25 bg-home-panel/80 p-6 shadow-[0_10px_30px_rgba(15,23,42,0.16)]">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-home-accent text-lg text-[#062033]">
+              <article>
+                <span className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl border-b-4 border-[#0090c8] bg-white text-xl font-bold text-[#0c1f38] shadow-md sm:h-16 sm:w-16 sm:text-2xl">
                   {index + 1}
                 </span>
-                <h3 className="mt-5 text-2xl tracking-tight text-white">
+                <h3 className="mb-3 text-xl font-bold leading-snug text-[#0c1f38] sm:text-2xl">
                   {step.title}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-[#94A3B8]">{step.body}</p>
+                <p className="text-sm font-normal leading-relaxed text-[#556980] sm:text-base">
+                  {step.body}
+                </p>
               </article>
             </ScrollReveal>
           ))}
         </div>
-        <dl className="mx-auto my-6 grid max-w-5xl grid-cols-1 divide-y divide-home-line border-y border-home-line py-8 text-center sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <div className="px-4 py-6 sm:py-2">
+      </div>
+      <div className="mt-12 w-full border-t border-slate-100 bg-white px-4 py-12 sm:px-6">
+        <dl className="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-slate-200 text-center md:grid-cols-3 md:divide-x md:divide-y-0">
+          <div className="px-4 py-6 md:py-2">
             <dt>
-              <CountUp end={850} suffix="+" duration={1300} className={numberClass} />
+              <CountUp end={850} suffix="+" duration={1300} className={accentStatClass} />
             </dt>
             <dd className={statLabelClass}>Completed Installations</dd>
           </div>
-          <div className="px-4 py-6 sm:py-2">
+          <div className="px-4 py-6 md:py-2">
             <dt>
               <CountUp
                 end={4.9}
                 decimals={1}
                 suffix="/5"
                 duration={1300}
-                className={numberClass}
+                className={accentStatClass}
               />
             </dt>
             <dd className={statLabelClass}>Average Customer Rating</dd>
           </div>
-          <div className="px-4 py-6 sm:py-2">
+          <div className="px-4 py-6 md:py-2">
             <dt>
-              <CountUp end={17} suffix="+" duration={1300} className={numberClass} />
+              <CountUp end={17} suffix="+" duration={1300} className={navyStatClass} />
             </dt>
             <dd className={statLabelClass}>Years Serving Greater Seattle</dd>
           </div>
@@ -467,39 +485,59 @@ function HowItWorks() {
 
 function HomeownerReviews() {
   return (
-    <section className="bg-[#1A2834] py-8 sm:py-10" aria-label="Homeowner testimonials">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <ScrollReveal>
-          <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
-              Trusted by Homeowners Across Greater Seattle
-            </h2>
-            <p className="flex items-center gap-1 text-xs font-medium text-home-accent">
-              4.9 ★★★★★ (Verified Local Installations)
-            </p>
-          </div>
-        </ScrollReveal>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {homeownerReviews.map((review, index) => (
-            <ScrollReveal key={review.name} delay={index * 100} className="h-full">
-              <figure className="flex h-full flex-col justify-between rounded-xl border border-[#8AA0B2]/25 bg-[#243544]/55 p-4 transition-colors hover:bg-[#243544]/75 sm:p-5">
-                <div>
-                  <div className="mb-2 flex gap-0.5 text-xs text-home-accent" aria-label="5 stars">
-                    <span aria-hidden="true">★</span>
-                    <span aria-hidden="true">★</span>
-                    <span aria-hidden="true">★</span>
-                    <span aria-hidden="true">★</span>
-                    <span aria-hidden="true">★</span>
-                  </div>
-                  <blockquote className="mb-3 line-clamp-3 text-xs leading-relaxed text-slate-200 sm:text-sm">
-                    {review.quote}
-                  </blockquote>
+    <section
+      className="bg-[#0072CE] px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8"
+      aria-label="Homeowner testimonials"
+    >
+      <ScrollReveal>
+        <p className="mb-3 block text-xs font-bold uppercase tracking-widest text-white/80 sm:text-sm">
+          Our Happy Customers
+        </p>
+        <h2 className="mx-auto mb-12 max-w-4xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          Trusted By Homeowners Across Greater Seattle
+        </h2>
+      </ScrollReveal>
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 text-left md:grid-cols-3 lg:gap-8">
+        {homeownerReviews.map((review, index) => (
+          <ScrollReveal key={review.name} delay={index * 100} className="h-full">
+            <figure className="flex h-full flex-col justify-between rounded-2xl border border-white/20 bg-white p-6 shadow-xl sm:p-7">
+              <div>
+                <div className="mb-3 flex items-center gap-4">
+                  <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+                    <Image
+                      src={review.image}
+                      alt={review.name}
+                      fill
+                      sizes="56px"
+                      className="object-cover"
+                    />
+                  </span>
+                  <span>
+                    <span className="block text-base font-extrabold leading-tight text-slate-900 sm:text-lg">
+                      {review.name}
+                    </span>
+                    <span className="mt-0.5 block text-xs font-medium text-slate-500 sm:text-sm">
+                      {review.place}
+                    </span>
+                  </span>
                 </div>
-                <figcaption className="text-[11px] font-semibold text-home-accent">{review.name}</figcaption>
-              </figure>
-            </ScrollReveal>
-          ))}
-        </div>
+                <div
+                  className="mb-4 flex items-center gap-1 text-xs text-[#0F172A] sm:text-sm"
+                  aria-label="5 stars"
+                >
+                  <span aria-hidden="true">★</span>
+                  <span aria-hidden="true">★</span>
+                  <span aria-hidden="true">★</span>
+                  <span aria-hidden="true">★</span>
+                  <span aria-hidden="true">★</span>
+                </div>
+                <blockquote className="text-sm italic leading-relaxed text-slate-600 sm:text-base">
+                  “{review.quote}”
+                </blockquote>
+              </div>
+            </figure>
+          </ScrollReveal>
+        ))}
       </div>
     </section>
   );
@@ -515,19 +553,20 @@ function FaqAndCta({
   onQuote: () => void;
 }) {
   return (
-    <section className="bg-home-canvas">
-      <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 sm:px-5 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16 lg:py-24">
-        <ScrollReveal>
-          <h2 className="text-4xl tracking-tight text-white sm:text-5xl">
+    <>
+    <section className="w-full border-t border-slate-100 bg-white px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-16">
+        <ScrollReveal className="lg:col-span-5">
+          <h2 className="mb-4 text-3xl font-black tracking-tight text-[#0B192C] sm:text-4xl lg:text-5xl">
             You Ask, We Answer
           </h2>
-          <p className="mt-5 max-w-md text-lg leading-8 text-[#94A3B8]">
+          <p className="max-w-md text-sm leading-relaxed text-slate-600 sm:text-base">
             Have questions about updating your home? Here are clear, upfront
             answers about our products, precision measurement process, and
             certified installation.
           </p>
         </ScrollReveal>
-        <div className="divide-y divide-home-line border-y border-home-line">
+        <div className="divide-y divide-slate-200 border-b border-t border-slate-200 lg:col-span-7">
           {faqs.map((item, index) => {
             const open = openIndex === index;
             return (
@@ -536,7 +575,7 @@ function FaqAndCta({
                   type="button"
                   aria-expanded={open}
                   onClick={() => onToggle(index)}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                  className="group flex w-full cursor-pointer items-center justify-between py-5 text-left text-base font-bold text-[#0B192C] transition-colors hover:text-sky-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:py-6 sm:text-lg"
                 >
                   {item.question}
                   <PlusMinus open={open} />
@@ -547,7 +586,7 @@ function FaqAndCta({
                   }`}
                 >
                   <div className="overflow-hidden" aria-hidden={!open}>
-                    <p className="pb-5 pr-8 text-sm leading-6 text-slate-300">
+                    <p className="pb-6 pr-6 text-sm leading-relaxed text-slate-600 sm:text-base">
                       {item.answer}
                     </p>
                   </div>
@@ -557,7 +596,8 @@ function FaqAndCta({
           })}
         </div>
       </div>
-      <div className="border-t border-home-line bg-home-panel">
+    </section>
+    <section className="border-t border-home-line bg-home-panel">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-5 lg:py-20">
           <ScrollReveal>
             <h2 className="text-4xl tracking-tight text-white sm:text-5xl">
@@ -577,24 +617,8 @@ function FaqAndCta({
             Get A Free Quote
           </button>
         </div>
-      </div>
     </section>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 20 20"
-      className="mt-0.5 h-5 w-5 shrink-0 text-white"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-    >
-      <rect x="2.5" y="2.5" width="15" height="15" rx="2" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="m6.5 10.2 2.3 2.3 4.7-5" />
-    </svg>
+    </>
   );
 }
 
@@ -603,7 +627,7 @@ function PlusMinus({ open }: { open: boolean }) {
     <svg
       aria-hidden="true"
       viewBox="0 0 20 20"
-      className="h-5 w-5 shrink-0"
+      className="h-5 w-5 shrink-0 text-slate-400 transition-transform group-hover:text-sky-600"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
