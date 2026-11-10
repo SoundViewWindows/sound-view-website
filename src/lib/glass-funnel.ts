@@ -83,11 +83,27 @@ export const glassTypes: GlassChoice[] = [
   },
 ];
 
+export function isConsultationSlug(slug: string | null) {
+  return slug === "consultation" || slug === "expert-recommendation";
+}
+
 export function glassTypeFromSlug(slug: string | null) {
-  if (!slug || slug === "undecided") return null;
+  if (!slug || slug === "undecided" || isConsultationSlug(slug)) return null;
   return glassTypes.find((item) => item.slug === slug) ?? null;
 }
 
 export function glassChoiceLabel(choice: { name: string } | null) {
   return choice?.name ?? "Open to advice";
+}
+
+export function glassSelectionBadge(
+  glassOption: string,
+  params: { type: string | null; style: string | null },
+) {
+  const match = glassTypes.find((item) => item.option === glassOption);
+  if (match) return `Type: ${match.name}`;
+  if (isConsultationSlug(params.type) || isConsultationSlug(params.style)) {
+    return "Type: In-Home Assessment";
+  }
+  return "Type: Open to advice";
 }

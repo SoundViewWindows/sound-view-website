@@ -7,10 +7,12 @@ export function ShowerStepNav({
   current,
   progress,
   onDark: _onDark = false,
+  showProgress = true,
 }: {
   current: string;
   progress: string;
   onDark?: boolean;
+  showProgress?: boolean;
 }) {
   const crumbs = [
     { label: "Home", href: "/" },
@@ -39,11 +41,9 @@ export function ShowerStepNav({
           ))}
         </ol>
       </nav>
-      <p
-        className="text-xs font-bold uppercase tracking-wider text-sky-400"
-      >
-        {progress}
-      </p>
+      {showProgress ? (
+        <p className="text-xs font-bold uppercase tracking-wider text-sky-400">{progress}</p>
+      ) : null}
     </div>
   );
 }

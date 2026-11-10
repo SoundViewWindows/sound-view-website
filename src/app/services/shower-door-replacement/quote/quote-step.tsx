@@ -7,18 +7,19 @@ import { Header } from "@/components/Header";
 import { CostComparison } from "@/components/CostComparison";
 import { ShowerDoorQuoteBox } from "@/components/ShowerDoorQuoteBox";
 import { ShowerStepNav } from "@/components/ShowerStepNav";
-import { showerChoiceLabel, showerStyleFromSlug, showerStyles } from "@/lib/shower-funnel";
+import { showerSelectionBadge, showerStyleFromSlug } from "@/lib/shower-funnel";
 
 export function ShowerQuoteStep() {
   const searchParams = useSearchParams();
   const typeParam = searchParams.get("type");
+  const styleParam = searchParams.get("style");
   const [style, setStyle] = useState(showerStyleFromSlug(typeParam)?.option ?? "");
 
   useEffect(() => {
     setStyle(showerStyleFromSlug(typeParam)?.option ?? "");
   }, [typeParam]);
 
-  const styleName = showerChoiceLabel(showerStyles.find((item) => item.option === style) ?? null);
+  const styleName = showerSelectionBadge(style, { type: typeParam, style: styleParam });
 
   return (
     <div className="bg-[#0B192C] text-slate-100">
@@ -51,7 +52,7 @@ export function ShowerQuoteStep() {
                   Seattle glass specialists can prepare upfront pricing.
                 </p>
                 <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white shadow-sm backdrop-blur-md">
-                  <span>Style: {styleName}</span>
+                  <span>{styleName}</span>
                   <Link
                     href="/services/shower-door-replacement/types"
                     className="ml-1 font-semibold text-sky-300 underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"

@@ -7,18 +7,19 @@ import { GlassQuoteBox } from "@/components/GlassQuoteBox";
 import { CostComparison } from "@/components/CostComparison";
 import { GlassStepNav } from "@/components/GlassStepNav";
 import { Header } from "@/components/Header";
-import { glassChoiceLabel, glassTypeFromSlug, glassTypes } from "@/lib/glass-funnel";
+import { glassSelectionBadge, glassTypeFromSlug } from "@/lib/glass-funnel";
 
 export function GlassQuoteStep() {
   const searchParams = useSearchParams();
   const typeParam = searchParams.get("type");
+  const styleParam = searchParams.get("style");
   const [glassType, setGlassType] = useState(glassTypeFromSlug(typeParam)?.option ?? "");
 
   useEffect(() => {
     setGlassType(glassTypeFromSlug(typeParam)?.option ?? "");
   }, [typeParam]);
 
-  const typeName = glassChoiceLabel(glassTypes.find((item) => item.option === glassType) ?? null);
+  const typeName = glassSelectionBadge(glassType, { type: typeParam, style: styleParam });
 
   return (
     <div className="bg-[#0B192C] text-slate-100">
@@ -51,7 +52,7 @@ export function GlassQuoteStep() {
                   Seattle specialists can prepare upfront pricing.
                 </p>
                 <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white shadow-sm backdrop-blur-md">
-                  <span>Type: {typeName}</span>
+                  <span>{typeName}</span>
                   <Link
                     href="/services/glass-replacement/types"
                     className="ml-1 font-semibold text-sky-300 underline underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"

@@ -47,8 +47,12 @@ export const showerStyles: ShowerChoice[] = [
   },
 ];
 
+export function isConsultationSlug(slug: string | null) {
+  return slug === "consultation" || slug === "expert-recommendation";
+}
+
 export function showerStyleFromSlug(slug: string | null) {
-  if (!slug || slug === "undecided") return null;
+  if (!slug || slug === "undecided" || isConsultationSlug(slug)) return null;
   return showerStyles.find((item) => item.slug === slug) ?? null;
 }
 
@@ -58,4 +62,16 @@ export function showerStyleSlugFromOption(option: string) {
 
 export function showerChoiceLabel(choice: { name: string } | null) {
   return choice?.name ?? "Open to advice";
+}
+
+export function showerSelectionBadge(
+  styleOption: string,
+  params: { type: string | null; style: string | null },
+) {
+  const match = showerStyles.find((item) => item.option === styleOption);
+  if (match) return `Style: ${match.name}`;
+  if (isConsultationSlug(params.style) || isConsultationSlug(params.type)) {
+    return "Style: Specialist Recommendation";
+  }
+  return "Style: Open to advice";
 }
