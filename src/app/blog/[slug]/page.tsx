@@ -9,6 +9,8 @@ import { blogPosts, getBlogPost, type BlogPost } from "@/data/blogPosts";
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
+const articleAuthor = "Sound View Window & Door";
+
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
@@ -22,6 +24,7 @@ export async function generateMetadata(
   return {
     title: post.seoTitle || post.title,
     description: post.seoDescription || undefined,
+    authors: [{ name: articleAuthor }],
   };
 }
 
@@ -79,6 +82,21 @@ async function Article({
         <h1 className="mb-6 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
           {post.title}
         </h1>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: post.title,
+              datePublished: post.publishedAt,
+              author: {
+                "@type": "Organization",
+                name: articleAuthor,
+              },
+            }),
+          }}
+        />
 
         {post.coverImage ? (
           <img
@@ -111,7 +129,7 @@ async function Article({
             Local team
           </p>
           <h2 className="mt-2 text-2xl font-bold text-white">
-            Written by {post.author}
+            Written by {articleAuthor}
           </h2>
           <p className="mt-3 text-base leading-relaxed text-slate-300">
             Specialists in replacement windows, doors, and custom glass for

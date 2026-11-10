@@ -54,6 +54,15 @@ export function BlogIndex({
     };
   }, [filters]);
 
+  const scrollCategoriesRight = () => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+    scroller.scrollBy({
+      left: Math.max(180, Math.round(scroller.clientWidth * 0.7)),
+      behavior: "smooth",
+    });
+  };
+
   const visible = useMemo(
     () =>
       filter === "All"
@@ -88,7 +97,7 @@ export function BlogIndex({
         <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
           Pacific Northwest Homeowner Guides
         </p>
-        <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
+        <h1 className="mb-4 w-full text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-[40px] lg:whitespace-nowrap xl:text-5xl">
           Expert Advice on Windows, Doors, and Glass
         </h1>
         <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
@@ -141,6 +150,30 @@ export function BlogIndex({
               canScrollRight ? "opacity-100" : "opacity-0"
             }`}
           />
+          <button
+            type="button"
+            aria-label="Show more categories"
+            disabled={!canScrollRight}
+            onClick={scrollCategoriesRight}
+            className={`absolute right-0 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-slate-600 bg-[#0B192C]/90 text-sky-300 shadow-sm transition-opacity duration-200 hover:border-sky-400 hover:text-white ${focusRing} ${
+              canScrollRight ? "opacity-100" : "pointer-events-none opacity-0"
+            }`}
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 20 20"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m7.5 4.5 5 5.5-5 5.5"
+              />
+            </svg>
+          </button>
         </div>
       </section>
 
