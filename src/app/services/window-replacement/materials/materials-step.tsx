@@ -37,7 +37,6 @@ export function MaterialsStep() {
                 href={windowStepHref("types", { material: material.slug })}
                 image={material.image}
                 alt={material.alt}
-                fit={material.slug === "composite" ? "contain" : "cover"}
                 title={material.name}
                 description={material.body}
                 detail={material.detail}

@@ -134,8 +134,8 @@ export const windowMaterials: WindowChoice[] = [
     name: "Composite",
     option: "Composite",
     detail: "Stable Hybrid Frame",
-    image: "/images/materials/composite.png",
-    alt: "Durable composite replacement window frame with custom grid",
+    image: "/images/materials/composite-window.jpg",
+    alt: "Charcoal gray composite casement window installed in exterior stucco wall",
     body: "A blended frame that resists swelling in wet weather and holds its color or finish with very little upkeep.",
   },
 ];
