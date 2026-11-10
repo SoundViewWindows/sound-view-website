@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/Header";
 import { ManufacturerCard } from "@/components/ManufacturerCard";
+import { SkipAhead } from "@/components/SkipAhead";
 import { WindowStepNav } from "@/components/WindowStepNav";
 import {
   choiceLabel,
@@ -19,30 +20,40 @@ export function ManufacturersStep() {
   const typeSlug = searchParams.get("type") ?? "undecided";
   const material = materialFromSlug(materialSlug);
   const style = styleFromSlug(typeSlug);
+  const quoteHref = windowStepHref("quote", {
+    material: materialSlug,
+    type: typeSlug,
+    manufacturer: "consultation",
+  });
 
   return (
     <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
-        <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
           <WindowStepNav step={3} material={materialSlug} type={typeSlug} onDark />
-          <div className="mb-4 flex flex-wrap gap-3">
-            <ChoiceBadge
-              label={`Material: ${choiceLabel(material)}`}
-              href={windowStepHref("materials")}
-            />
-            <ChoiceBadge
-              label={`Style: ${choiceLabel(style)}`}
-              href={windowStepHref("types", { material: materialSlug })}
-            />
+          <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <div className="mb-4 flex flex-wrap gap-3">
+                <ChoiceBadge
+                  label={`Material: ${choiceLabel(material)}`}
+                  href={windowStepHref("materials")}
+                />
+                <ChoiceBadge
+                  label={`Style: ${choiceLabel(style)}`}
+                  href={windowStepHref("types", { material: materialSlug })}
+                />
+              </div>
+              <h1 className="mb-4 max-w-3xl text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+                Select Your Preferred Manufacturer
+              </h1>
+              <p className="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+                Pick an authorized brand, or let a specialist recommend one. Your
+                choice is added to the free window quote.
+              </p>
+            </div>
+            <SkipAhead href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>
-          <h1 className="mb-4 max-w-3xl text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-            Choose a Window Manufacturer
-          </h1>
-          <p className="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Pick an authorized brand, or let a specialist recommend one. Your
-            choice is added to the free window quote.
-          </p>
         </div>
 
         <section>
@@ -61,6 +72,9 @@ export function ManufacturersStep() {
                 alt={brand.alt}
               />
             ))}
+          </div>
+          <div className="mx-auto mb-8 mt-10 flex max-w-7xl justify-center px-4 sm:px-6 lg:px-8">
+            <SkipAhead href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>
         </section>
       </main>

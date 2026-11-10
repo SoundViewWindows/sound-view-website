@@ -235,8 +235,8 @@ export const doorManufacturers: DoorChoice[] = [
   },
   {
     slug: "recommend",
-    name: "Specialist Recommendation",
-    option: "Specialist Recommendation",
+    name: "Specialist Will Recommend",
+    option: "Specialist Will Recommend",
     detail: "No Preference",
     image: "",
     alt: "No preference, a specialist will recommend a door brand",
@@ -246,7 +246,9 @@ export const doorManufacturers: DoorChoice[] = [
 
 export function doorManufacturerFromSlug(slug: string | null) {
   if (!slug || slug === "undecided") return null;
-  return doorManufacturers.find((item) => item.slug === slug) ?? null;
+  const key =
+    slug === "consultation" || slug === "expert-recommendation" ? "recommend" : slug;
+  return doorManufacturers.find((item) => item.slug === key) ?? null;
 }
 
 export function doorManufacturerSlugFromOption(option: string) {

@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { DoorStepNav } from "@/components/DoorStepNav";
 import { Header } from "@/components/Header";
 import { ManufacturerCard } from "@/components/ManufacturerCard";
+import { SkipAhead } from "@/components/SkipAhead";
 import {
   doorChoiceLabel,
   doorManufacturerFromSlug,
@@ -23,39 +24,49 @@ export function DoorManufacturersStep() {
   const material = doorMaterialFromSlug(materialSlug);
   const selected = doorManufacturerFromSlug(manufacturerSlug);
   const continueSlug = selected?.slug ?? "recommend";
+  const quoteHref = doorStepHref("quote", {
+    type: typeSlug,
+    material: materialSlug,
+    manufacturer: "consultation",
+  });
 
   return (
     <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
-        <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
           <DoorStepNav
             step={3}
             type={typeSlug}
             material={materialSlug}
             manufacturer={continueSlug}
           />
-          <div className="mb-4 flex flex-wrap gap-3">
-            <ChoiceBadge
-              label={`Door Type: ${doorChoiceLabel(style)}`}
-              href={doorStepHref("types")}
-            />
-            <ChoiceBadge
-              label={`Material: ${doorChoiceLabel(material)}`}
-              href={doorStepHref("materials", {
-                type: typeSlug,
-                material: materialSlug,
-                manufacturer: continueSlug,
-              })}
-            />
+          <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <div className="mb-4 flex flex-wrap gap-3">
+                <ChoiceBadge
+                  label={`Door Type: ${doorChoiceLabel(style)}`}
+                  href={doorStepHref("types")}
+                />
+                <ChoiceBadge
+                  label={`Material: ${doorChoiceLabel(material)}`}
+                  href={doorStepHref("materials", {
+                    type: typeSlug,
+                    material: materialSlug,
+                    manufacturer: continueSlug,
+                  })}
+                />
+              </div>
+              <h1 className="mb-4 max-w-3xl text-4xl font-bold leading-tight text-white lg:text-5xl">
+                Select Your Preferred Manufacturer
+              </h1>
+              <p className="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+                Choose from our trusted door manufacturing partners or let our specialists
+                recommend the best fit for your home.
+              </p>
+            </div>
+            <SkipAhead href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>
-          <h1 className="mb-4 max-w-3xl text-4xl font-bold leading-tight text-white lg:text-5xl">
-            Select Your Preferred Manufacturer
-          </h1>
-          <p className="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Choose from our trusted door manufacturing partners or let our specialists
-            recommend the best fit for your home.
-          </p>
         </div>
 
         <section>
@@ -79,17 +90,8 @@ export function DoorManufacturersStep() {
               );
             })}
           </div>
-          <div className="mx-auto max-w-7xl px-4 py-10 text-center sm:px-6 lg:px-8">
-            <Link
-              href={doorStepHref("quote", {
-                type: typeSlug,
-                material: materialSlug,
-                manufacturer: continueSlug,
-              })}
-              className="inline-flex rounded-full border border-white px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#38BDF8] hover:text-[#0B192C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
-            >
-              Continue
-            </Link>
+          <div className="mx-auto mb-8 mt-10 flex max-w-7xl justify-center px-4 sm:px-6 lg:px-8">
+            <SkipAhead href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>
         </section>
       </main>

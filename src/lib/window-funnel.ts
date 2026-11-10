@@ -188,8 +188,8 @@ export const windowManufacturers: WindowChoice[] = [
   },
   {
     slug: "recommend",
-    name: "Specialist Recommendation",
-    option: "Specialist Recommendation",
+    name: "Specialist Will Recommend",
+    option: "Specialist Will Recommend",
     detail: "No Preference",
     image: "",
     alt: "No preference, a specialist will recommend a window brand",
@@ -209,7 +209,9 @@ export function materialFromSlug(slug: string | null) {
 
 export function manufacturerFromSlug(slug: string | null) {
   if (!slug || slug === "undecided") return null;
-  return windowManufacturers.find((item) => item.slug === slug) ?? null;
+  const key =
+    slug === "consultation" || slug === "expert-recommendation" ? "recommend" : slug;
+  return windowManufacturers.find((item) => item.slug === key) ?? null;
 }
 
 export function styleSlugFromOption(option: string) {
