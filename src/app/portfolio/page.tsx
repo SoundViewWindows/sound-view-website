@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/config/site";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: canonicalUrl("/portfolio"),
+  },
   title: "Portfolio | Sound View Window & Door",
   description:
     "Recent window replacements, custom door upgrades, and architectural glass projects across Greater Seattle, with field videos and before-and-after installations.",

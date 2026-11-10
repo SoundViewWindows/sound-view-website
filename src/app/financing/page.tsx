@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: canonicalUrl("/financing"),
+  },
   title: "Financing | Sound View Window & Door",
   description:
     "Flexible Synchrony Bank financing for replacement windows, doors, and custom glass in the Greater Seattle Area.",

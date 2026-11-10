@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { CostComparison } from "@/components/CostComparison";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: canonicalUrl("/services/window-blinds-shades"),
+  },
   title: "Window Blinds & Shades | Sound View Window & Door",
   description:
     "Custom blinds and motorized shades for privacy, light control, and insulation in Greater Seattle homes.",

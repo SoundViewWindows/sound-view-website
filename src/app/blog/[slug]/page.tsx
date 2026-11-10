@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Header } from "@/components/Header";
 import { BOOKING_URL } from "@/config/links";
+import { canonicalUrl } from "@/config/site";
 import { blogPosts, getBlogPost, type BlogPost } from "@/data/blogPosts";
 
 const focusRing =
@@ -25,6 +26,9 @@ export async function generateMetadata(
     title: post.seoTitle || post.title,
     description: post.seoDescription || undefined,
     authors: [{ name: articleAuthor }],
+    alternates: {
+      canonical: canonicalUrl(`/blog/${post.slug}`),
+    },
   };
 }
 

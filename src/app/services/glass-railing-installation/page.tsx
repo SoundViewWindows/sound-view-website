@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
 import { GlassRailingRequest, RequestInstallationButton } from "@/components/GlassRailingRequest";
 import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: canonicalUrl("/services/glass-railing-installation"),
+  },
   title: "Glass Railing Installation | Sound View Window & Door",
   description:
     "Tempered glass railings for decks, balconies, and staircases across the Greater Seattle Area.",

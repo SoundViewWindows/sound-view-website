@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/config/site";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { BOOKING_URL } from "@/config/links";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: canonicalUrl("/showrooms/west-queen-anne"),
+  },
   title: "West Queen Anne Showroom | Sound View Window & Door",
   description:
     "Visit the Sound View Window & Door showroom at 921 Elliott Ave W in West Queen Anne. See windows, doors, and custom glass in person, Monday through Friday.",

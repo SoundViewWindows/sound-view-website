@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: canonicalUrl("/energy-rebates"),
+  },
   title: "Energy Rebates | Sound View Window & Door",
   description:
     "Local utility rebates and incentives for energy-efficient replacement windows and patio doors in Washington.",

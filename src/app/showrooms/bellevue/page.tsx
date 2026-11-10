@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/config/site";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { BOOKING_URL } from "@/config/links";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: canonicalUrl("/showrooms/bellevue"),
+  },
   title: "Bellevue Showroom | Sound View Window & Door",
   description:
     "Visit the Sound View Window & Door Eastside showroom at 13555 NE Bel Red Rd Ste 207 in Bellevue. Showroom visits are scheduled by appointment.",

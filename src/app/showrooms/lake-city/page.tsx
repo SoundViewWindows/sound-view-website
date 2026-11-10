@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/config/site";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { BOOKING_URL } from "@/config/links";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: canonicalUrl("/showrooms/lake-city"),
+  },
   title: "Lake City Showroom | Sound View Window & Door",
   description:
     "Visit the Sound View Window & Door flagship showroom in Lake City. See operable windows, entry and patio doors, custom glass, and hardware in person.",

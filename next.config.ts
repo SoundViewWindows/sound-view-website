@@ -9,11 +9,18 @@ function originalBlogRedirects() {
     source: string;
     destination: string;
   }[];
-  return entries.map((entry) => ({
-    source: entry.source,
-    destination: entry.destination,
-    permanent: true,
-  }));
+  return entries.flatMap((entry) => [
+    {
+      source: entry.source,
+      destination: entry.destination,
+      statusCode: 301,
+    },
+    {
+      source: `${entry.source}/`,
+      destination: entry.destination,
+      statusCode: 301,
+    },
+  ]);
 }
 
 const nextConfig: NextConfig = {
@@ -26,8 +33,16 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  skipTrailingSlashRedirect: true,
   async redirects() {
-    return originalBlogRedirects();
+    return [
+      ...originalBlogRedirects(),
+      {
+        source: "/:path+/",
+        destination: "/:path+",
+        statusCode: 308,
+      },
+    ];
   },
   cacheComponents: true,
   partialPrefetching: true,

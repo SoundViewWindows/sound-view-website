@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+import { canonicalUrl, siteUrl } from "@/config/site";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -10,6 +11,10 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: canonicalUrl("/"),
+  },
   title: "Sound View Window & Door | Seattle Window, Door & Glass Replacement",
   description:
     "Premier Seattle window replacement, custom doors, frameless shower enclosures, and glass repair. Visit our showrooms in Lake City, West Queen Anne, and Bellevue.",

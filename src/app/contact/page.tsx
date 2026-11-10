@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: canonicalUrl("/contact"),
+  },
   title: "Contact Us | Sound View Window & Door",
   description:
     "Call, email, or message Sound View Window & Door. Greater Seattle specialists help with windows, doors, custom glass, rebates, and private showroom visits.",

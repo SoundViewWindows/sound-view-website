@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
 import { Compass, Ruler, Wrench } from "lucide-react";
 import { Header } from "@/components/Header";
 import { BOOKING_URL } from "@/config/links";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: canonicalUrl("/about"),
+  },
   title: "About Us | Sound View Window & Door",
   description:
     "Sound View Window & Door helps Greater Seattle homeowners and builders choose windows, doors, and custom glass with honest guidance and no high-pressure sales.",
