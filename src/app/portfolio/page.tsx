@@ -133,7 +133,7 @@ export default function PortfolioPage() {
                 href={project.href}
                 className={`group block h-full rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm transition-shadow hover:shadow-md sm:p-7 ${focusRing}`}
               >
-                <div className="mb-4 overflow-hidden rounded-2xl">
+                <div className="overflow-hidden rounded-2xl">
                   <Image
                     src={project.src}
                     alt={project.alt}
@@ -142,7 +142,7 @@ export default function PortfolioPage() {
                     className="h-auto w-full border border-slate-700/80 object-cover shadow-md transition-transform duration-500 ease-out group-hover:scale-105"
                   />
                 </div>
-                <p className="mb-2 w-fit rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-300">
+                <p className="mb-3 mt-4 inline-flex items-center rounded-full border border-sky-400/40 bg-sky-500/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-sky-300">
                   {project.badge}
                 </p>
                 <h3 className="text-2xl font-bold text-white transition-colors group-hover:text-slate-100">
