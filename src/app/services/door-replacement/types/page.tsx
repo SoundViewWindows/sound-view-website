@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { DoorStepNav } from "@/components/DoorStepNav";
 import { Header } from "@/components/Header";
 import { SelectionCard } from "@/components/SelectionCard";
+import { SkipAhead } from "@/components/SkipAhead";
 import { doorStyles } from "@/lib/door-funnel";
 
 export default function DoorTypesPage() {
@@ -9,15 +9,22 @@ export default function DoorTypesPage() {
     <div className="bg-[#0B192C] text-slate-100">
       <Header />
       <main>
-        <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
           <DoorStepNav step={1} />
-          <h1 className="mb-4 max-w-3xl text-4xl font-bold leading-tight text-white lg:text-5xl">
-            Select the Door Style for Your Home
-          </h1>
-          <p className="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Select an entryway or patio configuration to explore available materials.
-            Not sure what fits? You can select &apos;Open to advice&apos; to continue.
-          </p>
+          <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h1 className="mb-4 max-w-3xl text-4xl font-bold leading-tight text-white lg:text-5xl">
+                Select the Door Style for Your Home
+              </h1>
+              <p className="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+                Select an entryway or patio configuration to explore available materials.
+                Not sure what fits? You can select &apos;Open to advice&apos; to continue.
+              </p>
+            </div>
+            <SkipAhead href="/services/door-replacement/materials?type=undecided">
+              Not sure yet? Continue to Door Materials
+            </SkipAhead>
+          </div>
         </div>
 
         <section>
@@ -36,12 +43,9 @@ export default function DoorTypesPage() {
             ))}
           </div>
           <div className="mx-auto max-w-7xl px-4 py-10 text-center sm:px-6 lg:px-8">
-            <Link
-              href="/services/door-replacement/materials?type=undecided"
-              className="inline-flex rounded-full border border-white px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#38BDF8] hover:text-[#0B192C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
-            >
-              Not sure yet? Skip to Materials
-            </Link>
+            <SkipAhead href="/services/door-replacement/materials?type=undecided">
+              Not sure yet? Continue to Door Materials
+            </SkipAhead>
           </div>
         </section>
       </main>
