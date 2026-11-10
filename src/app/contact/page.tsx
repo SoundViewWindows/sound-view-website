@@ -53,54 +53,54 @@ export default function ContactPage() {
 
         <section className="mx-auto mb-20 grid max-w-7xl grid-cols-1 items-start gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
           <div className="space-y-6 lg:col-span-5">
-            <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#132238] text-white">
+            <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl sm:p-6">
+              <span className="mb-3 inline-block rounded-xl bg-sky-50 p-2.5 text-sky-600">
                 <PhoneIcon />
-              </div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              </span>
+              <p className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">
                 Phone
               </p>
               <a
                 href="tel:2064024229"
-                className={`mt-1 inline-block text-2xl font-bold text-sky-300 hover:text-sky-200 hover:underline ${focusRing}`}
+                className={`text-xl font-extrabold text-sky-600 transition-colors hover:text-sky-700 sm:text-2xl ${focusRing}`}
               >
                 (206) 402-4229
               </a>
-              <p className="mt-2 text-sm leading-6 text-slate-300">
+              <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
                 Direct line for all three showroom locations and service
                 estimates.
               </p>
             </article>
 
-            <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#132238] text-white">
+            <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl sm:p-6">
+              <span className="mb-3 inline-block rounded-xl bg-sky-50 p-2.5 text-sky-600">
                 <MailIcon />
-              </div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              </span>
+              <p className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">
                 Email
               </p>
               <a
                 href="mailto:contact@soundviewseattle.com"
-                className={`mt-1 inline-block break-all text-xl font-bold text-white hover:underline sm:text-2xl ${focusRing}`}
+                className={`break-all text-lg font-extrabold text-[#0B192C] transition-colors hover:text-sky-600 sm:text-xl ${focusRing}`}
               >
                 contact@soundviewseattle.com
               </a>
-              <p className="mt-2 text-sm leading-6 text-slate-300">
+              <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
                 Send project blueprints, photos, or general inquiries anytime.
               </p>
             </article>
 
-            <article className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#132238] text-white">
+            <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl sm:p-6">
+              <span className="mb-3 inline-block rounded-xl bg-sky-50 p-2.5 text-sky-600">
                 <ClockIcon />
-              </div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              </span>
+              <p className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">
                 Hours of Operation
               </p>
-              <p className="mt-1 text-2xl font-bold leading-snug text-white">
+              <p className="text-lg font-extrabold leading-snug text-[#0B192C] sm:text-xl">
                 Monday through Friday: 8:00 AM to 4:30 PM
               </p>
-              <p className="mt-2 text-sm leading-6 text-slate-300">
+              <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
                 Closed Saturday and Sunday. Inquiries submitted over the weekend will be returned first thing Monday morning.
               </p>
             </article>

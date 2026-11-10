@@ -154,9 +154,11 @@ export function ContactForm() {
           aria-invalid={Boolean(errors.projectType)}
           aria-describedby={errors.projectType ? "contact-projectType-error" : undefined}
         >
-          <option value="">Select a service...</option>
+          <option value="" className="bg-white text-slate-900">
+            Select a service...
+          </option>
           {projectTypes.map((type) => (
-            <option key={type} value={type}>
+            <option key={type} value={type} className="bg-white text-slate-900">
               {type}
             </option>
           ))}
@@ -204,10 +206,10 @@ function Field({
   children: ReactNode;
 }) {
   return (
-    <label htmlFor={id} className="flex flex-col gap-1.5 text-sm font-medium text-white">
-      <span>
+    <label htmlFor={id} className="block">
+      <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-white">
         {label}
-        {required ? <span className="text-white"> *</span> : null}
+        {required ? <span> *</span> : null}
       </span>
       {children}
       {error ? (
@@ -221,8 +223,8 @@ function Field({
 
 function inputClass(invalid: boolean) {
   return [
-    "w-full rounded-lg border bg-[#132238] px-3 py-2.5 text-sm font-normal text-slate-100 outline-none transition",
-    "placeholder:text-slate-400 focus:border-sky-400 focus:ring-2 focus:ring-sky-400",
-    invalid ? "border-[#8C3A32]" : "border-slate-700",
+    "w-full rounded-lg border border-slate-300 !bg-white px-3 py-2.5 text-sm font-medium text-slate-900 outline-none scheme-light placeholder:text-slate-400 sm:text-base",
+    "focus:!bg-white focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400",
+    invalid ? "border-red-600" : "",
   ].join(" ");
 }
