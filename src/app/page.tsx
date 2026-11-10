@@ -87,7 +87,7 @@ export default function Home() {
             <p className="mb-4 max-w-2xl text-sm text-slate-300">
               Relaxed consultations, honest answers, and zero pressure to buy
             </p>
-            <div className="mb-4 flex flex-wrap items-center justify-center gap-3">
+            <div className="relative mb-4 flex w-full flex-wrap items-center justify-center gap-3 sm:w-auto">
               <a
                 href={BOOKING_URL}
                 target="_blank"
@@ -98,7 +98,7 @@ export default function Home() {
               </a>
               <div
                 ref={phoneMenuRef}
-                className="relative"
+                className="static sm:relative"
                 onMouseEnter={() => setPhoneOpen(true)}
                 onMouseLeave={() => setPhoneOpen(false)}
               >
@@ -116,7 +116,7 @@ export default function Home() {
                 {phoneOpen ? (
                   <ul
                     id="showroom-phones"
-                    className="absolute left-1/2 top-full z-50 w-[min(24rem,calc(100vw-2rem))] -translate-x-1/2 pt-2"
+                    className="absolute right-0 top-full z-50 w-[calc(100vw-2rem)] max-w-sm pt-2 shadow-2xl sm:right-auto sm:left-1/2 sm:w-[min(24rem,calc(100vw-2rem))] sm:max-w-none sm:-translate-x-1/2"
                   >
                     <li className="overflow-hidden rounded-xl border border-slate-700 bg-slate-900/95 p-4 shadow-2xl backdrop-blur-md">
                       <ul>
@@ -127,19 +127,19 @@ export default function Home() {
                           >
                             <a
                               href={location.href}
-                              className="flex items-center justify-between gap-4 py-3 text-sm focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#38BDF8]"
+                              className="flex items-center justify-between gap-2 px-3 py-2.5 text-sm focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#38BDF8] sm:gap-4 sm:px-0 sm:py-3"
                             >
                               <span className="flex min-w-0 items-center">
-                                <span className="text-sm font-semibold text-white transition-colors hover:text-sky-400">
+                                <span className="shrink min-w-0 truncate text-xs font-bold text-white transition-colors hover:text-sky-400 sm:text-sm sm:font-semibold">
                                   {location.name}
                                 </span>
                                 {location.appointmentOnly ? (
-                                  <span className="ml-2 inline-flex shrink-0 items-center whitespace-nowrap rounded-full border border-sky-800 bg-sky-950/80 px-2 py-0.5 text-[11px] text-sky-200">
+                                  <span className="ml-2 inline-flex shrink-0 items-center whitespace-nowrap rounded-full border border-sky-800 bg-sky-950/80 px-2 py-0.5 text-[10px] text-sky-200 sm:text-[11px]">
                                     By Appointment Only
                                   </span>
                                 ) : null}
                               </span>
-                              <span className="shrink-0 text-sm font-bold tracking-wide text-sky-400">
+                              <span className="shrink-0 whitespace-nowrap text-xs font-extrabold text-sky-400 hover:text-sky-300 sm:text-sm sm:font-bold sm:tracking-wide">
                                 {location.display}
                               </span>
                             </a>
