@@ -186,7 +186,7 @@ export function BlogIndex({
               <Cover
                 src={featured.coverImage}
                 alt={featured.coverAlt}
-                className="h-64 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 sm:h-80 lg:h-full lg:min-h-[24rem]"
+                className="aspect-[16/9] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 lg:aspect-auto lg:h-full lg:min-h-[24rem]"
               />
             </div>
             <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
@@ -235,7 +235,7 @@ export function BlogIndex({
                     <Cover
                       src={post.coverImage}
                       alt={post.coverAlt}
-                      className="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      className="aspect-[16/9] h-auto w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                     />
                   </div>
                   <div className="p-6">

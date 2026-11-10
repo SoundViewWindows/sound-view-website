@@ -98,11 +98,11 @@ async function Article({
           }}
         />
 
-        {post.coverImage ? (
+        {showArticleCover(post) ? (
           <img
             src={post.coverImage}
             alt={post.coverAlt}
-            className="mb-10 h-80 w-full rounded-3xl object-cover shadow-sm sm:h-96"
+            className="mb-10 aspect-[16/9] w-full rounded-3xl object-cover shadow-sm"
           />
         ) : null}
 
@@ -170,6 +170,22 @@ async function Article({
       </article>
     </main>
   );
+}
+
+function showArticleCover(post: BlogPost) {
+  if (!post.coverImage) return false;
+  const match = post.content.match(/<img\b[^>]*\bsrc\s*=\s*(?:"([^"]*)"|'([^']*)')/i);
+  const firstImage = match?.[1] || match?.[2] || "";
+  return normalizeImageSrc(firstImage) !== normalizeImageSrc(post.coverImage);
+}
+
+function normalizeImageSrc(src: string) {
+  const clean = src.split("#")[0]?.split("?")[0] ?? "";
+  try {
+    return decodeURIComponent(clean);
+  } catch {
+    return clean;
+  }
 }
 
 function ctaFor(post: BlogPost) {
