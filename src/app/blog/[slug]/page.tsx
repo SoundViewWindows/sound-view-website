@@ -4,13 +4,14 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Header } from "@/components/Header";
 import { BOOKING_URL } from "@/config/links";
-import { getBlogPost, type BlogPost } from "@/data/blogPosts";
+import { blogPosts, getBlogPost, type BlogPost } from "@/data/blogPosts";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
-// No generateStaticParams while blogPosts is empty. Cache Components rejects
-// an empty param list. Article pages still resolve by slug once posts return.
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({ slug: post.slug }));
+}
 
 export async function generateMetadata(
   props: PageProps<"/blog/[slug]">,
@@ -19,8 +20,8 @@ export async function generateMetadata(
   const post = getBlogPost(slug);
   if (!post) notFound();
   return {
-    title: `${post.title} | Sound View Window & Door`,
-    description: post.excerpt,
+    title: post.seoTitle || post.title,
+    description: post.seoDescription || undefined,
   };
 }
 
@@ -70,7 +71,7 @@ async function Article({
           <span className="inline-flex rounded-full bg-[#132238] px-3 py-1 text-xs font-semibold tracking-wide text-white">
             {post.category}
           </span>
-          <span>{post.date}</span>
+          <time dateTime={post.publishedAt.slice(0, 10)}>{post.date}</time>
           <span aria-hidden="true">&middot;</span>
           <span>{post.readTime}</span>
         </div>
@@ -82,22 +83,35 @@ async function Article({
         {post.coverImage ? (
           <img
             src={post.coverImage}
-            alt=""
+            alt={post.coverAlt}
             className="mb-10 h-80 w-full rounded-3xl object-cover shadow-sm sm:h-96"
           />
         ) : null}
 
         <div
-          className="prose prose-lg max-w-none leading-relaxed text-slate-300 prose-invert prose-headings:font-sans prose-headings:font-bold prose-headings:text-white prose-a:text-white prose-img:rounded-2xl"
+          className="prose prose-lg max-w-none leading-relaxed text-slate-300 prose-invert prose-headings:font-sans prose-headings:font-bold prose-headings:text-white prose-a:text-white prose-img:rounded-2xl [&_iframe]:my-8 [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-2xl"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
+
+        {post.tags.length > 0 ? (
+          <ul className="mt-10 flex list-none flex-wrap gap-2 p-0">
+            {post.tags.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-300"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        ) : null}
 
         <aside className="mt-12 rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8">
           <p className="text-xs font-bold uppercase tracking-wider text-sky-300">
             Local team
           </p>
           <h2 className="mt-2 text-2xl font-bold text-white">
-            Written by the Sound View Advisory Team
+            Written by {post.author}
           </h2>
           <p className="mt-3 text-base leading-relaxed text-slate-300">
             Specialists in replacement windows, doors, and custom glass for

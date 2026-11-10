@@ -9,7 +9,16 @@ const focusRing =
 
 export type BlogCard = Pick<
   BlogPost,
-  "id" | "slug" | "title" | "category" | "date" | "readTime" | "excerpt" | "coverImage"
+  | "id"
+  | "slug"
+  | "title"
+  | "category"
+  | "categories"
+  | "date"
+  | "readTime"
+  | "excerpt"
+  | "coverImage"
+  | "coverAlt"
 >;
 
 export function BlogIndex({
@@ -23,7 +32,10 @@ export function BlogIndex({
   const [filter, setFilter] = useState("All");
 
   const visible = useMemo(
-    () => (filter === "All" ? posts : posts.filter((post) => post.category === filter)),
+    () =>
+      filter === "All"
+        ? posts
+        : posts.filter((post) => post.categories.includes(filter)),
     [filter, posts],
   );
 
@@ -97,7 +109,7 @@ export function BlogIndex({
             <div className="overflow-hidden">
               <Cover
                 src={featured.coverImage}
-                alt=""
+                alt={featured.coverAlt}
                 className="h-64 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 sm:h-80 lg:h-full lg:min-h-[24rem]"
               />
             </div>
@@ -109,9 +121,11 @@ export function BlogIndex({
               <h2 className="text-3xl font-bold leading-tight text-white transition-colors group-hover:text-slate-100 sm:text-4xl">
                 {featured.title}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-slate-300 sm:text-lg">
-                {featured.excerpt}
-              </p>
+              {featured.excerpt ? (
+                <p className="mt-4 line-clamp-4 text-base leading-relaxed text-slate-300 sm:text-lg">
+                  {featured.excerpt}
+                </p>
+              ) : null}
               <span className="mt-8 inline-flex w-fit items-center justify-center rounded-lg bg-[#38BDF8] px-5 py-3 text-sm font-medium text-[#0B192C] transition-colors group-hover:bg-sky-300">
                 Read Guide
               </span>
@@ -144,7 +158,7 @@ export function BlogIndex({
                   <div className="overflow-hidden">
                     <Cover
                       src={post.coverImage}
-                      alt=""
+                      alt={post.coverAlt}
                       className="h-48 w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                     />
                   </div>
@@ -156,7 +170,11 @@ export function BlogIndex({
                     <h3 className="text-xl font-bold leading-snug text-white transition-colors group-hover:text-slate-100">
                       {post.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-300">{post.excerpt}</p>
+                    {post.excerpt ? (
+                      <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-300">
+                        {post.excerpt}
+                      </p>
+                    ) : null}
                   </div>
                 </div>
                 <div className="px-6 pb-6">

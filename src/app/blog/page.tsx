@@ -10,15 +10,17 @@ export const metadata: Metadata = {
 };
 
 const cards: BlogCard[] = blogPosts.map(
-  ({ id, slug, title, category, date, readTime, excerpt, coverImage }) => ({
+  ({ id, slug, title, category, categories, date, readTime, excerpt, coverImage, coverAlt }) => ({
     id,
     slug,
     title,
     category,
+    categories,
     date,
     readTime,
     excerpt,
     coverImage,
+    coverAlt,
   }),
 );
 
