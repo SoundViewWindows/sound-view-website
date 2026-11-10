@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { BlogPost } from "@/data/blogPosts";
@@ -39,28 +40,24 @@ export function BlogIndex({
     if (!el) return;
 
     const update = () => {
-      const maxScroll = el.scrollWidth - el.clientWidth;
-      setCanScrollLeft(el.scrollLeft > 4);
-      setCanScrollRight(maxScroll - el.scrollLeft > 4);
+      setCanScrollLeft(el.scrollLeft > 10);
+      setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
     };
 
     update();
     el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
     const observer = new ResizeObserver(update);
     observer.observe(el);
     return () => {
       el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
       observer.disconnect();
     };
   }, [filters]);
 
-  const scrollCategoriesRight = () => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-    scroller.scrollBy({
-      left: Math.max(180, Math.round(scroller.clientWidth * 0.7)),
-      behavior: "smooth",
-    });
+  const scrollCategories = (distance: number) => {
+    scrollerRef.current?.scrollBy({ left: distance, behavior: "smooth" });
   };
 
   const visible = useMemo(
@@ -106,10 +103,10 @@ export function BlogIndex({
           investments in your home.
         </p>
 
-        <div className="relative mt-8">
+        <div className="relative mt-8 flex items-center">
           <div
             ref={scrollerRef}
-            className="flex gap-2 overflow-x-auto overscroll-x-contain scroll-px-8 py-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="scrollbar-none flex items-center gap-2 overflow-x-auto overscroll-x-contain scroll-smooth px-4 py-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             role="toolbar"
             aria-label="Filter guides by category"
           >
@@ -140,39 +137,41 @@ export function BlogIndex({
           </div>
           <div
             aria-hidden="true"
-            className={`pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-[#0B192C] to-transparent transition-opacity duration-200 ${
+            className={`pointer-events-none absolute left-0 z-10 h-full w-8 bg-gradient-to-r from-[#0B192C] to-transparent ${
               canScrollLeft ? "opacity-100" : "opacity-0"
             }`}
           />
           <div
             aria-hidden="true"
-            className={`pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[#0B192C] to-transparent transition-opacity duration-200 ${
+            className={`pointer-events-none absolute right-0 z-10 h-full w-8 bg-gradient-to-l from-[#0B192C] to-transparent ${
               canScrollRight ? "opacity-100" : "opacity-0"
             }`}
           />
           <button
             type="button"
-            aria-label="Show more categories"
-            disabled={!canScrollRight}
-            onClick={scrollCategoriesRight}
-            className={`absolute right-0 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-slate-600 bg-[#0B192C]/90 text-sky-300 shadow-sm transition-opacity duration-200 hover:border-sky-400 hover:text-white ${focusRing} ${
-              canScrollRight ? "opacity-100" : "pointer-events-none opacity-0"
+            aria-label="Show previous categories"
+            disabled={!canScrollLeft}
+            onClick={() => scrollCategories(-320)}
+            className={`absolute left-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-slate-700 bg-slate-900/90 text-sky-400 shadow-lg backdrop-blur-sm transition-all duration-200 hover:border-sky-400 hover:bg-slate-800 hover:text-white ${focusRing} ${
+              canScrollLeft
+                ? "pointer-events-auto opacity-100"
+                : "pointer-events-none opacity-0"
             }`}
           >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 20 20"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m7.5 4.5 5 5.5-5 5.5"
-              />
-            </svg>
+            <ChevronLeft aria-hidden="true" className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            aria-label="Show more categories"
+            disabled={!canScrollRight}
+            onClick={() => scrollCategories(320)}
+            className={`absolute right-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-slate-700 bg-slate-900/90 text-sky-400 shadow-lg backdrop-blur-sm transition-all duration-200 hover:border-sky-400 hover:bg-slate-800 hover:text-white ${focusRing} ${
+              canScrollRight
+                ? "pointer-events-auto opacity-100"
+                : "pointer-events-none opacity-0"
+            }`}
+          >
+            <ChevronRight aria-hidden="true" className="h-4 w-4" />
           </button>
         </div>
       </section>
