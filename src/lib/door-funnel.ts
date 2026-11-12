@@ -171,6 +171,15 @@ export const doorManufacturers: DoorChoice[] = [
     body: "French, hinged, and multi-panel sliding patio door systems.",
   },
   {
+    slug: "ply-gem",
+    name: "Ply Gem",
+    option: "Ply Gem",
+    detail: "Vinyl and Composite",
+    image: "/images/manufacturers/ply-gem.jpg",
+    alt: "Ply Gem logo",
+    body: "Durable, low-maintenance vinyl and composite sliding and hinged patio doors engineered for Pacific Northwest weather and energy efficiency.",
+  },
+  {
     slug: "therma-tru",
     name: "Therma-Tru",
     option: "Therma-Tru",
