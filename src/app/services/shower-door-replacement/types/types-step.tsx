@@ -46,6 +46,7 @@ export function ShowerTypesStep() {
                 title={style.name}
                 description={style.body}
                 detail={style.detail}
+                layout="type"
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
               />
             ))}

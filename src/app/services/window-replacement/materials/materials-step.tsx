@@ -42,6 +42,7 @@ export function MaterialsStep() {
                 detail={material.detail}
                 sizes="(min-width: 768px) 50vw, 100vw"
                 theme="home"
+                layout="material"
               />
             ))}
           </div>

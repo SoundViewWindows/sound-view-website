@@ -15,6 +15,7 @@ type SelectionCardProps = {
   selected?: boolean;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   theme?: "default" | "home";
+  layout?: "material" | "type";
 };
 
 export function SelectionCard({
@@ -26,84 +27,53 @@ export function SelectionCard({
   detail,
   cta = "Select Option",
   sizes,
-  fit = "cover",
   selected = false,
   onClick,
-  theme = "default",
+  layout = "type",
 }: SelectionCardProps) {
-  const home = theme === "home";
+  const imageFrame =
+    layout === "material"
+      ? "relative mb-3.5 h-44 w-full shrink-0 overflow-hidden rounded-lg bg-slate-800 sm:h-52"
+      : "relative mb-3 h-40 w-full shrink-0 overflow-hidden rounded-lg bg-slate-800 sm:h-44";
+
   return (
     <Link
       href={href}
       onClick={onClick}
       aria-current={selected ? "true" : undefined}
-      className={`group relative flex aspect-[4/3] cursor-pointer flex-col justify-end overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-2 ${
-        home
-          ? `rounded-xl border bg-home-panel/80 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-home-accent ${
-              selected
-                ? "border-home-accent ring-2 ring-home-accent"
-                : "border-[#8AA0B2]/35"
-            }`
-          : `rounded-2xl border shadow-xl transition-all duration-300 hover:border-sky-400 hover:shadow-2xl hover:shadow-sky-500/15 focus-visible:outline-[#38BDF8] ${
-              selected
-                ? "border-transparent ring-2 ring-sky-400 shadow-sky-500/30"
-                : "border-slate-700/60"
-            }`
+      className={`group flex h-full cursor-pointer flex-col rounded-xl bg-[#2B3E50]/85 p-3.5 transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:p-4 ${
+        selected ? "border border-sky-400 ring-2 ring-sky-400" : "border border-white/15"
       }`}
     >
-      <span className={`absolute inset-0 ${home ? "bg-home-panel" : "bg-[#132238]"}`} aria-hidden="true" />
-      {image && fit === "contain" ? (
-        <span className="absolute inset-x-0 top-0 h-[58%]">
+      <span className={imageFrame}>
+        {image ? (
           <Image
             src={image}
             alt={alt}
             fill
             sizes={sizes}
-            className="object-contain object-center p-4 transition-transform duration-500 group-hover:scale-105"
+            className="block h-full w-full object-cover object-center"
           />
-        </span>
-      ) : null}
-      {image && fit !== "contain" ? (
-        <Image
-          src={image}
-          alt={alt}
-          fill
-          sizes={sizes}
-          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-        />
-      ) : null}
-      <span
-        className={`absolute inset-0 z-0 bg-gradient-to-t ${
-          home ? "from-[#1A2B38]/95 via-[#1A2B38]/55 to-transparent" : "from-[#0B192C] via-[#0B192C]/75 to-transparent"
-        }`}
-      />
-      {home ? <span className="absolute inset-0 z-0 bg-[#1A2B38]/40" aria-hidden="true" /> : null}
-      {selected ? (
-        <span
-          className={`absolute right-3 top-3 z-20 rounded-full px-2.5 py-1 text-xs font-semibold ${
-            home ? "bg-home-accent text-[#062033]" : "bg-[#38BDF8] text-[#0B192C]"
-          }`}
-        >
-          Selected
-        </span>
-      ) : null}
-      <span className="relative z-10 flex w-full flex-col justify-end p-5 sm:p-6">
-        <span className={`mb-1.5 leading-tight text-white ${home ? "text-base font-bold sm:text-lg" : "text-xl font-extrabold sm:text-2xl"}`}>
-          {title}
-        </span>
-        <span className={`mb-2 line-clamp-2 leading-relaxed ${home ? "text-[11px] text-slate-100 sm:text-xs" : "text-xs text-slate-200 sm:text-sm"}`}>
+        ) : null}
+        {selected ? (
+          <span className="absolute right-2 top-2 z-10 rounded-full bg-[#38BDF8] px-2.5 py-1 text-xs font-semibold text-[#0B192C]">
+            Selected
+          </span>
+        ) : null}
+      </span>
+      <span className="flex min-h-0 flex-1 flex-col">
+        <span className="mb-1.5 text-base font-bold text-white sm:text-lg">{title}</span>
+        <span className="mb-2.5 text-xs leading-relaxed text-slate-300 sm:text-[13px]">
           {description}
         </span>
         {detail ? (
-          <span className={`mb-3 text-xs font-medium ${home ? "text-home-accent" : "text-slate-300"}`}>{detail}</span>
+          <span className="mb-2 text-xs font-medium text-sky-400">{detail}</span>
         ) : null}
-        <span
-          className={`inline-flex items-center text-xs font-semibold sm:text-sm ${
-            home ? "text-white transition-colors group-hover:text-home-accent" : "font-bold tracking-wide text-sky-400 group-hover:text-sky-300"
-          }`}
-        >
+        <span className="mt-auto inline-flex items-center gap-1 text-xs font-semibold text-white sm:text-sm">
           {cta}
-          <span className="ml-1.5 transition-transform group-hover:translate-x-1">→</span>
+          <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+            →
+          </span>
         </span>
       </span>
     </Link>
