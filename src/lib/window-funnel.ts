@@ -160,6 +160,15 @@ export const windowManufacturers: WindowChoice[] = [
     body: "Architectural wood-clad, composite Fibrex, and luxury patio door systems.",
   },
   {
+    slug: "ply-gem",
+    name: "Ply Gem",
+    option: "Ply Gem",
+    detail: "Vinyl Value",
+    image: "/images/manufacturers/ply-gem.jpg",
+    alt: "Ply Gem logo",
+    body: "Cost-effective, energy-efficient vinyl replacement windows.",
+  },
+  {
     slug: "stile",
     name: "STILE Windows & Doors",
     option: "STILE Windows & Doors",
@@ -176,15 +185,6 @@ export const windowManufacturers: WindowChoice[] = [
     image: "/images/manufacturers/jeld-wen.jpg",
     alt: "Jeld-Wen logo",
     body: "Reliable vinyl and wood replacement options for every architectural style.",
-  },
-  {
-    slug: "ply-gem",
-    name: "Ply Gem",
-    option: "Ply Gem",
-    detail: "Vinyl Value",
-    image: "/images/manufacturers/ply-gem.jpg",
-    alt: "Ply Gem logo",
-    body: "Cost-effective, energy-efficient vinyl replacement windows.",
   },
   {
     slug: "recommend",

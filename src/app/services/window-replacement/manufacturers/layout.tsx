@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   },
   title: "Window Manufacturers | Sound View Window & Door",
   description:
-    "Compare Milgard, Andersen, STILE, Jeld-Wen, and Ply Gem windows, or let a specialist recommend a brand.",
+    "Compare Milgard, Andersen, Ply Gem, STILE, and Jeld-Wen windows, or let a specialist recommend a brand.",
 };
 
 export default function WindowManufacturersLayout({

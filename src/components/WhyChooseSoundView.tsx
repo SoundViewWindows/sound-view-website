@@ -9,7 +9,7 @@ const heroPillars = [
   },
   {
     title: "Authorized Factory Dealer",
-    body: "Direct access to Andersen, Milgard, Ply Gem, and STILE Windows & Doors.",
+    body: "Direct access to Milgard, Andersen, Ply Gem, and STILE Windows & Doors.",
   },
   {
     title: "Zero-Pressure Consultations",
@@ -28,7 +28,7 @@ const pillars = [
   },
   {
     title: "Authorized Factory Dealer",
-    body: "Direct access to top manufacturers including Andersen, Milgard, Ply Gem, and STILE.",
+    body: "Direct access to top manufacturers including Milgard, Andersen, Ply Gem, and STILE.",
   },
   {
     title: "Zero-Pressure Consultations & Certified Installers",

@@ -91,7 +91,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <Header onServiceSelect={chooseService} />
 
-      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_calc(18rem+70px)] lg:items-start lg:pb-3 lg:pl-5 lg:pr-0">
+      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-0 sm:px-5 lg:grid-cols-[minmax(0,1fr)_calc(18rem+70px)] lg:items-start lg:pb-3 lg:pl-5 lg:pr-0">
         <div className="relative z-20 flex min-h-0 flex-col">
           <div className="relative z-30 mb-4 flex w-full flex-col items-center justify-center gap-5 pb-7 pt-6 md:flex-row md:pb-4 md:pt-5 xl:pb-5 xl:pt-6">
             <Image
@@ -256,7 +256,7 @@ export default function Home() {
               <div className="py-3 sm:px-4 sm:py-0">
                 <p className="text-sm font-bold tracking-wide text-white">Authorized Factory Dealer</p>
                 <p className="mt-0.5 text-xs text-slate-300">
-                  Andersen <span className="text-home-accent">•</span> Milgard{" "}
+                  Milgard <span className="text-home-accent">•</span> Andersen{" "}
                   <span className="text-home-accent">•</span> Ply Gem
                 </p>
               </div>
@@ -270,7 +270,7 @@ export default function Home() {
 
         <aside
           id="quote"
-          className="home-quote-panel relative z-10 flex flex-col p-6 text-white sm:p-7 lg:!w-[calc(18rem+70px)] lg:!max-w-[calc(18rem+70px)]"
+          className="home-quote-panel relative z-10 flex flex-col rounded-b-none p-6 text-white sm:p-7 lg:rounded-none lg:!w-[calc(18rem+70px)] lg:!max-w-[calc(18rem+70px)]"
         >
           {quoteSubmitted ? null : (
             <div className="mb-6 text-center">
@@ -407,7 +407,7 @@ const faqs = [
 
 function SoundViewDifference() {
   return (
-    <section className="w-full border-y border-slate-100 bg-white py-16 text-slate-900 sm:py-20 lg:py-24">
+    <section className="w-full border-y border-slate-100 bg-white pb-16 pt-12 text-slate-900 sm:pb-20 sm:pt-14 lg:py-24">
       <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-4 sm:px-5 lg:grid-cols-2 lg:gap-16">
         <div>
           <p className="mb-3 block text-xs font-bold uppercase tracking-widest text-sky-600 sm:text-sm">

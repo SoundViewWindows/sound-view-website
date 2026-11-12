@@ -153,6 +153,24 @@ export function doorChoiceLabel(choice: { name: string } | null) {
 
 export const doorManufacturers: DoorChoice[] = [
   {
+    slug: "milgard",
+    name: "Milgard",
+    option: "Milgard",
+    detail: "Sliding Patio",
+    image: "/images/manufacturers/milgard.png",
+    alt: "Milgard logo",
+    body: "Smooth-sliding patio doors in high-durability vinyl and fiberglass.",
+  },
+  {
+    slug: "andersen",
+    name: "Andersen Windows & Doors",
+    option: "Andersen Windows & Doors",
+    detail: "Patio Doors",
+    image: "/images/manufacturers/andersen.png",
+    alt: "Andersen Windows & Doors logo",
+    body: "French, hinged, and multi-panel sliding patio door systems.",
+  },
+  {
     slug: "therma-tru",
     name: "Therma-Tru",
     option: "Therma-Tru",
@@ -196,24 +214,6 @@ export const doorManufacturers: DoorChoice[] = [
     image: "/images/manufacturers/larson.png",
     alt: "Larson logo",
     body: "Premium storm doors, retractable screens, and security doors.",
-  },
-  {
-    slug: "andersen",
-    name: "Andersen Windows & Doors",
-    option: "Andersen Windows & Doors",
-    detail: "Patio Doors",
-    image: "/images/manufacturers/andersen.png",
-    alt: "Andersen Windows & Doors logo",
-    body: "French, hinged, and multi-panel sliding patio door systems.",
-  },
-  {
-    slug: "milgard",
-    name: "Milgard",
-    option: "Milgard",
-    detail: "Sliding Patio",
-    image: "/images/manufacturers/milgard.png",
-    alt: "Milgard logo",
-    body: "Smooth-sliding patio doors in high-durability vinyl and fiberglass.",
   },
   {
     slug: "stile",
