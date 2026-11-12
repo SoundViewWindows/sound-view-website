@@ -52,11 +52,11 @@ const treatments = [
 
 export default function WindowBlindsShadesPage() {
   return (
-    <div className="bg-[#0B192C] text-slate-100">
+    <div className="bg-home-canvas text-[#E7EEF3]">
       <Header />
       <main>
-        <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
+        <section className="mx-auto max-w-[1440px] px-4 pb-12 pt-8 sm:px-5">
+          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-300">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
                 <Link
@@ -79,10 +79,10 @@ export default function WindowBlindsShadesPage() {
           <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
             CUSTOM WINDOW TREATMENTS
           </p>
-          <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
+          <h1 className="mb-4 max-w-4xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
             Custom Blinds and Motorized Shades Tailored to Your Home
           </h1>
-          <p className="mb-8 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
+          <p className="mb-8 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
             Enhance privacy, soften natural sunlight, and boost insulation with
             premium custom blinds and motorized window shades engineered for
             Pacific Northwest living.
@@ -101,49 +101,45 @@ export default function WindowBlindsShadesPage() {
         </section>
 
         <section aria-label="Treatment categories">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 pb-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 pb-16 sm:px-5 md:grid-cols-2 lg:grid-cols-4">
             {treatments.map((item) => (
               <a
                 key={item.title}
                 href={shopHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-slate-700/80 bg-[#132238] shadow-sm transition-all duration-300 hover:border-slate-300 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                className="group flex h-full cursor-pointer flex-col rounded-xl border border-white/15 bg-[#2B3E50]/85 p-3.5 transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:p-4"
               >
-                <div className="relative h-44 w-full overflow-hidden bg-slate-100 sm:h-48">
+                <span className="relative mb-3 h-40 w-full shrink-0 overflow-hidden rounded-lg bg-slate-800 sm:h-44">
                   <img
                     src={item.image}
                     alt={item.imageAlt}
-                    className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    className="block h-full w-full object-cover object-center"
                     loading="lazy"
                   />
-                </div>
-                <div className="flex flex-1 flex-col justify-between p-5 sm:p-6">
-                  <div>
-                    <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                      {item.tagline}
-                    </p>
-                    <h2 className="mb-2 text-lg font-bold text-white transition-colors group-hover:text-slate-100">
-                      {item.title}
-                    </h2>
-                    <p className="mb-4 text-xs leading-relaxed text-slate-300 sm:text-sm">
-                      {item.copy}
-                    </p>
-                  </div>
-                  <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-xs font-semibold text-white group-hover:underline">
-                    Shop Style Online
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
+                </span>
+                <span className="flex min-h-0 flex-1 flex-col">
+                  <span className="mb-1 text-[11px] font-bold uppercase tracking-wider text-sky-400">
+                    {item.tagline}
                   </span>
-                </div>
+                  <span className="mb-1.5 text-base font-bold text-white sm:text-lg">
+                    {item.title}
+                  </span>
+                  <span className="mb-2.5 text-xs leading-relaxed text-slate-300 sm:text-[13px]">
+                    {item.copy}
+                  </span>
+                  <span className="mt-auto inline-flex items-center gap-1 text-xs font-semibold text-white sm:text-sm">
+                    Shop Style Online
+                    <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </span>
+                </span>
               </a>
             ))}
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <div className="rounded-2xl bg-[#1D2C43] px-6 py-10 text-[#FFFFFF] sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
+        <section className="mx-auto max-w-[1440px] px-4 pb-16 sm:px-5">
+          <div className="rounded-xl border border-white/15 bg-[#2B3E50]/85 px-6 py-10 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-medium leading-tight sm:text-4xl">
                 Order Custom Window Treatments Directly Online

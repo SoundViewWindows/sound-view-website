@@ -31,13 +31,13 @@ const highlights = [
 
 export default function GlassRailingPage() {
   return (
-    <div className="bg-[#0B192C] text-slate-100">
+    <div className="bg-home-canvas text-[#E7EEF3]">
       <Header />
       <main>
-        <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1440px] px-4 pb-16 pt-8 sm:px-5">
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="flex min-w-0 flex-col items-start lg:col-span-7">
-              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
+              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-300">
                 <ol className="flex flex-wrap items-center gap-2">
                   <li>
                     <Link
@@ -60,10 +60,10 @@ export default function GlassRailingPage() {
               <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
                 Architectural Glass Systems
               </p>
-              <h1 className="mb-4 max-w-full text-4xl font-bold leading-tight text-white lg:text-5xl">
+              <h1 className="mb-4 max-w-full text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Custom Glass Railings Engineered for Unobstructed Views
               </h1>
-              <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+              <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg">
                 Open up your deck, balcony, or interior staircase with
                 precision-measured tempered glass railing systems designed to
                 withstand Pacific Northwest marine conditions.
@@ -90,14 +90,14 @@ export default function GlassRailingPage() {
         </div>
 
         <section>
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 pb-20 sm:px-6 md:grid-cols-3 lg:px-8">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 pb-20 sm:px-5 md:grid-cols-3">
             {highlights.map((item) => (
               <article
                 key={item.title}
-                className="rounded-xl border border-slate-700/70 bg-[#11223A] p-6 shadow-sm"
+                className="rounded-xl border border-white/15 bg-[#2B3E50]/85 p-3.5 sm:p-4"
               >
-                <h2 className="text-2xl text-white">{item.title}</h2>
-                <p className="mt-3 text-sm leading-6 text-slate-300">{item.body}</p>
+                <h2 className="text-base font-bold text-white sm:text-lg">{item.title}</h2>
+                <p className="mt-2 text-xs leading-relaxed text-slate-300 sm:text-[13px]">{item.body}</p>
               </article>
             ))}
           </div>

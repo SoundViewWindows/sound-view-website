@@ -15,7 +15,7 @@ type ShowerDoorQuoteBoxProps = {
 export function ShowerDoorQuoteBox({
   style = "",
   onStyleChange,
-  className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-xl sm:p-7",
+  className = "relative w-full scroll-mt-6 rounded-[28px] border border-[#1A6496] bg-home-deep p-6 text-white shadow-2xl shadow-slate-950/30 sm:p-7",
 }: ShowerDoorQuoteBoxProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -69,6 +69,7 @@ export function ShowerDoorQuoteBox({
       <QuoteThankYou
         id="shower-quote"
         service="shower"
+        tone="home"
         onReset={() => setIsSubmitted(false)}
       />
     );
@@ -81,8 +82,8 @@ export function ShowerDoorQuoteBox({
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
-            <h2 className="text-xl font-bold text-[#0B192C]">Get a Quick Shower Door Estimate</h2>
-            <p className="mt-1 text-xs text-[#556980]">
+            <h2 className="text-lg font-black tracking-tight text-white">Get a Quick Shower Door Estimate</h2>
+            <p className="mt-0.5 text-xs font-medium text-home-mist">
               No pressure, upfront guidance from local Pacific Northwest specialists.
             </p>
           </div>
@@ -179,10 +180,10 @@ export function ShowerDoorQuoteBox({
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setLayout(item)}
-                    className={`w-full rounded-full px-2 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
+                    className={`w-full px-2 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent ${
                       selected
-                        ? "bg-[#38BDF8] text-[#0B192C]"
-                        : "border border-slate-600 bg-[#0B192C] text-white hover:border-sky-400"
+                        ? "rounded-none bg-home-accent text-[#062033] hover:bg-[#7DD3FC]"
+                        : "rounded-none border border-white bg-white text-[#0B192C] hover:bg-slate-100"
                     }`}
                   >
                     {item}
@@ -196,7 +197,7 @@ export function ShowerDoorQuoteBox({
           <div>
             <label className={labelClass} htmlFor="shower-quote-notes">
               Project Notes
-              <span className="font-normal text-slate-400"> Optional</span>
+              <span className="font-normal text-home-mist"> Optional</span>
             </label>
             <textarea
               id="shower-quote-notes"
@@ -212,7 +213,7 @@ export function ShowerDoorQuoteBox({
           <label className="block" htmlFor="shower-quote-style">
             <span className={labelClass}>
               Preferred Shower Door Style
-              <span className="font-normal text-slate-400"> Optional</span>
+              <span className="font-normal text-home-mist"> Optional</span>
             </span>
             <select
               id="shower-quote-style"
@@ -232,11 +233,11 @@ export function ShowerDoorQuoteBox({
 
           <button
             type="submit"
-            className="w-full rounded-xl bg-[#0090c8] py-3.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-md transition-colors hover:bg-[#007fb1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+            className="mt-2 flex w-full items-center justify-center rounded-xl bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent active:scale-[0.98] sm:text-sm"
           >
             Request Upfront Pricing
           </button>
-          <p className="text-center text-[11px] text-slate-400">
+          <p className="text-center text-[11px] text-home-mist">
             We never share your information. Typical response time under 2 business hours.
           </p>
         </form>
@@ -260,10 +261,10 @@ function FieldError({ message }: { message: string }) {
   );
 }
 
-const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-[#1E293B]";
+const labelClass = "mb-1.5 block text-[11px] font-extrabold uppercase tracking-wider text-white";
 
 const fieldClass =
-  "w-full rounded-lg border border-slate-600 bg-white px-3 py-2 text-sm text-[#0B192C] placeholder:text-slate-500 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400";
+  "w-full rounded-xl border border-[#E2E8F0] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#0F172A] shadow-sm scheme-light transition-all placeholder:text-[#94A3B8] focus:border-[#38BDF8] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/20";
 
 function inputClass(invalid: boolean) {
   return invalid ? `${fieldClass} border-[#8C3A32]` : fieldClass;
