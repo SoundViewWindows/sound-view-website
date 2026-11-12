@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
 import { GlassRailingRequest, RequestInstallationButton } from "@/components/GlassRailingRequest";
+import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
@@ -101,6 +102,7 @@ export default function GlassRailingPage() {
             ))}
           </div>
         </section>
+        <CtaBanner />
       </main>
     </div>
   );

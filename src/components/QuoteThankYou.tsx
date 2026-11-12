@@ -48,6 +48,7 @@ type QuoteThankYouProps = {
   onReset: () => void;
   id?: string;
   framed?: boolean;
+  tone?: "default" | "home";
 };
 
 export function QuoteThankYou({
@@ -55,10 +56,12 @@ export function QuoteThankYou({
   onReset,
   id,
   framed = true,
+  tone = "default",
 }: QuoteThankYouProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const offer = offers[service];
   const Tag = id ? "aside" : "div";
+  const home = tone === "home";
 
   useEffect(() => {
     headingRef.current?.focus();
@@ -71,7 +74,9 @@ export function QuoteThankYou({
       aria-live="polite"
       className={
         framed
-          ? "relative flex w-full scroll-mt-6 flex-col items-center justify-center rounded-2xl border border-slate-700/80 bg-[#132238] p-6 text-center shadow-xl sm:p-8"
+          ? home
+            ? "relative flex w-full scroll-mt-6 flex-col items-center justify-center rounded-[28px] border border-[#1A6496] bg-home-deep p-6 text-center text-white shadow-2xl shadow-slate-950/30 sm:p-7"
+            : "relative flex w-full scroll-mt-6 flex-col items-center justify-center rounded-2xl border border-slate-700/80 bg-[#132238] p-6 text-center shadow-xl sm:p-8"
           : "flex w-full flex-col items-center justify-center text-center"
       }
     >
@@ -90,30 +95,34 @@ export function QuoteThankYou({
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className={`mb-2 text-2xl font-bold outline-none ${framed ? "text-white" : "text-white"}`}
+        className={`mb-2 text-2xl outline-none ${home ? "font-extrabold tracking-tight text-white" : "font-bold text-white"}`}
       >
         Thank You, Your Quote Request Is Received!
       </h2>
-      <p className={`mb-6 max-w-sm text-sm leading-relaxed ${framed ? "text-slate-300" : "text-home-mist"}`}>
+      <p className={`mb-6 max-w-sm text-sm leading-relaxed ${home || !framed ? "text-home-mist" : "text-slate-300"}`}>
         Our local Pacific Northwest specialists are reviewing your project
         specifications. A team member will follow up with your upfront estimate
         in under 2 business hours.
       </p>
       <div
         className={`mb-6 w-full rounded-xl border p-5 text-left ${
-          framed ? "border-slate-700/80 bg-[#132238]" : "border-white/15 bg-white/10"
+          home || !framed ? "border-white/15 bg-white/10" : "border-slate-700/80 bg-[#132238]"
         }`}
       >
-        <p className={`mb-1 text-[11px] font-bold uppercase tracking-wider ${framed ? "text-slate-400" : "text-home-accent"}`}>
+        <p className={`mb-1 text-[11px] font-bold uppercase tracking-wider ${home || !framed ? "text-home-accent" : "text-slate-400"}`}>
           While You Wait
         </p>
         <h3 className={`mb-1 font-semibold ${framed ? "text-white" : "text-white"}`}>{offer.title}</h3>
-        <p className={`mb-4 text-sm leading-relaxed ${framed ? "text-slate-300" : "text-home-mist"}`}>{offer.body}</p>
+        <p className={`mb-4 text-sm leading-relaxed ${home || !framed ? "text-home-mist" : "text-slate-300"}`}>{offer.body}</p>
         <a
           href={offer.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#38BDF8] px-4 py-3 font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-sky-300"
+          className={
+            home
+              ? "flex w-full items-center justify-center gap-2 rounded-xl bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent sm:text-sm"
+              : "flex w-full items-center justify-center gap-2 rounded-lg bg-[#38BDF8] px-4 py-3 font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-sky-300"
+          }
         >
           {offer.button}
           <ExternalLinkIcon />
@@ -122,8 +131,10 @@ export function QuoteThankYou({
       <button
         type="button"
         onClick={onReset}
-        className={`text-sm font-medium underline decoration-sky-400/40 underline-offset-4 transition-colors ${
-          framed ? "text-slate-300 hover:text-white" : "text-home-mist hover:text-white"
+        className={`text-sm font-medium underline underline-offset-4 transition-colors ${
+          home || !framed
+            ? "text-home-mist decoration-home-accent/40 hover:text-white"
+            : "text-slate-300 decoration-sky-400/40 hover:text-white"
         }`}
       >
         Submit another project request

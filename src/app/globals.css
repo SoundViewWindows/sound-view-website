@@ -33,6 +33,14 @@
   --color-home-line: #3e5160;
   --color-home-accent: #4ec6ff;
   --color-home-mist: #c5d5e1;
+  --color-brand-navy: #0b192c;
+  --color-brand-white: #ffffff;
+  --color-brand-ice: #f4fafd;
+  --color-brand-royal: #0072ce;
+  --color-brand-cyan: #38bdf8;
+  --color-brand-cyan-deep: #0090c8;
+  --color-brand-body: #556980;
+  --color-brand-line: #e2e8f0;
   --font-sans: var(--font-outfit);
   --font-serif: var(--font-outfit);
 }

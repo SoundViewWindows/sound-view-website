@@ -15,7 +15,7 @@ type GlassQuoteBoxProps = {
 export function GlassQuoteBox({
   glassType = "",
   onGlassTypeChange,
-  className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-xl sm:p-7",
+  className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-xl sm:p-7",
 }: GlassQuoteBoxProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -77,8 +77,8 @@ export function GlassQuoteBox({
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
-            <h2 className="text-xl font-bold text-white">Get a Quick Glass Estimate</h2>
-            <p className="mt-1 text-xs text-slate-300">
+            <h2 className="text-xl font-bold text-[#0B192C]">Get a Quick Glass Estimate</h2>
+            <p className="mt-1 text-xs text-[#556980]">
               Restore clarity and insulation without replacing your entire window frame.
             </p>
           </div>
@@ -228,7 +228,7 @@ export function GlassQuoteBox({
 
           <button
             type="submit"
-            className="w-full rounded-xl bg-[#38BDF8] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] shadow-md shadow-sky-500/20 transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+            className="w-full rounded-xl bg-[#0090c8] py-3.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-md transition-colors hover:bg-[#007fb1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
           >
             Request Upfront Pricing
           </button>
@@ -256,7 +256,7 @@ function FieldError({ message }: { message: string }) {
   );
 }
 
-const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-white";
+const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-[#1E293B]";
 
 const fieldClass =
   "w-full rounded-lg border border-slate-600 bg-white px-3 py-2 text-sm text-[#0B192C] placeholder:text-slate-500 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400";

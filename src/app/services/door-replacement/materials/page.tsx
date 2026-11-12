@@ -5,7 +5,7 @@ export default function DoorMaterialsPage() {
   return (
     <Suspense
       fallback={
-        <p className="bg-[#132238] px-4 py-16 text-center text-white">
+        <p className="bg-home-canvas px-4 py-16 text-center text-[#E7EEF3]">
           Loading door materials.
         </p>
       }

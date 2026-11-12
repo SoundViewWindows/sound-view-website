@@ -75,24 +75,33 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <Header onServiceSelect={chooseService} />
 
-      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 py-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start lg:px-5 lg:py-3 xl:grid-cols-[minmax(0,1fr)_23rem]">
+      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-4 pt-10 sm:px-5 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start lg:px-5 lg:pb-3 xl:grid-cols-[minmax(0,1fr)_23rem]">
         <div className="relative z-20 flex min-h-0 flex-col">
-          <div className="relative z-30 flex w-full shrink-0 flex-col items-center pt-6 pb-8 text-center md:pt-8 md:pb-10">
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-home-accent sm:text-sm">
-              Seattle, Bellevue & Greater Puget Sound
-            </p>
-            <h1 className="mb-3 w-full text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Sound View Window & Door
-            </h1>
-            <p className="mx-auto mb-6 max-w-2xl text-base font-normal leading-relaxed text-slate-200 sm:text-lg md:text-xl">
-              Relaxed consultations, honest answers, and zero pressure to buy
-            </p>
-            <div className="relative flex w-full flex-wrap items-center justify-center gap-4">
+          <div className="relative z-30 mb-8 flex w-full flex-col items-center justify-center gap-5 pt-6 sm:gap-7 sm:pt-7 md:mb-10 md:flex-row">
+            <Image
+              src="/images/sv-crest-white.png"
+              alt="Sound View crest"
+              width={168}
+              height={168}
+              style={{ width: "168px", height: "168px", maxWidth: "168px", minWidth: "168px" }}
+              className="h-[120px] w-[120px] shrink-0 object-contain mix-blend-screen sm:h-[168px] sm:w-[168px]"
+            />
+            <div className="flex min-w-0 flex-col items-center text-center">
+              <p className="mb-2 text-xs font-bold uppercase tracking-widest text-sky-400 sm:text-sm">
+                Seattle, Bellevue & Greater Puget Sound
+              </p>
+              <h1 className="text-4xl font-extrabold leading-none tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-[68px]">
+                Sound View Window & Door
+              </h1>
+              <p className="mb-5 mt-3 max-w-3xl text-lg text-slate-200 sm:text-xl">
+                Relaxed consultations, honest answers, and zero pressure to buy
+              </p>
+              <div className="relative flex flex-wrap items-center justify-center gap-4">
               <a
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-home-accent px-4 py-2 text-sm font-medium text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
+                className="rounded-none bg-home-accent px-4 py-2 text-sm font-medium text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
               >
                 Book Appointment
               </a>
@@ -107,7 +116,7 @@ export default function Home() {
                   aria-expanded={phoneOpen}
                   aria-controls="showroom-phones"
                   onClick={() => setPhoneOpen((open) => !open)}
-                  className="flex items-center justify-center gap-2 rounded-full border border-white bg-white px-4 py-2 text-sm font-medium text-[#0B192C] transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                  className="flex items-center justify-center gap-2 rounded-none border border-white bg-white px-4 py-2 text-sm font-medium text-[#0B192C] transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                 >
                   <PhoneIcon />
                   Give Us a Call
@@ -149,6 +158,7 @@ export default function Home() {
                     </li>
                   </ul>
                 ) : null}
+              </div>
               </div>
             </div>
           </div>

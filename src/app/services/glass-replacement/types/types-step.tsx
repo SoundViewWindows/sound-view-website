@@ -7,8 +7,6 @@ import { SelectionCard } from "@/components/SelectionCard";
 import { SkipAhead } from "@/components/SkipAhead";
 import { glassTypes } from "@/lib/glass-funnel";
 
-const progress = "Step 1 of 2: Choose Your Glass Replacement Type";
-
 export function GlassTypesStep() {
   const searchParams = useSearchParams();
   const quoteParams = new URLSearchParams(searchParams.toString());
@@ -20,16 +18,9 @@ export function GlassTypesStep() {
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-          <GlassStepNav
-            current="Choose Glass Type"
-            progress={progress}
-            showProgress={false}
-          />
+          <GlassStepNav current="Choose Glass Type" />
           <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="mb-4 text-xs font-bold uppercase tracking-wider text-sky-400">
-                {progress}
-              </p>
               <h1 className="mb-4 max-w-3xl text-4xl font-bold leading-tight text-white lg:text-5xl">
                 Select the Glass Type Needed for Your Home
               </h1>

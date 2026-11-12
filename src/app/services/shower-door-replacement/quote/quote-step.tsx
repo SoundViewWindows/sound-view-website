@@ -38,12 +38,9 @@ export function ShowerQuoteStep() {
           </div>
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
-              <div className="space-y-4 lg:col-span-6">
-                <ShowerStepNav
-                  current="Your Estimate"
-                  progress="Step 2 of 2: Get Your Free Upfront Estimate"
-                  onDark
-                />
+              <div className="lg:col-span-6">
+                <ShowerStepNav current="Your Estimate" />
+                <div className="space-y-4">
                 <h1 className="text-3xl font-extrabold tracking-tight text-white drop-shadow-sm sm:text-4xl lg:text-5xl">
                   Your Custom Shower Door Estimate
                 </h1>
@@ -60,6 +57,7 @@ export function ShowerQuoteStep() {
                     Edit
                   </Link>
                 </p>
+                </div>
               </div>
               <div className="lg:col-span-6">
                 <ShowerDoorQuoteBox

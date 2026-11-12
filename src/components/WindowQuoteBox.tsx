@@ -29,7 +29,7 @@ export function WindowQuoteBox({
   onMaterialChange,
   onStyleChange,
   onManufacturerChange,
-  className = "relative w-full scroll-mt-6 rounded-2xl border border-slate-700/80 bg-[#132238] p-4 shadow-xl sm:p-5",
+  className = "relative w-full scroll-mt-6 rounded-[28px] border border-[#1A6496] bg-home-deep p-6 text-white shadow-2xl shadow-slate-950/30 sm:p-7",
 }: WindowQuoteBoxProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -97,6 +97,7 @@ export function WindowQuoteBox({
       <QuoteThankYou
         id="window-quote"
         service="window"
+        tone="home"
         onReset={() => setIsSubmitted(false)}
       />
     );
@@ -109,10 +110,10 @@ export function WindowQuoteBox({
     >
         <form noValidate className="flex flex-col gap-2.5" onSubmit={handleSubmit}>
           <div>
-            <h2 className="text-lg font-bold text-white">
+            <h2 className="text-lg font-black tracking-tight text-white">
               Get a Quick Window Estimate
             </h2>
-            <p className="mt-0.5 text-xs text-slate-300">
+            <p className="mt-0.5 text-xs font-medium text-home-mist">
               No pressure, upfront guidance from local Pacific Northwest specialists.
             </p>
           </div>
@@ -209,10 +210,10 @@ export function WindowQuoteBox({
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setWindowCount(count)}
-                    className={`w-full rounded-full px-2 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
+                    className={`w-full px-2 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent ${
                       selected
-                        ? "bg-[#38BDF8] text-[#0B192C]"
-                        : "border border-slate-600 bg-[#0B192C] text-white hover:border-sky-400"
+                        ? "rounded-none bg-home-accent text-[#062033] hover:bg-[#7DD3FC]"
+                        : "rounded-none border border-white bg-white text-[#0B192C] hover:bg-slate-100"
                     }`}
                   >
                     {count}
@@ -226,7 +227,7 @@ export function WindowQuoteBox({
           <div>
             <label className={labelClass} htmlFor="window-quote-notes">
               Project Notes
-              <span className="font-normal text-slate-400"> Optional</span>
+              <span className="font-normal text-home-mist"> Optional</span>
             </label>
             <textarea
               id="window-quote-notes"
@@ -243,7 +244,7 @@ export function WindowQuoteBox({
             <label className="block" htmlFor="window-quote-material">
               <span className={labelClass}>
                 Preferred Material
-                <span className="font-normal text-slate-400"> Optional</span>
+                <span className="font-normal text-home-mist"> Optional</span>
               </span>
               <select
                 id="window-quote-material"
@@ -261,9 +262,9 @@ export function WindowQuoteBox({
               </select>
             </label>
             <label className="block" htmlFor="window-quote-style">
-              <span className="mb-1 block text-xs font-semibold text-slate-300">
+              <span className={labelClass}>
                 Preferred Window Style
-                <span className="font-normal text-slate-400"> Optional</span>
+                <span className="font-normal text-home-mist"> Optional</span>
               </span>
               <select
                 id="window-quote-style"
@@ -285,7 +286,7 @@ export function WindowQuoteBox({
           <label className="block" htmlFor="window-quote-manufacturer">
             <span className={labelClass}>
               Preferred Manufacturer
-              <span className="font-normal text-slate-400"> Optional</span>
+              <span className="font-normal text-home-mist"> Optional</span>
             </span>
             <select
               id="window-quote-manufacturer"
@@ -305,11 +306,11 @@ export function WindowQuoteBox({
 
           <button
             type="submit"
-            className="w-full rounded-xl bg-[#38BDF8] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] shadow-md shadow-sky-500/20 transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+            className="mt-2 flex w-full items-center justify-center rounded-xl bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent active:scale-[0.98] sm:text-sm"
           >
             Request Upfront Pricing
           </button>
-          <p className="text-center text-[11px] text-slate-400">
+          <p className="text-center text-[11px] text-home-mist">
             We never share your information. Typical response time under 2 business hours.
           </p>
         </form>
@@ -333,10 +334,10 @@ function FieldError({ message }: { message: string }) {
   );
 }
 
-const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-white";
+const labelClass = "mb-1.5 block text-[11px] font-extrabold uppercase tracking-wider text-white";
 
 const fieldClass =
-  "w-full rounded-lg border border-slate-600 bg-white px-3 py-2 text-sm text-[#0B192C] placeholder:text-slate-500 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400";
+  "w-full rounded-xl border border-[#E2E8F0] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#0F172A] shadow-sm scheme-light transition-all placeholder:text-[#94A3B8] focus:border-[#38BDF8] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/20";
 
 const selectClass = fieldClass;
 

@@ -7,8 +7,6 @@ import { SkipAhead } from "@/components/SkipAhead";
 import { ShowerStepNav } from "@/components/ShowerStepNav";
 import { showerStyles } from "@/lib/shower-funnel";
 
-const progress = "Step 1 of 2: Choose Your Shower Door Style";
-
 export function ShowerTypesStep() {
   const searchParams = useSearchParams();
   const quoteParams = new URLSearchParams(searchParams.toString());
@@ -20,16 +18,9 @@ export function ShowerTypesStep() {
       <Header />
       <main>
         <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-          <ShowerStepNav
-            current="Choose Style"
-            progress={progress}
-            showProgress={false}
-          />
+          <ShowerStepNav current="Choose Style" />
           <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="mb-4 text-xs font-bold uppercase tracking-wider text-sky-400">
-                {progress}
-              </p>
               <h1 className="mb-4 max-w-3xl text-4xl font-bold leading-tight text-white lg:text-5xl">
                 Select the Shower Door Style for Your Bathroom
               </h1>

@@ -3,7 +3,7 @@ import { QuoteStep } from "./quote-step";
 
 export default function WindowQuotePage() {
   return (
-    <Suspense fallback={<p className="bg-[#132238] px-4 py-16 text-center text-white">Loading your estimate.</p>}>
+    <Suspense fallback={<p className="bg-home-canvas px-4 py-16 text-center text-[#E7EEF3]">Loading your estimate.</p>}>
       <QuoteStep />
     </Suspense>
   );

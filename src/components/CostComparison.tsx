@@ -151,46 +151,56 @@ const comparisons: Record<ServiceType, ComparisonCopy> = {
   },
 };
 
-export function CostComparison({ service = "windows" }: { service?: ServiceType }) {
+export function CostComparison({
+  service = "windows",
+  theme = "default",
+}: {
+  service?: ServiceType;
+  theme?: "default" | "home";
+}) {
   const copy = comparisons[service];
+  const home = theme === "home";
 
   return (
-    <section className="bg-[#132238] pb-16 pt-2 text-slate-100" aria-label="Cost of waiting versus upgrading">
+    <section
+      className={home ? "border-t border-home-line bg-home-panel pb-16 pt-12 text-[#E7EEF3]" : "bg-[#132238] pb-16 pt-2 text-slate-100"}
+      aria-label="Cost of waiting versus upgrading"
+    >
       <div className="mx-auto max-w-5xl px-4">
-        <p className="mb-2 text-center text-xs font-bold uppercase tracking-wider text-slate-400">
+        <p className={`mb-2 text-center text-xs font-bold uppercase ${home ? "tracking-widest text-sky-400" : "tracking-wider text-slate-400"}`}>
           The Cost of Waiting vs. Upgrading
         </p>
-        <h2 className="mb-2 text-center text-2xl font-bold text-white sm:text-3xl">
+        <h2 className={`mb-2 text-center text-white ${home ? "text-3xl font-extrabold tracking-tight sm:text-4xl" : "text-2xl font-bold sm:text-3xl"}`}>
           {copy.headline}
         </h2>
-        <p className="mx-auto mb-8 max-w-2xl text-center text-sm text-slate-300 sm:text-base">
+        <p className={`mx-auto mb-8 max-w-2xl text-center sm:text-base ${home ? "text-sm text-[#94A3B8]" : "text-sm text-slate-300"}`}>
           {subtitle}
         </p>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <article className="rounded-2xl border border-slate-700/90 bg-[#132238] p-6 shadow-sm sm:p-8">
+        <div className={`grid grid-cols-1 md:grid-cols-2 ${home ? "gap-4" : "gap-6"}`}>
+          <article className={home ? "rounded-xl border border-[#8AA0B2]/35 bg-home-canvas p-6 shadow-sm sm:p-8" : "rounded-2xl border border-slate-700/90 bg-[#132238] p-6 shadow-sm sm:p-8"}>
             <header className="mb-5 flex items-center justify-between gap-3">
               <h3 className="text-xl font-bold text-white">{copy.oldTitle}</h3>
-              <Mark tone="problem" label="Problem" />
+              <Mark tone="problem" label="Problem" home={home} />
             </header>
             <ul className="space-y-4">
               {copy.oldItems.map((item) => (
-                <Item key={item.title} tone="problem" item={item} />
+                <Item key={item.title} tone="problem" item={item} home={home} />
               ))}
             </ul>
           </article>
-          <article className="relative rounded-2xl border-2 border-emerald-500/30 bg-[#132238] p-6 shadow-md sm:p-8">
+          <article className={home ? "relative rounded-xl border border-home-accent bg-home-canvas p-6 shadow-md sm:p-8" : "relative rounded-2xl border-2 border-emerald-500/30 bg-[#132238] p-6 shadow-md sm:p-8"}>
             <header className="mb-5 flex items-center justify-between gap-3">
               <h3 className="text-xl font-bold text-white">{copy.newTitle}</h3>
-              <Mark tone="value" label="Upgrade" />
+              <Mark tone="value" label="Upgrade" home={home} />
             </header>
             <ul className="space-y-4">
               {copy.newItems.map((item) => (
-                <Item key={item.title} tone="value" item={item} />
+                <Item key={item.title} tone="value" item={item} home={home} />
               ))}
             </ul>
           </article>
         </div>
-        <p className="mt-6 text-center text-xs text-slate-400">
+        <p className={`mt-6 text-center text-xs ${home ? "text-slate-300" : "text-slate-400"}`}>
           Upfront pricing takes under 60 seconds with zero sales pressure and zero obligation.
         </p>
       </div>
@@ -198,11 +208,19 @@ export function CostComparison({ service = "windows" }: { service?: ServiceType 
   );
 }
 
-function Item({ tone, item }: { tone: "problem" | "value"; item: ComparisonItem }) {
+function Item({
+  tone,
+  item,
+  home = false,
+}: {
+  tone: "problem" | "value";
+  item: ComparisonItem;
+  home?: boolean;
+}) {
   return (
     <li className="flex gap-3">
-      <Mark tone={tone} />
-      <p className="text-sm leading-6 text-slate-300">
+      <Mark tone={tone} home={home} />
+      <p className={`text-sm leading-6 ${home ? "text-slate-200" : "text-slate-300"}`}>
         <span className="font-semibold text-white">{item.title}: </span>
         {item.body}
       </p>
@@ -210,12 +228,26 @@ function Item({ tone, item }: { tone: "problem" | "value"; item: ComparisonItem 
   );
 }
 
-function Mark({ tone, label }: { tone: "problem" | "value"; label?: string }) {
+function Mark({
+  tone,
+  label,
+  home = false,
+}: {
+  tone: "problem" | "value";
+  label?: string;
+  home?: boolean;
+}) {
   const problem = tone === "problem";
   return (
     <span
       className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
-        problem ? "bg-rose-100 text-rose-600" : "bg-emerald-100 text-emerald-600"
+        home
+          ? problem
+            ? "bg-home-line text-home-mist"
+            : "bg-home-accent text-[#062033]"
+          : problem
+            ? "bg-rose-100 text-rose-600"
+            : "bg-emerald-100 text-emerald-600"
       }`}
       aria-hidden={label ? undefined : true}
       aria-label={label}

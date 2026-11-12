@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useState, type MouseEvent } from "react";
 import { BOOKING_URL } from "@/config/links";
@@ -54,6 +53,7 @@ const navigation: NavEntry[] = [
     kind: "menu",
     label: "Showrooms",
     items: [
+      { label: "All Showrooms", href: "/showrooms" },
       { label: "Lake City Showroom", href: "/showrooms/lake-city" },
       { label: "West Queen Anne Showroom", href: "/showrooms/west-queen-anne" },
       {
@@ -110,73 +110,64 @@ export function Header({ onServiceSelect }: HeaderProps) {
   }
 
   return (
-    <header className="relative z-40 shrink-0 border-b border-slate-200 bg-white">
-      <div className="mx-auto flex max-w-[1440px] items-center gap-2 px-4 py-2.5 sm:gap-3 sm:px-5">
-        <Link
-          href="/"
-          className={`flex min-w-0 items-center gap-2 rounded-md ${focusRing}`}
-        >
-          <Image
-            src="/logo.png"
-            alt=""
-            width={1024}
-            height={1024}
-            preload
-            className="h-10 w-10 shrink-0 object-contain"
-          />
-          <span className="text-[13px] font-semibold leading-tight tracking-tight text-slate-800 sm:text-base">
-            <span className="block">Sound View</span>
-            <span className="block">Window & Door</span>
-          </span>
-        </Link>
+    <header className="sticky top-0 z-50 h-14 min-h-[54px] w-full shrink-0 border-b border-slate-200 bg-white py-0" style={{ height: "54px", minHeight: "54px" }}>
+      <div className="flex h-full w-full items-center justify-center px-6">
+        <nav aria-label="Primary" className="hidden items-center justify-center gap-6 lg:flex xl:gap-9">
+            {navigation.map((entry) =>
+              entry.kind === "link" ? (
+                <Link
+                  key={entry.label}
+                  href={entry.href}
+                  className={`rounded-md px-2 py-2 text-[11px] font-medium uppercase tracking-wide text-slate-800 hover:text-sky-600 xl:px-2.5 xl:text-xs ${focusRing}`}
+                >
+                  {entry.label}
+                </Link>
+              ) : (
+                <DesktopMenu
+                  key={entry.label}
+                  label={entry.label}
+                  items={entry.items}
+                  menuId={`${baseId}-${entry.label}`}
+                  open={openMenu === entry.label}
+                  onOpen={() => setOpenMenu(entry.label)}
+                  onClose={() => setOpenMenu((current) => (current === entry.label ? null : current))}
+                  onToggle={() =>
+                    setOpenMenu((current) => (current === entry.label ? null : entry.label))
+                  }
+                  onServiceSelect={selectService}
+                />
+              ),
+            )}
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex h-auto shrink-0 self-center rounded-none bg-[#0B192C] px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-[#0090c8] ${focusRing}`}
+            >
+              Book Appointment
+            </a>
+          </nav>
 
-        <nav aria-label="Primary" className="ml-auto hidden items-center gap-0.5 lg:flex">
-          {navigation.map((entry) =>
-            entry.kind === "link" ? (
-              <Link
-                key={entry.label}
-                href={entry.href}
-                className={`rounded-md px-2 py-2 text-[11px] font-medium uppercase tracking-wide text-slate-800 hover:text-sky-600 xl:px-2.5 xl:text-xs ${focusRing}`}
-              >
-                {entry.label}
-              </Link>
-            ) : (
-              <DesktopMenu
-                key={entry.label}
-                label={entry.label}
-                items={entry.items}
-                menuId={`${baseId}-${entry.label}`}
-                open={openMenu === entry.label}
-                onOpen={() => setOpenMenu(entry.label)}
-                onClose={() => setOpenMenu((current) => (current === entry.label ? null : current))}
-                onToggle={() =>
-                  setOpenMenu((current) => (current === entry.label ? null : entry.label))
-                }
-                onServiceSelect={selectService}
-              />
-            ),
-          )}
-        </nav>
-
-        <a
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`shrink-0 rounded-full bg-[#0B192C] px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-[#15263F] sm:px-4 sm:text-sm ${focusRing}`}
-        >
-          Book Appointment
-        </a>
-
-        <button
-          type="button"
-          className={`inline-flex h-10 w-10 items-center justify-center rounded-md text-slate-800 hover:text-sky-600 lg:hidden ${focusRing}`}
-          aria-expanded={mobileOpen}
-          aria-controls={`${baseId}-mobile`}
-          onClick={() => setMobileOpen((open) => !open)}
-        >
-          <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
-          <Hamburger open={mobileOpen} />
-        </button>
+          <div className="flex items-center gap-2 lg:hidden">
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex h-auto shrink-0 self-center rounded-none bg-[#0B192C] px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-[#0090c8] ${focusRing}`}
+          >
+            Book Appointment
+          </a>
+          <button
+            type="button"
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-md text-slate-800 hover:text-sky-600 lg:hidden ${focusRing}`}
+            aria-expanded={mobileOpen}
+            aria-controls={`${baseId}-mobile`}
+            onClick={() => setMobileOpen((open) => !open)}
+          >
+            <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
+            <Hamburger open={mobileOpen} />
+          </button>
+        </div>
       </div>
 
       {mobileOpen ? (
@@ -244,7 +235,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
-              className={`my-3 inline-flex items-center justify-center rounded-full bg-[#0B192C] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#15263F] ${focusRing}`}
+              className={`my-3 inline-flex h-auto items-center justify-center self-center rounded-none bg-[#0B192C] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#0090c8] ${focusRing}`}
             >
               Book Appointment
             </a>

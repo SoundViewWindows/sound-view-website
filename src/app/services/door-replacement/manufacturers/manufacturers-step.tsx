@@ -31,10 +31,10 @@ export function DoorManufacturersStep() {
   });
 
   return (
-    <div className="bg-[#0B192C] text-slate-100">
+    <div className="bg-home-canvas text-[#E7EEF3]">
       <Header />
       <main>
-        <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1440px] px-4 pt-8 sm:px-5">
           <DoorStepNav
             step={3}
             type={typeSlug}
@@ -57,20 +57,20 @@ export function DoorManufacturersStep() {
                   })}
                 />
               </div>
-              <h1 className="mb-4 max-w-3xl text-4xl font-bold leading-tight text-white lg:text-5xl">
+              <h1 className="mb-4 max-w-3xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Select Your Preferred Manufacturer
               </h1>
-              <p className="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+              <p className="max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg">
                 Choose from our trusted door manufacturing partners or let our specialists
                 recommend the best fit for your home.
               </p>
             </div>
-            <SkipAhead href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
+            <SkipAhead theme="home" href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>
         </div>
 
         <section>
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 sm:px-5 md:grid-cols-2 lg:grid-cols-3">
             {doorManufacturers.map((brand) => {
               const active = selected?.slug === brand.slug;
               return (
@@ -86,12 +86,13 @@ export function DoorManufacturersStep() {
                   image={brand.image}
                   alt={brand.alt}
                   selected={active}
+                  theme="home"
                 />
               );
             })}
           </div>
-          <div className="mx-auto mb-8 mt-10 flex max-w-7xl justify-center px-4 sm:px-6 lg:px-8">
-            <SkipAhead href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
+          <div className="mx-auto mb-8 mt-10 flex max-w-[1440px] justify-center px-4 sm:px-5">
+            <SkipAhead theme="home" href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>
         </section>
       </main>
@@ -101,11 +102,11 @@ export function DoorManufacturersStep() {
 
 function ChoiceBadge({ label, href }: { label: string; href: string }) {
   return (
-    <p className="inline-flex items-center gap-3 rounded-full border border-[#38BDF8]/40 bg-[#132238] px-4 py-2 text-sm text-white">
+    <p className="inline-flex items-center gap-3 rounded-xl border border-[#8AA0B2]/35 bg-home-panel/80 px-4 py-2 text-sm text-white shadow-sm">
       <span>{label}</span>
       <Link
         href={href}
-        className="font-medium text-sky-300 underline decoration-sky-400/40 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+        className="font-medium text-home-accent underline decoration-home-accent/40 underline-offset-4 hover:text-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
       >
         Change
       </Link>

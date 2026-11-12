@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
+import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
 import { CostComparison } from "@/components/CostComparison";
 
@@ -165,6 +166,7 @@ export default function WindowBlindsShadesPage() {
         </section>
 
         <CostComparison service="blinds-shades" />
+        <CtaBanner />
       </main>
     </div>
   );
