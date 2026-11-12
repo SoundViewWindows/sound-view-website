@@ -173,7 +173,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
       {mobileOpen ? (
         <div
           id={`${baseId}-mobile`}
-          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-slate-200 bg-white shadow-lg lg:hidden"
+          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-slate-200 bg-white pb-5 shadow-lg lg:hidden"
         >
           <nav aria-label="Mobile" className="mx-auto flex max-w-[1440px] flex-col px-4 py-2 sm:px-5">
             {navigation.map((entry) =>
@@ -230,15 +230,6 @@ export function Header({ onServiceSelect }: HeaderProps) {
             >
               Blog
             </Link>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileOpen(false)}
-              className={`my-3 inline-flex h-auto items-center justify-center self-center rounded-none bg-[#0B192C] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#0090c8] ${focusRing}`}
-            >
-              Book Appointment
-            </a>
           </nav>
         </div>
       ) : null}
