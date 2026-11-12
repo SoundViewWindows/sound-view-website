@@ -1,14 +1,24 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { QuoteRequestForm } from "@/components/quote-request-form";
 
-export function HeroQuoteLayout({ children }: { children: ReactNode }) {
+export function HeroQuoteLayout({
+  children,
+  sectionClassName = "",
+  sectionStyle,
+  contentStyle,
+}: {
+  children: ReactNode;
+  sectionClassName?: string;
+  sectionStyle?: CSSProperties;
+  contentStyle?: CSSProperties;
+}) {
   return (
-    <section className="bg-[#0B192C] text-white">
+    <section className={`bg-[#0B192C] text-white ${sectionClassName}`} style={sectionStyle}>
       <div
         className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-6 py-12 sm:px-10 lg:grid-cols-12 lg:gap-10 lg:py-14"
-        style={{ paddingTop: "52px", paddingBottom: "52px" }}
+        style={{ paddingTop: "52px", paddingBottom: "52px", ...contentStyle }}
       >
         <div className="min-w-0 lg:col-span-6">{children}</div>
         <div className="lg:col-span-6">

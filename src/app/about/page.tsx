@@ -70,7 +70,11 @@ export default function AboutPage() {
     <div>
       <Header />
       <main>
-        <HeroQuoteLayout>
+        <HeroQuoteLayout
+          sectionClassName="pb-14"
+          sectionStyle={{ paddingBottom: "56px" }}
+          contentStyle={{ paddingBottom: "0px" }}
+        >
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
@@ -117,26 +121,30 @@ export default function AboutPage() {
         </HeroQuoteLayout>
 
         <section
-          className="bg-[#0B192C] py-14 text-white md:py-16"
-          style={{ paddingTop: "56px", paddingBottom: "56px" }}
+          className="bg-[#F4F6F9] py-14 text-[#0B192C] md:py-16"
+          style={{ backgroundColor: "#F4F6F9", paddingTop: "56px", paddingBottom: "56px" }}
         >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-6 sm:px-10">
             <WhyChooseSoundView layout="hero" />
           </div>
         </section>
 
-        <section className="border-t border-slate-100 bg-[#F4FAFD] py-16 text-[#0B192C] sm:py-20" aria-labelledby="work-system-title">
+        <section
+          className="bg-[#E6ECF2] py-16 text-[#0B192C] md:py-20"
+          style={{ backgroundColor: "#E6ECF2", paddingTop: "64px", paddingBottom: "64px" }}
+          aria-labelledby="work-system-title"
+        >
           <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#0090c8] sm:text-sm">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#0284C7] sm:text-sm">
               Our Work System
             </p>
             <h2
               id="work-system-title"
-              className="mb-3 text-3xl font-black text-[#0B192C] sm:text-4xl lg:text-5xl"
+              className="mb-3 text-3xl font-bold text-[#0B192C] sm:text-4xl lg:text-5xl"
             >
               The Sound View Approach
             </h2>
-            <div className="mx-auto mb-12 h-1 w-12 rounded-full bg-[#38BDF8] sm:mb-16" aria-hidden="true" />
+            <div className="mx-auto mb-12 h-1 w-12 rounded-full bg-[#0284C7] sm:mb-16" aria-hidden="true" />
           </div>
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
             {workSystem.map((item) => {
@@ -144,19 +152,23 @@ export default function AboutPage() {
               return (
                 <article
                   key={item.title}
-                  className="flex h-full flex-col justify-start rounded-2xl border border-slate-200 bg-white p-8 shadow-md sm:p-10"
+                  className="flex h-full flex-col justify-start rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm"
                 >
-                  <Icon className="mb-6 h-8 w-8 text-[#0090c8]" strokeWidth={2.2} aria-hidden="true" />
+                  <Icon className="mb-6 h-8 w-8 text-[#0284C7]" strokeWidth={2.2} aria-hidden="true" />
                   <h3 className="mb-4 text-xl font-bold text-[#0B192C]">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-[#556980] sm:text-base">{item.body}</p>
+                  <p className="text-sm leading-relaxed text-slate-600 sm:text-base">{item.body}</p>
                 </article>
               );
             })}
           </div>
         </section>
 
-        <section id="showrooms" className="scroll-mt-8 border-t border-slate-100 bg-white text-[#0B192C]">
-          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <section
+          id="showrooms"
+          className="scroll-mt-8 bg-white text-[#0B192C]"
+          style={{ backgroundColor: "#FFFFFF", paddingTop: "64px", paddingBottom: "64px" }}
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#0090c8]">
               Visit in person
             </p>
@@ -172,7 +184,7 @@ export default function AboutPage() {
               {showrooms.map((room) => (
                 <article
                   key={room.href}
-                  className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-md"
+                  className="flex flex-col rounded-2xl border border-slate-200/90 bg-[#F8FAFC] p-6 shadow-sm"
                 >
                   <h3 className="text-2xl font-black text-[#0B192C]">{room.name}</h3>
                   <p className="mt-3 text-sm leading-6 text-[#556980]">{room.address}</p>
@@ -195,7 +207,15 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <CtaBanner />
+        <CtaBanner
+          className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
+          style={{
+            backgroundColor: "#182B3E",
+            paddingTop: "64px",
+            paddingBottom: "64px",
+            borderTop: "none",
+          }}
+        />
       </main>
     </div>
   );

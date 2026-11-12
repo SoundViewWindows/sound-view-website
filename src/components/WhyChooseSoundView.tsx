@@ -39,25 +39,25 @@ const pillars = [
 export function WhyChooseSoundView({ layout = "section" }: { layout?: "section" | "hero" }) {
   if (layout === "hero") {
     return (
-      <div className="rounded-2xl border border-white/15 bg-[#2B3E50]/85 p-5 shadow-xl sm:p-6">
-        <p className="text-xs font-semibold uppercase tracking-widest text-sky-400">
+      <>
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#0284C7]">
           Why Choose Sound View
         </p>
-        <h2 className="mt-2 text-xl font-bold leading-snug text-white sm:text-2xl">
+        <h2 className="mt-2 text-2xl font-bold leading-snug text-[#0B192C] sm:text-3xl">
           Trusted Local Craftsmanship Across Greater Seattle
         </h2>
-        <div className="mt-4 grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           {heroPillars.map((pillar) => (
             <article
               key={pillar.title}
-              className="rounded-xl border border-white/10 bg-[#1E2E3E]/80 p-3.5"
+              className="rounded-xl border border-slate-200/90 bg-white p-5 shadow-sm"
             >
-              <h3 className="text-sm font-bold leading-snug text-white">{pillar.title}</h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-slate-300">{pillar.body}</p>
+              <h3 className="text-base font-bold leading-snug text-[#0B192C]">{pillar.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{pillar.body}</p>
             </article>
           ))}
         </div>
-      </div>
+      </>
     );
   }
 
