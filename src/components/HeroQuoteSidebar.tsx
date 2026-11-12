@@ -5,52 +5,30 @@ import { QuoteRequestForm } from "@/components/quote-request-form";
 
 export function HeroQuoteLayout({ children }: { children: ReactNode }) {
   return (
-    <section className="flex flex-col items-stretch justify-between bg-[#0B192C] text-white lg:flex-row">
+    <section className="bg-[#0B192C] text-white">
       <div
-        className="min-w-0 flex-1 px-6 py-12 sm:px-10 lg:px-14 lg:py-16"
-        style={{ paddingTop: "56px", paddingBottom: "56px" }}
+        className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-6 py-12 sm:px-10 lg:grid-cols-12 lg:gap-10 lg:py-14"
+        style={{ paddingTop: "52px", paddingBottom: "52px" }}
       >
-        {children}
+        <div className="min-w-0 lg:col-span-6">{children}</div>
+        <div className="lg:col-span-6">
+          <HeroQuoteCard />
+        </div>
       </div>
-      <HeroQuoteSidebar />
     </section>
   );
 }
 
-export function HeroQuoteSidebar() {
+function HeroQuoteCard() {
   const [projectType, setProjectType] = useState("");
-  const [quoteSubmitted, setQuoteSubmitted] = useState(false);
 
   return (
-    <div className="flex w-full shrink-0 px-4 pb-12 sm:px-6 lg:w-[330px] lg:px-0 lg:pb-0 xl:w-[360px]">
-      <aside className="mx-auto flex w-full max-w-xl flex-col bg-[#003d6b] p-6 text-white sm:p-7 lg:mx-0 lg:h-full lg:max-w-none">
-        {quoteSubmitted ? null : (
-          <div className="mb-6 text-center">
-            <p className="mb-1 text-[11px] font-black uppercase tracking-wider text-home-accent">
-              Special Offer
-            </p>
-            <p className="mb-1 text-2xl font-black leading-snug tracking-tight text-white">
-              Save 10% on Labor
-            </p>
-            <p className="text-xs font-medium text-home-mist">
-              Book your project by November 30th.
-            </p>
-          </div>
-        )}
-        <div
-          className={
-            quoteSubmitted
-              ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto text-center"
-              : "min-h-0 flex-1"
-          }
-        >
-          <QuoteRequestForm
-            projectType={projectType}
-            onProjectTypeChange={setProjectType}
-            onSubmittedChange={setQuoteSubmitted}
-          />
-        </div>
-      </aside>
-    </div>
+    <aside className="w-full rounded-2xl border border-white/15 bg-[#04528A] p-5 text-white shadow-2xl sm:p-6">
+      <QuoteRequestForm
+        variant="horizontal"
+        projectType={projectType}
+        onProjectTypeChange={setProjectType}
+      />
+    </aside>
   );
 }

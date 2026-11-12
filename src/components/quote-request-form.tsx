@@ -11,6 +11,7 @@ type QuoteRequestFormProps = {
   projectType: string;
   onProjectTypeChange: (value: string) => void;
   onSubmittedChange?: (submitted: boolean) => void;
+  variant?: "sidebar" | "horizontal";
 };
 
 type FieldErrors = Partial<
@@ -21,6 +22,7 @@ export function QuoteRequestForm({
   projectType,
   onProjectTypeChange,
   onSubmittedChange,
+  variant = "sidebar",
 }: QuoteRequestFormProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -97,6 +99,144 @@ export function QuoteRequestForm({
           onSubmittedChange?.(false);
         }}
       />
+    );
+  }
+
+  if (variant === "horizontal") {
+    return (
+      <form noValidate onSubmit={handleSubmit}>
+        <div className="mb-3.5 flex flex-col gap-1 border-b border-white/15 pb-2.5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-xl font-bold leading-tight text-white">Request a Free Quote</h2>
+            <p className="text-xs text-sky-100">Get in touch with our installation experts today.</p>
+          </div>
+          <p className="rounded-md bg-white/10 px-2.5 py-1 text-right text-[11px] font-bold text-white">
+            SPECIAL OFFER: Save 10% on Labor
+          </p>
+        </div>
+
+        <div className="mb-2.5 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+          <CompactField label="Name" id="quote-name" error={errors.name}>
+            <input
+              id="quote-name"
+              name="name"
+              autoComplete="name"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              placeholder="Your Name"
+              className={compactInputClass(Boolean(errors.name))}
+              aria-invalid={Boolean(errors.name)}
+            />
+          </CompactField>
+          <CompactField label="Phone" id="quote-phone" error={errors.phone}>
+            <input
+              id="quote-phone"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              inputMode="tel"
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
+              placeholder="Phone Number"
+              className={compactInputClass(Boolean(errors.phone))}
+              aria-invalid={Boolean(errors.phone)}
+            />
+          </CompactField>
+          <CompactField label="Zip Code" id="quote-zip" error={errors.zip}>
+            <input
+              id="quote-zip"
+              name="zip"
+              autoComplete="postal-code"
+              inputMode="numeric"
+              value={zip}
+              onChange={(event) => setZip(event.target.value)}
+              className={compactInputClass(Boolean(errors.zip))}
+              aria-invalid={Boolean(errors.zip)}
+            />
+          </CompactField>
+        </div>
+
+        <div className="mb-2.5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          <CompactField label="Email" id="quote-email" error={errors.email}>
+            <input
+              id="quote-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="Email Address"
+              className={compactInputClass(Boolean(errors.email))}
+              aria-invalid={Boolean(errors.email)}
+            />
+          </CompactField>
+          <CompactField label="Project Type" id="quote-projectType" error={errors.projectType}>
+            <select
+              id="quote-projectType"
+              name="projectType"
+              value={projectType}
+              onChange={(event) => onProjectTypeChange(event.target.value)}
+              className={compactInputClass(Boolean(errors.projectType))}
+              aria-invalid={Boolean(errors.projectType)}
+            >
+              <option value="" className="bg-[#FFFFFF] text-[#0F172A]">
+                Select a service
+              </option>
+              {services.map((service) => (
+                <option key={service.id} value={service.id} className="bg-[#FFFFFF] text-[#0F172A]">
+                  {service.title}
+                </option>
+              ))}
+            </select>
+          </CompactField>
+        </div>
+
+        <div className="mb-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          <CompactField label="Project Details" id="quote-details" error={errors.details}>
+            <textarea
+              id="quote-details"
+              name="details"
+              rows={1}
+              placeholder="Briefly describe your installation needs..."
+              value={details}
+              onChange={(event) => setDetails(event.target.value)}
+              className={`${compactInputClass(Boolean(errors.details))} resize-none py-2`}
+              aria-invalid={Boolean(errors.details)}
+            />
+          </CompactField>
+          <CompactField label="Photos or videos" id="quote-media" error={errors.media}>
+            <div
+              className={`relative flex h-9 w-full cursor-pointer items-center gap-2 overflow-hidden rounded-md bg-white px-3 ${
+                errors.media ? "ring-2 ring-red-500" : ""
+              }`}
+            >
+              <span className="shrink-0 text-[11px] font-bold text-slate-700">Choose file</span>
+              <span className={`truncate text-xs ${files.length === 0 ? "text-slate-400" : "text-slate-900"}`}>
+                {files.length === 0 ? "Attach photos or videos" : files.map((file) => file.name).join(", ")}
+              </span>
+              <input
+                id="quote-media"
+                name="media"
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif,image/heic,image/heif,video/mp4,video/quicktime,video/webm,video/*"
+                multiple
+                onChange={(event) => setFiles(Array.from(event.target.files ?? []))}
+                className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                aria-invalid={Boolean(errors.media)}
+              />
+            </div>
+          </CompactField>
+        </div>
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          aria-busy={isSubmitting}
+          className="flex h-10 w-full items-center justify-center rounded-lg bg-[#38BDF8] text-xs font-bold uppercase tracking-wider text-[#0B192C] transition-colors hover:bg-[#0EA5E9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          {isSubmitting ? "Submitting" : "Submit Quote Request"}
+        </button>
+      </form>
     );
   }
 
@@ -272,6 +412,40 @@ function Field({
       ) : null}
     </label>
   );
+}
+
+function CompactField({
+  label,
+  id,
+  error,
+  children,
+}: {
+  label: string;
+  id: string;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <label htmlFor={id} className="block min-w-0">
+      <span className="mb-1 block text-[10px] font-extrabold uppercase tracking-wider text-white">
+        {label}
+      </span>
+      {children}
+      {error ? (
+        <span id={`${id}-error`} role="alert" className="mt-0.5 block text-[10px] font-normal leading-tight text-red-200">
+          {error}
+        </span>
+      ) : null}
+    </label>
+  );
+}
+
+function compactInputClass(invalid: boolean) {
+  return [
+    "h-9 w-full rounded-md bg-white px-3 text-xs text-slate-900 scheme-light",
+    "placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/40",
+    invalid ? "ring-2 ring-red-500" : "",
+  ].join(" ");
 }
 
 function inputClass(invalid: boolean, fixedHeight = true) {
