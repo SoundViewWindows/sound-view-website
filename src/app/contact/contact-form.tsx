@@ -64,11 +64,11 @@ export function ContactForm() {
 
   if (submittedName) {
     return (
-      <div className="rounded-xl bg-[#132238] px-5 py-8">
-        <h3 className="text-2xl font-bold text-white">
+      <div className="rounded-2xl border border-sky-100 bg-[#F4FAFD] px-5 py-8">
+        <h3 className="text-2xl font-black text-[#0B192C]">
           Thank you, {submittedName}.
         </h3>
-        <p className="mt-3 text-sm leading-6 text-slate-300">
+        <p className="mt-3 text-sm leading-6 text-slate-700">
           Your message is in. A local specialist will follow up during operating
           hours, typically within 2 business hours. No high-pressure sales calls.
         </p>
@@ -181,11 +181,11 @@ export function ContactForm() {
 
       <button
         type="submit"
-        className="w-full rounded-xl bg-[#38BDF8] py-3.5 font-extrabold uppercase tracking-wide text-[#0B192C] shadow-md shadow-sky-500/20 transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+        className="bg-[#0090c8] hover:bg-[#007fb1] text-white font-bold text-sm uppercase tracking-wider py-4 px-6 rounded-xl shadow-md w-full transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B192C]"
       >
         Submit Message
       </button>
-      <p className="text-center text-sm text-slate-400">
+      <p className="text-center text-sm text-slate-500">
         We respect your privacy and never sell your information.
       </p>
     </form>
@@ -207,13 +207,13 @@ function Field({
 }) {
   return (
     <label htmlFor={id} className="block">
-      <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-white">
+      <span className="text-slate-800 font-extrabold text-xs uppercase tracking-wider block mb-1.5">
         {label}
         {required ? <span> *</span> : null}
       </span>
       {children}
       {error ? (
-        <span id={`${id}-error`} role="alert" className="text-xs font-normal text-red-300">
+        <span id={`${id}-error`} role="alert" className="mt-1 block text-xs font-normal text-red-600">
           {error}
         </span>
       ) : null}
@@ -223,8 +223,7 @@ function Field({
 
 function inputClass(invalid: boolean) {
   return [
-    "w-full rounded-lg border border-slate-300 !bg-white px-3 py-2.5 text-sm font-medium text-slate-900 outline-none scheme-light placeholder:text-slate-400 sm:text-base",
-    "focus:!bg-white focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400",
+    "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:ring-2 focus:ring-sky-400 focus:outline-none placeholder:text-slate-400",
     invalid ? "border-red-600" : "",
   ].join(" ");
 }

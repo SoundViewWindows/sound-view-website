@@ -10,184 +10,147 @@ export const metadata: Metadata = {
   },
   title: "Contact Us | Sound View Window & Door",
   description:
-    "Call, email, or message Sound View Window & Door. Greater Seattle specialists help with windows, doors, custom glass, rebates, and private showroom visits.",
+    "Reach Sound View Window & Door by phone, send project specs, or schedule a consultation with local installation specialists in the Greater Seattle Area.",
 };
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 const showrooms = [
-  { label: "Lake City Showroom", href: "/showrooms/lake-city" },
-  { label: "West Queen Anne Showroom", href: "/showrooms/west-queen-anne" },
-  { label: "Bellevue Showroom (By Appt Only)", href: "/showrooms/bellevue" },
+  {
+    name: "Lake City",
+    href: "/showrooms/lake-city",
+    address: "12301 Lake City Way NE, Seattle, WA 98125",
+    phone: "(206) 572-3411",
+    phoneHref: "tel:2065723411",
+  },
+  {
+    name: "West Queen Anne",
+    href: "/showrooms/west-queen-anne",
+    address: "921 Elliott Ave W, Seattle, WA 98119",
+    phone: "(206) 402-4229",
+    phoneHref: "tel:2064024229",
+  },
+  {
+    name: "Bellevue",
+    href: "/showrooms/bellevue",
+    address: "13555 NE Bel Red Rd Ste 207, Bellevue, WA 98005",
+    phone: "(425) 417-3005",
+    phoneHref: "tel:4254173005",
+    note: "By Appointment Only",
+  },
+];
+
+const hours = [
+  { day: "Monday", time: "8:00 AM to 4:30 PM" },
+  { day: "Tuesday", time: "8:00 AM to 4:30 PM" },
+  { day: "Wednesday", time: "8:00 AM to 4:30 PM" },
+  { day: "Thursday", time: "8:00 AM to 4:30 PM" },
+  { day: "Friday", time: "8:00 AM to 4:30 PM" },
+  { day: "Saturday", time: "Closed" },
+  { day: "Sunday", time: "Closed" },
 ];
 
 export default function ContactPage() {
   return (
-    <div className="bg-[#0B192C] text-slate-100">
+    <div className="flex flex-1 flex-col bg-white text-[#0B192C]">
       <Header />
-      <main>
-        <section className="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 lg:px-8">
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li>
-                <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                  Home
-                </Link>
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true">&gt;</span>
-                <span aria-current="page">Contact Us</span>
-              </li>
-            </ol>
-          </nav>
-
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
-            Connect with our team
-          </p>
-          <h1 className="mb-4 text-4xl font-bold text-white lg:text-5xl">
-            Get in Touch
-          </h1>
-          <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Have a question about window styles, door replacements, energy
-            rebates, or scheduling a private showroom visit? Reach out directly
-            to our local Seattle specialists.
-          </p>
-        </section>
-
-        <section className="mx-auto mb-20 grid max-w-7xl grid-cols-1 items-start gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
-          <div className="space-y-6 lg:col-span-5">
-            <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl sm:p-6">
-              <span className="mb-3 inline-block rounded-xl bg-sky-50 p-2.5 text-sky-600">
-                <PhoneIcon />
-              </span>
-              <p className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">
-                Phone
-              </p>
-              <a
-                href="tel:2064024229"
-                className={`text-xl font-extrabold text-sky-600 transition-colors hover:text-sky-700 sm:text-2xl ${focusRing}`}
-              >
-                (206) 402-4229
-              </a>
-              <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
-                Direct line for all three showroom locations and service
-                estimates.
-              </p>
-            </article>
-
-            <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl sm:p-6">
-              <span className="mb-3 inline-block rounded-xl bg-sky-50 p-2.5 text-sky-600">
-                <MailIcon />
-              </span>
-              <p className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">
-                Email
-              </p>
-              <a
-                href="mailto:contact@soundviewseattle.com"
-                className={`break-all text-lg font-extrabold text-[#0B192C] transition-colors hover:text-sky-600 sm:text-xl ${focusRing}`}
-              >
-                contact@soundviewseattle.com
-              </a>
-              <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
-                Send project blueprints, photos, or general inquiries anytime.
-              </p>
-            </article>
-
-            <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl sm:p-6">
-              <span className="mb-3 inline-block rounded-xl bg-sky-50 p-2.5 text-sky-600">
-                <ClockIcon />
-              </span>
-              <p className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">
-                Hours of Operation
-              </p>
-              <p className="text-lg font-extrabold leading-snug text-[#0B192C] sm:text-xl">
-                Monday through Friday: 8:00 AM to 4:30 PM
-              </p>
-              <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
-                Closed Saturday and Sunday. Inquiries submitted over the weekend will be returned first thing Monday morning.
-              </p>
-            </article>
-
-            <p className="rounded-2xl border border-slate-700 bg-[#132238] px-6 py-4 text-sm leading-6 text-white">
-              Typical response time is under 2 business hours during operating
-              hours. Zero high-pressure sales calls.
+      <main className="flex-1">
+        <section className="bg-[#0B192C]">
+          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+            <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-400">
+              <ol className="flex flex-wrap items-center gap-2">
+                <li>
+                  <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
+                    Home
+                  </Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span aria-hidden="true">&gt;</span>
+                  <span aria-current="page">Contact Us</span>
+                </li>
+              </ol>
+            </nav>
+            <p className="text-sky-400 font-bold text-xs uppercase tracking-widest mb-2">
+              GET IN TOUCH
             </p>
-          </div>
-
-          <div className="rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-sm sm:p-8 lg:col-span-7">
-            <h2 className="mb-6 text-2xl font-bold text-white sm:text-3xl">
-              Send Us a Message
-            </h2>
-            <ContactForm />
+            <h1 className="text-white font-black text-3xl sm:text-5xl tracking-tight mb-3">
+              We Are Here To Help
+            </h1>
+            <p className="text-slate-300 text-base sm:text-lg max-w-2xl">
+              Reach out by phone, send project specs, or schedule a consultation
+              with our local installation specialists.
+            </p>
           </div>
         </section>
 
-        <section className="border-t border-slate-700 bg-[#132238]">
-          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-            <h2 className="mb-4 text-center text-3xl font-bold text-white sm:text-4xl">
-              Visit One of Our Showrooms
-            </h2>
-            <p className="mx-auto mb-8 max-w-3xl text-center text-base leading-relaxed text-slate-300 sm:text-lg">
-              See our premium selection of windows and doors in person. Our
-              experts are here to help you find the perfect fit for your home.
-              Experience the elite craftsmanship and design options firsthand in
-              our local space.
-            </p>
-            <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-4">
-              {showrooms.map((showroom) => (
-                <Link
-                  key={showroom.href}
-                  href={showroom.href}
-                  className={`flex items-center gap-2 rounded-xl border-2 border-sky-400 px-6 py-3 font-semibold text-sky-300 transition-colors hover:bg-[#38BDF8] hover:text-[#0B192C] ${focusRing}`}
-                >
-                  <MapPinIcon />
-                  {showroom.label}
-                </Link>
-              ))}
+        <section className="bg-white py-16 sm:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-7">
+              <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xl">
+                <h2 className="mb-2 text-2xl font-black tracking-tight text-[#0B192C] sm:text-3xl">
+                  Send Project Specs
+                </h2>
+                <p className="mb-8 text-sm leading-6 text-slate-600 sm:text-base">
+                  Share a few details and a local specialist will follow up during
+                  operating hours. No high-pressure sales calls.
+                </p>
+                <ContactForm />
+              </div>
             </div>
+
+            <aside className="space-y-5 lg:col-span-5">
+              {showrooms.map((room) => (
+                <article
+                  key={room.href}
+                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-md"
+                >
+                  <h2 className="text-lg font-black text-[#0B192C]">{room.name}</h2>
+                  <p className="mt-1 text-sm leading-6 text-slate-600">{room.address}</p>
+                  <a
+                    href={room.phoneHref}
+                    className={`text-[#0090c8] font-black text-lg hover:underline block mb-1 mt-3 ${focusRing}`}
+                  >
+                    {room.phone}
+                  </a>
+                  {room.note ? (
+                    <p className="text-sm text-slate-600">{room.note}</p>
+                  ) : null}
+                  <Link
+                    href={room.href}
+                    className={`mt-2 inline-flex text-sm font-bold text-slate-700 underline-offset-4 hover:text-[#0090c8] hover:underline ${focusRing}`}
+                  >
+                    Showroom details
+                  </Link>
+                </article>
+              ))}
+
+              <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-md">
+                <h2 className="text-slate-800 font-extrabold text-xs uppercase tracking-wider mb-4">
+                  Showroom Hours
+                </h2>
+                <dl className="space-y-2 text-sm text-slate-700">
+                  {hours.map((row) => (
+                    <div key={row.day} className="flex items-baseline justify-between gap-4">
+                      <dt>{row.day}</dt>
+                      <dd className="text-right font-bold text-[#0B192C]">{row.time}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </article>
+
+              <p className="bg-[#F4FAFD] border border-sky-100 rounded-2xl p-5 text-slate-700 text-sm">
+                Typical response time is under 2 business hours during operating
+                hours. You will hear from a local specialist, with no
+                high-pressure sales call.
+              </p>
+            </aside>
           </div>
         </section>
       </main>
+      <footer className="border-t border-slate-100 bg-white px-4 py-8 text-center text-xs text-slate-400 sm:text-sm">
+        <p>© 2026 Sound View Window & Door. All Rights Reserved.</p>
+      </footer>
     </div>
-  );
-}
-
-function PhoneIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6.2 3.5h2.1l1 2.6-1.3 1.1a11 11 0 0 0 4.8 4.8l1.1-1.3 2.6 1v2.1c0 .6-.5 1.2-1.1 1.2A12.4 12.4 0 0 1 4.9 4.6c0-.6.6-1.1 1.3-1.1Z"
-      />
-    </svg>
-  );
-}
-
-function MailIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <rect x="2.5" y="4.5" width="15" height="11" rx="1.5" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="m3.5 6 6.5 5 6.5-5" />
-    </svg>
-  );
-}
-
-function ClockIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <circle cx="10" cy="10" r="6.5" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6.5V10l2.5 1.5" />
-    </svg>
-  );
-}
-
-function MapPinIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M10 17.5s5-4.4 5-8.2A5 5 0 0 0 5 9.3c0 3.8 5 8.2 5 8.2Z" />
-      <circle cx="10" cy="9.2" r="1.6" />
-    </svg>
   );
 }
