@@ -16,6 +16,7 @@ type SelectionCardProps = {
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   theme?: "default" | "home";
   layout?: "material" | "type";
+  tallImage?: boolean;
 };
 
 export function SelectionCard({
@@ -30,9 +31,11 @@ export function SelectionCard({
   selected = false,
   onClick,
   layout = "type",
+  tallImage = false,
 }: SelectionCardProps) {
-  const imageFrame =
-    layout === "material"
+  const imageFrame = tallImage
+    ? "relative mb-3.5 h-72 w-full shrink-0 overflow-hidden rounded-xl bg-slate-800 sm:h-80"
+    : layout === "material"
       ? "relative mb-3.5 h-44 w-full shrink-0 overflow-hidden rounded-lg bg-slate-800 sm:h-52"
       : "relative mb-3 h-40 w-full shrink-0 overflow-hidden rounded-lg bg-slate-800 sm:h-44";
 
@@ -42,10 +45,12 @@ export function SelectionCard({
       onClick={onClick}
       aria-current={selected ? "true" : undefined}
       className={`group flex h-full cursor-pointer flex-col rounded-xl bg-[#2B3E50]/85 p-3.5 transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:p-4 ${
+        tallImage ? "justify-between" : ""
+      } ${
         selected ? "border border-sky-400 ring-2 ring-sky-400" : "border border-white/15"
       }`}
     >
-      <span className={imageFrame}>
+      <span className={imageFrame} style={tallImage ? { height: "320px" } : undefined}>
         {image ? (
           <Image
             src={image}

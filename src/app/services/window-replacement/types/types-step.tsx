@@ -56,7 +56,7 @@ export function TypesStep() {
         </div>
 
         <section>
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 sm:px-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-6 px-4 sm:px-5 md:grid-cols-2 lg:grid-cols-3">
             {windowStyles.map((style) => (
               <SelectionCard
                 key={style.slug}
@@ -72,6 +72,7 @@ export function TypesStep() {
                 sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 theme="home"
                 layout="type"
+                tallImage
               />
             ))}
           </div>
