@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   },
   title: "Door Manufacturers | Sound View Window & Door",
   description:
-    "Compare Therma-Tru, Simpson, Codel, Rogue Valley, Larson, Andersen, Milgard, Marvin, and Jeld-Wen doors, or let a specialist recommend a brand.",
+    "Compare Therma-Tru, Simpson, Codel, Rogue Valley, Larson, Andersen, Milgard, STILE, and Jeld-Wen doors, or let a specialist recommend a brand.",
 };
 
 export default function DoorManufacturersLayout({
