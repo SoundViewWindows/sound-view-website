@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
+import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
 import { blogCategories, blogPosts } from "@/data/blogPosts";
 import { BlogIndex, type BlogCard } from "./blog-index";
@@ -30,9 +31,12 @@ const cards: BlogCard[] = blogPosts.map(
 
 export default function BlogPage() {
   return (
-    <div className="bg-[#0B192C] text-slate-100">
-      <Header />
-      <BlogIndex posts={cards} categories={[...blogCategories]} />
+    <div>
+      <div className="bg-[#F4FAFD] text-[#0B192C]">
+        <Header />
+        <BlogIndex posts={cards} categories={[...blogCategories]} />
+      </div>
+      <CtaBanner />
     </div>
   );
 }
