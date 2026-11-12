@@ -27,8 +27,11 @@ export default function FinancingPage() {
     <div className="bg-white text-[#0B192C]">
       <Header />
       <main>
-        <section className="bg-[#0B192C] text-white">
-          <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+        <section
+          className="bg-[#0B192C] pb-16 text-white"
+          style={{ paddingBottom: "64px" }}
+        >
+          <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
@@ -73,9 +76,12 @@ export default function FinancingPage() {
           </div>
         </section>
 
-        <section className="bg-white">
-          <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <h2 className="mb-3 text-center text-3xl font-bold text-[#0B192C] sm:text-4xl">
+        <section
+          className="bg-white pt-24 pb-24"
+          style={{ paddingTop: "96px", paddingBottom: "96px" }}
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mt-0 mb-4 text-center text-3xl font-bold text-[#0B192C] sm:text-4xl">
             Your Financing Checklist
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-center text-base text-[#556980] sm:text-lg">
@@ -182,8 +188,11 @@ export default function FinancingPage() {
           </div>
         </section>
 
-        <section className="border-t border-slate-200 bg-[#F4FAFD]">
-          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-20">
+        <section
+          className="border-t border-slate-200 bg-[#F4FAFD] py-20"
+          style={{ paddingTop: "80px", paddingBottom: "80px" }}
+        >
+          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
             <div>
               <h2 className="text-3xl font-bold text-[#0B192C] sm:text-4xl">
                 Questions About Your Financing?
@@ -221,7 +230,10 @@ export default function FinancingPage() {
             </div>
           </div>
         </section>
-        <CtaBanner />
+        <CtaBanner
+          className="py-20"
+          style={{ paddingTop: "80px", paddingBottom: "80px" }}
+        />
       </main>
     </div>
   );
