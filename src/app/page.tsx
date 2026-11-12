@@ -10,6 +10,21 @@ import { BOOKING_URL } from "@/config/links";
 import { QuoteRequestForm } from "@/components/quote-request-form";
 import { services } from "@/lib/services";
 
+const serviceCardCopy: Record<string, string> = {
+  "window-replacement":
+    "Energy-efficient replacement windows professionally installed to boost comfort and curb appeal.",
+  "door-replacement":
+    "Custom entry, sliding patio, and French doors installed for smooth operation and a draft-free fit.",
+  "shower-door-replacement":
+    "Frameless and framed glass shower enclosures custom-measured and installed for your bathroom.",
+  "glass-replacement":
+    "Fast glass pane replacement for cracked, broken, or foggy windows without replacing the frame.",
+  "glass-railing-installation":
+    "Framed and frameless architectural glass railings for decks, stairs, and balconies.",
+  "window-blinds-shades":
+    "Custom motorized, blackout, and light-filtering shades tailored for privacy and light control.",
+};
+
 type ShowroomPhone = {
   name: string;
   display: string;
@@ -75,9 +90,9 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <Header onServiceSelect={chooseService} />
 
-      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-4 pt-10 sm:px-5 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start lg:px-5 lg:pb-3 xl:grid-cols-[minmax(0,1fr)_23rem]">
+      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:pb-3 lg:pl-5 lg:pr-0">
         <div className="relative z-20 flex min-h-0 flex-col">
-          <div className="relative z-30 mb-8 flex w-full flex-col items-center justify-center gap-5 pt-6 sm:gap-7 sm:pt-7 md:mb-10 md:flex-row">
+          <div className="relative z-30 mb-4 flex w-full flex-col items-center justify-center gap-5 pb-4 pt-5 md:flex-row xl:pb-5 xl:pt-6">
             <Image
               src="/images/sv-crest-white.png"
               alt="Sound View crest"
@@ -90,10 +105,10 @@ export default function Home() {
               <p className="mb-2 text-xs font-bold uppercase tracking-widest text-sky-400 sm:text-sm">
                 Seattle, Bellevue & Greater Puget Sound
               </p>
-              <h1 className="text-4xl font-extrabold leading-none tracking-tight text-white sm:text-5xl lg:text-6xl">
+              <h1 className="text-4xl font-extrabold leading-none tracking-tight text-white sm:text-5xl lg:whitespace-nowrap lg:text-6xl">
                 Sound View Window & Door
               </h1>
-              <p className="mb-5 mt-3 max-w-3xl text-lg text-slate-200 sm:text-xl">
+              <p className="mb-3 mt-3 max-w-3xl text-lg text-slate-200 sm:text-xl">
                 Relaxed consultations, honest answers, and zero pressure to buy
               </p>
               <div className="relative flex flex-wrap items-center justify-center gap-4">
@@ -165,7 +180,7 @@ export default function Home() {
 
           <section
             aria-label="Services"
-            className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+            className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3"
           >
             {services.map((service) => (
               <Link
@@ -185,34 +200,24 @@ export default function Home() {
                               ? "/services/window-blinds-shades"
                               : `/services/${service.id}`
                 }
-                className="group relative h-48 cursor-pointer overflow-hidden rounded-xl border border-[#8AA0B2]/35 bg-home-panel/80 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent sm:h-52 md:h-56"
+                className="flex h-full cursor-pointer flex-col rounded-xl border border-white/15 bg-[#2B3E50]/85 p-2.5 transition-all hover:border-white/30 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
               >
-                <Image
-                  src={service.image}
-                  alt={service.imageAlt}
-                  fill
-                  sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
-                  className="absolute inset-0 z-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 z-10 bg-[#1A2B38]/40" />
-                <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#1A2B38]/95 via-[#1A2B38]/55 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 z-20 flex flex-col justify-end p-4 sm:p-5">
-                  <h3 className="mb-1 text-base font-bold text-white drop-shadow-md sm:text-lg">
-                    {service.title}
-                  </h3>
-                  <p className="mb-1.5 line-clamp-2 text-[11px] leading-snug text-slate-100 drop-shadow-sm sm:text-xs">
-                    {service.summary}
-                  </p>
-                  <p className="mb-2 truncate text-[10px] font-medium text-home-accent sm:text-[11px]">
-                    {service.keywords}
-                  </p>
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-white transition-colors group-hover:text-home-accent">
-                    Explore Options
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </span>
+                <div
+                  className="mb-2 h-[132px] w-full shrink-0 overflow-hidden rounded-md bg-slate-800"
+                  style={{ height: "132px" }}
+                >
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="block h-full w-full object-cover object-center"
+                  />
                 </div>
+                <h3 className="mb-1 text-sm font-bold leading-tight text-white xl:text-[15px]">
+                  {service.title}
+                </h3>
+                <p className="text-[11px] leading-snug text-slate-300 xl:text-xs">
+                  {serviceCardCopy[service.id] ?? service.summary}
+                </p>
               </Link>
             ))}
           </section>
@@ -245,14 +250,14 @@ export default function Home() {
 
         <aside
           id="quote"
-          className="relative z-10 mx-auto flex w-full max-w-md flex-col rounded-[28px] border border-[#1A6496] bg-home-deep p-6 text-white shadow-2xl shadow-slate-950/30 sm:p-7"
+          className="home-quote-panel relative z-10 flex flex-col p-6 text-white sm:p-7"
         >
           {quoteSubmitted ? null : (
-            <div className="mb-5 rounded-2xl border border-white/15 bg-white/10 p-4 text-left">
-              <p className="mb-0.5 block text-[11px] font-black uppercase tracking-wider text-home-accent">
+            <div className="mb-6 text-center">
+              <p className="mb-1 text-[11px] font-black uppercase tracking-wider text-home-accent">
                 Special Offer
               </p>
-              <p className="mb-0.5 text-2xl font-black leading-snug tracking-tight text-white">
+              <p className="mb-1 text-2xl font-black leading-snug tracking-tight text-white">
                 Save 10% on Labor
               </p>
               <p className="text-xs font-medium text-home-mist">
@@ -279,12 +284,12 @@ export default function Home() {
 
       <SoundViewDifference />
       <HowItWorks />
-      <HomeownerReviews />
       <FaqAndCta
         openIndex={openFaq}
         onToggle={(index) => setOpenFaq((current) => (current === index ? null : index))}
         onQuote={focusQuote}
       />
+      <HomeownerReviews />
     </div>
   );
 }
@@ -465,7 +470,13 @@ function HowItWorks() {
         <dl className="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-slate-200 text-center md:grid-cols-3 md:divide-x md:divide-y-0">
           <div className="px-4 py-6 md:py-2">
             <dt>
-              <CountUp end={850} suffix="+" duration={1300} className={accentStatClass} />
+              <CountUp
+                end={10000}
+                suffix="+"
+                grouped
+                duration={1300}
+                className={`${accentStatClass} whitespace-nowrap`}
+              />
             </dt>
             <dd className={statLabelClass}>Completed Installations</dd>
           </div>
@@ -496,52 +507,55 @@ function HowItWorks() {
 function HomeownerReviews() {
   return (
     <section
-      className="bg-[#0072CE] px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8"
+      className="bg-[#0072CE] px-4 py-4 text-center sm:px-6 md:py-5 lg:px-8"
+      style={{ paddingTop: "18px", paddingBottom: "18px" }}
       aria-label="Homeowner testimonials"
     >
       <ScrollReveal>
-        <p className="mb-3 block text-xs font-bold uppercase tracking-widest text-white/80 sm:text-sm">
+        <p className="mb-0.5 block text-[11px] font-bold uppercase tracking-widest text-white/80">
           Our Happy Customers
         </p>
-        <h2 className="mx-auto mb-12 max-w-4xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+        <h2 className="mx-auto mb-3 text-lg font-extrabold tracking-tight text-white sm:text-xl lg:whitespace-nowrap lg:text-2xl">
           Trusted By Homeowners Across Greater Seattle
         </h2>
       </ScrollReveal>
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 text-left md:grid-cols-3 lg:gap-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-3 text-left md:grid-cols-3 lg:gap-4">
         {homeownerReviews.map((review, index) => (
           <ScrollReveal key={review.name} delay={index * 100} className="h-full">
-            <figure className="flex h-full flex-col justify-between rounded-2xl border border-white/20 bg-white p-6 shadow-xl sm:p-7">
+            <figure className="flex h-full flex-col justify-between rounded-2xl border border-white/20 bg-white px-3.5 py-2.5 shadow-xl">
               <div>
-                <div className="mb-3 flex items-center gap-4">
-                  <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
-                    <Image
-                      src={review.image}
-                      alt={review.name}
-                      fill
-                      sizes="56px"
-                      className="object-cover"
-                    />
-                  </span>
-                  <span>
-                    <span className="block text-base font-extrabold leading-tight text-slate-900 sm:text-lg">
-                      {review.name}
+                <div className="mb-1.5 flex items-center justify-between gap-2">
+                  <span className="flex min-w-0 items-center gap-2">
+                    <span className="relative h-8 w-8 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+                      <Image
+                        src={review.image}
+                        alt={review.name}
+                        fill
+                        sizes="32px"
+                        className="object-cover"
+                      />
                     </span>
-                    <span className="mt-0.5 block text-xs font-medium text-slate-500 sm:text-sm">
-                      {review.place}
+                    <span className="min-w-0">
+                      <span className="block text-xs font-bold leading-tight text-slate-900">
+                        {review.name}
+                      </span>
+                      <span className="block text-[11px] font-medium leading-tight text-slate-500">
+                        {review.place}
+                      </span>
                     </span>
                   </span>
+                  <div
+                    className="flex shrink-0 origin-right scale-90 items-center gap-0.5 text-xs text-[#0F172A]"
+                    aria-label="5 stars"
+                  >
+                    <span aria-hidden="true">★</span>
+                    <span aria-hidden="true">★</span>
+                    <span aria-hidden="true">★</span>
+                    <span aria-hidden="true">★</span>
+                    <span aria-hidden="true">★</span>
+                  </div>
                 </div>
-                <div
-                  className="mb-4 flex items-center gap-1 text-xs text-[#0F172A] sm:text-sm"
-                  aria-label="5 stars"
-                >
-                  <span aria-hidden="true">★</span>
-                  <span aria-hidden="true">★</span>
-                  <span aria-hidden="true">★</span>
-                  <span aria-hidden="true">★</span>
-                  <span aria-hidden="true">★</span>
-                </div>
-                <blockquote className="text-sm italic leading-relaxed text-slate-600 sm:text-base">
+                <blockquote className="mb-0 text-[11px] italic leading-snug text-slate-600 sm:text-xs">
                   “{review.quote}”
                 </blockquote>
               </div>
@@ -564,19 +578,19 @@ function FaqAndCta({
 }) {
   return (
     <>
-    <section className="w-full border-t border-slate-100 bg-white px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <section className="w-full border-t border-home-line bg-home-panel px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-16">
         <ScrollReveal className="lg:col-span-5">
-          <h2 className="mb-4 text-3xl font-black tracking-tight text-[#0B192C] sm:text-4xl lg:text-5xl">
+          <h2 className="mb-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
             You Ask, We Answer
           </h2>
-          <p className="max-w-md text-sm leading-relaxed text-slate-600 sm:text-base">
+          <p className="max-w-md text-sm leading-relaxed text-slate-300 sm:text-base">
             Have questions about updating your home? Here are clear, upfront
             answers about our products, precision measurement process, and
             certified installation.
           </p>
         </ScrollReveal>
-        <div className="divide-y divide-slate-200 border-b border-t border-slate-200 lg:col-span-7">
+        <div className="divide-y divide-white/15 border-b border-t border-white/15 lg:col-span-7">
           {faqs.map((item, index) => {
             const open = openIndex === index;
             return (
@@ -585,7 +599,7 @@ function FaqAndCta({
                   type="button"
                   aria-expanded={open}
                   onClick={() => onToggle(index)}
-                  className="group flex w-full cursor-pointer items-center justify-between py-5 text-left text-base font-bold text-[#0B192C] transition-colors hover:text-sky-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:py-6 sm:text-lg"
+                  className="group flex w-full cursor-pointer items-center justify-between py-5 text-left text-base font-bold text-white transition-colors hover:text-sky-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:py-6 sm:text-lg"
                 >
                   {item.question}
                   <PlusMinus open={open} />
@@ -596,7 +610,7 @@ function FaqAndCta({
                   }`}
                 >
                   <div className="overflow-hidden" aria-hidden={!open}>
-                    <p className="pb-6 pr-6 text-sm leading-relaxed text-slate-600 sm:text-base">
+                    <p className="pb-6 pr-6 text-sm leading-relaxed text-slate-300 sm:text-base">
                       {item.answer}
                     </p>
                   </div>
@@ -607,13 +621,13 @@ function FaqAndCta({
         </div>
       </div>
     </section>
-    <section className="border-t border-home-line bg-home-panel">
+    <section className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-5 lg:py-20">
           <ScrollReveal>
-            <h2 className="text-4xl tracking-tight text-white sm:text-5xl">
+            <h2 className="text-4xl tracking-tight text-[#0B192C] sm:text-5xl">
               Ready To Upgrade Your Home? Get A Quote Now!
             </h2>
-            <p className="mt-5 text-lg leading-8 text-[#94A3B8]">
+            <p className="mt-5 text-lg leading-8 text-slate-600">
               Connect with our Seattle specialists to discuss your project,
               explore top-tier products from brands like Milgard and Andersen, or
               schedule a personalized consultation at one of our local showrooms.
@@ -637,7 +651,7 @@ function PlusMinus({ open }: { open: boolean }) {
     <svg
       aria-hidden="true"
       viewBox="0 0 20 20"
-      className="h-5 w-5 shrink-0 text-slate-400 transition-transform group-hover:text-sky-600"
+      className="h-5 w-5 shrink-0 text-slate-300 transition-transform group-hover:text-sky-400"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"

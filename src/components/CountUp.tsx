@@ -8,6 +8,7 @@ type CountUpProps = {
   decimals?: number;
   prefix?: string;
   suffix?: string;
+  grouped?: boolean;
   className?: string;
 };
 
@@ -17,6 +18,7 @@ export function CountUp({
   decimals = 0,
   prefix = "",
   suffix = "",
+  grouped = false,
   className,
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -75,7 +77,12 @@ export function CountUp({
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {value.toFixed(decimals)}
+      {grouped
+        ? value.toLocaleString("en-US", {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+          })
+        : value.toFixed(decimals)}
       {suffix}
     </span>
   );
