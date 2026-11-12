@@ -4,6 +4,7 @@ import Link from "next/link";
 import { GlassRailingRequest, RequestInstallationButton } from "@/components/GlassRailingRequest";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
+import { WhyChooseSoundView } from "@/components/WhyChooseSoundView";
 
 export const metadata: Metadata = {
   alternates: {
@@ -104,6 +105,7 @@ export default function GlassRailingPage() {
         </section>
         <CtaBanner />
       </main>
+      <WhyChooseSoundView />
     </div>
   );
 }
