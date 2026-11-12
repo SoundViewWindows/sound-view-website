@@ -62,7 +62,11 @@ export default function PortfolioPage() {
     <div className="bg-white text-[#0B192C]">
       <Header />
       <main>
-        <HeroQuoteLayout>
+        <HeroQuoteLayout
+          sectionClassName="pb-14"
+          sectionStyle={{ paddingBottom: "56px" }}
+          contentStyle={{ paddingBottom: "0px" }}
+        >
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
@@ -91,16 +95,19 @@ export default function PortfolioPage() {
           </p>
         </HeroQuoteLayout>
 
-        <section className="bg-white">
-          <div className="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
-          <h2 className="mb-3 text-3xl font-bold text-[#0B192C]">
+        <section
+          className="bg-white pt-20 pb-20"
+          style={{ paddingTop: "80px", paddingBottom: "80px" }}
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mt-0 mb-3 text-3xl font-bold text-[#0B192C]">
             Watch Our Installers in the Field
           </h2>
           <p className="mb-8 max-w-2xl text-[#556980]">
             See the care, precision flashing, and clean craftsmanship that goes
             into every Puget Sound installation.
           </p>
-          <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {videos.map((video) => (
               <article
                 key={video.src}
@@ -125,16 +132,19 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        <section className="bg-[#F4FAFD]">
+        <section
+          className="bg-[#F4FAFD] pt-20 pb-20"
+          style={{ paddingTop: "80px", paddingBottom: "80px" }}
+        >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-3 text-3xl font-bold text-[#0B192C]">
+          <h2 className="mt-0 mb-3 text-3xl font-bold text-[#0B192C]">
             Real Transformations Across Greater Seattle
           </h2>
           <p className="mb-8 max-w-2xl text-[#556980]">
             Direct comparisons of drafty, aged units replaced with high-efficiency
             modern systems.
           </p>
-          <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             {projects.map((project) => (
               <Link
                 key={project.src}
@@ -169,10 +179,13 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        <section className="border-t border-slate-100 bg-white">
+        <section
+          className="border-t border-slate-100 bg-white pt-20 pb-20"
+          style={{ paddingTop: "80px", paddingBottom: "80px" }}
+        >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto mb-16 max-w-5xl rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-md sm:p-12">
-            <h2 className="text-3xl font-extrabold tracking-tight text-[#0B192C]">Ready to Upgrade Your Home Openings?</h2>
+          <div className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-md sm:p-12">
+            <h2 className="mt-0 text-3xl font-extrabold tracking-tight text-[#0B192C]">Ready to Upgrade Your Home Openings?</h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[#556980]">
               Get upfront pricing and honest guidance on your window, door, or
               glass project from local specialists who take pride in every
