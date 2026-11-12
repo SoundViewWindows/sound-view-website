@@ -1,11 +1,21 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
-export function CtaBanner() {
+export function CtaBanner({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: CSSProperties;
+}) {
   return (
-    <section className="border-t border-slate-100 bg-white px-4 py-16 text-center sm:py-24">
+    <section
+      className={`border-t border-slate-100 bg-white px-4 text-center ${className ?? "py-16 sm:py-24"}`}
+      style={style}
+    >
       <h2 className="text-3xl font-black text-[#0B192C] sm:text-5xl">
         Ready To Upgrade Your Home? Get A Quote Now!
       </h2>

@@ -72,7 +72,7 @@ export default function EnergyRebatesPage() {
       <Header />
       <main className="flex-1">
         <section className="bg-[#0B192C]">
-          <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 pb-14 pt-8 sm:px-6 md:pb-16 lg:px-8">
             <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
               <ol className="flex flex-wrap items-center gap-2">
                 <li>
@@ -105,8 +105,8 @@ export default function EnergyRebatesPage() {
           </div>
         </section>
 
-        <section className="bg-white">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 pb-16 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
+        <section className="bg-white pt-16 pb-20 md:pt-20 md:pb-24">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
             {providers.map((provider) => (
               <a
                 key={provider.title}
@@ -133,12 +133,12 @@ export default function EnergyRebatesPage() {
           </div>
         </section>
 
-        <section className="bg-[#F4FAFD] pb-4">
+        <section className="bg-[#F4FAFD] pt-16 pb-20 md:pt-20 md:pb-24">
           <h2 className="mb-3 text-center text-3xl font-bold text-[#0B192C] sm:text-4xl">
             Before You Start Your Project
           </h2>
           <span aria-hidden="true" className="mx-auto mb-10 block h-1 w-10 rounded bg-[#0090c8]" />
-          <div className="mx-auto mb-12 grid max-w-7xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
             {steps.map((step) => (
               <article
                 key={step.number}
@@ -152,8 +152,8 @@ export default function EnergyRebatesPage() {
           </div>
         </section>
 
-        <section className="bg-white">
-          <div className="mx-auto mb-16 max-w-4xl px-4 sm:px-6">
+        <section className="bg-white pt-16 pb-20 md:pt-20 md:pb-24">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6">
             <div className="rounded-2xl border border-sky-100 bg-[#F4FAFD] p-8 text-center shadow-md sm:p-10">
               <span
                 aria-hidden="true"
@@ -175,7 +175,7 @@ export default function EnergyRebatesPage() {
             </div>
           </div>
         </section>
-        <CtaBanner />
+        <CtaBanner className="pt-16 pb-20 md:pt-20 md:pb-24" />
       </main>
       <footer className="border-t border-slate-100 bg-white px-4 py-8 text-center text-xs text-slate-400 sm:text-sm">
         <p>© 2026 Sound View Window &amp; Door. All Rights Reserved.</p>
