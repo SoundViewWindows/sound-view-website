@@ -90,7 +90,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <Header onServiceSelect={chooseService} />
 
-      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:pb-3 lg:pl-5 lg:pr-0">
+      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_calc(18rem+70px)] lg:items-start lg:pb-3 lg:pl-5 lg:pr-0">
         <div className="relative z-20 flex min-h-0 flex-col">
           <div className="relative z-30 mb-4 flex w-full flex-col items-center justify-center gap-5 pb-4 pt-5 md:flex-row xl:pb-5 xl:pt-6">
             <Image
@@ -250,7 +250,7 @@ export default function Home() {
 
         <aside
           id="quote"
-          className="home-quote-panel relative z-10 flex flex-col p-6 text-white sm:p-7"
+          className="home-quote-panel relative z-10 flex flex-col p-6 text-white sm:p-7 lg:!w-[calc(18rem+70px)] lg:!max-w-[calc(18rem+70px)]"
         >
           {quoteSubmitted ? null : (
             <div className="mb-6 text-center">

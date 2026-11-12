@@ -70,8 +70,8 @@ body {
 
 @media (min-width: 1024px) {
   #quote {
-    width: 18rem;
-    max-width: 18rem;
+    width: calc(18rem + 70px);
+    max-width: calc(18rem + 70px);
     margin-left: max(0px, 50vw - 45rem - 0.5rem);
     margin-right: min(0px, 45rem - 50vw + 0.5rem);
   }
