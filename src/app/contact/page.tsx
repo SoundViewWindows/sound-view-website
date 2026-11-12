@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
 import { Header } from "@/components/Header";
+import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
@@ -56,8 +57,7 @@ export default function ContactPage() {
     <div className="flex flex-1 flex-col bg-white text-[#0B192C]">
       <Header />
       <main className="flex-1">
-        <section className="bg-[#0B192C]">
-          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <HeroQuoteLayout>
             <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-400">
               <ol className="flex flex-wrap items-center gap-2">
                 <li>
@@ -81,8 +81,7 @@ export default function ContactPage() {
               Reach out by phone, send project specs, or schedule a consultation
               with our local installation specialists.
             </p>
-          </div>
-        </section>
+        </HeroQuoteLayout>
 
         <section className="bg-white py-16 sm:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">

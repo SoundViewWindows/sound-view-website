@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BOOKING_URL } from "@/config/links";
+import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 import { showrooms, type Showroom, type ShowroomSlug } from "@/data/showrooms";
 
 const focusRing =
@@ -21,8 +22,7 @@ export function ShowroomHero({
   breadcrumb: { label: string; href?: string }[];
 }) {
   return (
-    <section className="bg-[#0B192C] text-white">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <HeroQuoteLayout>
         <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-400">
           <ol className="flex flex-wrap items-center gap-2">
             {breadcrumb.map((item, index) => (
@@ -44,8 +44,7 @@ export function ShowroomHero({
           {title}
         </h1>
         <p className="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed mb-6">{subtitle}</p>
-      </div>
-    </section>
+    </HeroQuoteLayout>
   );
 }
 

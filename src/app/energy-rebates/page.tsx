@@ -3,6 +3,7 @@ import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
+import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 
 export const metadata: Metadata = {
   alternates: {
@@ -71,8 +72,7 @@ export default function EnergyRebatesPage() {
     <div className="flex flex-1 flex-col bg-white text-[#0B192C]">
       <Header />
       <main className="flex-1">
-        <section className="bg-[#0B192C]">
-          <div className="mx-auto max-w-7xl px-4 pb-14 pt-8 sm:px-6 md:pb-16 lg:px-8">
+        <HeroQuoteLayout>
             <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
               <ol className="flex flex-wrap items-center gap-2">
                 <li>
@@ -102,8 +102,7 @@ export default function EnergyRebatesPage() {
               offer cash rebates and incentives to homeowners installing qualifying
               energy-efficient products.
             </p>
-          </div>
-        </section>
+        </HeroQuoteLayout>
 
         <section className="bg-white pt-16 pb-20 md:pt-20 md:pb-24">
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">

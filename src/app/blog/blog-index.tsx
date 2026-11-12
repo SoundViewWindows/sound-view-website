@@ -3,6 +3,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 import type { BlogPost } from "@/data/blogPosts";
 
 const focusRing =
@@ -72,8 +73,7 @@ export function BlogIndex({
 
   return (
     <main>
-      <section className="bg-[#0B192C]">
-        <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+      <HeroQuoteLayout>
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-300">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
@@ -103,8 +103,7 @@ export function BlogIndex({
             plan upgrades, understand building science, and make confident
             investments in your home.
           </p>
-        </div>
-      </section>
+      </HeroQuoteLayout>
 
       <section className="mx-auto max-w-7xl px-4 pb-4 pt-8 sm:px-6 lg:px-8">
         <div className="relative flex items-center">

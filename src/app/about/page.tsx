@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Compass, Ruler, Wrench } from "lucide-react";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
+import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
+import { WhyChooseSoundView } from "@/components/WhyChooseSoundView";
 import { BOOKING_URL } from "@/config/links";
 
 export const metadata: Metadata = {
@@ -68,8 +70,7 @@ export default function AboutPage() {
     <div>
       <Header />
       <main>
-        <section className="bg-[#0B192C] text-white">
-        <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+        <HeroQuoteLayout>
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
@@ -113,7 +114,15 @@ export default function AboutPage() {
               Book Appointment
             </a>
           </div>
-        </div>
+        </HeroQuoteLayout>
+
+        <section
+          className="bg-[#0B192C] py-14 text-white md:py-16"
+          style={{ paddingTop: "56px", paddingBottom: "56px" }}
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <WhyChooseSoundView layout="hero" />
+          </div>
         </section>
 
         <section className="border-t border-slate-100 bg-[#F4FAFD] py-16 text-[#0B192C] sm:py-20" aria-labelledby="work-system-title">

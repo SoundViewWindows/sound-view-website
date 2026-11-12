@@ -3,6 +3,7 @@ import { canonicalUrl } from "@/config/site";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
+import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 
 export const metadata: Metadata = {
   alternates: {
@@ -61,8 +62,7 @@ export default function PortfolioPage() {
     <div className="bg-white text-[#0B192C]">
       <Header />
       <main>
-        <section className="bg-[#0B192C] text-white">
-          <div className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+        <HeroQuoteLayout>
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
@@ -89,8 +89,7 @@ export default function PortfolioPage() {
             certified crew in action and review actual before-and-after
             transformations.
           </p>
-          </div>
-        </section>
+        </HeroQuoteLayout>
 
         <section className="bg-white">
           <div className="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
