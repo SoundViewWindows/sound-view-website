@@ -173,9 +173,9 @@ export function Header({ onServiceSelect }: HeaderProps) {
       {mobileOpen ? (
         <div
           id={`${baseId}-mobile`}
-          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-slate-200 bg-white pb-5 shadow-lg lg:hidden"
+          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-slate-200 bg-white pb-0 shadow-lg lg:hidden"
         >
-          <nav aria-label="Mobile" className="mx-auto flex max-w-[1440px] flex-col px-4 py-2 sm:px-5">
+          <nav aria-label="Mobile" className="mx-auto flex max-w-[1440px] flex-col px-4 pt-2 sm:px-5">
             {navigation.map((entry) =>
               entry.kind === "link" ? (
                 <Link
@@ -226,7 +226,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
             <Link
               href="/blog"
               onClick={() => setMobileOpen(false)}
-              className={`border-b border-slate-200 px-2 py-3 text-sm font-medium uppercase tracking-wide text-slate-800 hover:text-sky-600 ${focusRing}`}
+              className={`px-2 py-3 text-sm font-medium uppercase tracking-wide text-slate-800 hover:text-sky-600 ${focusRing}`}
             >
               Blog
             </Link>
