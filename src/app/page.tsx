@@ -8,6 +8,7 @@ import { Header } from "@/components/Header";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { BOOKING_URL } from "@/config/links";
 import { QuoteRequestForm } from "@/components/quote-request-form";
+import { ServiceAreasSection } from "@/components/ServiceAreasSection";
 import { services } from "@/lib/services";
 
 const serviceCardCopy: Record<string, string> = {
@@ -92,31 +93,50 @@ export default function Home() {
 
       <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-4 sm:px-5 lg:grid-cols-[minmax(0,1fr)_calc(18rem+70px)] lg:items-start lg:pb-3 lg:pl-5 lg:pr-0">
         <div className="relative z-20 flex min-h-0 flex-col">
-          <div className="relative z-30 mb-4 flex w-full flex-col items-center justify-center gap-5 pb-4 pt-5 md:flex-row xl:pb-5 xl:pt-6">
+          <div className="relative z-30 mb-4 flex w-full flex-col items-center justify-center gap-5 pb-7 pt-6 md:flex-row md:pb-4 md:pt-5 xl:pb-5 xl:pt-6">
+            <Image
+              src="/images/sv-crest-white.png"
+              alt="Sound View crest"
+              width={96}
+              height={96}
+              className="h-20 w-20 shrink-0 object-contain mix-blend-screen sm:h-24 sm:w-24 md:hidden"
+            />
             <Image
               src="/images/sv-crest-white.png"
               alt="Sound View crest"
               width={168}
               height={168}
               style={{ width: "168px", height: "168px", maxWidth: "168px", minWidth: "168px" }}
-              className="h-[120px] w-[120px] shrink-0 object-contain mix-blend-screen sm:h-[168px] sm:w-[168px]"
+              className="hidden h-[120px] w-[120px] shrink-0 object-contain mix-blend-screen sm:h-[168px] sm:w-[168px] md:block"
             />
             <div className="flex min-w-0 flex-col items-center text-center">
               <p className="mb-2 text-xs font-bold uppercase tracking-widest text-sky-400 sm:text-sm">
                 Seattle, Bellevue & Greater Puget Sound
               </p>
-              <h1 className="text-4xl font-extrabold leading-none tracking-tight text-white sm:text-5xl lg:whitespace-nowrap lg:text-6xl">
-                Sound View Window & Door
+              <h1 className="text-[28px] font-extrabold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl md:leading-none lg:whitespace-nowrap lg:text-6xl">
+                <span className="md:hidden">
+                  Sound View
+                  <br />
+                  Window & Door
+                </span>
+                <span className="hidden md:inline">Sound View Window & Door</span>
               </h1>
               <p className="mb-3 mt-3 max-w-3xl text-lg text-slate-200 sm:text-xl">
                 Relaxed consultations, honest answers, and zero pressure to buy
               </p>
               <div className="relative flex flex-wrap items-center justify-center gap-4">
+              <button
+                type="button"
+                onClick={focusQuote}
+                className="rounded-none bg-home-accent px-4 py-2 text-sm font-medium text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent md:hidden"
+              >
+                Get a Free Quote
+              </button>
               <a
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-none bg-home-accent px-4 py-2 text-sm font-medium text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
+                className="max-md:hidden rounded-none bg-home-accent px-4 py-2 text-sm font-medium text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
               >
                 Book Appointment
               </a>
@@ -621,6 +641,7 @@ function FaqAndCta({
         </div>
       </div>
     </section>
+    <ServiceAreasSection />
     <section className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-5 lg:py-20">
           <ScrollReveal>
