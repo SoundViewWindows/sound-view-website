@@ -17,7 +17,7 @@ export function RequestInstallationButton() {
     <a
       href="#railing-quote-form"
       onClick={scrollToRequest}
-      className="flex items-center gap-2 rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+      className="flex items-center gap-2 rounded-[4px] border border-white/20 bg-white px-6 py-3 text-sm font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
     >
       Request Professional Installation
     </a>
