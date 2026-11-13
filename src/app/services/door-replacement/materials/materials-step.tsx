@@ -109,7 +109,7 @@ export function DoorMaterialsStep() {
         </div>
 
         <section>
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 sm:px-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-5 lg:grid-cols-4">
             {materials.map((material) => {
               const selected = selectedSlug === material.slug;
               return (
@@ -126,8 +126,6 @@ export function DoorMaterialsStep() {
                   alt={material.alt}
                   title={material.name}
                   description={material.body}
-                  descriptionClassName="mb-2.5 text-[15px] leading-[1.5] text-slate-300 lg:text-[14px] xl:text-[15px]"
-                  paddingClassName="px-3.5 py-3 sm:px-4 sm:py-3"
                   cta={`Explore ${material.name} Doors`}
                   theme="home"
                   layout="material"

@@ -30,7 +30,7 @@ export function MaterialsStep() {
         </div>
 
         <section>
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-6 px-4 sm:px-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-5 lg:grid-cols-4">
             {windowMaterials.map((material) => (
               <SelectionCard
                 key={material.slug}

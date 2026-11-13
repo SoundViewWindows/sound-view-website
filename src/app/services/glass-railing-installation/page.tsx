@@ -91,14 +91,14 @@ export default function GlassRailingPage() {
         </div>
 
         <section>
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 pb-20 sm:px-5 md:grid-cols-3">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 pb-20 sm:grid-cols-2 sm:px-5 lg:grid-cols-4">
             {highlights.map((item) => (
               <article
                 key={item.title}
-                className="rounded-xl border border-white/15 bg-[#2B3E50]/85 p-3.5 sm:p-4"
+                className="rounded-[4px] border border-white/15 bg-[#2B3E50]/85 p-4"
               >
-                <h2 className="text-base font-bold text-white sm:text-lg">{item.title}</h2>
-                <p className="mt-2 text-xs leading-relaxed text-slate-300 sm:text-[13px]">{item.body}</p>
+                <h2 className="text-[15px] font-bold leading-tight text-white">{item.title}</h2>
+                <p className="mt-1 text-xs leading-relaxed text-slate-300">{item.body}</p>
               </article>
             ))}
           </div>

@@ -101,16 +101,16 @@ export default function WindowBlindsShadesPage() {
         </section>
 
         <section aria-label="Treatment categories">
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 pb-16 sm:px-5 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 pb-16 sm:grid-cols-2 sm:px-5 lg:grid-cols-4">
             {treatments.map((item) => (
               <a
                 key={item.title}
                 href={shopHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-full cursor-pointer flex-col rounded-xl border border-white/15 bg-[#2B3E50]/85 p-3.5 transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:p-4"
+                className="group flex h-full cursor-pointer flex-col rounded-[4px] border border-white/15 bg-[#2B3E50]/85 p-4 transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
-                <span className="relative mb-3 h-40 w-full shrink-0 overflow-hidden rounded-lg bg-slate-800 sm:h-44">
+                <span className="relative mb-2 h-[135px] w-full shrink-0 overflow-hidden rounded-[4px] bg-slate-800 sm:h-[145px]">
                   <img
                     src={item.image}
                     alt={item.imageAlt}
@@ -122,13 +122,13 @@ export default function WindowBlindsShadesPage() {
                   <span className="mb-1 text-[11px] font-bold uppercase tracking-wider text-sky-400">
                     {item.tagline}
                   </span>
-                  <span className="mb-1.5 text-base font-bold text-white sm:text-lg">
+                  <span className="mb-1 text-[15px] font-bold leading-tight text-white">
                     {item.title}
                   </span>
-                  <span className="mb-2.5 text-xs leading-relaxed text-slate-300 sm:text-[13px]">
+                  <span className="text-xs leading-relaxed text-slate-300">
                     {item.copy}
                   </span>
-                  <span className="mt-auto inline-flex items-center gap-1 text-xs font-semibold text-white sm:text-sm">
+                  <span className="mt-auto inline-flex items-center gap-1 pt-2.5 text-xs font-semibold text-white">
                     Shop Style Online
                     <span className="transition-transform group-hover:translate-x-1">→</span>
                   </span>

@@ -36,7 +36,7 @@ export function GlassTypesStep() {
         </div>
 
         <section>
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-5 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-5 lg:grid-cols-4">
             {glassTypes.map((type) => (
               <SelectionCard
                 key={type.slug}
