@@ -86,13 +86,14 @@ export default function ContactPage() {
         <section className="bg-white py-16 sm:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-7">
-              <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xl">
+              <div className="bg-white border border-slate-200 p-6 sm:p-10 shadow-sm rounded-[4px]">
                 <h2 className="mb-2 text-2xl font-black tracking-tight text-[#0B192C] sm:text-3xl">
-                  Send Project Specs
+                  Leave Us a Message
                 </h2>
                 <p className="mb-8 text-sm leading-6 text-slate-600 sm:text-base">
-                  Share a few details and a local specialist will follow up during
-                  operating hours. No high-pressure sales calls.
+                  Have a question about our showrooms, products, or scheduling?
+                  Send us a note and our team will get back to you during
+                  operating hours.
                 </p>
                 <ContactForm />
               </div>
@@ -102,7 +103,7 @@ export default function ContactPage() {
               {showrooms.map((room) => (
                 <article
                   key={room.href}
-                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-md"
+                  className="rounded-[4px] border border-slate-200 bg-white p-5 shadow-md"
                 >
                   <h2 className="text-lg font-black text-[#0B192C]">{room.name}</h2>
                   <p className="mt-1 text-sm leading-6 text-slate-600">{room.address}</p>
@@ -124,7 +125,7 @@ export default function ContactPage() {
                 </article>
               ))}
 
-              <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-md">
+              <article className="rounded-[4px] border border-slate-200 bg-white p-5 shadow-md">
                 <h2 className="text-slate-800 font-extrabold text-xs uppercase tracking-wider mb-4">
                   Showroom Hours
                 </h2>
@@ -138,7 +139,7 @@ export default function ContactPage() {
                 </dl>
               </article>
 
-              <p className="bg-[#F4FAFD] border border-sky-100 rounded-2xl p-5 text-slate-700 text-sm">
+              <p className="bg-[#F4FAFD] border border-sky-100 rounded-[4px] p-5 text-slate-700 text-sm">
                 Typical response time is under 2 business hours during operating
                 hours. You will hear from a local specialist, with no
                 high-pressure sales call.

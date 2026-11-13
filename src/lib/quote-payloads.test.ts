@@ -71,6 +71,10 @@ test("request titles follow the service and form", () => {
     "Window Blinds & Shades Quote",
   );
   assert.equal(quoteRequestTitle({ projectType: "window-replacement", form: "Window quote" }).includes("TEST"), false);
+  assert.equal(
+    quoteRequestTitle({ projectType: "general-inquiry", form: "Contact message" }),
+    "General Website Inquiry",
+  );
 });
 
 test("configurator quotes keep every selection", () => {
@@ -161,12 +165,12 @@ test("every website form either requests a quote or is the contact message form"
   const relative = formFiles.map((file) => path.relative(root, file).replaceAll("\\", "/"));
   assert.deepEqual(
     relative.filter((file) => !readFileSync(path.join(root, file), "utf8").includes("submitWebsiteQuote")).sort(),
-    ["app/contact/contact-form.tsx"],
+    [],
   );
 
   const contact = readFileSync(path.join(root, "app/contact/contact-form.tsx"), "utf8");
-  assert.equal(contact.includes("/api/quote"), false);
-  assert.equal(contact.includes("submitWebsiteQuote"), false);
+  assert.equal(contact.includes("submitWebsiteQuote"), true);
+  assert.equal(contact.includes("contactInquirySubmission"), true);
 
   const quoteRoute = readFileSync(path.join(root, "app/api/quote/route.ts"), "utf8");
   assert.equal(quoteRoute.includes("resend"), false);

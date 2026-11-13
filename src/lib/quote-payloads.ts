@@ -165,7 +165,32 @@ const REQUEST_TITLES: Record<string, string> = {
   "window-blinds-shades": "Window Blinds & Shades Quote",
 };
 
+export function contactInquirySubmission(
+  input: Customer & {
+    projectTypeLabel?: string;
+    details?: string;
+    topic?: string;
+    message?: string;
+  },
+): WebsiteQuoteSubmission {
+  const topic = (input.topic ?? input.projectTypeLabel ?? "").trim() || "Not selected";
+  const details = (input.message ?? input.details ?? "").trim();
+  return {
+    name: input.name,
+    phone: input.phone,
+    zip: input.zip,
+    email: input.email,
+    projectType: "general-inquiry",
+    details,
+    form: "Contact message",
+    answers: [{ label: "Topic", value: topic }],
+  };
+}
+
 export function quoteRequestTitle(input: { projectType: string; form: string }) {
+  if (input.form === "Contact message" || input.projectType === "general-inquiry") {
+    return "General Website Inquiry";
+  }
   if (input.form === "Glass railing request" || input.projectType === "glass-railing-installation") {
     return "Glass Railing Request";
   }
@@ -266,11 +291,22 @@ export function normalizeQuoteBody(body: {
     : null;
   const answers = normalizeAnswers(body?.answers);
 
+  const contactMessage = form === "Contact message";
+  const phoneDigits = phone.replace(/\D/g, "");
   if (name.trim().length < 2) return { ok: false, message: "Enter your name. Your details are still here." };
-  if (phone.replace(/\D/g, "").length < 10) {
+  if (contactMessage) {
+    if (phoneDigits.length > 0 && phoneDigits.length < 10) {
+      return { ok: false, message: "Enter a phone number with an area code. Your details are still here." };
+    }
+    if (zip.trim() && !/^\d{5}(-\d{4})?$/.test(zip.trim())) {
+      return { ok: false, message: "Enter a 5 digit ZIP code. Your details are still here." };
+    }
+    if (!details.trim()) {
+      return { ok: false, message: "Write your message. Your details are still here." };
+    }
+  } else if (phoneDigits.length < 10) {
     return { ok: false, message: "Enter a phone number with an area code. Your details are still here." };
-  }
-  if (!/^\d{5}(-\d{4})?$/.test(zip.trim())) {
+  } else if (!/^\d{5}(-\d{4})?$/.test(zip.trim())) {
     return { ok: false, message: "Enter a 5 digit ZIP code. Your details are still here." };
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {

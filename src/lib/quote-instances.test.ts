@@ -5,6 +5,7 @@ import { services } from "./services.ts";
 import {
   doorQuoteSubmission,
   glassQuoteSubmission,
+  contactInquirySubmission,
   jobberQuoteInputs,
   normalizeQuoteBody,
   quoteRequestTitle,
@@ -28,6 +29,7 @@ function source(file: string) {
 }
 
 function serviceTitle(projectType: string) {
+  if (projectType === "general-inquiry") return "General Inquiry";
   return services.find((service) => service.id === projectType)?.title ?? projectType;
 }
 
@@ -294,10 +296,24 @@ test("blog and showroom pages render the traced quote components", () => {
   assert.match(source("src/app/showrooms/page.tsx"), /<ShowroomHero/);
 });
 
-test("contact message form and pages without a quote box do not submit quotes", () => {
+test("contact message form creates a general Jobber inquiry", async () => {
   const contact = source("src/app/contact/contact-form.tsx");
-  assert.doesNotMatch(contact, /submitWebsiteQuote|\/api\/quote/);
-  assert.match(contact, /setSubmittedName/);
+  assert.match(contact, /contactInquirySubmission/);
+  assert.match(contact, /submitWebsiteQuote\(/);
+  assert.match(contact, /if \(!result\.ok\)/);
+  const failure = contact.indexOf("if (!result.ok)");
+  const success = contact.lastIndexOf("setSubmittedName");
+  assert.ok(failure > 0 && success > failure);
+  const inquiry = contactInquirySubmission({
+    ...customer,
+    projectTypeLabel: "Showroom Appointment Request",
+    details: "Question about a showroom visit",
+  });
+  assert.equal(inquiry.form, "Contact message");
+  assert.equal(inquiry.projectType, "general-inquiry");
+  await verifyInstance(inquiry, ["Topic"]);
+  assert.equal(quoteRequestTitle(inquiry), "General Website Inquiry");
+  assert.match(source("src/config/links.ts"), /requests\/4600285\/new/);
   const noQuoteForm = [
     "src/app/services/window-replacement/page.tsx",
     "src/app/services/window-replacement/materials/page.tsx",

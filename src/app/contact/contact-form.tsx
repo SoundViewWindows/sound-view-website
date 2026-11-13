@@ -1,30 +1,31 @@
 "use client";
 
 import { useState, type FormEvent, type ReactNode } from "react";
+import { contactInquirySubmission } from "@/lib/quote-payloads";
+import { submitWebsiteQuote } from "@/lib/quote-submit";
 
-const projectTypes = [
-  "Window Replacement",
-  "Door Replacement",
-  "Shower Door Replacement",
-  "Glass Replacement",
-  "Glass Railing Installation",
-  "Window Blinds & Shades",
-  "Showroom Appointment Request",
-  "General Inquiry",
+const topics = [
+  "General Question",
+  "Showroom Visit & Hours",
+  "Existing Project or Installation",
+  "Warranty or Service Inquiry",
+  "Quote or Consultation Question",
+  "Other",
 ] as const;
 
-type FieldName = "name" | "phone" | "zip" | "email" | "projectType" | "details";
+type FieldName = "name" | "email" | "phone" | "topic" | "message";
 type FieldErrors = Partial<Record<FieldName, string>>;
 
 export function ContactForm() {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [zip, setZip] = useState("");
   const [email, setEmail] = useState("");
-  const [projectType, setProjectType] = useState("");
-  const [details, setDetails] = useState("");
+  const [phone, setPhone] = useState("");
+  const [topic, setTopic] = useState("");
+  const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submittedName, setSubmittedName] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   function validate() {
     const nextErrors: FieldErrors = {};
@@ -34,23 +35,22 @@ export function ContactForm() {
     if (trimmedName.length < 2) {
       nextErrors.name = "Enter your full name.";
     }
-    if (digits.length < 10) {
-      nextErrors.phone = "Enter a phone number with an area code.";
-    }
-    if (!/^\d{5}(-\d{4})?$/.test(zip.trim())) {
-      nextErrors.zip = "Enter a 5 digit ZIP code so we can confirm service area.";
-    }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       nextErrors.email = "Enter a valid email address.";
     }
-    if (details.trim().length > 2000) {
-      nextErrors.details = "Keep project details under 2,000 characters.";
+    if (digits.length > 0 && digits.length < 10) {
+      nextErrors.phone = "Enter a phone number with an area code.";
+    }
+    if (!message.trim()) {
+      nextErrors.message = "Write your message.";
+    } else if (message.trim().length > 2000) {
+      nextErrors.message = "Keep your message under 2,000 characters.";
     }
 
     return nextErrors;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const nextErrors = validate();
     setErrors(nextErrors);
@@ -59,12 +59,29 @@ export function ContactForm() {
       document.getElementById(`contact-${firstInvalid}`)?.focus();
       return;
     }
+    setSubmitting(true);
+    setSubmitError("");
+    const result = await submitWebsiteQuote(
+      contactInquirySubmission({
+        name: name.trim(),
+        phone: phone.trim(),
+        zip: "",
+        email: email.trim(),
+        topic,
+        message: message.trim(),
+      }),
+    );
+    setSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(result.message);
+      return;
+    }
     setSubmittedName(name.trim().split(/\s+/)[0]);
   }
 
   if (submittedName) {
     return (
-      <div className="rounded-2xl border border-sky-100 bg-[#F4FAFD] px-5 py-8">
+      <div className="rounded-[4px] border border-sky-100 bg-[#F4FAFD] px-5 py-8">
         <h3 className="text-2xl font-black text-[#0B192C]">
           Thank you, {submittedName}.
         </h3>
@@ -85,6 +102,7 @@ export function ContactForm() {
           type="text"
           autoComplete="name"
           required
+          placeholder="Your name"
           value={name}
           onChange={(event) => setName(event.target.value)}
           className={inputClass(Boolean(errors.name))}
@@ -94,14 +112,28 @@ export function ContactForm() {
       </Field>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Field label="Phone" id="contact-phone" error={errors.phone} required>
+        <Field label="Email" id="contact-email" error={errors.email} required>
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            placeholder="you@example.com"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            className={inputClass(Boolean(errors.email))}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "contact-email-error" : undefined}
+          />
+        </Field>
+        <Field label="Phone" id="contact-phone" error={errors.phone}>
           <input
             id="contact-phone"
             name="phone"
             type="tel"
             autoComplete="tel"
             inputMode="tel"
-            required
             placeholder="(206) 555-0123"
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
@@ -110,80 +142,55 @@ export function ContactForm() {
             aria-describedby={errors.phone ? "contact-phone-error" : undefined}
           />
         </Field>
-        <Field label="Zip Code" id="contact-zip" error={errors.zip} required>
-          <input
-            id="contact-zip"
-            name="zip"
-            type="text"
-            autoComplete="postal-code"
-            inputMode="numeric"
-            required
-            placeholder="e.g. 98103"
-            value={zip}
-            onChange={(event) => setZip(event.target.value)}
-            className={inputClass(Boolean(errors.zip))}
-            aria-invalid={Boolean(errors.zip)}
-            aria-describedby={errors.zip ? "contact-zip-error" : undefined}
-          />
-        </Field>
       </div>
 
-      <Field label="Email" id="contact-email" error={errors.email} required>
-        <input
-          id="contact-email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          required
-          placeholder="you@example.com"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          className={inputClass(Boolean(errors.email))}
-          aria-invalid={Boolean(errors.email)}
-          aria-describedby={errors.email ? "contact-email-error" : undefined}
-        />
-      </Field>
-
-      <Field label="Project Type" id="contact-projectType" error={errors.projectType}>
+      <Field label="Topic" id="contact-topic" error={errors.topic}>
         <select
-          id="contact-projectType"
-          name="projectType"
-          value={projectType}
-          onChange={(event) => setProjectType(event.target.value)}
-          className={inputClass(Boolean(errors.projectType))}
-          aria-invalid={Boolean(errors.projectType)}
-          aria-describedby={errors.projectType ? "contact-projectType-error" : undefined}
+          id="contact-topic"
+          name="topic"
+          value={topic}
+          onChange={(event) => setTopic(event.target.value)}
+          className={inputClass(Boolean(errors.topic))}
+          aria-invalid={Boolean(errors.topic)}
+          aria-describedby={errors.topic ? "contact-topic-error" : undefined}
         >
           <option value="" className="bg-white text-slate-900">
-            Select a service...
+            How can we help?
           </option>
-          {projectTypes.map((type) => (
-            <option key={type} value={type} className="bg-white text-slate-900">
-              {type}
+          {topics.map((item) => (
+            <option key={item} value={item} className="bg-white text-slate-900">
+              {item}
             </option>
           ))}
         </select>
       </Field>
 
-      <Field label="Project Details" id="contact-details" error={errors.details}>
+      <Field label="Message" id="contact-message" error={errors.message} required>
         <textarea
-          id="contact-details"
-          name="details"
-          rows={3}
-          placeholder="Tell us about your project, home style, or questions..."
-          value={details}
-          onChange={(event) => setDetails(event.target.value)}
-          className={`${inputClass(Boolean(errors.details))} resize-y`}
-          aria-invalid={Boolean(errors.details)}
-          aria-describedby={errors.details ? "contact-details-error" : undefined}
+          id="contact-message"
+          name="message"
+          rows={4}
+          required
+          placeholder="Write your message or question here..."
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          className={`${inputClass(Boolean(errors.message))} resize-y`}
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? "contact-message-error" : undefined}
         />
       </Field>
 
+      {submitError ? (
+        <p role="alert" className="text-sm text-red-600">
+          {submitError}
+        </p>
+      ) : null}
       <button
         type="submit"
-        className="bg-[#0090c8] hover:bg-[#007fb1] text-white font-bold text-sm uppercase tracking-wider py-4 px-6 rounded-xl shadow-md w-full transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B192C]"
+        disabled={submitting}
+        className="bg-[#38BDF8] hover:bg-[#0284C7] text-[#0B192C] hover:text-white font-bold uppercase tracking-wide transition-colors rounded-[4px] disabled:opacity-70 w-full py-4 px-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B192C]"
       >
-        Submit Message
+        {submitting ? "Sending" : "Send Message"}
       </button>
       <p className="text-center text-sm text-slate-500">
         We respect your privacy and never sell your information.
@@ -223,7 +230,7 @@ function Field({
 
 function inputClass(invalid: boolean) {
   return [
-    "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:ring-2 focus:ring-sky-400 focus:outline-none placeholder:text-slate-400",
+    "w-full bg-white border border-slate-200 rounded-[4px] px-4 py-3 text-sm text-slate-900 focus:ring-2 focus:ring-sky-400 focus:outline-none placeholder:text-slate-400",
     invalid ? "border-red-600" : "",
   ].join(" ");
 }
