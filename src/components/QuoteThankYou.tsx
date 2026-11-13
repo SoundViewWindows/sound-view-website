@@ -75,8 +75,8 @@ export function QuoteThankYou({
       className={
         framed
           ? home
-            ? "relative flex w-full scroll-mt-6 flex-col items-center justify-center rounded-[28px] border border-[#1A6496] bg-home-deep p-6 text-center text-white shadow-2xl shadow-slate-950/30 sm:p-7"
-            : "relative flex w-full scroll-mt-6 flex-col items-center justify-center rounded-2xl border border-slate-700/80 bg-[#132238] p-6 text-center shadow-xl sm:p-8"
+            ? "relative flex w-full scroll-mt-6 flex-col items-center justify-center rounded-[4px] border border-[#1A6496] bg-home-deep p-6 text-center text-white shadow-2xl shadow-slate-950/30 sm:p-7"
+            : "relative flex w-full scroll-mt-6 flex-col items-center justify-center rounded-[4px] border border-slate-700/80 bg-[#132238] p-6 text-center shadow-xl sm:p-8"
           : "flex w-full flex-col items-center justify-center text-center"
       }
     >
@@ -105,7 +105,7 @@ export function QuoteThankYou({
         in under 2 business hours.
       </p>
       <div
-        className={`mb-6 w-full rounded-xl border p-5 text-left ${
+        className={`mb-6 w-full rounded-[4px] border p-5 text-left ${
           home || !framed ? "border-white/15 bg-white/10" : "border-slate-700/80 bg-[#132238]"
         }`}
       >
@@ -120,8 +120,8 @@ export function QuoteThankYou({
           rel="noopener noreferrer"
           className={
             home
-              ? "flex w-full items-center justify-center gap-2 rounded-xl bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent sm:text-sm"
-              : "flex w-full items-center justify-center gap-2 rounded-lg bg-[#38BDF8] px-4 py-3 font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-sky-300"
+              ? "flex w-full items-center justify-center gap-2 rounded-[4px] bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent sm:text-sm"
+              : "flex w-full items-center justify-center gap-2 rounded-[4px] bg-[#38BDF8] px-4 py-3 font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-sky-300"
           }
         >
           {offer.button}

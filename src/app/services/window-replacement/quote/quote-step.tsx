@@ -101,7 +101,7 @@ export function QuoteStep() {
               </div>
               <div className="lg:col-span-6">
                 <WindowQuoteBox
-                  className="relative w-full scroll-mt-6 rounded-[28px] border border-[#1A6496] bg-home-deep p-6 text-white shadow-2xl shadow-slate-950/30 sm:p-7"
+                  className="relative w-full scroll-mt-6 rounded-[4px] border border-[#1A6496] bg-home-deep p-6 text-white shadow-2xl shadow-slate-950/30 sm:p-7"
                   material={material}
                   style={style}
                   manufacturer={manufacturer}

@@ -31,7 +31,7 @@ export function DoorQuoteBox({
   onMaterialChange,
   onStyleChange,
   onManufacturerChange,
-  className = "relative w-full scroll-mt-6 rounded-[28px] border border-[#1A6496] bg-home-deep p-6 text-white shadow-2xl shadow-slate-950/30 sm:p-7",
+  className = "relative w-full scroll-mt-6 rounded-[4px] border border-[#1A6496] bg-home-deep p-6 text-white shadow-2xl shadow-slate-950/30 sm:p-7",
 }: DoorQuoteBoxProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -215,7 +215,7 @@ export function DoorQuoteBox({
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setDoorCount(count)}
-                    className={`w-full rounded-none px-2 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent ${
+                    className={`w-full rounded-[4px] px-2 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent ${
                       selected
                         ? "bg-home-accent text-[#062033]"
                         : "border border-white/30 bg-transparent text-white hover:bg-white/10"
@@ -312,7 +312,7 @@ export function DoorQuoteBox({
 
           <button
             type="submit"
-            className="mt-2 flex w-full items-center justify-center rounded-xl bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent active:scale-[0.98] sm:text-sm"
+            className="mt-2 flex w-full items-center justify-center rounded-[4px] bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent active:scale-[0.98] sm:text-sm"
           >
             Request Upfront Pricing
           </button>
@@ -343,7 +343,7 @@ function FieldError({ message }: { message: string }) {
 const labelClass = "mb-1.5 block text-[11px] font-extrabold uppercase tracking-wider text-white";
 
 const fieldClass =
-  "w-full rounded-xl border border-[#E2E8F0] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#0F172A] shadow-sm scheme-light transition-all placeholder:text-[#94A3B8] focus:border-[#38BDF8] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/20";
+  "w-full rounded-[4px] border border-[#E2E8F0] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#0F172A] shadow-sm scheme-light transition-all placeholder:text-[#94A3B8] focus:border-[#38BDF8] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/20";
 
 function inputClass(invalid: boolean) {
   return invalid ? `${fieldClass} border-[#8C3A32]` : fieldClass;

@@ -72,7 +72,7 @@ export function GlassRailingRequest() {
   return (
     <aside
       id="railing-install"
-      className="relative w-full scroll-mt-6 rounded-2xl border border-slate-700/80 bg-[#132238] p-6 shadow-xl sm:p-7"
+      className="relative w-full scroll-mt-6 rounded-[4px] border border-slate-700/80 bg-[#132238] p-6 shadow-xl sm:p-7"
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
@@ -175,7 +175,7 @@ export function GlassRailingRequest() {
           </div>
           <button
             type="submit"
-            className="w-full rounded-xl bg-[#38BDF8] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] shadow-md shadow-sky-500/20 transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+            className="w-full rounded-[4px] bg-[#38BDF8] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] shadow-md shadow-sky-500/20 transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
           >
             Request Professional Installation
           </button>
@@ -205,7 +205,7 @@ function FieldError({ message }: { message: string }) {
 const labelClass = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-white";
 
 const fieldClass =
-  "w-full rounded-lg border border-slate-600 bg-white px-3 py-2 text-sm text-[#0B192C] placeholder:text-slate-500 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400";
+  "w-full rounded-[4px] border border-slate-600 bg-white px-3 py-2 text-sm text-[#0B192C] placeholder:text-slate-500 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400";
 
 function inputClass(invalid: boolean) {
   return invalid ? `${fieldClass} border-[#8C3A32]` : fieldClass;
