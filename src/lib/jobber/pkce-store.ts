@@ -1,5 +1,6 @@
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { saveStoredPkce, takeStoredPkce } from "@/lib/jobber/persistent-store";
 
 type PkceEntry = {
   verifier: string;
@@ -10,12 +11,16 @@ const pkcePath = path.join(process.cwd(), ".data", "jobber-pkce.json");
 const tenMinutes = 60 * 60 * 1000;
 
 export async function savePkce(state: string, verifier: string) {
+  const saved = await saveStoredPkce(state, verifier, 60 * 60);
+  if (saved || process.env.VERCEL) return;
   const entries = await readEntries();
   entries[state] = { verifier, expiresAt: Date.now() + tenMinutes };
   await writeEntries(prune(entries));
 }
 
 export async function takePkce(state: string) {
+  const stored = await takeStoredPkce(state);
+  if (stored !== undefined) return stored;
   const entries = await readEntries();
   const entry = entries[state];
   delete entries[state];

@@ -20,7 +20,7 @@ export async function GET() {
     sameSite: "lax",
     secure: jobberConfig().redirectUri.startsWith("https://"),
     path: "/",
-    maxAge: 600,
+    maxAge: 3600,
   });
   return response;
 }

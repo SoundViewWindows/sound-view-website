@@ -7,10 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --experimental-strip-types --test src/lib/quote-payloads.test.ts src/lib/quote-instances.test.ts",
+    "test": "node --experimental-strip-types --test src/lib/quote-payloads.test.ts src/lib/quote-instances.test.ts src/lib/jobber/persistence.test.ts",
     "import:blogs": "node scripts/import-blogs.mjs"
   },
   "dependencies": {
+    "@upstash/redis": "^1.41.0",
     "lucide-react": "^1.70.0",
     "next": "16.4.5",
     "react": "19.3.0",

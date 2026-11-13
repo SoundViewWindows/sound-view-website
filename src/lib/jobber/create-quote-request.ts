@@ -63,7 +63,10 @@ const createRequestMutation = `
 `;
 
 export async function createWebsiteQuoteRequest(input: WebsiteQuoteInput) {
-  const serviceTitle = services.find((service) => service.id === input.projectType)?.title ?? input.projectType;
+  const serviceTitle =
+    input.projectType === "general-inquiry"
+      ? "General Inquiry"
+      : (services.find((service) => service.id === input.projectType)?.title ?? input.projectType);
   const prepared = jobberQuoteInputs({
     ...input,
     serviceTitle,

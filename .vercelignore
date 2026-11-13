@@ -1,0 +1,6 @@
+migration/wordpress
+scripts/_wxr-authors.mjs
+scripts/_wxr-detail.mjs
+scripts/_wxr-embeds.mjs
+scripts/_wxr-summary.mjs
+scripts/inspect-wxr.mjs

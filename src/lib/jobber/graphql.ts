@@ -1,5 +1,6 @@
 import { jobberConfig, jobberGraphqlUrl } from "@/lib/jobber/config";
 import { refreshAccessToken } from "@/lib/jobber/oauth";
+import { refreshWithLock } from "@/lib/jobber/persistent-store";
 import { readJobberTokens, writeJobberTokens, type StoredJobberTokens } from "@/lib/jobber/tokens";
 
 type GraphQlError = { message?: string };
@@ -41,7 +42,7 @@ async function seedFromEnv(): Promise<StoredJobberTokens | null> {
 
 async function forceRefresh(refreshToken?: string) {
   if (!refreshInFlight) {
-    refreshInFlight = rotate(refreshToken).finally(() => {
+    refreshInFlight = refreshWithLock(() => rotate(refreshToken)).finally(() => {
       refreshInFlight = null;
     });
   }
