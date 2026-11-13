@@ -69,7 +69,7 @@ body {
 }
 
 @media (min-width: 1024px) {
-  #quote {
+  #homepage-quote-box {
     width: calc(18rem + 70px);
     max-width: calc(18rem + 70px);
     margin-left: max(0px, 50vw - 45rem - 0.5rem);

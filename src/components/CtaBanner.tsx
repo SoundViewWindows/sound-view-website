@@ -25,7 +25,7 @@ export function CtaBanner({
         personalized consultation at one of our local showrooms.
       </p>
       <Link
-        href="/#quote"
+        href="/#homepage-quote-box"
         className={`inline-flex items-center justify-center rounded-[4px] bg-[#0090c8] px-8 py-3.5 font-bold text-white shadow-md transition-colors hover:bg-[#007fb1] ${focusRing}`}
       >
         Get A Free Quote

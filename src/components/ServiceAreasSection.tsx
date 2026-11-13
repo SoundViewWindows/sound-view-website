@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { BOOKING_URL } from "@/config/links";
 
@@ -199,7 +199,6 @@ export function ServiceAreasSection() {
   const [etaStatus, setEtaStatus] = useState<"idle" | "calculating" | "denied">("idle");
   const locationRequest = useRef(0);
   const titleId = useId();
-  const pathname = usePathname();
   const router = useRouter();
   const cityShowroom = selectedCity ? showroomByCity[selectedCity] : null;
   const showroom = liveEta?.showroom ?? cityShowroom;
@@ -247,16 +246,18 @@ export function ServiceAreasSection() {
 
   function requestQuote() {
     setSelectedCity(null);
-    if (pathname === "/") {
-      const hero = document.getElementById("hero");
-      if (hero) {
-        hero.scrollIntoView({ behavior: "smooth" });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+    document.body.style.overflow = "";
+    if (window.location.pathname === "/") {
+      window.setTimeout(() => {
+        document.getElementById("homepage-quote-box")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+        window.history.replaceState(null, "", "/#homepage-quote-box");
+      }, 60);
       return;
     }
-    router.push("/#hero");
+    router.push("/#homepage-quote-box");
   }
 
   useEffect(() => {
