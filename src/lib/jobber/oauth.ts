@@ -38,13 +38,32 @@ export function statesMatch(expected: string, received: string) {
   return timingSafeEqual(left, right);
 }
 
+export class JobberTokenExchangeError extends Error {
+  readonly status: number;
+  readonly sanitizedBody: string;
+  readonly redirectUri: string;
+  readonly verifierLength: number;
+
+  constructor(status: number, sanitizedBody: string, redirectUri: string, verifierLength: number) {
+    super(`Jobber token exchange failed with HTTP ${status}.`);
+    this.name = "JobberTokenExchangeError";
+    this.status = status;
+    this.sanitizedBody = sanitizedBody;
+    this.redirectUri = redirectUri;
+    this.verifierLength = verifierLength;
+  }
+}
+
 export async function exchangeAuthorizationCode(code: string, verifier: string) {
-  return requestToken({
-    grant_type: "authorization_code",
-    code,
-    redirect_uri: jobberConfig().redirectUri,
-    code_verifier: verifier,
-  });
+  return requestToken(
+    {
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: jobberConfig().redirectUri,
+      code_verifier: verifier,
+    },
+    { verifierLength: verifier.length },
+  );
 }
 
 export async function refreshAccessToken(refreshToken: string) {
@@ -54,7 +73,16 @@ export async function refreshAccessToken(refreshToken: string) {
   });
 }
 
-async function requestToken(fields: Record<string, string>) {
+const REDACTED_RESPONSE_KEYS = new Set([
+  "access_token",
+  "refresh_token",
+  "client_secret",
+  "code",
+  "code_verifier",
+  "id_token",
+]);
+
+async function requestToken(fields: Record<string, string>, details: { verifierLength: number } = { verifierLength: 0 }) {
   const config = jobberConfig();
   const body = new URLSearchParams({
     client_id: config.clientId,
@@ -67,12 +95,52 @@ async function requestToken(fields: Record<string, string>) {
     body,
     cache: "no-store",
   });
-  const payload = (await response.json().catch(() => null)) as
-    | (JobberTokenResponse & { error?: string; error_description?: string })
-    | null;
+  const rawBody = await response.text();
+  const secrets = [config.clientSecret, fields.code, fields.code_verifier, fields.refresh_token].filter(
+    (value): value is string => Boolean(value),
+  );
+  const sanitizedBody = sanitizeTokenResponse(rawBody, secrets);
+  const payload = parseTokenPayload(rawBody);
   if (!response.ok || !payload?.access_token) {
-    const detail = payload?.error_description || payload?.error || "Jobber did not return an access token.";
-    throw new Error(detail);
+    throw new JobberTokenExchangeError(response.status, sanitizedBody, config.redirectUri, details.verifierLength);
   }
   return payload;
+}
+
+function parseTokenPayload(rawBody: string) {
+  try {
+    return JSON.parse(rawBody) as JobberTokenResponse;
+  } catch {
+    return null;
+  }
+}
+
+function sanitizeTokenResponse(rawBody: string, secrets: string[]) {
+  const trimmed = rawBody.trim();
+  if (!trimmed) return "Jobber returned an empty response.";
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(trimmed);
+  } catch {
+    parsed = null;
+  }
+
+  const visible =
+    parsed && typeof parsed === "object"
+      ? JSON.stringify(redactTokenFields(parsed), null, 2)
+      : trimmed.slice(0, 2000);
+
+  return secrets.reduce((text, secret) => (secret.length >= 8 ? text.split(secret).join("[redacted]") : text), visible);
+}
+
+function redactTokenFields(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map((item) => redactTokenFields(item));
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(
+    Object.entries(value).map(([key, entry]) => [
+      key,
+      REDACTED_RESPONSE_KEYS.has(key) ? "[redacted]" : redactTokenFields(entry),
+    ]),
+  );
 }
