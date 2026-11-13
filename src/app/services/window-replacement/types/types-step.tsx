@@ -73,6 +73,7 @@ export function TypesStep() {
                 theme="home"
                 layout="type"
                 tallImage
+                imageClassName={style.slug === "bow" ? "scale-[1.45]" : undefined}
               />
             ))}
           </div>

@@ -95,7 +95,7 @@ export function BlogIndex({
           <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-400">
             Pacific Northwest Homeowner Guides
           </p>
-          <h1 className="mb-4 w-full text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-[40px] lg:whitespace-nowrap xl:text-5xl">
+          <h1 className="mb-4 w-full min-w-0 break-words text-3xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-4xl lg:text-[40px] xl:text-5xl">
             Expert Advice on Windows, Doors, and Glass
           </h1>
           <p className="max-w-3xl text-base leading-relaxed text-slate-200 sm:text-lg">

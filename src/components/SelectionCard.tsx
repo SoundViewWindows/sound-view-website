@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { MouseEventHandler } from "react";
+import type { CSSProperties, MouseEventHandler } from "react";
 
 type SelectionCardProps = {
   href: string;
@@ -17,6 +17,8 @@ type SelectionCardProps = {
   theme?: "default" | "home";
   layout?: "material" | "type";
   tallImage?: boolean;
+  imageClassName?: string;
+  imageStyle?: CSSProperties;
 };
 
 export function SelectionCard({
@@ -32,6 +34,8 @@ export function SelectionCard({
   onClick,
   layout = "type",
   tallImage = false,
+  imageClassName,
+  imageStyle,
 }: SelectionCardProps) {
   const imageFrame = tallImage
     ? "relative mb-3.5 h-72 w-full shrink-0 overflow-hidden rounded-xl bg-slate-800 sm:h-80"
@@ -57,7 +61,8 @@ export function SelectionCard({
             alt={alt}
             fill
             sizes={sizes}
-            className="block h-full w-full object-cover object-center"
+            className={`block h-full w-full object-cover object-center ${imageClassName ?? ""}`}
+            style={imageStyle}
           />
         ) : null}
         {selected ? (

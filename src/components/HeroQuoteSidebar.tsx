@@ -17,11 +17,11 @@ export function HeroQuoteLayout({
   return (
     <section className={`bg-[#0B192C] text-white ${sectionClassName}`} style={sectionStyle}>
       <div
-        className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-6 py-12 sm:px-10 lg:grid-cols-12 lg:gap-10 lg:py-14"
+        className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-6 py-12 sm:px-10 lg:grid-cols-12 lg:gap-12 lg:py-14"
         style={{ paddingTop: "52px", paddingBottom: "52px", ...contentStyle }}
       >
         <div className="min-w-0 lg:col-span-6">{children}</div>
-        <div className="lg:col-span-6">
+        <div className="w-full lg:col-span-6">
           <HeroQuoteCard />
         </div>
       </div>

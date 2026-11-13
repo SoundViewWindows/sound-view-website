@@ -77,8 +77,8 @@ export const glassTypes: GlassChoice[] = [
     name: "Custom Glass Replacement",
     option: "Custom Glass Replacement",
     detail: "Specialty Cuts & Finishes",
-    image: "/glass/custom.png",
-    alt: "Decorative leaded glass panel with a floral motif",
+    image: "/images/custom-glass-replacement.jpg",
+    alt: "Stained glass entry door with a geometric panel",
     body: "Obscure, frosted, rain-pattern, or custom geometric shapes cut to exact millimeter specifications.",
   },
 ];

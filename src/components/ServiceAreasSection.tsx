@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 
 const serviceAreas = [
@@ -128,7 +129,23 @@ const showroomByCity: Record<string, Showroom> = {
 export function ServiceAreasSection() {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const titleId = useId();
+  const pathname = usePathname();
+  const router = useRouter();
   const showroom = selectedCity ? showroomByCity[selectedCity] : null;
+
+  function requestQuote() {
+    setSelectedCity(null);
+    if (pathname === "/") {
+      const hero = document.getElementById("hero");
+      if (hero) {
+        hero.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      return;
+    }
+    router.push("/#hero");
+  }
 
   useEffect(() => {
     if (!selectedCity) return;
@@ -264,12 +281,13 @@ export function ServiceAreasSection() {
                 </div>
               </div>
 
-              <Link
-                href="/quote"
-                className="block rounded-[4px] bg-[#38BDF8] px-4 py-3 text-center font-semibold text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white"
+              <button
+                type="button"
+                onClick={requestQuote}
+                className="w-full cursor-pointer rounded-[4px] bg-[#38BDF8] px-4 py-3 text-center font-semibold text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white"
               >
-                Request a Free Quote in {selectedCity}
-              </Link>
+                Request a Free Quote
+              </button>
             </div>
           </div>
         </div>

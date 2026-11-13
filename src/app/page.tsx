@@ -91,7 +91,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <Header onServiceSelect={chooseService} />
 
-      <section className="relative flex-1 overflow-hidden bg-[#0B192C]">
+      <section id="hero" className="relative flex-1 overflow-hidden bg-[#0B192C]">
         <div className="pointer-events-none absolute inset-0 z-0 select-none">
           <img
             src="/images/hero-bg.jpg"
@@ -283,14 +283,14 @@ export default function Home() {
           className="home-quote-panel relative z-10 flex flex-col rounded-b-none p-6 text-white sm:p-7 lg:rounded-none lg:!w-[calc(18rem+70px)] lg:!max-w-[calc(18rem+70px)]"
         >
           {quoteSubmitted ? null : (
-            <div className="mb-6 text-center">
-              <p className="mb-1 text-[11px] font-black uppercase tracking-wider text-home-accent">
+            <div className="-mx-6 -mt-6 px-6 py-6 text-center sm:-mx-7 sm:-mt-7 sm:px-8 sm:py-7">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8] sm:text-sm">
                 Special Offer
               </p>
-              <p className="mb-1 text-2xl font-black leading-snug tracking-tight text-white">
+              <p className="mt-1 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-[28px] lg:text-[30px]">
                 Save 10% on Labor
               </p>
-              <p className="text-xs font-medium text-home-mist">
+              <p className="mt-1.5 text-sm italic text-sky-100/95 sm:text-[15px]">
                 Book your project by November 30th.
               </p>
             </div>
@@ -299,7 +299,7 @@ export default function Home() {
             className={
               quoteSubmitted
                 ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto text-center"
-                : "min-h-0 flex-1"
+                : "mt-5 min-h-0 flex-1"
             }
           >
             <QuoteRequestForm

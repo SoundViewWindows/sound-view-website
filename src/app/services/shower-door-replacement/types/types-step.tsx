@@ -49,6 +49,12 @@ export function ShowerTypesStep() {
                 layout="type"
                 theme="home"
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                imageClassName={style.slug === "frameless" ? "scale-[1.40]" : undefined}
+                imageStyle={
+                  style.slug === "frameless"
+                    ? { transform: "scale(1.40)", transformOrigin: "center center" }
+                    : undefined
+                }
               />
             ))}
           </div>
