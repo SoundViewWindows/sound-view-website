@@ -55,6 +55,17 @@ export default function WindowBlindsShadesPage() {
     <div className="bg-home-canvas text-[#E7EEF3]">
       <Header />
       <main>
+        <section className="relative overflow-hidden bg-[#0B192C]">
+          <div className="pointer-events-none select-none absolute inset-0 z-0">
+            <img
+              src="/images/window-blinds-shades-bg.jpg"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-cover object-center opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/75" />
+          </div>
+          <div className="relative z-10">
         <section className="mx-auto max-w-[1440px] px-4 pb-12 pt-8 sm:px-5">
           <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-300">
             <ol className="flex flex-wrap items-center gap-2">
@@ -108,7 +119,7 @@ export default function WindowBlindsShadesPage() {
                 href={shopHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-full cursor-pointer flex-col rounded-[4px] border border-white/15 bg-[#2B3E50]/85 p-4 transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                className="group flex h-full cursor-pointer flex-col rounded-[4px] border border-white/15 bg-[#182B3E]/75 p-4 backdrop-blur-[2px] transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 <span className="relative mb-2 h-[135px] w-full shrink-0 overflow-hidden rounded-[4px] bg-slate-800 sm:h-[145px]">
                   <img
@@ -135,6 +146,8 @@ export default function WindowBlindsShadesPage() {
                 </span>
               </a>
             ))}
+          </div>
+        </section>
           </div>
         </section>
 
