@@ -156,51 +156,99 @@ export function CostComparison({
   theme = "default",
 }: {
   service?: ServiceType;
-  theme?: "default" | "home";
+  theme?: "default" | "home" | "about";
 }) {
   const copy = comparisons[service];
   const home = theme === "home";
+  const about = theme === "about";
 
   return (
     <section
-      className={home ? "border-t border-home-line bg-home-panel pb-16 pt-12 text-[#E7EEF3]" : "bg-[#132238] pb-16 pt-2 text-slate-100"}
+      className={
+        about
+          ? "bg-white pb-16 pt-16 text-[#0B192C] md:py-20"
+          : home
+            ? "border-t border-home-line bg-home-panel pb-16 pt-12 text-[#E7EEF3]"
+            : "bg-[#132238] pb-16 pt-2 text-slate-100"
+      }
+      style={about ? { backgroundColor: "#FFFFFF", paddingTop: "64px", paddingBottom: "64px" } : undefined}
       aria-label="Cost of waiting versus upgrading"
     >
       <div className="mx-auto max-w-5xl px-4">
-        <p className={`mb-2 text-center text-xs font-bold uppercase ${home ? "tracking-widest text-sky-400" : "tracking-wider text-slate-400"}`}>
+        <p
+          className={`mb-2 text-center text-xs font-bold uppercase ${
+            about
+              ? "tracking-widest text-[#0284C7]"
+              : home
+                ? "tracking-widest text-sky-400"
+                : "tracking-wider text-slate-400"
+          }`}
+        >
           The Cost of Waiting vs. Upgrading
         </p>
-        <h2 className={`mb-2 text-center text-white ${home ? "text-3xl font-extrabold tracking-tight sm:text-4xl" : "text-2xl font-bold sm:text-3xl"}`}>
+        <h2
+          className={`mb-2 text-center ${
+            about
+              ? "text-3xl font-bold text-[#0B192C] sm:text-4xl"
+              : home
+                ? "text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
+                : "text-2xl font-bold text-white sm:text-3xl"
+          }`}
+        >
           {copy.headline}
         </h2>
-        <p className={`mx-auto mb-8 max-w-2xl text-center sm:text-base ${home ? "text-sm text-[#94A3B8]" : "text-sm text-slate-300"}`}>
+        <p
+          className={`mx-auto mb-8 max-w-2xl text-center text-sm sm:text-base ${
+            about ? "text-[#556980]" : home ? "text-[#94A3B8]" : "text-slate-300"
+          }`}
+        >
           {subtitle}
         </p>
-        <div className={`grid grid-cols-1 md:grid-cols-2 ${home ? "gap-4" : "gap-6"}`}>
-          <article className={home ? "rounded-xl border border-[#8AA0B2]/35 bg-home-canvas p-6 shadow-sm sm:p-8" : "rounded-2xl border border-slate-700/90 bg-[#132238] p-6 shadow-sm sm:p-8"}>
+        <div className={`grid grid-cols-1 md:grid-cols-2 ${home || about ? "gap-4" : "gap-6"}`}>
+          <article
+            className={
+              about
+                ? "rounded-[4px] border border-slate-200/90 bg-[#F8FAFC] p-6 shadow-sm sm:p-8"
+                : home
+                  ? "rounded-xl border border-[#8AA0B2]/35 bg-home-canvas p-6 shadow-sm sm:p-8"
+                  : "rounded-2xl border border-slate-700/90 bg-[#132238] p-6 shadow-sm sm:p-8"
+            }
+          >
             <header className="mb-5 flex items-center justify-between gap-3">
-              <h3 className="text-xl font-bold text-white">{copy.oldTitle}</h3>
-              <Mark tone="problem" label="Problem" home={home} />
+              <h3 className={`text-xl font-bold ${about ? "text-[#0B192C]" : "text-white"}`}>
+                {copy.oldTitle}
+              </h3>
+              <Mark tone="problem" label="Problem" home={home} about={about} />
             </header>
             <ul className="space-y-4">
               {copy.oldItems.map((item) => (
-                <Item key={item.title} tone="problem" item={item} home={home} />
+                <Item key={item.title} tone="problem" item={item} home={home} about={about} />
               ))}
             </ul>
           </article>
-          <article className={home ? "relative rounded-xl border border-home-accent bg-home-canvas p-6 shadow-md sm:p-8" : "relative rounded-2xl border-2 border-emerald-500/30 bg-[#132238] p-6 shadow-md sm:p-8"}>
+          <article
+            className={
+              about
+                ? "relative rounded-[4px] border border-[#0284C7] bg-white p-6 shadow-md sm:p-8"
+                : home
+                  ? "relative rounded-xl border border-home-accent bg-home-canvas p-6 shadow-md sm:p-8"
+                  : "relative rounded-2xl border-2 border-emerald-500/30 bg-[#132238] p-6 shadow-md sm:p-8"
+            }
+          >
             <header className="mb-5 flex items-center justify-between gap-3">
-              <h3 className="text-xl font-bold text-white">{copy.newTitle}</h3>
-              <Mark tone="value" label="Upgrade" home={home} />
+              <h3 className={`text-xl font-bold ${about ? "text-[#0B192C]" : "text-white"}`}>
+                {copy.newTitle}
+              </h3>
+              <Mark tone="value" label="Upgrade" home={home} about={about} />
             </header>
             <ul className="space-y-4">
               {copy.newItems.map((item) => (
-                <Item key={item.title} tone="value" item={item} home={home} />
+                <Item key={item.title} tone="value" item={item} home={home} about={about} />
               ))}
             </ul>
           </article>
         </div>
-        <p className={`mt-6 text-center text-xs ${home ? "text-slate-300" : "text-slate-400"}`}>
+        <p className={`mt-6 text-center text-xs ${about ? "text-[#556980]" : home ? "text-slate-300" : "text-slate-400"}`}>
           Upfront pricing takes under 60 seconds with zero sales pressure and zero obligation.
         </p>
       </div>
@@ -212,16 +260,18 @@ function Item({
   tone,
   item,
   home = false,
+  about = false,
 }: {
   tone: "problem" | "value";
   item: ComparisonItem;
   home?: boolean;
+  about?: boolean;
 }) {
   return (
     <li className="flex gap-3">
-      <Mark tone={tone} home={home} />
-      <p className={`text-sm leading-6 ${home ? "text-slate-200" : "text-slate-300"}`}>
-        <span className="font-semibold text-white">{item.title}: </span>
+      <Mark tone={tone} home={home} about={about} />
+      <p className={`text-sm leading-6 ${about ? "text-slate-600" : home ? "text-slate-200" : "text-slate-300"}`}>
+        <span className={`font-semibold ${about ? "text-[#0B192C]" : "text-white"}`}>{item.title}: </span>
         {item.body}
       </p>
     </li>
@@ -232,22 +282,28 @@ function Mark({
   tone,
   label,
   home = false,
+  about = false,
 }: {
   tone: "problem" | "value";
   label?: string;
   home?: boolean;
+  about?: boolean;
 }) {
   const problem = tone === "problem";
   return (
     <span
-      className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
-        home
+      className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center ${about ? "rounded-[4px]" : "rounded-full"} ${
+        about
           ? problem
-            ? "bg-home-line text-home-mist"
-            : "bg-home-accent text-[#062033]"
-          : problem
-            ? "bg-rose-100 text-rose-600"
-            : "bg-emerald-100 text-emerald-600"
+            ? "bg-slate-200 text-[#0B192C]"
+            : "bg-[#38BDF8] text-[#0B192C]"
+          : home
+            ? problem
+              ? "bg-home-line text-home-mist"
+              : "bg-home-accent text-[#062033]"
+            : problem
+              ? "bg-rose-100 text-rose-600"
+              : "bg-emerald-100 text-emerald-600"
       }`}
       aria-hidden={label ? undefined : true}
       aria-label={label}

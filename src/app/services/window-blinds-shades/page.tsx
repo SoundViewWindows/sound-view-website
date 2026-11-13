@@ -52,10 +52,10 @@ const treatments = [
 
 export default function WindowBlindsShadesPage() {
   return (
-    <div className="bg-home-canvas text-[#E7EEF3]">
+    <div>
       <Header />
       <main>
-        <section className="relative overflow-hidden bg-[#0B192C]">
+        <section className="relative overflow-hidden bg-[#0B192C] text-white">
           <div className="pointer-events-none select-none absolute inset-0 z-0">
             <img
               src="/images/window-blinds-shades-bg.jpg"
@@ -67,7 +67,7 @@ export default function WindowBlindsShadesPage() {
           </div>
           <div className="relative z-10">
         <section className="mx-auto max-w-[1440px] px-4 pb-12 pt-8 sm:px-5">
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-300">
+          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
                 <Link
@@ -93,7 +93,7 @@ export default function WindowBlindsShadesPage() {
           <h1 className="mb-4 max-w-4xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
             Custom Blinds and Motorized Shades Tailored to Your Home
           </h1>
-          <p className="mb-8 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
+          <p className="mb-8 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Enhance privacy, soften natural sunlight, and boost insulation with
             premium custom blinds and motorized window shades engineered for
             Pacific Northwest living.
@@ -103,7 +103,7 @@ export default function WindowBlindsShadesPage() {
               href={shopHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+              className="inline-flex items-center justify-center gap-2 rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
             >
               <ShoppingBagIcon />
               Shop Window Treatments Online
@@ -130,7 +130,7 @@ export default function WindowBlindsShadesPage() {
                   />
                 </span>
                 <span className="flex min-h-0 flex-1 flex-col">
-                  <span className="mb-1 text-[11px] font-bold uppercase tracking-wider text-sky-400">
+                  <span className="mb-1 text-[11px] font-bold uppercase tracking-wider text-sky-300">
                     {item.tagline}
                   </span>
                   <span className="mb-1 text-[15px] font-bold leading-tight text-white">
@@ -151,32 +151,45 @@ export default function WindowBlindsShadesPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1440px] px-4 pb-16 sm:px-5">
-          <div className="rounded-xl border border-white/15 bg-[#2B3E50]/85 px-6 py-10 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
-            <div className="max-w-2xl">
-              <h2 className="text-3xl font-medium leading-tight sm:text-4xl">
-                Order Custom Window Treatments Directly Online
-              </h2>
-              <p className="mt-3 text-base leading-7 text-[#FFFFFF]/80">
-                Explore fabric samples, operating systems, and size options
-                ready to ship directly to your door through our online catalog.
-              </p>
+        <section
+          className="bg-[#E6ECF2] py-16 text-[#0B192C] md:py-20"
+          style={{ backgroundColor: "#E6ECF2", paddingTop: "64px", paddingBottom: "64px" }}
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-5">
+            <div className="rounded-[4px] border border-slate-200/80 bg-white px-6 py-10 shadow-sm sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
+              <div className="max-w-2xl">
+                <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#0B192C] sm:text-4xl">
+                  Order Custom Window Treatments Directly Online
+                </h2>
+                <p className="mt-3 text-base leading-7 text-slate-600">
+                  Explore fabric samples, operating systems, and size options
+                  ready to ship directly to your door through our online catalog.
+                </p>
+              </div>
+              <a
+                href={shopHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] lg:mt-0"
+              >
+                Visit Our Window Treatments Shop
+                <ExternalLinkIcon />
+              </a>
             </div>
-            <a
-              href={shopHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#38BDF8] px-6 py-3 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] lg:mt-0"
-            >
-              Visit Our Window Treatments Shop
-              <ExternalLinkIcon />
-            </a>
           </div>
         </section>
 
-        <CostComparison service="blinds-shades" />
-        <CtaBanner />
+        <CostComparison service="blinds-shades" theme="about" />
       </main>
+      <CtaBanner
+        className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
+        style={{
+          backgroundColor: "#182B3E",
+          paddingTop: "64px",
+          paddingBottom: "64px",
+          borderTop: "none",
+        }}
+      />
     </div>
   );
 }
