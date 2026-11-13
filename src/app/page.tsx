@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CountUp } from "@/components/CountUp";
 import { Header } from "@/components/Header";
 import { HeroActionButtons } from "@/components/HeroActionButtons";
@@ -31,18 +31,29 @@ export default function Home() {
   const [quoteSubmitted, setQuoteSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  useEffect(() => {
+    if (window.location.hash !== "#homepage-quote-box") return;
+    const timer = window.setTimeout(() => {
+      document.getElementById("homepage-quote-box")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 60);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   function focusQuote() {
-    document.getElementById("quote-name")?.focus();
-    document.getElementById("quote")?.scrollIntoView({
+    document.getElementById("homepage-quote-box")?.scrollIntoView({
       behavior: "smooth",
-      block: "nearest",
+      block: "start",
     });
+    document.getElementById("quote-name")?.focus({ preventScroll: true });
   }
 
   function chooseService(id: string) {
     setProjectType(id);
     if (window.innerWidth < 1024) {
-      document.getElementById("quote")?.scrollIntoView({
+      document.getElementById("homepage-quote-box")?.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
@@ -181,8 +192,8 @@ export default function Home() {
         </div>
 
         <aside
-          id="quote"
-          className="home-quote-panel relative z-10 flex flex-col rounded-b-none p-6 text-white sm:p-7 lg:rounded-none lg:!w-[calc(18rem+70px)] lg:!max-w-[calc(18rem+70px)]"
+          id="homepage-quote-box"
+          className="home-quote-panel relative z-10 flex scroll-mt-24 flex-col rounded-b-none p-6 text-white sm:p-7 lg:rounded-none lg:!w-[calc(18rem+70px)] lg:!max-w-[calc(18rem+70px)]"
         >
           {quoteSubmitted ? null : (
             <div className="-mx-6 -mt-6 px-6 py-6 text-center sm:-mx-7 sm:-mt-7 sm:px-8 sm:py-7">
