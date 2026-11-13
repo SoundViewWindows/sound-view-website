@@ -60,8 +60,17 @@ export default function GlassRailingPage() {
     <div>
       <Header />
       <main>
-        <section className="bg-[#0B192C] text-white">
-        <div className="mx-auto max-w-[1440px] px-4 pb-16 pt-8 sm:px-5">
+        <section className="relative overflow-hidden bg-[#0B192C] text-white">
+          <div className="pointer-events-none select-none absolute inset-0 z-0">
+            <img
+              src="/images/glass-railing-hero-bg.jpg"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-cover object-center opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/75" />
+          </div>
+        <div className="relative z-10 mx-auto max-w-[1440px] px-4 pb-16 pt-8 sm:px-5">
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="flex min-w-0 flex-col items-start lg:col-span-7">
               <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
@@ -118,7 +127,7 @@ export default function GlassRailingPage() {
             {highlights.map((item) => (
               <article
                 key={item.title}
-                className="rounded-[4px] border border-white/15 bg-[#182B3E] p-4"
+                className="rounded-[4px] border border-white/15 bg-[#182B3E]/75 p-4 backdrop-blur-[2px]"
               >
                 <h2 className="text-[15px] font-bold leading-tight text-white">{item.title}</h2>
                 <p className="mt-1 text-xs leading-relaxed text-slate-300">{item.body}</p>
