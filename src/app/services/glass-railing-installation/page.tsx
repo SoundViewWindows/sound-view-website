@@ -123,7 +123,7 @@ export default function GlassRailingPage() {
               </div>
             </div>
           </div>
-          <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {highlights.map((item) => (
               <article
                 key={item.title}
@@ -149,7 +149,7 @@ export default function GlassRailingPage() {
             <h2 id="railing-systems" className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
               Glass Railing Systems & Applications
             </h2>
-            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {systems.map((system) => (
                 <article
                   key={system.title}

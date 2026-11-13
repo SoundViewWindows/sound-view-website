@@ -49,9 +49,9 @@ export function QuoteStep() {
   const manufacturerSlug = manufacturerSlugFromOption(manufacturer);
 
   return (
-    <div className="bg-home-canvas text-[#E7EEF3]">
+    <div className="flex flex-1 flex-col bg-home-canvas text-[#E7EEF3]">
       <Header />
-      <main>
+      <main className="flex flex-1 flex-col">
         <section className="relative overflow-hidden py-12 lg:py-16">
           <div className="absolute inset-0 z-0">
             <img

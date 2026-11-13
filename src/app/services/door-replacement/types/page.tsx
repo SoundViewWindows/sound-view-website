@@ -6,9 +6,9 @@ import { doorStyles } from "@/lib/door-funnel";
 
 export default function DoorTypesPage() {
   return (
-    <div className="bg-home-canvas text-[#E7EEF3]">
+    <div className="flex flex-1 flex-col bg-home-canvas text-[#E7EEF3]">
       <Header />
-      <main className="relative overflow-hidden bg-[#0B192C]">
+      <main className="relative flex flex-1 flex-col overflow-hidden bg-[#0B192C]">
         <div className="pointer-events-none select-none absolute inset-0 z-0">
           <img
             src="/images/door-styles-bg.jpg"
@@ -18,8 +18,8 @@ export default function DoorTypesPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/75" />
         </div>
-        <div className="relative z-10">
-        <div className="mx-auto max-w-[1440px] px-4 pt-8 sm:px-5">
+        <div className="relative z-10 flex flex-1 flex-col py-12 md:py-16">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-5">
           <DoorStepNav step={1} />
           <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
@@ -55,7 +55,7 @@ export default function DoorTypesPage() {
               />
             ))}
           </div>
-          <div className="mx-auto max-w-[1440px] px-4 py-10 text-center sm:px-5">
+          <div className="mx-auto mt-10 max-w-[1440px] px-4 text-center sm:px-5">
             <SkipAhead theme="home" href="/services/door-replacement/materials?type=undecided">
               Not sure yet? Continue to Door Materials
             </SkipAhead>
