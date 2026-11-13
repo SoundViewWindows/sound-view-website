@@ -40,15 +40,7 @@ export default function BlogPostPage(props: PageProps<"/blog/[slug]">) {
       <Suspense fallback={<ArticleFallback />}>
         <Article params={props.params} />
       </Suspense>
-      <CtaBanner
-        className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
-        style={{
-          backgroundColor: "#182B3E",
-          paddingTop: "64px",
-          paddingBottom: "64px",
-          borderTop: "none",
-        }}
-      />
+      <CtaBanner />
     </div>
   );
 }
@@ -63,54 +55,54 @@ async function Article({
 
   return (
     <main className="bg-white">
-      <header className="bg-[#0B192C] text-white">
-        <div className="mx-auto max-w-4xl px-4 pb-10 pt-8 sm:px-6 sm:pt-12">
+      <header className="border-b border-slate-200 bg-white text-[#0B192C]">
+        <div className="mx-auto max-w-4xl px-4 pb-8 pt-8 sm:px-6 sm:pt-12">
         <nav
           aria-label="Breadcrumb"
-          className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-400 sm:text-sm"
+          className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:text-sm"
         >
           <ol className="flex flex-wrap items-center gap-2">
             <li>
-              <Link href="/" className={`rounded-sm font-medium hover:text-white ${focusRing}`}>
+              <Link href="/" className={`rounded-sm font-medium hover:text-[#0B192C] ${focusRing}`}>
                 Home
               </Link>
             </li>
             <li className="flex items-center gap-2">
-              <span aria-hidden="true">&gt;</span>
-              <Link href="/blog" className={`rounded-sm font-medium hover:text-white ${focusRing}`}>
+              <span aria-hidden="true" className="text-slate-400">&gt;</span>
+              <Link href="/blog" className={`rounded-sm font-medium hover:text-[#0B192C] ${focusRing}`}>
                 Resources
               </Link>
             </li>
             <li className="flex items-center gap-2">
-              <span aria-hidden="true">&gt;</span>
-              <Link href="/blog" className={`rounded-sm font-medium hover:text-white ${focusRing}`}>
+              <span aria-hidden="true" className="text-slate-400">&gt;</span>
+              <Link href="/blog" className={`rounded-sm font-medium hover:text-[#0B192C] ${focusRing}`}>
                 Blog &amp; Guides
               </Link>
             </li>
             <li className="flex items-center gap-2">
-              <span aria-hidden="true">&gt;</span>
+              <span aria-hidden="true" className="text-slate-400">&gt;</span>
               <span aria-current="page">{post.category}</span>
             </li>
           </ol>
         </nav>
 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <span className="inline-flex rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-3 py-1 text-xs font-bold text-sky-300 backdrop-blur-[2px]">
+          <span className="inline-flex rounded-[4px] bg-[#E0F2FE] px-3 py-1 text-xs font-semibold text-[#0284C7]">
             {post.category}
           </span>
           <time
             dateTime={post.publishedAt.slice(0, 10)}
-            className="text-xs font-medium text-slate-300 sm:text-sm"
+            className="text-xs font-medium text-slate-500 sm:text-sm"
           >
             {post.date}
           </time>
-          <span aria-hidden="true" className="text-xs font-medium text-slate-300 sm:text-sm">
+          <span aria-hidden="true" className="text-xs font-medium text-slate-500 sm:text-sm">
             &middot;
           </span>
-          <span className="text-xs font-medium text-slate-300 sm:text-sm">{post.readTime}</span>
+          <span className="text-xs font-medium text-slate-500 sm:text-sm">{post.readTime}</span>
         </div>
 
-        <h1 className="mt-3 text-3xl font-black leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+        <h1 className="mt-3 text-3xl font-black leading-tight tracking-tight text-[#0B192C] sm:text-4xl lg:text-5xl">
           {post.title}
         </h1>
         </div>
@@ -144,7 +136,7 @@ async function Article({
         />
 
         <div
-          className="prose prose-lg max-w-none leading-relaxed prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-[#0B192C] prose-p:text-slate-700 prose-p:leading-relaxed prose-li:text-slate-700 prose-li:leading-relaxed prose-strong:text-[#0B192C] prose-a:text-[#0284C7] prose-a:underline hover:prose-a:text-[#0090c8] prose-blockquote:rounded-[4px] prose-blockquote:border prose-blockquote:border-slate-200/80 prose-blockquote:bg-[#F4F6F9] prose-blockquote:p-6 prose-blockquote:text-slate-700 prose-blockquote:not-italic prose-img:h-auto prose-img:w-full prose-img:rounded-[4px] [&_iframe]:my-8 [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-[4px]"
+          className="prose prose-lg max-w-none leading-relaxed prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-[#0B192C] prose-p:text-slate-700 prose-p:leading-relaxed prose-li:text-slate-700 prose-li:leading-relaxed prose-strong:text-[#0B192C] prose-a:text-[#0284C7] prose-a:underline hover:prose-a:text-[#0090c8] prose-blockquote:rounded-[4px] prose-blockquote:border prose-blockquote:border-slate-200 prose-blockquote:bg-[#F4F6F9] prose-blockquote:p-6 prose-blockquote:text-[#0B192C] prose-blockquote:not-italic prose-img:h-auto prose-img:w-full prose-img:rounded-[4px] [&_table]:my-8 [&_table]:w-full [&_table]:overflow-hidden [&_table]:rounded-[4px] [&_table]:border [&_table]:border-slate-200 [&_th]:bg-[#F4F6F9] [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:text-[#0B192C] [&_td]:border-t [&_td]:border-slate-200 [&_td]:px-3 [&_td]:py-2 [&_td]:text-[#0B192C] [&_iframe]:my-8 [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-[4px]"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
@@ -276,9 +268,9 @@ function ArticleFallback() {
   return (
     <main>
       <div className="mx-auto max-w-4xl animate-pulse bg-white px-4 pb-6 pt-8 sm:px-6 sm:pt-12">
-        <div className="mb-4 h-4 w-48 rounded bg-slate-200" />
-        <div className="mb-3 h-4 w-40 rounded bg-slate-200" />
-        <div className="h-12 w-full max-w-xl rounded bg-slate-200" />
+        <div className="mb-4 h-4 w-48 rounded-[4px] bg-slate-200" />
+        <div className="mb-3 h-4 w-40 rounded-[4px] bg-slate-200" />
+        <div className="h-12 w-full max-w-xl rounded-[4px] bg-slate-200" />
       </div>
       <div className="mx-auto mb-8 w-full max-w-4xl bg-white px-4 sm:px-6">
         <div className="h-80 rounded-[4px] border border-slate-200/80 bg-slate-100 sm:h-96" />
