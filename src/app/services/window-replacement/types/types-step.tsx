@@ -68,7 +68,9 @@ export function TypesStep() {
                 alt={style.alt}
                 title={style.name}
                 description={style.body}
+                descriptionClassName="mb-2.5 text-[11px] leading-snug text-slate-300"
                 detail={style.detail}
+                cta={`Explore ${style.name}`}
                 sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 theme="home"
                 layout="type"

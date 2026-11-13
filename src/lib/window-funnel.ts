@@ -16,16 +16,16 @@ export const windowStyles: WindowChoice[] = [
     detail: "Maximum Ventilation",
     image: "/types/casement.jpg",
     alt: "Open casement windows looking onto a sunny courtyard",
-    body: "Hinged on the side and cranks outward. Compression seals create an airtight barrier against Pacific Northwest rain and wind.",
+    body: "Casement windows hinge on one side and crank open outward, sealing tightly against wind and rain.",
   },
   {
     slug: "double-hung",
-    name: "Double-Hung Window",
+    name: "Double-Hung Windows",
     option: "Double-Hung Windows",
     detail: "Classic Versatility",
     image: "/types/double-hung.jpg",
     alt: "Double-hung window with sashes that tilt in for cleaning",
-    body: "Both upper and lower sashes slide vertically and tilt inward for effortless interior glass cleaning.",
+    body: "Double-hung windows have two sliding sashes that tilt inward, so both sides clean easily from inside.",
   },
   {
     slug: "single-hung",
@@ -34,7 +34,7 @@ export const windowStyles: WindowChoice[] = [
     detail: "Timeless Simplicity",
     image: "/types/single-hung.jpg",
     alt: "Single-hung window above a kitchen counter",
-    body: "A fixed top sash with an operable bottom sash. Clean lines, dependable performance, and cost-effective efficiency.",
+    body: "Single-hung windows pair a fixed top sash with a movable bottom one for a classic, budget-friendly look.",
   },
   {
     slug: "awning",
@@ -43,7 +43,7 @@ export const windowStyles: WindowChoice[] = [
     detail: "Rain-Ready Airflow",
     image: "/types/awning.jpg",
     alt: "Awning window opened outward above a garden and pool",
-    body: "Hinged at the top to swing outward from the bottom. Allows fresh ventilation even during light Seattle showers.",
+    body: "Awning windows hinge at the top and open outward from the bottom, letting fresh air in even during rain.",
   },
   {
     slug: "sliding",
@@ -52,7 +52,7 @@ export const windowStyles: WindowChoice[] = [
     detail: "Effortless Glide",
     image: "/types/sliding.jpg",
     alt: "Wood-framed sliding window opened to a patio",
-    body: "Sashes glide smoothly horizontally along precision tracks. Ideal for wide openings, patios, and outdoor walkways.",
+    body: "Sliding windows glide horizontally along tracks, suiting wide openings, patios, and easy-reach spots.",
   },
   {
     slug: "picture",
@@ -61,7 +61,7 @@ export const windowStyles: WindowChoice[] = [
     detail: "Unobstructed Panoramas",
     image: "/types/picture.jpg",
     alt: "A row of picture windows looking out to the water",
-    body: "Non-operable direct-set glass that maximizes natural light, thermal performance, and beautiful Puget Sound views.",
+    body: "Picture windows are fixed, unobstructed glass that maximizes light, views, and energy efficiency.",
   },
   {
     slug: "bay",
@@ -70,7 +70,7 @@ export const windowStyles: WindowChoice[] = [
     detail: "Dimensional Space",
     image: "/types/bay.jpg",
     alt: "Exterior bay window with a metal roof and stone base",
-    body: "Three-panel architectural projection that adds floor space, comfortable seating nooks, and multi-angle outdoor views.",
+    body: "Bay windows project outward in three angled panels, adding interior space and a wide view.",
   },
   {
     slug: "bow",
@@ -79,7 +79,7 @@ export const windowStyles: WindowChoice[] = [
     detail: "Elegant Curves",
     image: "/types/bow.jpg",
     alt: "Curved bow window with a built-in window seat",
-    body: "Four to six gently angled window panes forming a soft curve that floods living rooms and dining areas with panoramic light.",
+    body: "Bow windows curve gently with four to six panes, bringing panoramic light to living areas.",
   },
   {
     slug: "custom",
@@ -88,7 +88,7 @@ export const windowStyles: WindowChoice[] = [
     detail: "Architectural Specialty",
     image: "/types/custom.jpg",
     alt: "Custom arched window with divided lites in a brick wall",
-    body: "Radius arches, geometric trapezoids, and bespoke direct-set frames crafted specifically to match unique home architecture.",
+    body: "Custom windows cover radius arches, geometric shapes, and direct-set frames built for your home.",
   },
 ];
 
