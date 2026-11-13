@@ -66,44 +66,46 @@ export default function WindowBlindsShadesPage() {
             <div className="absolute inset-0 bg-gradient-to-b from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/75" />
           </div>
           <div className="relative z-10">
-        <section className="mx-auto max-w-[1440px] px-4 pb-12 pt-8 sm:px-5">
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li>
-                <Link
-                  href="/"
-                  className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
-                >
-                  Home
-                </Link>
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true">&gt;</span>
-                <span>Services</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true">&gt;</span>
-                <span aria-current="page">Window Blinds & Shades</span>
-              </li>
-            </ol>
-          </nav>
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
-            CUSTOM WINDOW TREATMENTS
-          </p>
-          <h1 className="mb-4 max-w-4xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Custom Blinds and Motorized Shades Tailored to Your Home
-          </h1>
-          <p className="mb-8 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Enhance privacy, soften natural sunlight, and boost insulation with
-            premium custom blinds and motorized window shades engineered for
-            Pacific Northwest living.
-          </p>
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <section className="mx-auto max-w-[1440px] px-4 pt-8 sm:px-5">
+          <div className="mb-6 flex flex-col gap-4 md:mb-7 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
+                <ol className="flex flex-wrap items-center gap-2">
+                  <li>
+                    <Link
+                      href="/"
+                      className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <span>Services</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <span aria-current="page">Window Blinds & Shades</span>
+                  </li>
+                </ol>
+              </nav>
+              <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
+                CUSTOM WINDOW TREATMENTS
+              </p>
+              <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+                Custom Blinds and Motorized Shades Tailored to Your Home
+              </h1>
+              <p className="text-base leading-relaxed text-slate-300 sm:text-lg">
+                Enhance privacy, soften natural sunlight, and boost insulation with
+                premium custom blinds and motorized window shades engineered for
+                Pacific Northwest living.
+              </p>
+            </div>
             <a
               href={shopHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+              className="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-semibold text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] lg:self-end"
             >
               <ShoppingBagIcon />
               Shop Window Treatments Online
