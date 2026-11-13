@@ -31,6 +31,7 @@ export function QuoteRequestForm({
   const [details, setDetails] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [submitError, setSubmitError] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -72,7 +73,7 @@ export function QuoteRequestForm({
     return nextErrors;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -84,8 +85,39 @@ export function QuoteRequestForm({
       document.getElementById(`quote-${firstInvalid}`)?.focus();
       return;
     }
-    setIsSubmitted(true);
-    onSubmittedChange?.(true);
+    if (variant !== "sidebar") {
+      setIsSubmitted(true);
+      onSubmittedChange?.(true);
+      return;
+    }
+
+    setSubmitError("");
+    try {
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone,
+          zip,
+          email,
+          projectType,
+          details,
+          photoNames: files.map((file) => file.name),
+        }),
+      });
+      const payload = (await response.json().catch(() => null)) as { ok?: boolean; message?: string } | null;
+      if (!response.ok || !payload?.ok) {
+        setSubmitError(payload?.message || "We could not send your quote request. Your details are still here.");
+        return;
+      }
+      setIsSubmitted(true);
+      onSubmittedChange?.(true);
+    } catch {
+      setSubmitError("We could not send your quote request. Your details are still here.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (isSubmitted) {
@@ -371,6 +403,11 @@ export function QuoteRequestForm({
         </div>
       </Field>
 
+      {submitError ? (
+        <p role="alert" className="text-sm font-medium text-red-200">
+          {submitError}
+        </p>
+      ) : null}
       <button
         type="submit"
         disabled={isSubmitting}
