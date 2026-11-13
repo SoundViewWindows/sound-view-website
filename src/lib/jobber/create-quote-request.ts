@@ -1,6 +1,8 @@
 import { services } from "@/lib/services";
-import { jobberConfig } from "@/lib/jobber/config";
 import { jobberGraphql } from "@/lib/jobber/graphql";
+import { jobberQuoteInputs, quoteRequestTitle, type QuoteAnswer } from "@/lib/quote-payloads";
+
+export type { QuoteAnswer };
 
 export type WebsiteQuoteInput = {
   name: string;
@@ -9,7 +11,9 @@ export type WebsiteQuoteInput = {
   email: string;
   projectType: string;
   details: string;
-  photoNames: string[];
+  answers: QuoteAnswer[];
+  form: string;
+  photoNames: string[] | null;
 };
 
 type UserError = { message?: string | null; path?: string[] | null };
@@ -29,7 +33,7 @@ type RequestCreateData = {
 };
 
 const createClientMutation = `
-  mutation CreateWebsiteQuoteClient($input: ClientCreateAttributes!) {
+  mutation CreateWebsiteQuoteClient($input: ClientCreateInput!) {
     clientCreate(input: $input) {
       client {
         id
@@ -43,7 +47,7 @@ const createClientMutation = `
 `;
 
 const createRequestMutation = `
-  mutation CreateWebsiteQuoteRequest($input: RequestCreateAttributes!) {
+  mutation CreateWebsiteQuoteRequest($input: RequestCreateInput!) {
     requestCreate(input: $input) {
       request {
         id
@@ -59,14 +63,14 @@ const createRequestMutation = `
 `;
 
 export async function createWebsiteQuoteRequest(input: WebsiteQuoteInput) {
-  const { firstName, lastName } = splitName(input.name);
   const serviceTitle = services.find((service) => service.id === input.projectType)?.title ?? input.projectType;
+  const prepared = jobberQuoteInputs({
+    ...input,
+    serviceTitle,
+    clientId: "",
+  });
   const clientData = await jobberGraphql<ClientCreateData>(createClientMutation, {
-    input: {
-      firstName,
-      lastName,
-      emails: [{ description: "MAIN", primary: true, address: input.email }],
-    },
+    input: prepared.clientInput,
   });
   assertNoUserErrors(clientData.clientCreate.userErrors, "Jobber did not create the client.");
   const clientId = clientData.clientCreate.client?.id;
@@ -75,31 +79,7 @@ export async function createWebsiteQuoteRequest(input: WebsiteQuoteInput) {
   }
 
   const requestData = await jobberGraphql<RequestCreateData>(createRequestMutation, {
-    input: {
-      clientId,
-      title: jobberConfig().requestTitle,
-      requestDetails: {
-        form: {
-          sections: [
-            {
-              label: "Website quote",
-              items: [
-                { label: "Name", answerText: input.name },
-                { label: "Phone", answerText: input.phone },
-                { label: "Email", answerText: input.email },
-                { label: "ZIP", answerText: input.zip },
-                { label: "Service", answerText: serviceTitle },
-                { label: "Project details", answerText: input.details.trim() || "None provided" },
-                {
-                  label: "Photos selected on the website",
-                  answerText: input.photoNames.length > 0 ? input.photoNames.join(", ") : "None",
-                },
-              ],
-            },
-          ],
-        },
-      },
-    },
+    input: { ...prepared.requestInput, clientId },
   });
   assertNoUserErrors(requestData.requestCreate.userErrors, "Jobber did not create the request.");
   const request = requestData.requestCreate.request;
@@ -109,17 +89,10 @@ export async function createWebsiteQuoteRequest(input: WebsiteQuoteInput) {
   return {
     clientId,
     requestId: request.id,
-    title: request.title || jobberConfig().requestTitle,
+    title: request.title || quoteRequestTitle(input),
     jobberWebUri: request.jobberWebUri,
     serviceTitle,
   };
-}
-
-function splitName(fullName: string) {
-  const parts = fullName.trim().split(/\s+/).filter(Boolean);
-  const firstName = parts[0] || "Website";
-  const lastName = parts.slice(1).join(" ") || firstName;
-  return { firstName, lastName };
 }
 
 function assertNoUserErrors(errors: UserError[], fallback: string) {

@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 import { QuoteThankYou } from "@/components/QuoteThankYou";
+import { windowQuoteSubmission } from "@/lib/quote-payloads";
+import { submitWebsiteQuote } from "@/lib/quote-submit";
 import { windowManufacturers, windowMaterials, windowStyles } from "@/lib/window-funnel";
 
 const windowCounts = ["1 to 5", "6 to 12", "13+"] as const;
@@ -41,6 +43,8 @@ export function WindowQuoteBox({
   const [internalStyle, setInternalStyle] = useState("");
   const [internalManufacturer, setInternalManufacturer] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const materialValue = onMaterialChange ? material : internalMaterial;
@@ -72,8 +76,9 @@ export function WindowQuoteBox({
     return next;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
     const next = validate();
     setErrors(next);
     if (Object.keys(next).length > 0) {
@@ -87,6 +92,26 @@ export function WindowQuoteBox({
               ? "window-quote-email"
               : "window-count-1";
       document.getElementById(field)?.focus();
+      return;
+    }
+    setIsSubmitting(true);
+    setSubmitError("");
+    const result = await submitWebsiteQuote(
+      windowQuoteSubmission({
+        name,
+        phone,
+        zip,
+        email,
+        notes,
+        windowCount,
+        material: materialValue,
+        style: styleValue,
+        manufacturer: manufacturerValue,
+      }),
+    );
+    setIsSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(result.message);
       return;
     }
     setIsSubmitted(true);
@@ -304,11 +329,18 @@ export function WindowQuoteBox({
             </select>
           </label>
 
+          {submitError ? (
+            <p role="alert" className="text-sm font-medium text-red-200">
+              {submitError}
+            </p>
+          ) : null}
           <button
             type="submit"
-            className="mt-2 flex w-full items-center justify-center rounded-[4px] bg-[#4EC6FF] px-4 py-3.5 text-xs font-bold uppercase tracking-wider text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:text-sm"
+            disabled={isSubmitting}
+            aria-busy={isSubmitting}
+            className="mt-2 flex w-full items-center justify-center rounded-[4px] bg-[#4EC6FF] px-4 py-3.5 text-xs font-bold uppercase tracking-wider text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70 sm:text-sm"
           >
-            Request Upfront Pricing
+            {isSubmitting ? "Submitting" : "Request Upfront Pricing"}
           </button>
           <p className="text-center text-[11px] text-home-mist">
             We never share your information. Typical response time under 2 business hours.

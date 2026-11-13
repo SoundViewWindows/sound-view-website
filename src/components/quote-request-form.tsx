@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent, type ReactNode } from "react";
 import { QuoteThankYou, quoteServiceFromProject } from "@/components/QuoteThankYou";
+import { standardQuoteSubmission } from "@/lib/quote-payloads";
+import { submitWebsiteQuote } from "@/lib/quote-submit";
 import { services } from "@/lib/services";
 
 const MAX_FILES = 5;
@@ -85,39 +87,26 @@ export function QuoteRequestForm({
       document.getElementById(`quote-${firstInvalid}`)?.focus();
       return;
     }
-    if (variant !== "sidebar") {
-      setIsSubmitted(true);
-      onSubmittedChange?.(true);
+    setSubmitError("");
+    const result = await submitWebsiteQuote(
+      standardQuoteSubmission({
+        variant,
+        name,
+        phone,
+        zip,
+        email,
+        projectType,
+        details,
+        photoNames: files.map((file) => file.name),
+      }),
+    );
+    setIsSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(result.message);
       return;
     }
-
-    setSubmitError("");
-    try {
-      const response = await fetch("/api/quote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          phone,
-          zip,
-          email,
-          projectType,
-          details,
-          photoNames: files.map((file) => file.name),
-        }),
-      });
-      const payload = (await response.json().catch(() => null)) as { ok?: boolean; message?: string } | null;
-      if (!response.ok || !payload?.ok) {
-        setSubmitError(payload?.message || "We could not send your quote request. Your details are still here.");
-        return;
-      }
-      setIsSubmitted(true);
-      onSubmittedChange?.(true);
-    } catch {
-      setSubmitError("We could not send your quote request. Your details are still here.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    setIsSubmitted(true);
+    onSubmittedChange?.(true);
   }
 
   if (isSubmitted) {
@@ -260,6 +249,11 @@ export function QuoteRequestForm({
           </CompactField>
         </div>
 
+        {submitError ? (
+          <p role="alert" className="mb-3 text-sm font-medium text-red-200">
+            {submitError}
+          </p>
+        ) : null}
         <button
           type="submit"
           disabled={isSubmitting}

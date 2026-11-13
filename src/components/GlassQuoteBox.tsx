@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 import { QuoteThankYou } from "@/components/QuoteThankYou";
+import { glassQuoteSubmission } from "@/lib/quote-payloads";
+import { submitWebsiteQuote } from "@/lib/quote-submit";
 import { glassTypes } from "@/lib/glass-funnel";
 
 const paneCounts = ["1 Pane", "2 to 4 Panes", "5+ Panes"] as const;
@@ -25,6 +27,8 @@ export function GlassQuoteBox({
   const [notes, setNotes] = useState("");
   const [internalType, setInternalType] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const typeValue = onGlassTypeChange ? glassType : internalType;
@@ -44,8 +48,9 @@ export function GlassQuoteBox({
     return next;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
     const next = validate();
     setErrors(next);
     if (Object.keys(next).length > 0) {
@@ -59,6 +64,24 @@ export function GlassQuoteBox({
               ? "glass-quote-email"
               : "glass-count-1";
       document.getElementById(field)?.focus();
+      return;
+    }
+    setIsSubmitting(true);
+    setSubmitError("");
+    const result = await submitWebsiteQuote(
+      glassQuoteSubmission({
+        name,
+        phone,
+        zip,
+        email,
+        notes,
+        paneCount,
+        glassType: typeValue,
+      }),
+    );
+    setIsSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(result.message);
       return;
     }
     setIsSubmitted(true);
@@ -226,11 +249,18 @@ export function GlassQuoteBox({
             </select>
           </label>
 
+          {submitError ? (
+            <p role="alert" className="text-sm font-medium text-red-200">
+              {submitError}
+            </p>
+          ) : null}
           <button
             type="submit"
-            className="mt-2 flex w-full items-center justify-center rounded-[4px] bg-[#4EC6FF] px-4 py-3.5 text-xs font-bold uppercase tracking-wider text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:text-sm"
+            disabled={isSubmitting}
+            aria-busy={isSubmitting}
+            className="mt-2 flex w-full items-center justify-center rounded-[4px] bg-[#4EC6FF] px-4 py-3.5 text-xs font-bold uppercase tracking-wider text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70 sm:text-sm"
           >
-            Request Upfront Pricing
+            {isSubmitting ? "Submitting" : "Request Upfront Pricing"}
           </button>
           <p className="text-center text-[11px] text-home-mist">
             We never share your information. Typical response time under 2 business hours.

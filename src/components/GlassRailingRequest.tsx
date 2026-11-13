@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent, type MouseEvent } from "react";
 import { QuoteThankYou } from "@/components/QuoteThankYou";
+import { railingQuoteSubmission } from "@/lib/quote-payloads";
+import { submitWebsiteQuote } from "@/lib/quote-submit";
 
 export function RequestInstallationButton() {
   function scrollToRequest(event: MouseEvent<HTMLAnchorElement>) {
@@ -31,6 +33,8 @@ export function GlassRailingRequest() {
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function validate() {
@@ -42,8 +46,9 @@ export function GlassRailingRequest() {
     return next;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
     const next = validate();
     setErrors(next);
     if (Object.keys(next).length > 0) {
@@ -55,6 +60,22 @@ export function GlassRailingRequest() {
             ? "railing-zip"
             : "railing-email";
       document.getElementById(field)?.focus();
+      return;
+    }
+    setIsSubmitting(true);
+    setSubmitError("");
+    const result = await submitWebsiteQuote(
+      railingQuoteSubmission({
+        name,
+        phone,
+        zip,
+        email,
+        notes,
+      }),
+    );
+    setIsSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(result.message);
       return;
     }
     setIsSubmitted(true);
@@ -174,11 +195,18 @@ export function GlassRailingRequest() {
               className={inputClass(false)}
             />
           </div>
+          {submitError ? (
+            <p role="alert" className="text-sm font-medium text-red-200">
+              {submitError}
+            </p>
+          ) : null}
           <button
             type="submit"
-            className="w-full rounded-[4px] bg-[#4EC6FF] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#062033] shadow-md shadow-sky-500/20 transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+            disabled={isSubmitting}
+            aria-busy={isSubmitting}
+            className="w-full rounded-[4px] bg-[#4EC6FF] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#062033] shadow-md shadow-sky-500/20 transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            Request Professional Installation
+            {isSubmitting ? "Submitting" : "Request Professional Installation"}
           </button>
           <p className="text-center text-[11px] text-home-mist">
             We never share your information. Typical response time under 2 business hours.

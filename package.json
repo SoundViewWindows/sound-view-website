@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "node --experimental-strip-types --test src/lib/quote-payloads.test.ts src/lib/quote-instances.test.ts",
     "import:blogs": "node scripts/import-blogs.mjs"
   },
   "dependencies": {
