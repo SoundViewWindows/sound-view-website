@@ -26,7 +26,7 @@ export function GlassQuoteStep() {
     <div className="flex flex-1 flex-col bg-home-canvas text-[#E7EEF3]">
       <Header />
       <main className="flex flex-1 flex-col">
-        <section className="relative overflow-hidden py-12 lg:py-16">
+        <section className="relative overflow-hidden pb-10 pt-5 md:pb-12 md:pt-7">
           <div className="absolute inset-0 z-0">
             <img
               src="/hero-quotes/glass-replacement-quote-hero.jpg"
@@ -45,15 +45,15 @@ export function GlassQuoteStep() {
                   backHref="/services/glass-replacement/types"
                   backLabel="Glass Types"
                 />
-                <div className="space-y-4">
-                <h1 className="text-3xl font-extrabold leading-none tracking-tight text-white drop-shadow-sm sm:text-4xl lg:text-5xl">
+                <div className="space-y-1.5">
+                <h1 className="text-2xl font-bold leading-tight tracking-tight text-white drop-shadow-sm sm:text-3xl md:text-[34px]">
                   Your Custom Glass Estimate
                 </h1>
-                <p className="max-w-lg text-sm leading-relaxed text-slate-200 drop-shadow-sm sm:text-base">
+                <p className="max-w-2xl text-sm leading-snug text-slate-200 drop-shadow-sm md:text-[15px]">
                   Review your chosen glass type, then share a few details so our
                   Seattle specialists can prepare upfront pricing.
                 </p>
-                <p className="inline-flex items-center gap-2 rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-4 py-1.5 text-xs font-medium text-white shadow-sm">
+                <p className="inline-flex items-center gap-2 rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-2.5 py-1 text-xs font-medium text-white shadow-sm">
                   <span>{typeName}</span>
                   <Link
                     href="/services/glass-replacement/types"

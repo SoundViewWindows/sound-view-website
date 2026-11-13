@@ -21,7 +21,7 @@ export function GlassStepNav({
 
   return (
     <div>
-      <nav aria-label="Breadcrumb" className={`${backHref ? "" : "mb-4"} text-xs text-slate-400`}>
+      <nav aria-label="Breadcrumb" className="mb-2 text-xs text-slate-400">
         <ol className="flex flex-wrap items-center gap-2">
           {crumbs.map((item, index) => (
             <li key={item.label} className={index > 0 ? "flex items-center gap-2" : undefined}>
@@ -45,7 +45,7 @@ export function GlassStepNav({
       {backHref && backLabel ? (
         <Link
           href={backHref}
-          className="mb-4 mt-4 inline-flex text-sm font-medium text-home-accent underline decoration-home-accent/40 underline-offset-4 hover:text-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
+          className="mb-2.5 inline-flex text-sm font-medium text-home-accent underline decoration-home-accent/40 underline-offset-4 hover:text-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
         >
           &larr; Back to {backLabel}
         </Link>
