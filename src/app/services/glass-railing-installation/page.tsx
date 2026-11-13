@@ -70,7 +70,7 @@ export default function GlassRailingPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/75" />
           </div>
-        <div className="relative z-10 mx-auto max-w-[1440px] px-4 pb-16 pt-8 sm:px-5">
+        <div className="relative z-10 mx-auto max-w-[1440px] px-4 py-10 sm:px-5 md:py-12">
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="flex min-w-0 flex-col items-start lg:col-span-7">
               <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
@@ -116,23 +116,23 @@ export default function GlassRailingPage() {
                 </a>
                 <RequestInstallationButton />
               </div>
+              <div className="mt-7 grid w-full grid-cols-1 gap-4 sm:grid-cols-3 md:mt-8">
+                {highlights.map((item) => (
+                  <article
+                    key={item.title}
+                    className="rounded-[4px] border border-white/15 bg-[#182B3E]/75 p-4 backdrop-blur-[2px]"
+                  >
+                    <h2 className="text-[15px] font-bold leading-tight text-white">{item.title}</h2>
+                    <p className="mt-1 text-xs leading-relaxed text-slate-300">{item.body}</p>
+                  </article>
+                ))}
+              </div>
             </div>
             <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
               <div id="railing-quote-form" className="w-full max-w-md scroll-mt-24">
                 <GlassRailingRequest />
               </div>
             </div>
-          </div>
-          <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {highlights.map((item) => (
-              <article
-                key={item.title}
-                className="rounded-[4px] border border-white/15 bg-[#182B3E]/75 p-4 backdrop-blur-[2px]"
-              >
-                <h2 className="text-[15px] font-bold leading-tight text-white">{item.title}</h2>
-                <p className="mt-1 text-xs leading-relaxed text-slate-300">{item.body}</p>
-              </article>
-            ))}
           </div>
         </div>
         </section>
