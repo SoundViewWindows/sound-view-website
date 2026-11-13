@@ -7,6 +7,7 @@ import { DoorQuoteBox } from "@/components/DoorQuoteBox";
 import { CostComparison } from "@/components/CostComparison";
 import { DoorStepNav } from "@/components/DoorStepNav";
 import { Header } from "@/components/Header";
+import { HeroActionButtons } from "@/components/HeroActionButtons";
 import {
   DOOR_MATERIAL_STORAGE_KEY,
   doorChoiceLabel,
@@ -95,7 +96,7 @@ export function DoorQuoteStep() {
           </div>
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
-              <div className="lg:col-span-6">
+              <div className="relative z-20 lg:col-span-6">
                 <DoorStepNav
                   step={4}
                   type={typeSlug}
@@ -133,10 +134,11 @@ export function DoorQuoteStep() {
                   />
                 </div>
                 </div>
+                <HeroActionButtons appearance="quote" />
               </div>
               <div className="lg:col-span-6">
                 <DoorQuoteBox
-                  className="relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#0B192C] p-6 text-white shadow-2xl sm:p-7"
+                  className="relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#003d6b] p-6 text-white shadow-2xl sm:p-7"
                   material={material}
                   style={style}
                   manufacturer={manufacturer}

@@ -108,7 +108,7 @@ export function QuoteRequestForm({
         <div className="mb-3.5 flex flex-col gap-1 border-b border-white/15 pb-2.5 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-xl font-bold leading-tight text-white">Request a Free Quote</h2>
-            <p className="text-xs text-sky-100">Get in touch with our installation experts today.</p>
+            <p className="text-xs text-home-mist">Get in touch with our installation experts today.</p>
           </div>
           <p className="rounded-md bg-white/10 px-2.5 py-1 text-right text-[11px] font-bold text-white">
             SPECIAL OFFER: Save 10% on Labor
@@ -232,7 +232,7 @@ export function QuoteRequestForm({
           type="submit"
           disabled={isSubmitting}
           aria-busy={isSubmitting}
-          className="flex h-10 w-full items-center justify-center rounded-[4px] bg-[#38BDF8] text-xs font-bold uppercase tracking-wider text-[#0B192C] transition-colors hover:bg-[#0EA5E9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex h-10 w-full items-center justify-center rounded-[4px] bg-[#4EC6FF] text-xs font-bold uppercase tracking-wider text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isSubmitting ? "Submitting" : "Submit Quote Request"}
         </button>

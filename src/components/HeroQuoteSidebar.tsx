@@ -33,7 +33,7 @@ function HeroQuoteCard() {
   const [projectType, setProjectType] = useState("");
 
   return (
-    <aside className="w-full rounded-[4px] border border-white/15 bg-[#04528A] p-5 text-white shadow-2xl sm:p-6">
+    <aside className="w-full rounded-[4px] border border-white/15 bg-[#003d6b] p-5 text-white shadow-2xl sm:p-6">
       <QuoteRequestForm
         variant="horizontal"
         projectType={projectType}

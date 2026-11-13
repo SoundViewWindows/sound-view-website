@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Header } from "@/components/Header";
+import { HeroActionButtons } from "@/components/HeroActionButtons";
 import { CostComparison } from "@/components/CostComparison";
 import { WindowQuoteBox } from "@/components/WindowQuoteBox";
 import { WindowStepNav } from "@/components/WindowStepNav";
@@ -64,7 +65,7 @@ export function QuoteStep() {
           </div>
           <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-5">
             <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
-              <div className="lg:col-span-6">
+              <div className="relative z-20 lg:col-span-6">
                 <WindowStepNav
                   step={4}
                   material={materialSlug}
@@ -98,10 +99,11 @@ export function QuoteStep() {
                   />
                 </div>
                 </div>
+                <HeroActionButtons appearance="quote" />
               </div>
               <div className="lg:col-span-6">
                 <WindowQuoteBox
-                  className="relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#0B192C] p-6 text-white shadow-2xl sm:p-7"
+                  className="relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#003d6b] p-6 text-white shadow-2xl sm:p-7"
                   material={material}
                   style={style}
                   manufacturer={manufacturer}

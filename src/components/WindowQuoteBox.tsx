@@ -29,7 +29,7 @@ export function WindowQuoteBox({
   onMaterialChange,
   onStyleChange,
   onManufacturerChange,
-  className = "relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#0B192C] p-6 text-white shadow-2xl sm:p-7",
+  className = "relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#003d6b] p-6 text-white shadow-2xl sm:p-7",
 }: WindowQuoteBoxProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -212,8 +212,8 @@ export function WindowQuoteBox({
                     onClick={() => setWindowCount(count)}
                     className={`w-full rounded-[4px] border px-2 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
                       selected
-                        ? "border-transparent bg-[#38BDF8] font-semibold text-[#0B192C]"
-                        : "border-white/20 bg-[#182B3E]/75 font-medium text-white hover:bg-[#182B3E]"
+                        ? "border-transparent bg-white font-semibold text-[#0B192C]"
+                        : "border-white/25 bg-white/10 font-medium text-white hover:bg-white/20"
                     }`}
                   >
                     {count}
@@ -306,7 +306,7 @@ export function WindowQuoteBox({
 
           <button
             type="submit"
-            className="mt-2 flex w-full items-center justify-center rounded-[4px] bg-[#38BDF8] px-4 py-3.5 text-xs font-bold uppercase tracking-wider text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:text-sm"
+            className="mt-2 flex w-full items-center justify-center rounded-[4px] bg-[#4EC6FF] px-4 py-3.5 text-xs font-bold uppercase tracking-wider text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:text-sm"
           >
             Request Upfront Pricing
           </button>

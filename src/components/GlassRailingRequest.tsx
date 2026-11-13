@@ -73,12 +73,12 @@ export function GlassRailingRequest() {
   return (
     <aside
       id="railing-install"
-      className="relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#04528A] p-6 text-white shadow-2xl sm:p-7"
+      className="relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#003d6b] p-6 text-white shadow-2xl sm:p-7"
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
             <h2 className="text-xl font-bold text-white">Request Professional Installation</h2>
-            <p className="mt-1 text-xs text-sky-100">
+            <p className="mt-1 text-xs text-home-mist">
               No pressure, upfront guidance from local Pacific Northwest specialists.
             </p>
           </div>
@@ -162,7 +162,7 @@ export function GlassRailingRequest() {
           <div>
             <label className={labelClass} htmlFor="railing-notes">
               Project Notes
-              <span className="font-normal text-slate-400"> Optional</span>
+              <span className="font-normal text-home-mist"> Optional</span>
             </label>
             <textarea
               id="railing-notes"
@@ -176,11 +176,11 @@ export function GlassRailingRequest() {
           </div>
           <button
             type="submit"
-            className="w-full rounded-[4px] bg-[#38BDF8] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#0B192C] shadow-md shadow-sky-500/20 transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+            className="w-full rounded-[4px] bg-[#4EC6FF] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#062033] shadow-md shadow-sky-500/20 transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
           >
             Request Professional Installation
           </button>
-          <p className="text-center text-[11px] text-slate-400">
+          <p className="text-center text-[11px] text-home-mist">
             We never share your information. Typical response time under 2 business hours.
           </p>
         </form>
