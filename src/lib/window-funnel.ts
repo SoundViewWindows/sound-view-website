@@ -100,7 +100,7 @@ export const windowMaterials: WindowChoice[] = [
     detail: "Low Maintenance",
     image: "/materials/vinyl.jpg",
     alt: "Premium vinyl bay window installation",
-    body: "A cost-effective frame with strong energy efficiency. Vinyl does not need painting, and it holds its color in wet Pacific Northwest weather.",
+    body: "Vinyl windows are extruded PVC frames built for energy efficiency at an accessible price. They never need painting or staining, resist moisture and rot, and wipe clean with soap and water—making them one of the lowest-maintenance window materials for Seattle-area homes.",
   },
   {
     slug: "wood",
@@ -109,7 +109,7 @@ export const windowMaterials: WindowChoice[] = [
     detail: "Natural Warmth",
     image: "/materials/wood-clad.jpg",
     alt: "Wood and wood-clad windows",
-    body: "Classic Pacific Northwest interior warmth, with exterior cladding that takes the weather so the wood inside stays protected.",
+    body: "Wood windows offer natural warmth and character on the interior, with the option of aluminum or fiberglass cladding on the exterior to shield the frame from rain and sun. Ideal for craftsman and historic Seattle homes where authentic wood interiors matter.",
   },
   {
     slug: "fiberglass",
@@ -118,7 +118,7 @@ export const windowMaterials: WindowChoice[] = [
     detail: "Strength and Stability",
     image: "/materials/fiberglass.jpg",
     alt: "Fiberglass replacement windows",
-    body: "Superior structural strength and minimal thermal expansion. Fiberglass stands up to heavy rain and marine air without swelling or warping.",
+    body: "Fiberglass window frames are made from glass fibers and resin, giving them exceptional strength with very low expansion and contraction. They hold their shape through Puget Sound temperature swings and wet winters without warping, cracking, or peeling.",
   },
   {
     slug: "aluminum",
@@ -127,7 +127,7 @@ export const windowMaterials: WindowChoice[] = [
     detail: "Architectural Lines",
     image: "/materials/aluminum.jpg",
     alt: "Thermally broken architectural aluminum windows",
-    body: "Crisp sightlines and high structural rigidity for modern homes. A thermal break keeps the metal frame from carrying cold inside.",
+    body: "Aluminum windows deliver slim sightlines and a clean, modern look favored in contemporary architecture. A thermal break between the interior and exterior frame stops heat transfer, so the metal stays energy efficient in cool weather.",
   },
   {
     slug: "composite",
@@ -136,7 +136,7 @@ export const windowMaterials: WindowChoice[] = [
     detail: "Stable Hybrid Frame",
     image: "/images/materials/composite-window.jpg",
     alt: "Charcoal gray composite casement window installed in exterior stucco wall",
-    body: "A blended frame that resists swelling in wet weather and holds its color or finish with very little upkeep.",
+    body: "Composite window frames blend wood fibers with polymer to combine the strength and stability of wood with the low maintenance of vinyl. They resist swelling, rot, and insects in damp climates—no painting required.",
   },
 ];
 

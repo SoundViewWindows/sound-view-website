@@ -40,6 +40,7 @@ export function MaterialsStep() {
                 title={material.name}
                 description={material.body}
                 detail={material.detail}
+                cta={`Explore ${material.name} Windows`}
                 sizes="(min-width: 768px) 50vw, 100vw"
                 theme="home"
                 layout="material"

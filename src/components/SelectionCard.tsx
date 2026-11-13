@@ -19,6 +19,8 @@ type SelectionCardProps = {
   tallImage?: boolean;
   imageClassName?: string;
   imageStyle?: CSSProperties;
+  descriptionClassName?: string;
+  paddingClassName?: string;
 };
 
 export function SelectionCard({
@@ -36,6 +38,8 @@ export function SelectionCard({
   tallImage = false,
   imageClassName,
   imageStyle,
+  descriptionClassName,
+  paddingClassName = "p-3.5 sm:p-4",
 }: SelectionCardProps) {
   const imageFrame = tallImage
     ? "relative mb-3.5 h-72 w-full shrink-0 overflow-hidden rounded-xl bg-slate-800 sm:h-80"
@@ -48,7 +52,7 @@ export function SelectionCard({
       href={href}
       onClick={onClick}
       aria-current={selected ? "true" : undefined}
-      className={`group flex h-full cursor-pointer flex-col rounded-xl bg-[#2B3E50]/85 p-3.5 transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:p-4 ${
+      className={`group flex h-full cursor-pointer flex-col rounded-xl bg-[#2B3E50]/85 ${paddingClassName} transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
         tallImage ? "justify-between" : ""
       } ${
         selected ? "border border-sky-400 ring-2 ring-sky-400" : "border border-white/15"
@@ -73,7 +77,7 @@ export function SelectionCard({
       </span>
       <span className="flex min-h-0 flex-1 flex-col">
         <span className="mb-1.5 text-base font-bold text-white sm:text-lg">{title}</span>
-        <span className="mb-2.5 text-xs leading-relaxed text-slate-300 sm:text-[13px]">
+        <span className={descriptionClassName ?? "mb-2.5 text-xs leading-relaxed text-slate-300 sm:text-[13px]"}>
           {description}
         </span>
         {detail ? (

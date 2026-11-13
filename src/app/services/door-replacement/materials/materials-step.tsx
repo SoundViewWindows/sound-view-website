@@ -126,6 +126,9 @@ export function DoorMaterialsStep() {
                   alt={material.alt}
                   title={material.name}
                   description={material.body}
+                  descriptionClassName="mb-2.5 text-[15px] leading-[1.5] text-slate-300 lg:text-[14px] xl:text-[15px]"
+                  paddingClassName="px-3.5 py-3 sm:px-4 sm:py-3"
+                  cta={`Explore ${material.name} Doors`}
                   theme="home"
                   layout="material"
                   sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"

@@ -55,7 +55,7 @@ export const doorMaterials: DoorChoice[] = [
     detail: "Low Maintenance",
     image: "/images/materials/door-vinyl.jpg",
     alt: "Modern black textured vinyl entry door with tall glass lites and smart lock",
-    body: "A colorfast frame for patio and sliding doors. Vinyl stands up to wet Pacific Northwest weather and needs very little upkeep.",
+    body: "Vinyl patio and sliding doors are energy efficient, never need painting, and shrug off Seattle rain with almost no upkeep.",
   },
   {
     slug: "aluminum",
@@ -64,7 +64,7 @@ export const doorMaterials: DoorChoice[] = [
     detail: "Slim Sightlines",
     image: "/images/materials/door-aluminum.jpg",
     alt: "Sleek architectural bronze aluminum patio door frame with modern hardware",
-    body: "Rigid frames with slim sightlines for wide patio openings. A thermal break keeps the metal from carrying cold inside.",
+    body: "Aluminum doors pair slim sightlines with rigid strength for wide patio openings, with a thermal break for energy efficiency.",
   },
   {
     slug: "fiberglass",
@@ -73,7 +73,7 @@ export const doorMaterials: DoorChoice[] = [
     detail: "Strength and Stability",
     image: "/images/materials/door-fiberglass.jpg",
     alt: "Craftsman slate blue fiberglass door with high-durability embossed panels",
-    body: "Fiberglass holds its shape in marine air. It resists rot, swelling, and dents through wet winters.",
+    body: "Fiberglass doors resist rot, swelling, and dents through wet winters, holding their shape and finish for years.",
   },
   {
     slug: "wood",
@@ -82,7 +82,7 @@ export const doorMaterials: DoorChoice[] = [
     detail: "Natural Warmth & Character",
     image: "/images/materials/door-wood.jpg",
     alt: "Classic arched wood entry door with rich natural grain finish and dark handle",
-    body: "Authentic wood grain, rich stain options, and solid insulating natural cores with durable weather-resistant exterior finishes.",
+    body: "Wood doors offer authentic grain, rich stain options, and natural insulation with weather-resistant exterior finishes.",
   },
   {
     slug: "wood-clad",
@@ -91,7 +91,7 @@ export const doorMaterials: DoorChoice[] = [
     detail: "Protected Wood",
     image: "/images/materials/door-clad-wood.jpg",
     alt: "Contemporary horizontal plank clad wood door with protective exterior casing",
-    body: "Wood warmth on the interior, with exterior cladding that takes the rain so the wood stays protected.",
+    body: "Wood clad doors bring real wood warmth inside while the exterior cladding stands up to Pacific Northwest rain.",
   },
   {
     slug: "composite",
@@ -100,7 +100,7 @@ export const doorMaterials: DoorChoice[] = [
     detail: "Stable Hybrid",
     image: "/images/materials/composite-doors.jpg",
     alt: "Modern black composite entry door with divided glass lites and matching sidelights",
-    body: "A blended door material that resists moisture and holds its finish with very little maintenance.",
+    body: "Composite doors blend materials that resist moisture, rot, and insects while holding their finish with little upkeep.",
   },
 ];
 
