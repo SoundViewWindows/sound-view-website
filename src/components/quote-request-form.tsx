@@ -206,7 +206,7 @@ export function QuoteRequestForm({
           </CompactField>
           <CompactField label="Photos or videos" id="quote-media" error={errors.media}>
             <div
-              className={`relative flex h-9 w-full cursor-pointer items-center gap-2 overflow-hidden rounded-md bg-white px-3 ${
+              className={`relative flex h-9 w-full cursor-pointer items-center gap-2 overflow-hidden rounded-[4px] bg-white px-3 ${
                 errors.media ? "ring-2 ring-red-500" : ""
               }`}
             >
@@ -232,7 +232,7 @@ export function QuoteRequestForm({
           type="submit"
           disabled={isSubmitting}
           aria-busy={isSubmitting}
-          className="flex h-10 w-full items-center justify-center rounded-lg bg-[#38BDF8] text-xs font-bold uppercase tracking-wider text-[#0B192C] transition-colors hover:bg-[#0EA5E9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex h-10 w-full items-center justify-center rounded-[4px] bg-[#38BDF8] text-xs font-bold uppercase tracking-wider text-[#0B192C] transition-colors hover:bg-[#0EA5E9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isSubmitting ? "Submitting" : "Submit Quote Request"}
         </button>
@@ -342,11 +342,11 @@ export function QuoteRequestForm({
 
       <Field label="Photos or videos" id="quote-media" error={errors.media}>
         <div
-          className={`relative flex w-full cursor-pointer items-center gap-3 overflow-hidden rounded-xl border bg-[#FFFFFF] p-1.5 focus-within:border-[#38BDF8] focus-within:ring-2 focus-within:ring-[#38BDF8]/20 ${
+          className={`relative flex w-full cursor-pointer items-center gap-3 overflow-hidden rounded-[4px] border bg-[#FFFFFF] p-1.5 focus-within:border-[#38BDF8] focus-within:ring-2 focus-within:ring-[#38BDF8]/20 ${
             errors.media ? "border-red-600" : "border-[#E2E8F0]"
           }`}
         >
-          <span className="shrink-0 rounded-lg border border-[#E2E8F0] bg-[#F1F5F9] px-3 py-1.5 text-xs font-bold text-[#334155]">
+          <span className="shrink-0 rounded-[4px] border border-[#E2E8F0] bg-[#F1F5F9] px-3 py-1.5 text-xs font-bold text-[#334155]">
             Choose file
           </span>
           <span
@@ -375,7 +375,7 @@ export function QuoteRequestForm({
         type="submit"
         disabled={isSubmitting}
         aria-busy={isSubmitting}
-        className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 sm:text-sm"
+        className="mt-2 flex w-full items-center justify-center gap-2 rounded-[4px] bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 sm:text-sm"
       >
         {isSubmitting ? "Submitting" : "Submit Quote Request"}
         {isSubmitting ? null : (
@@ -442,7 +442,7 @@ function CompactField({
 
 function compactInputClass(invalid: boolean) {
   return [
-    "h-9 w-full rounded-md bg-white px-3 text-xs text-slate-900 scheme-light",
+    "h-9 w-full rounded-[4px] bg-white px-3 text-xs text-slate-900 scheme-light",
     "placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/40",
     invalid ? "ring-2 ring-red-500" : "",
   ].join(" ");
@@ -451,7 +451,7 @@ function compactInputClass(invalid: boolean) {
 function inputClass(invalid: boolean, fixedHeight = true) {
   return [
     fixedHeight ? "" : "resize-none",
-    "w-full rounded-xl border border-[#E2E8F0] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#0F172A] shadow-sm scheme-light transition-all placeholder:text-[#94A3B8]",
+    "w-full rounded-[4px] border border-[#E2E8F0] bg-[#FFFFFF] px-3.5 py-2.5 text-sm text-[#0F172A] shadow-sm scheme-light transition-all placeholder:text-[#94A3B8]",
     "focus:border-[#38BDF8] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/20",
     invalid ? "border-red-600" : "",
   ].join(" ");

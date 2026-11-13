@@ -13,17 +13,17 @@ import { services } from "@/lib/services";
 
 const serviceCardCopy: Record<string, string> = {
   "window-replacement":
-    "Energy-efficient replacement windows professionally installed to boost comfort and curb appeal.",
+    "Replace drafty, outdated windows with energy-efficient replacement windows. Explore styles and glass options for your home, with professional window installation to improve comfort and update your home’s appearance.",
   "door-replacement":
-    "Custom entry, sliding patio, and French doors installed for smooth operation and a draft-free fit.",
+    "Upgrade your home with replacement entry doors, sliding patio doors, and French doors. Professional door installation helps address drafts, difficult operation, and worn-out doors while updating your home’s style.",
   "shower-door-replacement":
-    "Frameless and framed glass shower enclosures custom-measured and installed for your bathroom.",
+    "Update your bathroom with custom glass shower doors and shower enclosures. Explore frameless and framed options, with professional measurement and installation for your shower layout.",
   "glass-replacement":
-    "Fast glass pane replacement for cracked, broken, or foggy windows without replacing the frame.",
+    "Replace cracked, broken, or foggy window glass without replacing the entire window when the existing frame is suitable. Get professional glass replacement to restore clear views and address damaged or failed glass.",
   "glass-railing-installation":
-    "Framed and frameless architectural glass railings for decks, stairs, and balconies.",
+    "Open up your view with custom glass railings for decks, balconies, and stairs. Explore framed and frameless glass railing systems, with professional installation for indoor and outdoor projects.",
   "window-blinds-shades":
-    "Custom motorized, blackout, and light-filtering shades tailored for privacy and light control.",
+    "Add privacy and control sunlight with custom window blinds and shades. Explore light-filtering, blackout, and motorized options, with professional measurement and installation for a tailored fit.",
 };
 
 type ShowroomPhone = {
@@ -91,7 +91,17 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <Header onServiceSelect={chooseService} />
 
-      <main className="mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-0 sm:px-5 lg:grid-cols-[minmax(0,1fr)_calc(18rem+70px)] lg:items-start lg:pb-3 lg:pl-5 lg:pr-0">
+      <section className="relative flex-1 overflow-hidden bg-[#0B192C]">
+        <div className="pointer-events-none absolute inset-0 z-0 select-none">
+          <img
+            src="/images/hero-bg.jpg"
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover object-center opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/65" />
+        </div>
+      <main className="relative z-10 mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-0 sm:px-5 lg:grid-cols-[minmax(0,1fr)_calc(18rem+70px)] lg:items-start lg:pb-3 lg:pl-5 lg:pr-0">
         <div className="relative z-20 flex min-h-0 flex-col">
           <div className="relative z-30 mb-4 flex w-full flex-col items-center justify-center gap-5 pb-7 pt-6 md:flex-row md:pb-4 md:pt-5 xl:pb-5 xl:pt-6">
             <Image
@@ -220,7 +230,7 @@ export default function Home() {
                               ? "/services/window-blinds-shades"
                               : `/services/${service.id}`
                 }
-                className="flex h-full cursor-pointer flex-col rounded-xl border border-white/15 bg-[#2B3E50]/85 p-2.5 transition-all hover:border-white/30 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
+                className="flex h-full cursor-pointer flex-col justify-between rounded-xl border border-white/15 bg-[#182B3E]/75 p-4 backdrop-blur-[2px] transition-all hover:border-white/30 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
               >
                 <div
                   className="mb-2 h-[132px] w-full shrink-0 overflow-hidden rounded-md bg-slate-800"
@@ -244,7 +254,7 @@ export default function Home() {
           <ScrollReveal>
             <section
               aria-label="Company credentials"
-              className="mt-3 grid grid-cols-1 divide-y divide-home-line rounded-xl border border-[#8AA0B2]/30 bg-home-panel/80 px-6 py-3 text-center shadow-lg sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:text-left"
+              className="mt-3 grid grid-cols-1 divide-y divide-home-line rounded-[4px] border border-[#8AA0B2]/30 bg-home-panel/80 px-6 py-3 text-center shadow-lg sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:text-left"
             >
               <div className="py-3 sm:px-4 sm:py-0 sm:pl-0">
                 <p className="text-sm font-bold tracking-wide text-white">3 Puget Sound Showrooms</p>
@@ -300,6 +310,7 @@ export default function Home() {
           </div>
         </aside>
       </main>
+      </section>
     </div>
 
       <SoundViewDifference />
@@ -542,7 +553,7 @@ function HomeownerReviews() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-3 text-left md:grid-cols-3 lg:gap-4">
         {homeownerReviews.map((review, index) => (
           <ScrollReveal key={review.name} delay={index * 100} className="h-full">
-            <figure className="flex h-full flex-col justify-between rounded-2xl border border-white/20 bg-white px-3.5 py-2.5 shadow-xl">
+            <figure className="flex h-full flex-col justify-between rounded-[4px] border border-white/20 bg-white px-3.5 py-2.5 shadow-xl">
               <div>
                 <div className="mb-1.5 flex items-center justify-between gap-2">
                   <span className="flex min-w-0 items-center gap-2">
@@ -657,7 +668,7 @@ function FaqAndCta({
           <button
             type="button"
             onClick={onQuote}
-            className="mt-8 rounded-full bg-home-accent px-6 py-3 text-base font-medium text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
+            className="mt-8 rounded-[4px] bg-home-accent px-6 py-3 text-base font-medium text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
           >
             Get A Free Quote
           </button>

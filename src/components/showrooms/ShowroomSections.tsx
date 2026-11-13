@@ -43,7 +43,15 @@ export function ShowroomHero({
         <h1 className="text-white font-extrabold text-3xl sm:text-5xl tracking-tight mb-4 max-w-4xl">
           {title}
         </h1>
-        <p className="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed mb-6">{subtitle}</p>
+        <p className="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed">{subtitle}</p>
+        <a
+          href={BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`mt-6 inline-flex items-center justify-center rounded-[4px] bg-[#38BDF8] px-7 py-3.5 text-sm font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-[#0284C7] hover:text-white sm:text-base ${focusRing}`}
+        >
+          Book Appointment
+        </a>
     </HeroQuoteLayout>
   );
 }
