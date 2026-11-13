@@ -24,7 +24,7 @@ const pillars = [
   },
   {
     title: "3 Puget Sound Showrooms",
-    body: "Convenient showrooms in Lake City, West Queen Anne, and Bellevue to see products in person.",
+    body: "Convenient showrooms in Lake City, Queen Anne, and Bellevue to see products in person.",
   },
   {
     title: "Authorized Factory Dealer",
@@ -36,7 +36,44 @@ const pillars = [
   },
 ];
 
-export function WhyChooseSoundView({ layout = "section" }: { layout?: "section" | "hero" }) {
+export function WhyChooseSoundView({
+  layout = "section",
+}: {
+  layout?: "section" | "hero" | "light";
+}) {
+  if (layout === "light") {
+    return (
+      <section
+        aria-labelledby="why-choose-sound-view"
+        className="bg-[#F4F6F9] py-14 text-[#0B192C] md:py-16"
+        style={{ backgroundColor: "#F4F6F9", paddingTop: "56px", paddingBottom: "56px" }}
+      >
+        <div className="mx-auto max-w-7xl px-6 sm:px-10">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#0284C7]">
+            Why Choose Sound View
+          </p>
+          <h2
+            id="why-choose-sound-view"
+            className="mt-2 text-2xl font-bold leading-snug text-[#0B192C] sm:text-3xl"
+          >
+            Trusted Local Craftsmanship Across Greater Seattle
+          </h2>
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {pillars.map((pillar) => (
+              <article
+                key={pillar.title}
+                className="rounded-[4px] border border-slate-200/90 bg-white p-5 shadow-sm"
+              >
+                <h3 className="text-base font-bold leading-snug text-[#0B192C]">{pillar.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{pillar.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   if (layout === "hero") {
     return (
       <>

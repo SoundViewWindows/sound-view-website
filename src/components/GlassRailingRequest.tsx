@@ -6,17 +6,18 @@ import { QuoteThankYou } from "@/components/QuoteThankYou";
 export function RequestInstallationButton() {
   function scrollToRequest(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
-    document.getElementById("railing-install")?.scrollIntoView({
+    document.getElementById("railing-quote-form")?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
+    document.getElementById("railing-name")?.focus({ preventScroll: true });
   }
 
   return (
     <a
-      href="#railing-install"
+      href="#railing-quote-form"
       onClick={scrollToRequest}
-      className="flex items-center gap-2 rounded-lg border border-sky-400/70 px-6 py-3 text-sm font-medium text-sky-300 transition-colors hover:bg-sky-400/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+      className="flex items-center gap-2 rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
     >
       Request Professional Installation
     </a>
@@ -72,12 +73,12 @@ export function GlassRailingRequest() {
   return (
     <aside
       id="railing-install"
-      className="relative w-full scroll-mt-6 rounded-[4px] border border-slate-700/80 bg-[#132238] p-6 shadow-xl sm:p-7"
+      className="relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#04528A] p-6 text-white shadow-2xl sm:p-7"
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
             <h2 className="text-xl font-bold text-white">Request Professional Installation</h2>
-            <p className="mt-1 text-xs text-slate-300">
+            <p className="mt-1 text-xs text-sky-100">
               No pressure, upfront guidance from local Pacific Northwest specialists.
             </p>
           </div>

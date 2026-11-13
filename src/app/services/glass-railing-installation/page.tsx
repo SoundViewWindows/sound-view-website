@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
+import Image from "next/image";
 import Link from "next/link";
 import { GlassRailingRequest, RequestInstallationButton } from "@/components/GlassRailingRequest";
 import { CtaBanner } from "@/components/CtaBanner";
@@ -30,15 +31,40 @@ const highlights = [
   },
 ];
 
+const railingPhoto = "/services/glass-railing.jpg";
+
+const systems = [
+  {
+    title: "Frameless Standoff Glass Railings",
+    body: "Heavy tempered glass mounted with marine-grade stainless steel standoffs for uninterrupted views.",
+    alt: "Glass loft railing with stainless standoff clamps",
+    src: railingPhoto,
+    position: "18% 72%",
+  },
+  {
+    title: "Post & Top-Rail Systems",
+    body: "Engineered aluminum or stainless posts with slim top rails for decks and elevated balconies.",
+    alt: "Glass railing with a slim stainless top rail",
+    src: "/images/post-top-rail-systems.jpg",
+  },
+  {
+    title: "Interior Staircase & Loft Railings",
+    body: "Custom-angled tempered glass panels that open up interior light and sightlines.",
+    alt: "Interior staircase and loft glass railing",
+    src: "/images/interior-staircase-railings.jpg",
+  },
+];
+
 export default function GlassRailingPage() {
   return (
-    <div className="bg-home-canvas text-[#E7EEF3]">
+    <div>
       <Header />
       <main>
+        <section className="bg-[#0B192C] text-white">
         <div className="mx-auto max-w-[1440px] px-4 pb-16 pt-8 sm:px-5">
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="flex min-w-0 flex-col items-start lg:col-span-7">
-              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-300">
+              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
                 <ol className="flex flex-wrap items-center gap-2">
                   <li>
                     <Link
@@ -64,7 +90,7 @@ export default function GlassRailingPage() {
               <h1 className="mb-4 max-w-full text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Custom Glass Railings Engineered for Unobstructed Views
               </h1>
-              <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg">
+              <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
                 Open up your deck, balcony, or interior staircase with
                 precision-measured tempered glass railing systems designed to
                 withstand Pacific Northwest marine conditions.
@@ -74,7 +100,7 @@ export default function GlassRailingPage() {
                   href="https://sound-view-window-door.myshopify.com/collections/shower-glass-hardware"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                  className="flex items-center gap-2 rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                 >
                   <BagIcon />
                   Shop Railing Hardware Online
@@ -83,29 +109,77 @@ export default function GlassRailingPage() {
               </div>
             </div>
             <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
-              <div className="w-full max-w-md">
+              <div id="railing-quote-form" className="w-full max-w-md scroll-mt-24">
                 <GlassRailingRequest />
               </div>
             </div>
           </div>
-        </div>
-
-        <section>
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 pb-20 sm:grid-cols-2 sm:px-5 lg:grid-cols-4">
+          <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-3">
             {highlights.map((item) => (
               <article
                 key={item.title}
-                className="rounded-[4px] border border-white/15 bg-[#2B3E50]/85 p-4"
+                className="rounded-[4px] border border-white/15 bg-[#182B3E] p-4"
               >
                 <h2 className="text-[15px] font-bold leading-tight text-white">{item.title}</h2>
                 <p className="mt-1 text-xs leading-relaxed text-slate-300">{item.body}</p>
               </article>
             ))}
           </div>
+        </div>
         </section>
-        <CtaBanner />
+
+        <section
+          className="bg-[#E6ECF2] py-16 text-[#0B192C] md:py-20"
+          style={{ backgroundColor: "#E6ECF2", paddingTop: "64px", paddingBottom: "64px" }}
+          aria-labelledby="railing-systems"
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-5">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#0284C7]">
+              Systems and Applications
+            </p>
+            <h2 id="railing-systems" className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+              Glass Railing Systems & Applications
+            </h2>
+            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+              {systems.map((system) => (
+                <article
+                  key={system.title}
+                  className="overflow-hidden rounded-[4px] border border-slate-200/80 bg-white shadow-sm"
+                >
+                  <div className="relative h-[160px] overflow-hidden">
+                    <Image
+                      src={system.src}
+                      alt={system.alt}
+                      fill
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      className={
+                        "position" in system
+                          ? "object-cover"
+                          : "h-full w-full object-cover object-center"
+                      }
+                      style={"position" in system ? { objectPosition: system.position } : undefined}
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-[15px] font-bold leading-tight text-[#0B192C]">{system.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-slate-600">{system.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
-      <WhyChooseSoundView />
+      <WhyChooseSoundView layout="light" />
+      <CtaBanner
+        className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
+        style={{
+          backgroundColor: "#182B3E",
+          paddingTop: "64px",
+          paddingBottom: "64px",
+          borderTop: "none",
+        }}
+      />
     </div>
   );
 }
