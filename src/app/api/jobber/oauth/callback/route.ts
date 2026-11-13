@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { readJobberAccount } from "@/lib/jobber/account";
 import { exchangeAuthorizationCode, statesMatch } from "@/lib/jobber/oauth";
+import { takePkce } from "@/lib/jobber/pkce-store";
 import { writeJobberTokens } from "@/lib/jobber/tokens";
 
 export async function GET(request: Request) {
@@ -11,11 +12,13 @@ export async function GET(request: Request) {
   const cookieStore = await cookies();
   const stored = cookieStore.get("jobber_oauth")?.value ?? "";
   const separator = stored.indexOf(".");
-  const expectedState = separator >= 0 ? stored.slice(0, separator) : "";
-  const verifier = separator >= 0 ? stored.slice(separator + 1) : "";
+  const cookieState = separator >= 0 ? stored.slice(0, separator) : "";
+  const cookieVerifier = separator >= 0 ? stored.slice(separator + 1) : "";
+  const serverVerifier = code && state ? await takePkce(state) : null;
+  const verifier = serverVerifier || (state && statesMatch(cookieState, state) ? cookieVerifier : "");
 
-  if (!code || !state || !expectedState || !verifier || !statesMatch(expectedState, state)) {
-    return html("Jobber did not finish connecting. Start again from the local connect link.", 400);
+  if (!code || !state || !verifier) {
+    return html("Jobber did not finish connecting. Start again from the authorization link.", 400);
   }
 
   try {

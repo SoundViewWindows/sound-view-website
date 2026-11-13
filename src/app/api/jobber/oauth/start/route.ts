@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createPkcePair, authorizationUrl } from "@/lib/jobber/oauth";
-import { missingJobberCredentials } from "@/lib/jobber/config";
+import { savePkce } from "@/lib/jobber/pkce-store";
+import { jobberConfig, missingJobberCredentials } from "@/lib/jobber/config";
 
 export async function GET() {
   const missing = missingJobberCredentials();
@@ -12,11 +13,12 @@ export async function GET() {
   }
 
   const pkce = createPkcePair();
+  await savePkce(pkce.state, pkce.verifier);
   const response = NextResponse.redirect(authorizationUrl(pkce.challenge, pkce.state));
   response.cookies.set("jobber_oauth", `${pkce.state}.${pkce.verifier}`, {
     httpOnly: true,
     sameSite: "lax",
-    secure: false,
+    secure: jobberConfig().redirectUri.startsWith("https://"),
     path: "/",
     maxAge: 600,
   });
