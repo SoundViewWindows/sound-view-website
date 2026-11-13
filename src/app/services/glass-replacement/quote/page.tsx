@@ -14,7 +14,7 @@ export default function GlassQuotePage() {
       >
         <GlassQuoteStep />
       </Suspense>
-      <WhyChooseSoundView />
+      <WhyChooseSoundView layout="light" />
     </>
   );
 }

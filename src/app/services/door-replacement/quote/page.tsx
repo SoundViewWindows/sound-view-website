@@ -14,7 +14,7 @@ export default function DoorQuotePage() {
       >
         <DoorQuoteStep />
       </Suspense>
-      <WhyChooseSoundView />
+      <WhyChooseSoundView layout="light" />
     </>
   );
 }

@@ -14,7 +14,7 @@ export default function ShowerQuotePage() {
       >
         <ShowerQuoteStep />
       </Suspense>
-      <WhyChooseSoundView />
+      <WhyChooseSoundView layout="light" />
     </>
   );
 }
