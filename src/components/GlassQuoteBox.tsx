@@ -15,7 +15,7 @@ type GlassQuoteBoxProps = {
 export function GlassQuoteBox({
   glassType = "",
   onGlassTypeChange,
-  className = "relative w-full scroll-mt-6 rounded-[4px] border border-[#1A6496] bg-home-deep p-6 text-white shadow-2xl shadow-slate-950/30 sm:p-7",
+  className = "relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#0B192C] p-6 text-white shadow-2xl sm:p-7",
 }: GlassQuoteBoxProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -175,10 +175,10 @@ export function GlassQuoteBox({
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setPaneCount(count)}
-                    className={`w-full px-2 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent ${
+                    className={`w-full rounded-[4px] border px-2 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
                       selected
-                        ? "rounded-[4px] bg-home-accent text-[#062033] hover:bg-[#7DD3FC]"
-                        : "rounded-[4px] border border-white bg-white text-[#0B192C] hover:bg-slate-100"
+                        ? "border-transparent bg-[#38BDF8] font-semibold text-[#0B192C]"
+                        : "border-white/20 bg-[#182B3E]/75 font-medium text-white hover:bg-[#182B3E]"
                     }`}
                   >
                     {count}
@@ -228,7 +228,7 @@ export function GlassQuoteBox({
 
           <button
             type="submit"
-            className="mt-2 flex w-full items-center justify-center rounded-[4px] bg-home-accent px-4 py-3.5 text-xs font-black uppercase tracking-wider text-[#062033] shadow-lg shadow-[#4EC6FF]/25 transition-all hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent active:scale-[0.98] sm:text-sm"
+            className="mt-2 flex w-full items-center justify-center rounded-[4px] bg-[#38BDF8] px-4 py-3.5 text-xs font-bold uppercase tracking-wider text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:text-sm"
           >
             Request Upfront Pricing
           </button>

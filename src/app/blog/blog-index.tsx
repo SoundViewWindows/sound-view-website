@@ -74,10 +74,10 @@ export function BlogIndex({
   return (
     <main>
       <HeroQuoteLayout>
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-300">
+          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
-                <Link href="/" className={`rounded-sm hover:text-sky-400 ${focusRing}`}>
+                <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
                   Home
                 </Link>
               </li>
@@ -92,20 +92,21 @@ export function BlogIndex({
             </ol>
           </nav>
 
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-400">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
             Pacific Northwest Homeowner Guides
           </p>
           <h1 className="mb-4 w-full min-w-0 break-words text-3xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-4xl lg:text-[40px] xl:text-5xl">
             Expert Advice on Windows, Doors, and Glass
           </h1>
-          <p className="max-w-3xl text-base leading-relaxed text-slate-200 sm:text-lg">
+          <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Straightforward, technical advice from local specialists to help you
             plan upgrades, understand building science, and make confident
             investments in your home.
           </p>
       </HeroQuoteLayout>
 
-      <section className="mx-auto max-w-7xl px-4 pb-4 pt-8 sm:px-6 lg:px-8">
+      <section className="bg-[#F4F6F9] py-8" style={{ backgroundColor: "#F4F6F9" }}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center">
           <div
             ref={scrollerRef}
@@ -127,10 +128,10 @@ export function BlogIndex({
                       block: "nearest",
                     })
                   }
-                  className={`shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${focusRing} ${
+                  className={`shrink-0 rounded-[4px] border px-4 py-2 text-sm font-medium transition-colors duration-200 ${focusRing} ${
                     active
-                      ? "border-transparent bg-[#0090c8] font-bold text-white shadow-sm"
-                      : "border-slate-200 bg-white text-slate-700 hover:border-sky-400 hover:text-[#0090c8]"
+                      ? "border-transparent bg-[#0284C7] font-bold text-white shadow-sm"
+                      : "border-slate-200/90 bg-white text-slate-700 hover:border-[#0284C7] hover:text-[#0284C7]"
                   }`}
                 >
                   {item}
@@ -140,13 +141,13 @@ export function BlogIndex({
           </div>
           <div
             aria-hidden="true"
-            className={`pointer-events-none absolute left-0 z-10 h-full w-8 bg-gradient-to-r from-[#F4FAFD] to-transparent ${
+            className={`pointer-events-none absolute left-0 z-10 h-full w-8 bg-gradient-to-r from-[#F4F6F9] to-transparent ${
               canScrollLeft ? "opacity-100" : "opacity-0"
             }`}
           />
           <div
             aria-hidden="true"
-            className={`pointer-events-none absolute right-0 z-10 h-full w-8 bg-gradient-to-l from-[#F4FAFD] to-transparent ${
+            className={`pointer-events-none absolute right-0 z-10 h-full w-8 bg-gradient-to-l from-[#F4F6F9] to-transparent ${
               canScrollRight ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -155,7 +156,7 @@ export function BlogIndex({
             aria-label="Show previous categories"
             disabled={!canScrollLeft}
             onClick={() => scrollCategories(-320)}
-            className={`absolute left-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:bg-slate-50 ${focusRing} ${
+            className={`absolute left-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-[4px] border border-slate-200/90 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:bg-slate-50 ${focusRing} ${
               canScrollLeft
                 ? "pointer-events-auto opacity-100"
                 : "pointer-events-none opacity-0"
@@ -168,7 +169,7 @@ export function BlogIndex({
             aria-label="Show more categories"
             disabled={!canScrollRight}
             onClick={() => scrollCategories(320)}
-            className={`absolute right-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:bg-slate-50 ${focusRing} ${
+            className={`absolute right-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-[4px] border border-slate-200/90 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:bg-slate-50 ${focusRing} ${
               canScrollRight
                 ? "pointer-events-auto opacity-100"
                 : "pointer-events-none opacity-0"
@@ -177,13 +178,15 @@ export function BlogIndex({
             <ChevronRight aria-hidden="true" className="h-4 w-4" />
           </button>
         </div>
+      </div>
       </section>
 
       {featured ? (
-        <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+        <section className="bg-white py-12 text-[#0B192C]">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             href={`/blog/${featured.slug}`}
-            className={`group grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition-shadow hover:shadow-xl lg:grid-cols-2 ${focusRing}`}
+            className={`group grid grid-cols-1 overflow-hidden rounded-[4px] border border-slate-200/80 bg-white shadow-sm transition-shadow hover:shadow-md lg:grid-cols-2 ${focusRing}`}
           >
             <div className="overflow-hidden">
               <Cover
@@ -206,15 +209,16 @@ export function BlogIndex({
                   {featured.excerpt}
                 </p>
               ) : null}
-              <span className="mt-8 inline-flex w-fit items-center justify-center rounded-lg bg-[#0090c8] px-5 py-3 text-sm font-medium text-white transition-colors group-hover:bg-[#007fb1]">
+              <span className="mt-8 inline-flex w-fit items-center justify-center rounded-[4px] bg-[#0090c8] px-5 py-3 text-sm font-medium text-white transition-colors group-hover:bg-[#007fb1]">
                 Read Guide
               </span>
             </div>
           </Link>
+          </div>
         </section>
       ) : (
-        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <p className="rounded-2xl border border-slate-200 bg-white px-6 py-10 text-[#556980] shadow-md">
+        <section className="bg-white px-4 py-12 text-[#0B192C] sm:px-6">
+          <p className="mx-auto max-w-7xl rounded-[4px] border border-slate-200/80 bg-[#F8FAFC] px-6 py-10 text-[#556980] shadow-sm">
             {filter === "All"
               ? "No guides published yet."
               : "No guides in this category yet."}
@@ -223,7 +227,11 @@ export function BlogIndex({
       )}
 
       {recent.length > 0 ? (
-        <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+        <section
+          className="bg-[#F4F6F9] py-16 text-[#0B192C]"
+          style={{ backgroundColor: "#F4F6F9" }}
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-6 text-2xl font-bold text-[#0B192C]">
             Recent Articles
           </h2>
@@ -232,7 +240,7 @@ export function BlogIndex({
               <Link
                 key={post.id || post.slug}
                 href={`/blog/${post.slug}`}
-                className={`group flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition-shadow hover:shadow-xl ${focusRing}`}
+                className={`group flex h-full flex-col justify-between overflow-hidden rounded-[4px] border border-slate-200/90 bg-white shadow-sm transition-shadow hover:shadow-md ${focusRing}`}
               >
                 <div>
                   <div className="overflow-hidden">
@@ -259,7 +267,7 @@ export function BlogIndex({
                   </div>
                 </div>
                 <div className="px-6 pb-6">
-                  <span className="inline-flex items-center gap-2 rounded-lg bg-[#0090c8] px-4 py-2 text-sm font-medium text-white transition-colors group-hover:bg-[#007fb1]">
+                  <span className="inline-flex items-center gap-2 rounded-[4px] bg-[#0090c8] px-4 py-2 text-sm font-medium text-white transition-colors group-hover:bg-[#007fb1]">
                     Read article
                     <span
                       aria-hidden="true"
@@ -271,6 +279,7 @@ export function BlogIndex({
                 </div>
               </Link>
             ))}
+          </div>
           </div>
         </section>
       ) : null}
@@ -320,7 +329,7 @@ function Cover({
 
 function CategoryPill({ children }: { children: string }) {
   return (
-    <span className="inline-flex rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold tracking-wide text-[#0090c8] transition-colors duration-200">
+    <span className="inline-flex rounded-[4px] bg-sky-50 px-3 py-1 text-xs font-semibold tracking-wide text-[#0284C7] transition-colors duration-200">
       {children}
     </span>
   );

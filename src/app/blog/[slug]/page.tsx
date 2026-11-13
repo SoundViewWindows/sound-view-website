@@ -40,7 +40,15 @@ export default function BlogPostPage(props: PageProps<"/blog/[slug]">) {
       <Suspense fallback={<ArticleFallback />}>
         <Article params={props.params} />
       </Suspense>
-      <CtaBanner />
+      <CtaBanner
+        className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
+        style={{
+          backgroundColor: "#182B3E",
+          paddingTop: "64px",
+          paddingBottom: "64px",
+          borderTop: "none",
+        }}
+      />
     </div>
   );
 }
@@ -55,26 +63,27 @@ async function Article({
 
   return (
     <main className="bg-white">
-      <header className="mx-auto max-w-4xl bg-white px-4 pb-6 pt-8 sm:px-6 sm:pt-12">
+      <header className="bg-[#0B192C] text-white">
+        <div className="mx-auto max-w-4xl px-4 pb-10 pt-8 sm:px-6 sm:pt-12">
         <nav
           aria-label="Breadcrumb"
-          className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:text-sm"
+          className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-400 sm:text-sm"
         >
           <ol className="flex flex-wrap items-center gap-2">
             <li>
-              <Link href="/" className={`rounded-sm font-medium text-[#0090c8] hover:underline ${focusRing}`}>
+              <Link href="/" className={`rounded-sm font-medium hover:text-white ${focusRing}`}>
                 Home
               </Link>
             </li>
             <li className="flex items-center gap-2">
               <span aria-hidden="true">&gt;</span>
-              <Link href="/blog" className={`rounded-sm font-medium text-[#0090c8] hover:underline ${focusRing}`}>
+              <Link href="/blog" className={`rounded-sm font-medium hover:text-white ${focusRing}`}>
                 Resources
               </Link>
             </li>
             <li className="flex items-center gap-2">
               <span aria-hidden="true">&gt;</span>
-              <Link href="/blog" className={`rounded-sm font-medium text-[#0090c8] hover:underline ${focusRing}`}>
+              <Link href="/blog" className={`rounded-sm font-medium hover:text-white ${focusRing}`}>
                 Blog &amp; Guides
               </Link>
             </li>
@@ -86,28 +95,29 @@ async function Article({
         </nav>
 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <span className="inline-flex rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-bold text-[#0090c8]">
+          <span className="inline-flex rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-3 py-1 text-xs font-bold text-sky-300 backdrop-blur-[2px]">
             {post.category}
           </span>
           <time
             dateTime={post.publishedAt.slice(0, 10)}
-            className="text-xs font-medium text-slate-500 sm:text-sm"
+            className="text-xs font-medium text-slate-300 sm:text-sm"
           >
             {post.date}
           </time>
-          <span aria-hidden="true" className="text-xs font-medium text-slate-500 sm:text-sm">
+          <span aria-hidden="true" className="text-xs font-medium text-slate-300 sm:text-sm">
             &middot;
           </span>
-          <span className="text-xs font-medium text-slate-500 sm:text-sm">{post.readTime}</span>
+          <span className="text-xs font-medium text-slate-300 sm:text-sm">{post.readTime}</span>
         </div>
 
-        <h1 className="mt-3 text-3xl font-black leading-tight tracking-tight text-[#0B192C] sm:text-4xl lg:text-5xl">
+        <h1 className="mt-3 text-3xl font-black leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
           {post.title}
         </h1>
+        </div>
       </header>
       {showArticleCover(post) ? (
-        <div className="mx-auto mb-8 w-full max-w-4xl bg-white px-4 sm:px-6">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div className="mx-auto mb-8 w-full max-w-4xl bg-white px-4 pt-8 sm:px-6">
+          <div className="overflow-hidden rounded-[4px] border border-slate-200/80 bg-white shadow-sm">
             <img
               src={post.coverImage}
               alt={post.coverAlt}
@@ -134,7 +144,7 @@ async function Article({
         />
 
         <div
-          className="prose prose-lg max-w-none leading-relaxed prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-[#0B192C] prose-p:text-slate-700 prose-p:leading-relaxed prose-li:text-slate-700 prose-li:leading-relaxed prose-strong:text-[#0B192C] prose-a:text-[#0090c8] prose-a:underline hover:prose-a:text-[#007fb1] prose-blockquote:rounded-2xl prose-blockquote:border prose-blockquote:border-sky-100 prose-blockquote:bg-[#F4FAFD] prose-blockquote:p-6 prose-blockquote:text-slate-700 prose-blockquote:not-italic prose-img:h-auto prose-img:w-full prose-img:rounded-2xl [&_iframe]:my-8 [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-2xl"
+          className="prose prose-lg max-w-none leading-relaxed prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-[#0B192C] prose-p:text-slate-700 prose-p:leading-relaxed prose-li:text-slate-700 prose-li:leading-relaxed prose-strong:text-[#0B192C] prose-a:text-[#0284C7] prose-a:underline hover:prose-a:text-[#0090c8] prose-blockquote:rounded-[4px] prose-blockquote:border prose-blockquote:border-slate-200/80 prose-blockquote:bg-[#F4F6F9] prose-blockquote:p-6 prose-blockquote:text-slate-700 prose-blockquote:not-italic prose-img:h-auto prose-img:w-full prose-img:rounded-[4px] [&_iframe]:my-8 [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-[4px]"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
@@ -143,7 +153,7 @@ async function Article({
             {post.tags.map((tag) => (
               <li
                 key={tag}
-                className="rounded-full border border-slate-200 px-3 py-1 text-xs text-[#0090c8]"
+                className="rounded-[4px] border border-slate-200/90 bg-[#F8FAFC] px-3 py-1 text-xs text-[#0284C7]"
               >
                 {tag}
               </li>
@@ -151,8 +161,8 @@ async function Article({
           </ul>
         ) : null}
 
-        <aside className="mt-12 rounded-2xl border border-sky-100 bg-[#F4FAFD] p-6 text-slate-700">
-          <p className="text-xs font-bold uppercase tracking-wider text-[#0090c8]">
+        <aside className="mt-12 rounded-[4px] border border-slate-200/90 bg-[#F4F6F9] p-6 text-slate-700">
+          <p className="text-xs font-bold uppercase tracking-wider text-[#0284C7]">
             Local team
           </p>
           <h2 className="mt-2 text-2xl font-bold text-[#0B192C]">
@@ -165,13 +175,13 @@ async function Article({
           </p>
           <Link
             href="/contact"
-            className={`mt-5 inline-flex text-sm font-medium text-[#0090c8] underline decoration-sky-400/40 underline-offset-4 hover:text-[#007fb1] ${focusRing}`}
+            className={`mt-5 inline-flex text-sm font-medium text-[#0284C7] underline decoration-sky-400/40 underline-offset-4 hover:text-[#0090c8] ${focusRing}`}
           >
             Contact the team
           </Link>
         </aside>
 
-        <aside className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 text-[#0B192C] shadow-md sm:p-8">
+        <aside className="mt-6 rounded-[4px] border border-slate-200/80 bg-white p-6 text-[#0B192C] shadow-sm sm:p-8">
           <h2 className="text-2xl font-bold">{cta.heading}</h2>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#556980]">
             {cta.body}
@@ -181,14 +191,14 @@ async function Article({
               href={cta.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-6 inline-flex rounded-lg bg-[#0090c8] px-5 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-[#007fb1] ${focusRing}`}
+              className={`mt-6 inline-flex rounded-[4px] bg-[#0090c8] px-5 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-[#007fb1] ${focusRing}`}
             >
               {cta.label}
             </a>
           ) : (
             <Link
               href={cta.href}
-              className={`mt-6 inline-flex rounded-lg bg-[#0090c8] px-5 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-[#007fb1] ${focusRing}`}
+              className={`mt-6 inline-flex rounded-[4px] bg-[#0090c8] px-5 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-[#007fb1] ${focusRing}`}
             >
               {cta.label}
             </Link>
@@ -271,7 +281,7 @@ function ArticleFallback() {
         <div className="h-12 w-full max-w-xl rounded bg-slate-200" />
       </div>
       <div className="mx-auto mb-8 w-full max-w-4xl bg-white px-4 sm:px-6">
-        <div className="h-80 rounded-2xl border border-slate-200 bg-slate-100 sm:h-96" />
+        <div className="h-80 rounded-[4px] border border-slate-200/80 bg-slate-100 sm:h-96" />
       </div>
     </main>
   );

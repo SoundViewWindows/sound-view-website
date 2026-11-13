@@ -34,7 +34,7 @@ export default function FinancingPage() {
               <li>
                 <Link
                   href="/"
-                  className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0090c8]"
+                  className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                 >
                   Home
                 </Link>
@@ -49,13 +49,13 @@ export default function FinancingPage() {
               </li>
             </ol>
           </nav>
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-400">
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
             Payment Options & Plans
           </p>
           <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
             Flexible Financing for Your Pacific Northwest Home
           </h1>
-          <p className="mb-8 max-w-3xl text-base leading-relaxed text-slate-200 sm:text-lg">
+          <p className="mb-8 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
             Sound View Window & Door partners with Synchrony Bank to offer
             competitive, straightforward financing solutions with convenient
             monthly payments so you can complete your project without
@@ -65,7 +65,7 @@ export default function FinancingPage() {
             href={synchronyHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0090c8] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#007fb1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0090c8]"
+            className="inline-flex items-center justify-center gap-2 rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
           >
             Apply for Financing
             <ExternalLinkIcon />
@@ -73,7 +73,7 @@ export default function FinancingPage() {
         </HeroQuoteLayout>
 
         <section
-          className="bg-white pt-24 pb-24"
+          className="bg-[#F4F6F9] pt-24 pb-24"
           style={{ paddingTop: "96px", paddingBottom: "96px" }}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -85,7 +85,7 @@ export default function FinancingPage() {
             plan and proceed seamlessly with your project setup.
           </p>
           <div className="mx-auto max-w-4xl space-y-6">
-            <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <article className="rounded-[4px] border border-slate-200/90 bg-white p-6 shadow-sm sm:p-8">
               <CheckBadge />
               <h3 className="mb-2 mt-4 text-lg font-bold text-[#0B192C] sm:text-xl">1. Apply</h3>
               <p className="text-sm font-normal leading-relaxed text-[#556980]">
@@ -103,14 +103,14 @@ export default function FinancingPage() {
                 href={synchronyHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#0090c8] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#007fb1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0090c8]"
+                className="mt-6 inline-flex items-center justify-center gap-2 rounded-[4px] bg-[#0090c8] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#007fb1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 APPLY FOR FINANCING
                 <ExternalLinkIcon />
               </a>
             </article>
 
-            <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <article className="rounded-[4px] border border-slate-200/90 bg-white p-6 shadow-sm sm:p-8">
               <CheckBadge />
               <h3 className="mb-2 mt-4 text-lg font-bold text-[#0B192C] sm:text-xl">
                 2. Notify Your Sales Representative
@@ -136,7 +136,7 @@ export default function FinancingPage() {
               </ul>
             </article>
 
-            <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <article className="rounded-[4px] border border-slate-200/90 bg-white p-6 shadow-sm sm:p-8">
               <CheckBadge />
               <h3 className="mb-2 mt-4 text-lg font-bold text-[#0B192C] sm:text-xl">
                 3. Review And Sign Your Quote
@@ -155,7 +155,7 @@ export default function FinancingPage() {
               </ul>
             </article>
 
-            <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <article className="rounded-[4px] border border-slate-200/90 bg-white p-6 shadow-sm sm:p-8">
               <CheckBadge />
               <h3 className="mb-2 mt-4 text-lg font-bold text-[#0B192C] sm:text-xl">
                 4. Provide Final Verification Details
@@ -166,7 +166,7 @@ export default function FinancingPage() {
                 lender&apos;s secure portal. You can provide these to your rep via
                 phone or email.
               </p>
-              <p className="mt-5 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-[#556980] shadow-sm">
+              <p className="mt-5 rounded-[4px] border border-slate-200/90 bg-[#F8FAFC] px-4 py-3 text-sm leading-6 text-[#556980] shadow-sm">
                 Important: You do NOT select your financing plan online during
                 the initial application. We process your plan selection on our
                 end during this final step.
@@ -185,7 +185,7 @@ export default function FinancingPage() {
         </section>
 
         <section
-          className="border-t border-slate-200 bg-[#F4FAFD] py-20"
+          className="bg-[#E6ECF2] py-20"
           style={{ paddingTop: "80px", paddingBottom: "80px" }}
         >
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
@@ -195,7 +195,7 @@ export default function FinancingPage() {
               </h2>
               <span
                 aria-hidden="true"
-                className="mt-4 block h-1 w-16 rounded-full bg-[#0090c8]"
+                className="mt-4 block h-1 w-16 rounded-[4px] bg-[#0284C7]"
               />
               <p className="mt-5 max-w-xl text-base leading-7 text-[#556980] sm:text-lg">
                 Our team can help you understand the next steps and coordinate
@@ -203,13 +203,13 @@ export default function FinancingPage() {
               </p>
               <a
                 href="tel:2064024229"
-                className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-[#0090c8] underline-offset-4 hover:text-[#007fb1] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0090c8]"
+                className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-sky-600 underline-offset-4 hover:text-sky-700 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 <PhoneIcon />
                 (206) 402-4229
               </a>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+            <div className="rounded-[4px] border border-slate-200/90 bg-white p-8 shadow-sm">
               <h3 className="text-2xl font-bold text-[#0B192C]">
                 Start a Conversation
               </h3>
@@ -219,7 +219,7 @@ export default function FinancingPage() {
               </p>
               <Link
                 href="/contact"
-                className="mt-6 inline-flex items-center justify-center rounded-lg bg-[#0090c8] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#007fb1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0090c8]"
+                className="mt-6 inline-flex items-center justify-center rounded-[4px] bg-[#0090c8] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#007fb1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 CONTACT SOUND VIEW
               </Link>
@@ -227,8 +227,13 @@ export default function FinancingPage() {
           </div>
         </section>
         <CtaBanner
-          className="py-20"
-          style={{ paddingTop: "80px", paddingBottom: "80px" }}
+          className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
+          style={{
+            backgroundColor: "#182B3E",
+            paddingTop: "64px",
+            paddingBottom: "64px",
+            borderTop: "none",
+          }}
         />
       </main>
     </div>
@@ -239,7 +244,7 @@ function CheckBadge() {
   return (
     <span
       aria-hidden="true"
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#0090c8] text-white"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-[4px] bg-[#0284C7] text-white"
     >
       <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2">
         <path strokeLinecap="round" strokeLinejoin="round" d="m5 10.5 3.2 3.2L15 7" />

@@ -52,11 +52,11 @@ export function GlassQuoteStep() {
                   Review your chosen glass type, then share a few details so our
                   Seattle specialists can prepare upfront pricing.
                 </p>
-                <p className="inline-flex items-center gap-2 rounded-xl border border-[#8AA0B2]/35 bg-home-panel/80 px-4 py-1.5 text-xs font-medium text-white shadow-sm">
+                <p className="inline-flex items-center gap-2 rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-4 py-1.5 text-xs font-medium text-white shadow-sm">
                   <span>{typeName}</span>
                   <Link
                     href="/services/glass-replacement/types"
-                    className="ml-1 font-semibold text-home-accent underline decoration-home-accent/40 underline-offset-2 hover:text-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
+                    className="ml-1 font-semibold text-[#38BDF8] underline decoration-[#38BDF8]/40 underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                   >
                     Edit
                   </Link>
@@ -65,7 +65,7 @@ export function GlassQuoteStep() {
               </div>
               <div className="lg:col-span-6">
                 <GlassQuoteBox
-                  className="relative w-full scroll-mt-6 rounded-[4px] border border-[#1A6496] bg-home-deep p-6 text-white shadow-2xl shadow-slate-950/30 sm:p-7"
+                  className="relative w-full scroll-mt-6 rounded-[4px] border border-white/15 bg-[#0B192C] p-6 text-white shadow-2xl sm:p-7"
                   glassType={glassType}
                   onGlassTypeChange={setGlassType}
                 />
@@ -73,7 +73,7 @@ export function GlassQuoteStep() {
             </div>
           </div>
         </section>
-        <CostComparison service="glass-replacement" theme="home" />
+        <CostComparison service="glass-replacement" theme="about" />
       </main>
     </div>
   );

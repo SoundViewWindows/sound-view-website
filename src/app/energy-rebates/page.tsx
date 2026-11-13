@@ -90,13 +90,13 @@ export default function EnergyRebatesPage() {
                 </li>
               </ol>
             </nav>
-            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-400">
+            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
               Local Utility Incentives
             </p>
             <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
               Save on Energy-Efficient Windows &amp; Doors in Washington
             </h1>
-            <p className="max-w-3xl text-base leading-relaxed text-slate-200 sm:text-lg">
+            <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
               Upgrading to high-performance windows and patio doors can significantly
               lower heating costs in the Pacific Northwest. Local utility providers
               offer cash rebates and incentives to homeowners installing qualifying
@@ -104,7 +104,10 @@ export default function EnergyRebatesPage() {
             </p>
         </HeroQuoteLayout>
 
-        <section className="bg-white pt-16 pb-20 md:pt-20 md:pb-24">
+        <section
+          className="bg-[#F4F6F9] pt-16 pb-20 text-[#0B192C] md:pt-20 md:pb-24"
+          style={{ backgroundColor: "#F4F6F9" }}
+        >
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
             {providers.map((provider) => (
               <a
@@ -112,10 +115,10 @@ export default function EnergyRebatesPage() {
                 href={provider.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-md transition-shadow hover:shadow-md sm:p-8 ${focusRing}`}
+                className={`group flex h-full cursor-pointer flex-col justify-between rounded-[4px] border border-slate-200/90 bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8 ${focusRing}`}
               >
                 <div>
-                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#0090c8]">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#0284C7]">
                     {provider.tagline}
                   </p>
                   <h2 className="mb-3 text-2xl font-bold text-[#0B192C] transition-colors group-hover:text-[#0090c8]">
@@ -123,7 +126,7 @@ export default function EnergyRebatesPage() {
                   </h2>
                   <p className="text-sm leading-relaxed text-[#556980]">{provider.description}</p>
                 </div>
-                <span className="mt-8 inline-flex items-center justify-center gap-2 self-start rounded-lg bg-[#0090c8] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#007fb1]">
+                <span className="mt-8 inline-flex items-center justify-center gap-2 self-start rounded-[4px] bg-[#0090c8] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#007fb1]">
                   {provider.cta}
                   <ExternalLinkIcon />
                 </span>
@@ -132,18 +135,21 @@ export default function EnergyRebatesPage() {
           </div>
         </section>
 
-        <section className="bg-[#F4FAFD] pt-16 pb-20 md:pt-20 md:pb-24">
+        <section
+          className="bg-[#E6ECF2] pt-16 pb-20 text-[#0B192C] md:pt-20 md:pb-24"
+          style={{ backgroundColor: "#E6ECF2" }}
+        >
           <h2 className="mb-3 text-center text-3xl font-bold text-[#0B192C] sm:text-4xl">
             Before You Start Your Project
           </h2>
-          <span aria-hidden="true" className="mx-auto mb-10 block h-1 w-10 rounded bg-[#0090c8]" />
+          <span aria-hidden="true" className="mx-auto mb-10 block h-1 w-10 rounded-[4px] bg-[#0284C7]" />
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
             {steps.map((step) => (
               <article
                 key={step.number}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-md"
+                className="rounded-[4px] border border-slate-200/80 bg-white p-6 shadow-sm"
               >
-                <p className="mb-1 text-xl font-extrabold text-[#0090c8]">{step.number}</p>
+                <p className="mb-1 text-xl font-extrabold text-[#0284C7]">{step.number}</p>
                 <h3 className="mb-2 block text-base font-bold text-[#0B192C] sm:text-lg">{step.heading}</h3>
                 <p className="text-sm font-normal leading-relaxed text-[#556980]">{step.text}</p>
               </article>
@@ -153,15 +159,15 @@ export default function EnergyRebatesPage() {
 
         <section className="bg-white pt-16 pb-20 md:pt-20 md:pb-24">
           <div className="mx-auto max-w-4xl px-4 sm:px-6">
-            <div className="rounded-2xl border border-sky-100 bg-[#F4FAFD] p-8 text-center shadow-md sm:p-10">
+            <div className="rounded-[4px] border border-slate-200/90 bg-[#F8FAFC] p-8 text-center shadow-sm sm:p-10">
               <span
                 aria-hidden="true"
-                className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#0090c8] text-lg font-bold text-white"
+                className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-[4px] bg-[#0284C7] text-lg font-bold text-white"
               >
                 i
               </span>
               <h2 className="mb-2 text-2xl font-bold text-[#0B192C]">Please Confirm Program Details</h2>
-              <span aria-hidden="true" className="mx-auto mb-6 block h-0.5 w-12 bg-[#0090c8]" />
+              <span aria-hidden="true" className="mx-auto mb-6 block h-0.5 w-12 bg-[#0284C7]" />
               <p className="mx-auto max-w-3xl text-sm leading-relaxed text-slate-600">
                 Rebate availability, eligibility requirements, incentive amounts, and
                 application deadlines can change. Programs may require specific
@@ -174,11 +180,19 @@ export default function EnergyRebatesPage() {
             </div>
           </div>
         </section>
-        <CtaBanner className="pt-16 pb-20 md:pt-20 md:pb-24" />
       </main>
       <footer className="border-t border-slate-100 bg-white px-4 py-8 text-center text-xs text-slate-400 sm:text-sm">
         <p>© 2026 Sound View Window &amp; Door. All Rights Reserved.</p>
       </footer>
+      <CtaBanner
+        className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
+        style={{
+          backgroundColor: "#182B3E",
+          paddingTop: "64px",
+          paddingBottom: "64px",
+          borderTop: "none",
+        }}
+      />
     </div>
   );
 }

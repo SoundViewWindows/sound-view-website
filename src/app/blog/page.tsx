@@ -32,11 +32,17 @@ const cards: BlogCard[] = blogPosts.map(
 export default function BlogPage() {
   return (
     <div>
-      <div className="bg-[#F4FAFD] text-[#0B192C]">
-        <Header />
-        <BlogIndex posts={cards} categories={[...blogCategories]} />
-      </div>
-      <CtaBanner />
+      <Header />
+      <BlogIndex posts={cards} categories={[...blogCategories]} />
+      <CtaBanner
+        className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
+        style={{
+          backgroundColor: "#182B3E",
+          paddingTop: "64px",
+          paddingBottom: "64px",
+          borderTop: "none",
+        }}
+      />
     </div>
   );
 }
