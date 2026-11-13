@@ -63,7 +63,7 @@ export function QuoteStep() {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-home-canvas/95 via-home-canvas/85 to-home-deep/45" />
           </div>
-          <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-5">
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
               <div className="relative z-20 lg:col-span-6">
                 <WindowStepNav

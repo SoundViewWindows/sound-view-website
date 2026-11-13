@@ -83,15 +83,15 @@ export function DoorMaterialsStep() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/75" />
         </div>
-        <div className="relative z-10 flex flex-1 flex-col py-12 md:py-16">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-5">
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 py-12 sm:px-6 md:py-16 lg:px-8">
+        <div>
           <DoorStepNav
             step={2}
             type={typeSlug}
             material={selectedSlug ?? "undecided"}
             manufacturer={manufacturerSlug}
           />
-          <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="mb-4 inline-flex flex-wrap items-center gap-3 rounded-xl border border-[#8AA0B2]/35 bg-home-panel/80 px-4 py-2 text-sm text-white shadow-sm">
                 <span>
@@ -104,7 +104,7 @@ export function DoorMaterialsStep() {
                   {style ? "Change" : "Choose a door type"}
                 </Link>
               </p>
-              <h1 className="mb-4 max-w-3xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Select Your Door Material
               </h1>
               <p className="max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg">
@@ -119,7 +119,7 @@ export function DoorMaterialsStep() {
         </div>
 
         <section>
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-5 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {materials.map((material) => {
               const selected = selectedSlug === material.slug;
               return (
@@ -145,7 +145,7 @@ export function DoorMaterialsStep() {
               );
             })}
           </div>
-          <div className="mx-auto mt-10 max-w-[1440px] px-4 text-center sm:px-5">
+          <div className="mt-10 text-center">
             <SkipAhead theme="home" href={skipHref} onClick={clearStoredMaterial}>
               Not sure yet? Continue to Manufacturers
             </SkipAhead>
