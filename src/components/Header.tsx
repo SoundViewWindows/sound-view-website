@@ -111,7 +111,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 h-14 min-h-[54px] w-full shrink-0 border-b border-slate-200 bg-white py-0" style={{ height: "54px", minHeight: "54px" }}>
-      <div className="flex h-full w-full items-center justify-center px-6">
+      <div className="relative flex h-full w-full items-center justify-center px-6">
         <nav aria-label="Primary" className="hidden items-center justify-center gap-6 lg:flex xl:gap-9">
             {navigation.map((entry) =>
               entry.kind === "link" ? (
@@ -148,18 +148,17 @@ export function Header({ onServiceSelect }: HeaderProps) {
             </a>
           </nav>
 
-          <div className="flex items-center gap-2 lg:hidden">
           <a
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex h-auto shrink-0 self-center rounded-none bg-[#0B192C] px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-[#0090c8] ${focusRing}`}
+            className={`inline-flex h-auto shrink-0 self-center rounded-none bg-[#0B192C] px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-[#0090c8] lg:hidden ${focusRing}`}
           >
             Book Appointment
           </a>
           <button
             type="button"
-            className={`inline-flex h-10 w-10 items-center justify-center rounded-md text-slate-800 hover:text-sky-600 lg:hidden ${focusRing}`}
+            className={`absolute right-4 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-md text-slate-800 hover:text-sky-600 lg:hidden ${focusRing}`}
             aria-expanded={mobileOpen}
             aria-controls={`${baseId}-mobile`}
             onClick={() => setMobileOpen((open) => !open)}
@@ -167,7 +166,6 @@ export function Header({ onServiceSelect }: HeaderProps) {
             <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
             <Hamburger open={mobileOpen} />
           </button>
-        </div>
       </div>
 
       {mobileOpen ? (
