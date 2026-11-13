@@ -29,7 +29,17 @@ export function ManufacturersStep() {
   return (
     <div className="bg-home-canvas text-[#E7EEF3]">
       <Header />
-      <main>
+      <main className="relative overflow-hidden bg-[#0B192C]">
+        <div className="pointer-events-none select-none absolute inset-0 z-0">
+          <img
+            src="/images/window-manufacturers-bg.jpg"
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover object-center opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/75" />
+        </div>
+        <div className="relative z-10">
         <div className="mx-auto max-w-[1440px] px-4 pt-8 sm:px-5">
           <WindowStepNav step={3} material={materialSlug} type={typeSlug} onDark />
           <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -71,6 +81,7 @@ export function ManufacturersStep() {
                 image={brand.image}
                 alt={brand.alt}
                 theme="home"
+                surface="veil"
               />
             ))}
           </div>
@@ -78,6 +89,7 @@ export function ManufacturersStep() {
             <SkipAhead theme="home" href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>
         </section>
+        </div>
       </main>
     </div>
   );

@@ -33,7 +33,17 @@ export function DoorManufacturersStep() {
   return (
     <div className="bg-home-canvas text-[#E7EEF3]">
       <Header />
-      <main>
+      <main className="relative overflow-hidden bg-[#0B192C]">
+        <div className="pointer-events-none select-none absolute inset-0 z-0">
+          <img
+            src="/images/door-manufacturers-bg.jpg"
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover object-center opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/75" />
+        </div>
+        <div className="relative z-10">
         <div className="mx-auto max-w-[1440px] px-4 pt-8 sm:px-5">
           <DoorStepNav
             step={3}
@@ -87,6 +97,7 @@ export function DoorManufacturersStep() {
                   alt={brand.alt}
                   selected={active}
                   theme="home"
+                  surface="veil"
                 />
               );
             })}
@@ -95,6 +106,7 @@ export function DoorManufacturersStep() {
             <SkipAhead theme="home" href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>
         </section>
+        </div>
       </main>
     </div>
   );

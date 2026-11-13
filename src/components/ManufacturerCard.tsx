@@ -9,6 +9,7 @@ type ManufacturerCardProps = {
   alt: string;
   selected?: boolean;
   theme?: "default" | "home";
+  surface?: "solid" | "veil";
 };
 
 export function ManufacturerCard({
@@ -19,15 +20,17 @@ export function ManufacturerCard({
   alt,
   selected = false,
   theme = "default",
+  surface = "solid",
 }: ManufacturerCardProps) {
   const home = theme === "home";
+  const veil = surface === "veil" ? "bg-[#182B3E]/75 backdrop-blur-[2px]" : "";
   return (
     <Link
       href={href}
       aria-current={selected ? "true" : undefined}
       className={`group flex cursor-pointer flex-col justify-between p-5 focus-visible:outline-2 focus-visible:outline-offset-2 ${
         home
-          ? `rounded-xl border bg-home-panel/80 shadow-sm transition-shadow hover:shadow-md focus-visible:outline-home-accent ${
+          ? `rounded-xl border ${veil || "bg-home-panel/80"} shadow-sm transition-shadow hover:shadow-md focus-visible:outline-home-accent ${
               selected ? "border-home-accent ring-2 ring-home-accent" : "border-[#8AA0B2]/35"
             }`
           : `rounded-2xl border bg-[#132238] transition-all duration-200 hover:border-sky-400 hover:shadow-xl hover:shadow-sky-500/10 focus-visible:outline-[#38BDF8] ${

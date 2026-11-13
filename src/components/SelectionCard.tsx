@@ -21,6 +21,7 @@ type SelectionCardProps = {
   imageStyle?: CSSProperties;
   descriptionClassName?: string;
   paddingClassName?: string;
+  surface?: "solid" | "veil";
 };
 
 export function SelectionCard({
@@ -39,6 +40,7 @@ export function SelectionCard({
   imageStyle,
   descriptionClassName,
   paddingClassName = "p-4",
+  surface = "solid",
 }: SelectionCardProps) {
   const imageFrame =
     "relative mb-2 h-[135px] w-full shrink-0 overflow-hidden rounded-[4px] bg-slate-800 sm:h-[145px]";
@@ -48,7 +50,7 @@ export function SelectionCard({
       href={href}
       onClick={onClick}
       aria-current={selected ? "true" : undefined}
-      className={`group flex h-full cursor-pointer flex-col rounded-[4px] bg-[#2B3E50]/85 ${paddingClassName} transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
+      className={`group flex h-full cursor-pointer flex-col rounded-[4px] ${surface === "veil" ? "bg-[#182B3E]/75 backdrop-blur-[2px]" : "bg-[#2B3E50]/85"} ${paddingClassName} transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
         tallImage ? "justify-between" : ""
       } ${
         selected ? "border border-sky-400 ring-2 ring-sky-400" : "border border-white/15"
