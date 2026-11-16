@@ -67,7 +67,6 @@ type FormState = {
 type FieldErrors = Record<string, string>;
 
 const STEP_1_FIELD_ORDER = [
-  "location",
   "firstName",
   "lastName",
   "email",
@@ -76,6 +75,7 @@ const STEP_1_FIELD_ORDER = [
   "city",
   "state",
   "zipCode",
+  "location",
 ] as const;
 
 const STEP_2_FIELD_ORDER = ["scopeOfWork", "products", "installationNeeded"] as const;
@@ -575,53 +575,6 @@ function ContactStep({
   const selectedId = form.locationId;
   return (
     <div className="space-y-8">
-      <section id="field-location" className="scroll-mt-28">
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <h2 className="text-lg font-bold text-[#0B192C]">Select a location</h2>
-          <RequiredBadge />
-        </div>
-        <div
-          role="radiogroup"
-          aria-label="Select a location"
-          aria-invalid={errors.location ? true : undefined}
-          className={`mb-6 grid grid-cols-1 gap-3 border-b border-slate-200 pb-6 sm:grid-cols-3 ${
-            errors.location ? "rounded-[4px] outline outline-1 outline-red-500" : ""
-          }`}
-        >
-          {APPOINTMENT_LOCATIONS.map((location) => {
-            const selected = selectedId === location.id;
-            return (
-              <button
-                key={location.id}
-                type="button"
-                role="radio"
-                aria-checked={selected}
-                onClick={() => onChange("locationId", location.id)}
-                className={`relative rounded-[4px] p-3.5 text-left text-[#0B192C] transition-colors ${
-                  selected
-                    ? "border-2 border-[#0284C7] bg-sky-50/70"
-                    : "border border-slate-300 bg-white hover:border-[#38BDF8]"
-                } ${focusRing}`}
-              >
-                {selected ? (
-                  <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#0284C7] text-white">
-                    <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
-                      <path d="M3.5 8.2 6.4 11l6.1-6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                ) : null}
-                <span className="block pr-6 text-sm font-semibold">{location.name}</span>
-                <span className="mt-1 block text-xs leading-5 text-slate-600">{location.address}</span>
-                <span className="mt-1 block text-xs text-slate-500">
-                  {location.phone}
-                  {location.note ? ` · ${location.note}` : ""}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-        <FieldError message={errors.location} />
-      </section>
       <section>
         <h2 className="text-lg font-bold text-[#0B192C]">Contact details</h2>
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -754,6 +707,54 @@ function ContactStep({
             onChange={(value) => onChange("zip", value)}
           />
         </div>
+      </section>
+
+      <section id="field-location" className="scroll-mt-28 border-t border-slate-200 pt-8">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <h2 className="text-lg font-bold text-[#0B192C]">Select ShowRoom Appointment Location</h2>
+          <RequiredBadge />
+        </div>
+        <div
+          role="radiogroup"
+          aria-label="Select ShowRoom Appointment Location"
+          aria-invalid={errors.location ? true : undefined}
+          className={`grid grid-cols-1 gap-3 sm:grid-cols-3 ${
+            errors.location ? "rounded-[4px] outline outline-1 outline-red-500" : ""
+          }`}
+        >
+          {APPOINTMENT_LOCATIONS.map((location) => {
+            const selected = selectedId === location.id;
+            return (
+              <button
+                key={location.id}
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                onClick={() => onChange("locationId", location.id)}
+                className={`relative rounded-[4px] p-3.5 text-left text-[#0B192C] transition-colors ${
+                  selected
+                    ? "border-2 border-[#0284C7] bg-sky-50/70"
+                    : "border border-slate-300 bg-white hover:border-[#38BDF8]"
+                } ${focusRing}`}
+              >
+                {selected ? (
+                  <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#0284C7] text-white">
+                    <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                      <path d="M3.5 8.2 6.4 11l6.1-6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                ) : null}
+                <span className="block pr-6 text-sm font-semibold">{location.name}</span>
+                <span className="mt-1 block text-xs leading-5 text-slate-600">{location.address}</span>
+                <span className="mt-1 block text-xs text-slate-500">
+                  {location.phone}
+                  {location.note ? ` · ${location.note}` : ""}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <FieldError message={errors.location} />
       </section>
     </div>
   );
