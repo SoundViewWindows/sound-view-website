@@ -16,6 +16,8 @@ export async function GET(request: Request) {
       month: live.month,
       timeZone: live.timeZone,
       syncedWithJobber: live.syncedWithJobber,
+      busyCount: live.busyCount,
+      availabilityError: live.availabilityError,
       availability: live.availability,
     },
     { headers: { "Cache-Control": "no-store" } },

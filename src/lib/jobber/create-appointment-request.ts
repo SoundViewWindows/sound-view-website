@@ -402,9 +402,9 @@ async function createRequest(
     try {
       created = await submitRequest(withAssessment);
     } catch (error) {
-      console.info(
-        "appointment assessment was not scheduled",
-        error instanceof Error ? error.message : "Jobber did not schedule the assessment.",
+      console.error(
+        "[appointment] Jobber requestCreate error:",
+        error instanceof Error ? error.message : "Jobber did not create the scheduled assessment.",
       );
     }
   }
@@ -436,8 +436,8 @@ async function submitRequest(input: Record<string, unknown>) {
   const assessmentRejected = userErrorsMentionAssessment(data.requestCreate.userErrors);
   if (request?.id) {
     if (data.requestCreate.userErrors?.length) {
-      console.info(
-        "appointment request saved with Jobber warnings",
+      console.error(
+        "[appointment] Jobber requestCreate error:",
         data.requestCreate.userErrors.map((error) => error.message).filter(Boolean).join(" "),
       );
     }
@@ -453,15 +453,15 @@ async function createAssessment(requestId: string, input: Record<string, unknown
     const data = await jobberGraphql<AssessmentCreateData>(createAssessmentMutation, { requestId, input });
     const errors = data.assessmentCreate.userErrors;
     if (errors?.length) {
-      console.info(
-        "appointment assessment was not scheduled",
+      console.error(
+        "[appointment] Jobber assessmentCreate error:",
         errors.map((error) => error.message).filter(Boolean).join(" "),
       );
     }
     return isScheduledAssessment(data.assessmentCreate.assessment);
   } catch (error) {
-    console.info(
-      "appointment assessment was not scheduled",
+    console.error(
+      "[appointment] Jobber assessmentCreate error:",
       error instanceof Error ? error.message : "Jobber did not schedule the assessment.",
     );
     return false;

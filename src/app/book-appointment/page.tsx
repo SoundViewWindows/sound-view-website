@@ -971,16 +971,10 @@ function ScheduleStep({
   const [latestYear, latestMonthNumber] = latestMonth.split("-").map(Number);
   const maxMonthOffset = (latestYear - today.year) * 12 + (latestMonthNumber - 1 - today.month);
   const cells = calendarCells(visibleMonth.year, visibleMonth.month);
-  const chosenLocation = appointmentLocationById(form.locationId);
 
   return (
     <div id="field-schedule" className="scroll-mt-28">
       <h2 className="text-lg font-bold text-[#0B192C]">Schedule an appointment</h2>
-      {chosenLocation ? (
-        <p className="mt-3 inline-flex rounded-[4px] bg-sky-50 px-3 py-1.5 text-sm font-semibold text-[#0B192C]">
-          Location: {chosenLocation.name}
-        </p>
-      ) : null}
       <div className="mt-1 flex flex-wrap items-center gap-2">
         <p className="text-sm text-slate-600">Choose a date and time</p>
         <RequiredBadge />
