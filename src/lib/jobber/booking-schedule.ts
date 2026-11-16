@@ -212,3 +212,23 @@ function clockLabel(minutesFromMidnight: number) {
   const hours12 = hours24 % 12 || 12;
   return `${hours12}:${String(minutes).padStart(2, "0")} ${suffix}`;
 }
+
+const AVAILABILITY_CACHE_MS = 10_000;
+
+type CachedMonthAvailability<T> = { expiresAt: number; body: T };
+
+const monthAvailabilityCache = new Map<string, CachedMonthAvailability<unknown>>();
+
+export function getCachedMonthAvailability<T>(month: string): T | null {
+  const cached = monthAvailabilityCache.get(month);
+  if (!cached || cached.expiresAt <= Date.now()) return null;
+  return cached.body as T;
+}
+
+export function setCachedMonthAvailability<T>(month: string, body: T) {
+  monthAvailabilityCache.set(month, { expiresAt: Date.now() + AVAILABILITY_CACHE_MS, body });
+}
+
+export function clearAvailabilityCache() {
+  monthAvailabilityCache.clear();
+}

@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { parseJobberAppointmentPayload } from "@/lib/jobber/booking-types";
-import { isCompanyClosedDate, isSlotAtLeastAdvanceNotice, slotLabelStartUtcMs } from "@/lib/jobber/booking-schedule";
+import { clearAvailabilityCache, isCompanyClosedDate, isSlotAtLeastAdvanceNotice, slotLabelStartUtcMs } from "@/lib/jobber/booking-schedule";
 import { jobberConfig } from "@/lib/jobber/config";
 import { appointmentSummary, createWebsiteAppointment } from "@/lib/jobber/create-appointment-request";
-import { clearAvailabilityCache } from "@/app/api/appointments/availability/route";
 import { getLiveAvailability } from "@/lib/jobber/live-availability";
 import { logQuoteNotificationFailure, sendAppointmentNotification } from "@/lib/jobber/notify";
 

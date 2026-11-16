@@ -28,6 +28,16 @@ type PageInfo = {
   endCursor?: string | null;
 } | null;
 
+type ScheduledConnection = {
+  nodes?: Array<ScheduledNode | null> | null;
+  pageInfo?: PageInfo;
+};
+
+type ScheduledItemsResult = {
+  data: { scheduledItems?: ScheduledConnection | null } | null;
+  errors: string[];
+};
+
 const SLOT_MS = 60 * 60 * 1000;
 
 export type BusySample = { title: string; startAt: string; endAt: string };
@@ -138,29 +148,24 @@ async function readScheduledItems(after: string, before: string) {
   let sawConnection = false;
 
   for (let page = 0; page < 100; page += 1) {
-    const result = await jobberGraphqlDetailed<{
-      scheduledItems?: {
-        nodes?: Array<ScheduledNode | null> | null;
-        pageInfo?: PageInfo;
-      } | null;
-    }>(scheduledItemsQuery, {
+    const result: ScheduledItemsResult = await jobberGraphqlDetailed(scheduledItemsQuery, {
       occursWithin: { startAt: after, endAt: before },
       afterCursor,
     });
-    const hidden = result.errors.filter((message) => /hidden due to permissions/i.test(message));
-    const other = result.errors.filter((message) => !/hidden due to permissions/i.test(message));
+    const hidden = result.errors.filter((message: string) => /hidden due to permissions/i.test(message));
+    const other = result.errors.filter((message: string) => !/hidden due to permissions/i.test(message));
     if (hidden.length > 0) {
       console.error("[availability] Jobber GraphQL error:", "scheduledItems", [...new Set(hidden)].join("; "));
     }
     permissionWarnings.push(...hidden);
-    const connection = result.data?.scheduledItems;
+    const connection: ScheduledConnection | null | undefined = result.data?.scheduledItems;
     if (connection?.nodes) {
       sawConnection = true;
-      nodes.push(...connection.nodes.filter((node): node is ScheduledNode => node != null));
+      nodes.push(...connection.nodes.filter((node: ScheduledNode | null): node is ScheduledNode => node != null));
     }
     if (other.length > 0) fatal.push(...other);
-    const info = connection?.pageInfo;
-    const nextCursor = info?.endCursor ?? null;
+    const info: PageInfo = connection?.pageInfo ?? null;
+    const nextCursor: string | null = info?.endCursor ?? null;
     if (!info?.hasNextPage || !nextCursor || nextCursor === afterCursor) break;
     afterCursor = nextCursor;
   }
@@ -188,7 +193,8 @@ async function readRequestAssessments() {
 }
 
 async function readRequestPage(query: string) {
-  const result = await jobberGraphqlDetailed<{ requests?: { nodes?: RequestNode[] | null } | null }>(query);
+  const result: { data: { requests?: { nodes?: RequestNode[] | null } | null } | null; errors: string[] } =
+    await jobberGraphqlDetailed(query);
   if (!result.data?.requests) {
     throw new Error(result.errors.join(" ") || "Jobber did not return requests.");
   }
