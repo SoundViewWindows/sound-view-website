@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { getLiveAvailability } from "@/lib/jobber/live-availability";
-import { pacificYearMonth } from "@/lib/jobber/booking-schedule";
+import {
+  datesInMonth,
+  isCompanyClosedDate,
+  isSlotAtLeastAdvanceNotice,
+  pacificYearMonth,
+  slotLabelStartUtcMs,
+} from "@/lib/jobber/booking-schedule";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -10,6 +16,18 @@ export async function GET(request: Request) {
   }
 
   const live = await getLiveAvailability(month);
+  const nowMs = Date.now();
+  const availability: Record<string, string[]> = {};
+  for (const date of datesInMonth(month)) {
+    if (isCompanyClosedDate(date)) {
+      availability[date] = [];
+      continue;
+    }
+    availability[date] = (live.availability[date] ?? []).filter((label) => {
+      const start = slotLabelStartUtcMs(date, label);
+      return start !== null && isSlotAtLeastAdvanceNotice(start, nowMs);
+    });
+  }
   return NextResponse.json(
     {
       ok: true,
@@ -17,8 +35,9 @@ export async function GET(request: Request) {
       timeZone: live.timeZone,
       syncedWithJobber: live.syncedWithJobber,
       busyCount: live.busyCount,
+      busySample: live.busySample,
       availabilityError: live.availabilityError,
-      availability: live.availability,
+      availability,
     },
     { headers: { "Cache-Control": "no-store" } },
   );

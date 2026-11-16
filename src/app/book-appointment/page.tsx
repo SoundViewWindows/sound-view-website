@@ -384,11 +384,16 @@ export default function BookAppointmentPage() {
         referenceId?: string;
         message?: string;
       } | null;
-      if (response.status === 409 || result?.code === "SLOT_UNAVAILABLE") {
+      if (
+        response.status === 409 ||
+        result?.code === "SLOT_UNAVAILABLE" ||
+        result?.code === "TOO_SOON" ||
+        result?.code === "HOLIDAY_CLOSED"
+      ) {
         clearMonthAvailability(form.date.slice(0, 7));
         setForm((current) => ({ ...current, timeSlot: "" }));
         setStep(2);
-        setSlotError(result?.message || "That time slot was just booked. Please select another available time.");
+        setSlotError(result?.message || scheduleRejectionMessage(result?.code));
         setSubmitError("");
         requestAnimationFrame(() => {
           document.getElementById("field-schedule")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1347,6 +1352,16 @@ function controlClass(invalid: boolean) {
   return `w-full rounded-[4px] border bg-white px-3 py-2.5 text-sm text-[#0B192C] outline-none transition-colors placeholder:text-slate-400 focus:border-[#0284C7] ${
     invalid ? "border-red-500" : "border-slate-300"
   } ${focusRing}`;
+}
+
+function scheduleRejectionMessage(code: string | undefined) {
+  if (code === "HOLIDAY_CLOSED") {
+    return "We are closed for the holiday on that date. Please choose another available business day.";
+  }
+  if (code === "TOO_SOON") {
+    return "Appointments must be scheduled at least 24 hours in advance. Please select a later date or time.";
+  }
+  return "That time slot was just booked. Please select another available time.";
 }
 
 function validateStep(

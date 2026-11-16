@@ -24,7 +24,10 @@ type RequestNode = {
 
 type PageInfo = { hasNextPage?: boolean | null; endCursor?: string | null } | null;
 
-const SLOT_MS = BOOKING_SCHEDULE_CONFIG.slotDurationMinutes * 60 * 1000;
+const SLOT_MS = 60 * 60 * 1000;
+const SCHEDULE_TYPES = ["Assessment", "Visit", "Event", "Task"] as const;
+
+export type BusySample = { title: string; startAt: string; endAt: string };
 
 export async function getLiveAvailability(month = pacificYearMonth(), now = new Date()) {
   const bounds = monthBounds(month);
@@ -35,6 +38,7 @@ export async function getLiveAvailability(month = pacificYearMonth(), now = new 
     syncedWithJobber: loaded.synced,
     busy: loaded.intervals,
     busyCount: loaded.intervals.length,
+    busySample: loaded.samples,
     availabilityError: loaded.availabilityError,
     availability: buildMonthAvailability(month, loaded.intervals, now),
   };
@@ -52,6 +56,7 @@ function monthBounds(month: string) {
 
 async function loadBusyIntervals(after: string, before: string) {
   const collected = new Map<string, BusyInterval>();
+  const samples: BusySample[] = [];
   const failures: string[] = [];
   let synced = false;
 
@@ -59,15 +64,26 @@ async function loadBusyIntervals(after: string, before: string) {
     if (isCancelledTitle(node.title)) return;
     const interval = toInterval(node);
     if (!interval) return;
-    if (interval.end <= Date.parse(after) || interval.start >= Date.parse(before)) return;
+    const windowStart = Date.parse(after);
+    const windowEnd = Date.parse(before);
+    if (interval.end <= windowStart || interval.start >= windowEnd) return;
     const key = node.id || `${source}-${interval.start}-${interval.end}-${index}`;
-    if (!collected.has(key)) collected.set(key, interval);
+    if (collected.has(key)) return;
+    collected.set(key, interval);
+    if (samples.length < 10) {
+      samples.push({
+        title: publicTitle(node.title),
+        startAt: new Date(interval.start).toISOString(),
+        endAt: new Date(interval.end).toISOString(),
+      });
+    }
   };
 
   const scheduled = await runQuery("scheduledItems", failures, () => readScheduledItems(after, before));
   if (scheduled) {
     synced = true;
-    scheduled.forEach((node, index) => remember("scheduled", node, index));
+    if (scheduled.note) failures.push(`scheduledItems: ${scheduled.note}`);
+    scheduled.nodes.forEach((node, index) => remember("scheduled", node, index));
   }
 
   const requests = await runQuery("requests", failures, () => readRequestAssessments());
@@ -83,6 +99,7 @@ async function loadBusyIntervals(after: string, before: string) {
   return {
     intervals: [...collected.values()],
     synced,
+    samples,
     availabilityError: failures.length > 0 ? failures.join("; ") : null,
   };
 }
@@ -99,19 +116,60 @@ async function runQuery<T>(label: string, failures: string[], load: () => Promis
 }
 
 async function readScheduledItems(after: string, before: string) {
-  const attempts = [scheduledItemsQuery, scheduledItemsFirstPageQuery];
-  let lastError: unknown = new Error("Jobber did not return scheduled items.");
-  for (const query of attempts) {
+  const notes: string[] = [];
+  try {
+    const filtered = await readConnection<ScheduledNode>(scheduledItemsQuery, "scheduledItems", { after, before });
+    if (filtered.length > 0) return { nodes: filtered, note: null };
+  } catch (error) {
+    if (isDisconnected(error)) throw error;
+    const message = sanitizeError(error);
+    console.error("[availability] Jobber GraphQL error:", "scheduledItems", message);
+    notes.push(message);
+    await logScheduleSchema();
+  }
+
+  const merged: ScheduledNode[] = [];
+  for (const typeName of SCHEDULE_TYPES) {
     try {
-      return await readConnection<ScheduledNode>(query, "scheduledItems", { after, before });
+      merged.push(...(await readConnection<ScheduledNode>(unfilteredTypeQuery(typeName), "scheduledItems", {})));
     } catch (error) {
       if (isDisconnected(error)) throw error;
       const message = sanitizeError(error);
-      console.error("[availability] Jobber GraphQL error:", "scheduledItems", message);
-      lastError = error;
+      console.error("[availability] Jobber GraphQL error:", typeName, message);
+      notes.push(`${typeName}: ${message}`);
     }
   }
-  throw lastError;
+  if (merged.length === 0 && notes.length > 0) {
+    throw new Error(notes.join("; "));
+  }
+  return { nodes: merged, note: notes.length > 0 ? notes.join("; ") : null };
+}
+
+async function logScheduleSchema() {
+  try {
+    const data = await jobberGraphql<{
+      scheduledItem: { possibleTypes?: { name: string }[] | null } | null;
+    }>(scheduleSchemaQuery);
+    const names = data.scheduledItem?.possibleTypes?.map((type) => type.name).join(", ") || "none";
+    console.error("[availability] Jobber GraphQL error:", "ScheduledItem types:", names);
+  } catch (error) {
+    console.error("[availability] Jobber GraphQL error:", "schema", sanitizeError(error));
+  }
+}
+
+function unfilteredTypeQuery(typeName: (typeof SCHEDULE_TYPES)[number]) {
+  return `
+    query GetUnfiltered${typeName}($cursor: String) {
+      scheduledItems(first: 100, after: $cursor) {
+        nodes {
+          id
+          title
+          ... on ${typeName} { startAt endAt }
+        }
+        pageInfo { hasNextPage endCursor }
+      }
+    }
+  `;
 }
 
 async function readRequestAssessments() {
@@ -151,6 +209,15 @@ function toInterval(node: ScheduledNode): BusyInterval | null {
   return { start, end };
 }
 
+function publicTitle(title: string | null | undefined) {
+  const cleaned = (title ?? "")
+    .replace(/\S+@\S+/g, "")
+    .replace(/\d{3}[-.\s]?\d{3}[-.\s]?\d{4}/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return cleaned.slice(0, 80) || "Scheduled block";
+}
+
 function isCancelledTitle(title: string | null | undefined) {
   return (title ?? "").toLowerCase().includes("cancelled");
 }
@@ -179,23 +246,17 @@ const scheduledItemsQuery = `
         ... on Assessment { startAt endAt }
         ... on Visit { startAt endAt }
         ... on Event { startAt endAt }
+        ... on Task { startAt endAt }
       }
       pageInfo { hasNextPage endCursor }
     }
   }
 `;
 
-const scheduledItemsFirstPageQuery = `
-  query GetScheduledItemsFirstPage($after: ISO8601DateTime!, $before: ISO8601DateTime!) {
-    scheduledItems(first: 100, filter: { startAt: { after: $after, before: $before } }) {
-      nodes {
-        id
-        title
-        ... on Assessment { startAt endAt }
-        ... on Visit { startAt endAt }
-        ... on Event { startAt endAt }
-      }
-      pageInfo { hasNextPage endCursor }
+const scheduleSchemaQuery = `
+  query AvailabilityScheduleSchema {
+    scheduledItem: __type(name: "ScheduledItem") {
+      possibleTypes { name }
     }
   }
 `;

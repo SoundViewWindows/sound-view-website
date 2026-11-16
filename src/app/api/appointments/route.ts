@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { parseJobberAppointmentPayload } from "@/lib/jobber/booking-types";
+import { isCompanyClosedDate, isSlotAtLeastAdvanceNotice, slotLabelStartUtcMs } from "@/lib/jobber/booking-schedule";
 import { jobberConfig } from "@/lib/jobber/config";
 import { appointmentSummary, createWebsiteAppointment } from "@/lib/jobber/create-appointment-request";
 import { getLiveAvailability } from "@/lib/jobber/live-availability";
@@ -10,6 +11,29 @@ export async function POST(request: Request) {
   const parsed = parseJobberAppointmentPayload(body);
   if (!parsed.ok) {
     return NextResponse.json({ ok: false, message: parsed.message }, { status: 400 });
+  }
+
+  const requestedDate = parsed.value.schedule.date;
+  if (isCompanyClosedDate(requestedDate)) {
+    return NextResponse.json(
+      {
+        ok: false,
+        code: "HOLIDAY_CLOSED",
+        message: "We are closed for the holiday on that date. Please choose another available business day.",
+      },
+      { status: 400 },
+    );
+  }
+  const slotStartUtcMs = slotLabelStartUtcMs(requestedDate, parsed.value.schedule.timeSlot);
+  if (slotStartUtcMs === null || !isSlotAtLeastAdvanceNotice(slotStartUtcMs, Date.now())) {
+    return NextResponse.json(
+      {
+        ok: false,
+        code: "TOO_SOON",
+        message: "Appointments must be scheduled at least 24 hours in advance. Please select a later date or time.",
+      },
+      { status: 400 },
+    );
   }
 
   const referenceId = createReferenceId();
