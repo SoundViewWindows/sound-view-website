@@ -208,17 +208,17 @@ export function CostComparison({
           <article
             className={
               about
-                ? "rounded-[4px] border border-slate-200/90 bg-[#F8FAFC] p-6 shadow-sm sm:p-8"
+                ? "rounded-[4px] border border-red-300 bg-[#F8FAFC] p-6 shadow-sm sm:p-8"
                 : home
-                  ? "rounded-xl border border-[#8AA0B2]/35 bg-home-canvas p-6 shadow-sm sm:p-8"
-                  : "rounded-2xl border border-slate-700/90 bg-[#132238] p-6 shadow-sm sm:p-8"
+                  ? "rounded-xl border border-red-300 bg-home-canvas p-6 shadow-sm sm:p-8"
+                  : "rounded-2xl border border-red-300 bg-[#132238] p-6 shadow-sm sm:p-8"
             }
           >
             <header className="mb-5 flex items-center justify-between gap-3">
               <h3 className={`text-xl font-bold ${about ? "text-[#0B192C]" : "text-white"}`}>
                 {copy.oldTitle}
               </h3>
-              <Mark tone="problem" label="Problem" home={home} about={about} />
+              <Mark tone="problem" label="Problem" about={about} />
             </header>
             <ul className="space-y-4">
               {copy.oldItems.map((item) => (
@@ -229,17 +229,17 @@ export function CostComparison({
           <article
             className={
               about
-                ? "relative rounded-[4px] border border-[#0284C7] bg-white p-6 shadow-md sm:p-8"
+                ? "relative rounded-[4px] border border-emerald-500 bg-white p-6 shadow-md sm:p-8"
                 : home
-                  ? "relative rounded-xl border border-home-accent bg-home-canvas p-6 shadow-md sm:p-8"
-                  : "relative rounded-2xl border-2 border-emerald-500/30 bg-[#132238] p-6 shadow-md sm:p-8"
+                  ? "relative rounded-xl border border-emerald-500 bg-home-canvas p-6 shadow-md sm:p-8"
+                  : "relative rounded-2xl border-2 border-emerald-500 bg-[#132238] p-6 shadow-md sm:p-8"
             }
           >
             <header className="mb-5 flex items-center justify-between gap-3">
               <h3 className={`text-xl font-bold ${about ? "text-[#0B192C]" : "text-white"}`}>
                 {copy.newTitle}
               </h3>
-              <Mark tone="value" label="Upgrade" home={home} about={about} />
+              <Mark tone="value" label="Upgrade" about={about} />
             </header>
             <ul className="space-y-4">
               {copy.newItems.map((item) => (
@@ -269,7 +269,7 @@ function Item({
 }) {
   return (
     <li className="flex gap-3">
-      <Mark tone={tone} home={home} about={about} />
+      <Mark tone={tone} about={about} />
       <p className={`text-sm leading-6 ${about ? "text-slate-600" : home ? "text-slate-200" : "text-slate-300"}`}>
         <span className={`font-semibold ${about ? "text-[#0B192C]" : "text-white"}`}>{item.title}: </span>
         {item.body}
@@ -281,29 +281,17 @@ function Item({
 function Mark({
   tone,
   label,
-  home = false,
   about = false,
 }: {
   tone: "problem" | "value";
   label?: string;
-  home?: boolean;
   about?: boolean;
 }) {
   const problem = tone === "problem";
   return (
     <span
       className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center ${about ? "rounded-[4px]" : "rounded-full"} ${
-        about
-          ? problem
-            ? "bg-slate-200 text-[#0B192C]"
-            : "bg-[#38BDF8] text-[#0B192C]"
-          : home
-            ? problem
-              ? "bg-home-line text-home-mist"
-              : "bg-home-accent text-[#062033]"
-            : problem
-              ? "bg-rose-100 text-rose-600"
-              : "bg-emerald-100 text-emerald-600"
+        problem ? "bg-red-600 text-white" : "bg-emerald-600 text-white"
       }`}
       aria-hidden={label ? undefined : true}
       aria-label={label}
