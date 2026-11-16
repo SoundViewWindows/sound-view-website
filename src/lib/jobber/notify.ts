@@ -70,9 +70,10 @@ export async function sendAppointmentNotification(notice: AppointmentNotificatio
     notice.imageNames.length > 0
       ? `${notice.imageNames.join(", ")}. File names only. The image files were not uploaded.`
       : "None. File names only. The image files were not uploaded.";
-  await sendNotificationEmail(notice.requestTitle, [
-    notice.requestTitle,
+  await sendNotificationEmail("New Appointment Booking", [
+    "New Appointment Booking",
     "",
+    `Jobber title: ${notice.requestTitle}`,
     `Reference ID: ${notice.referenceId}`,
     `Name: ${notice.name}`,
     `Company: ${notice.companyName || "-"}`,

@@ -27,9 +27,23 @@ type PropertyCreateData = {
   };
 };
 
+type ScheduledAssessment = { id: string; startAt: string | null; endAt: string | null } | null;
+
 type RequestCreateData = {
   requestCreate: {
-    request: { id: string; title: string | null; jobberWebUri: string | null } | null;
+    request: {
+      id: string;
+      title: string | null;
+      jobberWebUri: string | null;
+      assessment: ScheduledAssessment;
+    } | null;
+    userErrors: UserError[];
+  };
+};
+
+type AssessmentCreateData = {
+  assessmentCreate: {
+    assessment: ScheduledAssessment;
     userErrors: UserError[];
   };
 };
@@ -98,6 +112,27 @@ const createRequestMutation = `
         id
         title
         jobberWebUri
+        assessment {
+          id
+          startAt
+          endAt
+        }
+      }
+      userErrors {
+        message
+        path
+      }
+    }
+  }
+`;
+
+const createAssessmentMutation = `
+  mutation CreateWebsiteAppointmentAssessment($requestId: EncodedId!, $input: AssessmentCreateInput!) {
+    assessmentCreate(requestId: $requestId, input: $input) {
+      assessment {
+        id
+        startAt
+        endAt
       }
       userErrors {
         message
@@ -139,11 +174,8 @@ export async function createWebsiteAppointment(
   };
 }
 
-export function appointmentRequestTitle(appointment: JobberAppointmentPayload) {
-  const products = appointment.serviceDetails.products.join(", ") || "Appointment";
-  const start = appointment.schedule.timeSlot.split(" - ")[0] || appointment.schedule.timeSlot;
-  const title = `Website Appointment Request [${appointment.location}]: ${products} (${shortDate(appointment.schedule.date)} at ${start})`;
-  return title.length > 180 ? `${title.slice(0, 177)}...` : title;
+export function appointmentRequestTitle(_appointment: JobberAppointmentPayload) {
+  return "Website Appointment Booking";
 }
 
 export function appointmentSummary(appointment: JobberAppointmentPayload, referenceId: string) {
@@ -305,40 +337,44 @@ async function createRequest(
   if (propertyId) base.propertyId = propertyId;
 
   const slot = APPOINTMENT_TIME_SLOTS.find((item) => item.label === appointment.schedule.timeSlot);
-  const withAssessment = slot
-    ? {
-        ...base,
-        assessment: {
+  const startDate = slot ? localDateTime(appointment.schedule.date, slot.startHour) : null;
+  const endDate = slot ? localDateTime(appointment.schedule.date, slot.startHour + 1) : null;
+  const assessmentInput =
+    startDate && endDate
+      ? {
           instructions: items.map((item) => `${item.label}: ${item.answerText}`).join("\n"),
-          schedule: {
-            startAt: localDateTime(appointment.schedule.date, slot.startHour),
-            endAt: localDateTime(appointment.schedule.date, slot.startHour + 1),
-          },
-        },
-      }
-    : base;
+          schedule: { startAt: startDate, endAt: endDate },
+        }
+      : null;
+  const withAssessment = assessmentInput ? { ...base, assessment: assessmentInput } : base;
 
-  if (!slot) {
-    const created = await submitRequest(base);
-    if (!created.request) throw new Error("Jobber did not create the request.");
-    return { ...created.request, assessmentScheduled: false };
-  }
-
-  try {
-    const created = await submitRequest(withAssessment);
-    if (created.request) {
-      return { ...created.request, assessmentScheduled: !created.assessmentRejected };
+  let created: Awaited<ReturnType<typeof submitRequest>> | null = null;
+  if (assessmentInput) {
+    try {
+      created = await submitRequest(withAssessment);
+    } catch (error) {
+      console.info(
+        "appointment assessment was not scheduled",
+        error instanceof Error ? error.message : "Jobber did not schedule the assessment.",
+      );
     }
-  } catch (error) {
-    console.info(
-      "appointment assessment was not scheduled",
-      error instanceof Error ? error.message : "Jobber did not schedule the assessment.",
-    );
+  }
+  if (!created?.request) {
+    created = await submitRequest(base);
+  }
+  if (!created.request) throw new Error("Jobber did not create the request.");
+
+  let assessmentScheduled = isScheduledAssessment(created.request.assessment) && !created.assessmentRejected;
+  if (!assessmentScheduled && assessmentInput) {
+    assessmentScheduled = await createAssessment(created.request.id, assessmentInput);
   }
 
-  const created = await submitRequest(base);
-  if (!created.request) throw new Error("Jobber did not create the request.");
-  return { ...created.request, assessmentScheduled: false };
+  return {
+    id: created.request.id,
+    title: created.request.title,
+    jobberWebUri: created.request.jobberWebUri,
+    assessmentScheduled,
+  };
 }
 
 async function submitRequest(input: Record<string, unknown>) {
@@ -357,6 +393,30 @@ async function submitRequest(input: Record<string, unknown>) {
   if (assessmentRejected) return { request: null, assessmentRejected: true };
   assertNoUserErrors(data.requestCreate.userErrors, "Jobber did not create the request.");
   throw new Error("Jobber did not create the request.");
+}
+
+async function createAssessment(requestId: string, input: Record<string, unknown>) {
+  try {
+    const data = await jobberGraphql<AssessmentCreateData>(createAssessmentMutation, { requestId, input });
+    const errors = data.assessmentCreate.userErrors;
+    if (errors?.length) {
+      console.info(
+        "appointment assessment was not scheduled",
+        errors.map((error) => error.message).filter(Boolean).join(" "),
+      );
+    }
+    return isScheduledAssessment(data.assessmentCreate.assessment);
+  } catch (error) {
+    console.info(
+      "appointment assessment was not scheduled",
+      error instanceof Error ? error.message : "Jobber did not schedule the assessment.",
+    );
+    return false;
+  }
+}
+
+function isScheduledAssessment(assessment: ScheduledAssessment) {
+  return Boolean(assessment?.startAt && assessment.endAt);
 }
 
 function userErrorsMentionAssessment(errors: UserError[] | null | undefined) {
@@ -394,10 +454,6 @@ function e164Phone(phone: string) {
 
 function yesNo(value: boolean) {
   return value ? "Yes" : "No";
-}
-
-function shortDate(iso: string) {
-  return formatDate(iso, { month: "short", day: "numeric", year: "numeric" });
 }
 
 function longDate(iso: string) {
