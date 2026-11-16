@@ -99,7 +99,7 @@ async function runQuery<T>(label: string, failures: string[], load: () => Promis
 }
 
 async function readScheduledItems(after: string, before: string) {
-  const attempts = [scheduledItemsPageQuery, scheduledItemsQuery, scheduledAssessmentQuery, scheduledVisitQuery, scheduledEventQuery];
+  const attempts = [scheduledItemsQuery, scheduledItemsFirstPageQuery];
   let lastError: unknown = new Error("Jobber did not return scheduled items.");
   for (const query of attempts) {
     try {
@@ -144,7 +144,9 @@ async function readConnection<T>(query: string, field: string, variables: Record
 function toInterval(node: ScheduledNode): BusyInterval | null {
   const start = node.startAt ? Date.parse(node.startAt) : Number.NaN;
   if (!Number.isFinite(start)) return null;
-  const parsedEnd = node.endAt ? Date.parse(node.endAt) : Number.NaN;
+  const rawEnd = node.endAt?.trim() ?? "";
+  const endIso = rawEnd ? rawEnd : new Date(new Date(start).getTime() + 60 * 60 * 1000).toISOString();
+  const parsedEnd = Date.parse(endIso);
   const end = Number.isFinite(parsedEnd) && parsedEnd > start ? parsedEnd : start + SLOT_MS;
   return { start, end };
 }
@@ -168,45 +170,31 @@ function sanitizeError(error: unknown) {
   return message.replace(/\s+/g, " ").slice(0, 300);
 }
 
-const scheduledItemsPageQuery = `
+const scheduledItemsQuery = `
   query GetScheduledItems($after: ISO8601DateTime!, $before: ISO8601DateTime!, $cursor: String) {
     scheduledItems(first: 100, after: $cursor, filter: { startAt: { after: $after, before: $before } }) {
-      nodes { id startAt endAt title }
+      nodes {
+        id
+        title
+        ... on Assessment { startAt endAt }
+        ... on Visit { startAt endAt }
+        ... on Event { startAt endAt }
+      }
       pageInfo { hasNextPage endCursor }
     }
   }
 `;
 
-const scheduledItemsQuery = `
-  query GetScheduledItemsPlain($after: ISO8601DateTime!, $before: ISO8601DateTime!) {
+const scheduledItemsFirstPageQuery = `
+  query GetScheduledItemsFirstPage($after: ISO8601DateTime!, $before: ISO8601DateTime!) {
     scheduledItems(first: 100, filter: { startAt: { after: $after, before: $before } }) {
-      nodes { id startAt endAt title }
-    }
-  }
-`;
-
-const scheduledAssessmentQuery = `
-  query GetScheduledAssessments($after: ISO8601DateTime!, $before: ISO8601DateTime!, $cursor: String) {
-    scheduledItems(first: 100, after: $cursor, filter: { startAt: { after: $after, before: $before } }) {
-      nodes { ... on Assessment { id startAt endAt title } }
-      pageInfo { hasNextPage endCursor }
-    }
-  }
-`;
-
-const scheduledVisitQuery = `
-  query GetScheduledVisits($after: ISO8601DateTime!, $before: ISO8601DateTime!, $cursor: String) {
-    scheduledItems(first: 100, after: $cursor, filter: { startAt: { after: $after, before: $before } }) {
-      nodes { ... on Visit { id startAt endAt title } }
-      pageInfo { hasNextPage endCursor }
-    }
-  }
-`;
-
-const scheduledEventQuery = `
-  query GetScheduledEvents($after: ISO8601DateTime!, $before: ISO8601DateTime!, $cursor: String) {
-    scheduledItems(first: 100, after: $cursor, filter: { startAt: { after: $after, before: $before } }) {
-      nodes { ... on Event { id startAt endAt title } }
+      nodes {
+        id
+        title
+        ... on Assessment { startAt endAt }
+        ... on Visit { startAt endAt }
+        ... on Event { startAt endAt }
+      }
       pageInfo { hasNextPage endCursor }
     }
   }
