@@ -12,14 +12,23 @@ export async function jobberGraphql<T>(
   query: string,
   variables?: Record<string, unknown>,
 ): Promise<T> {
+  const result = await jobberGraphqlDetailed<T>(query, variables);
+  if (result.errors.length > 0 || !result.data) {
+    throw new Error(result.errors.join(" ") || "Jobber did not return any data.");
+  }
+  return result.data;
+}
+
+export async function jobberGraphqlDetailed<T>(
+  query: string,
+  variables?: Record<string, unknown>,
+): Promise<{ data: T | null; errors: string[] }> {
   const first = await getValidTokens();
   const firstResult = await postGraphQl<T>(first.accessToken, query, variables);
-  if (!isInvalidToken(firstResult.status)) {
-    return unwrap<T>(firstResult.payload);
-  }
-  const refreshed = await forceRefresh();
-  const secondResult = await postGraphQl<T>(refreshed.accessToken, query, variables);
-  return unwrap<T>(secondResult.payload);
+  const result = isInvalidToken(firstResult.status)
+    ? await postGraphQl<T>((await forceRefresh()).accessToken, query, variables)
+    : firstResult;
+  return unwrapDetailed<T>(result.payload);
 }
 
 async function getValidTokens() {
@@ -86,17 +95,12 @@ function isInvalidToken(status: number) {
   return status === 401;
 }
 
-function unwrap<T>(payload: GraphQlResult<T> | null): T {
+function unwrapDetailed<T>(payload: GraphQlResult<T> | null): { data: T | null; errors: string[] } {
   if (!payload) {
     throw new Error("Jobber returned an empty response.");
   }
-  if (payload.errors?.length) {
-    throw new Error(payload.errors.map((error) => error.message).filter(Boolean).join(" ") || "Jobber rejected the request.");
-  }
-  if (!payload.data) {
-    throw new Error("Jobber did not return any data.");
-  }
-  return payload.data;
+  const errors = payload.errors?.map((error) => error.message).filter((message): message is string => Boolean(message)) ?? [];
+  return { data: payload.data ?? null, errors };
 }
 
 export async function rememberAccount(accountId: string, accountName: string) {
