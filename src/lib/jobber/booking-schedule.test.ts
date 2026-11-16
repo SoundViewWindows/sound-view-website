@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
-import { isCompanyClosedDate, openSlotLabels, type BusyInterval } from "./booking-schedule.ts";
+import { bookingScheduleFilter, bookingUserIdForEmail, isCompanyClosedDate, openSlotLabels, type BusyInterval } from "./booking-schedule.ts";
 
 const beforeTheMonth = new Date("2026-11-01T18:00:00.000Z");
 
@@ -47,6 +48,36 @@ test("a block that ends when a slot starts does not remove that slot", () => {
   const open = openSlotLabels("2026-11-18", busy, beforeTheMonth);
   assert.equal(open.includes("11:00 AM - 12:00 PM"), false);
   assert.equal(open.includes("12:00 PM - 1:00 PM"), true);
+});
+
+test("availability uses the booking email account and does not expand to every assignment", () => {
+  const filter = bookingScheduleFilter("booking-user", { startAt: "2026-11-18T08:00:00Z", endAt: "2026-11-19T08:00:00Z" }, "BASIC_TASK");
+  assert.deepEqual(filter.assignedTo, ["booking-user"]);
+  assert.equal("schedulingAspects" in filter, false);
+  const source = readFileSync(new URL("./live-availability.ts", import.meta.url), "utf8");
+  const schedule = readFileSync(new URL("./booking-schedule.ts", import.meta.url), "utf8");
+  const bookingUser = readFileSync(new URL("./booking-user.ts", import.meta.url), "utf8");
+  const appointments = readFileSync(new URL("../../app/api/appointments/route.ts", import.meta.url), "utf8");
+  assert.match(source, /assignedTo: \$assignedTo/);
+  assert.doesNotMatch(source, /ASSIGNMENTS/);
+  assert.match(source, /if \(!bookingUser\.id\)/);
+  assert.match(schedule, /booking@soundviewseattle\.com/);
+  assert.match(bookingUser, /email \{\s*raw\s*\}/);
+  assert.match(bookingUser, /bookingUserIdForEmail/);
+  assert.doesNotMatch(bookingUser, /name \{\s*full\s*\}/);
+  assert.doesNotMatch(bookingUser, /JOBBER_BOOKING_USER_ID/);
+  assert.match(appointments, /getLiveAvailability/);
+  assert.equal(
+    bookingUserIdForEmail([
+      { id: "dan-user", email: { raw: "dan@soundviewseattle.com" } },
+      { id: "booking-user", email: { raw: "Booking@SoundViewSeattle.com" } },
+    ]),
+    "booking-user",
+  );
+  assert.equal(
+    bookingUserIdForEmail([{ id: "named-booking", email: { raw: "someone-else@soundviewseattle.com" } }]),
+    null,
+  );
 });
 
 test("holiday closures and the 24 hour notice stay in front of busy time", () => {

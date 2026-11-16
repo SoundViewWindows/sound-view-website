@@ -1,35 +1,77 @@
 import { jobberGraphql } from "@/lib/jobber/graphql";
+import { BOOKING_ACCOUNT_EMAIL, bookingUserIdForEmail } from "@/lib/jobber/booking-schedule";
+
+export { BOOKING_ACCOUNT_EMAIL };
+
+type BookingUserNode = {
+  id?: string | null;
+  email?: { raw?: string | null } | null;
+};
 
 type BookingUsersData = {
   users: {
-    nodes: { id: string; name?: { full?: string | null } | null }[];
+    nodes: Array<BookingUserNode | null> | null;
+    pageInfo?: { hasNextPage?: boolean | null; endCursor?: string | null } | null;
   } | null;
 };
 
 const bookingUserQuery = `
-  query GetBookingUser {
-    users(first: 25) {
+  query GetBookingUsers($afterCursor: String) {
+    users(first: 50, after: $afterCursor) {
       nodes {
         id
-        name {
-          full
+        email {
+          raw
         }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }
 `;
 
 export async function findBookingUserId() {
-  const override = process.env.JOBBER_BOOKING_USER_ID?.trim() || "";
+  const resolved = await resolveBookingUser();
+  return resolved.id;
+}
+
+export async function resolveBookingUser(): Promise<{ id: string | null; error: string | null }> {
   try {
-    const data = await jobberGraphql<BookingUsersData>(bookingUserQuery);
-    const match = data.users?.nodes.find((node) => node.name?.full?.trim().toLowerCase() === "booking");
-    if (match?.id) return match.id;
+    const id = await readBookingUserId();
+    if (id) return { id, error: null };
+    return {
+      id: null,
+      error: `Jobber did not return a team member for ${BOOKING_ACCOUNT_EMAIL}. The authorizing user's schedule was not used.`,
+    };
   } catch (error) {
-    console.info(
-      "appointment booking user lookup was unavailable",
-      error instanceof Error ? error.message : "Jobber did not return users.",
-    );
+    const message = error instanceof Error ? error.message : "Jobber did not return users.";
+    console.info("appointment booking user lookup was unavailable", message);
+    return {
+      id: null,
+      error: `The booking account ${BOOKING_ACCOUNT_EMAIL} could not be read (${message}). The authorizing user's schedule was not used.`,
+    };
   }
-  return override || null;
+}
+
+async function readBookingUserId() {
+  let afterCursor: string | null = null;
+  const seen = new Set<string>();
+
+  for (let page = 0; page < 20; page += 1) {
+    const data: BookingUsersData = await jobberGraphql<BookingUsersData>(bookingUserQuery, { afterCursor });
+    const connection: BookingUsersData["users"] = data.users;
+    if (!connection) {
+      throw new Error("Jobber did not return users.");
+    }
+    const id = bookingUserIdForEmail(connection.nodes);
+    if (id) return id;
+    const nextCursor: string = connection.pageInfo?.endCursor?.trim() ?? "";
+    if (!connection.pageInfo?.hasNextPage || !nextCursor || seen.has(nextCursor)) return null;
+    seen.add(nextCursor);
+    afterCursor = nextCursor;
+  }
+
+  return null;
 }

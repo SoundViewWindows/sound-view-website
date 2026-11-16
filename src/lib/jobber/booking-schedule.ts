@@ -232,3 +232,27 @@ export function setCachedMonthAvailability<T>(month: string, body: T) {
 export function clearAvailabilityCache() {
   monthAvailabilityCache.clear();
 }
+
+export const BOOKING_ACCOUNT_EMAIL = "booking@soundviewseattle.com";
+
+export function bookingUserIdForEmail(
+  nodes: Array<{ id?: string | null; email?: { raw?: string | null } | null } | null> | null | undefined,
+  email = BOOKING_ACCOUNT_EMAIL,
+) {
+  const target = email.trim().toLowerCase();
+  const match = (nodes ?? []).find((node) => (node?.email?.raw ?? "").trim().toLowerCase() === target);
+  const id = match?.id?.trim() ?? "";
+  return id || null;
+}
+
+export function bookingScheduleFilter(
+  bookingUserId: string,
+  occursWithin: { startAt: string; endAt: string },
+  scheduleItemType: string,
+) {
+  return {
+    occursWithin,
+    scheduleItemType,
+    assignedTo: [bookingUserId],
+  };
+}

@@ -1,6 +1,8 @@
+import { resolveBookingUser } from "@/lib/jobber/booking-user";
 import { jobberGraphqlDetailed } from "@/lib/jobber/graphql";
 import {
   BOOKING_SCHEDULE_CONFIG,
+  bookingScheduleFilter,
   buildMonthAvailability,
   datesInMonth,
   pacificWallTimeToUtc,
@@ -14,13 +16,6 @@ type ScheduledNode = {
   startAt?: string | null;
   endAt?: string | null;
   title?: string | null;
-};
-
-type RequestNode = {
-  id?: string | null;
-  title?: string | null;
-  requestStatus?: string | null;
-  assessment?: { id?: string | null; startAt?: string | null; endAt?: string | null } | null;
 };
 
 type PageInfo = {
@@ -98,26 +93,23 @@ async function loadBusyIntervals(after: string, before: string) {
     }
   };
 
-  const scheduled = await runQuery("scheduledItems", failures, () => readScheduledItems(after, before));
+  const bookingUser = await resolveBookingUser();
+  if (!bookingUser.id) {
+    return {
+      intervals: [],
+      synced: false,
+      samples: [],
+      permissionWarning: null,
+      availabilityError: bookingUser.error,
+    };
+  }
+
+  const scheduled = await runQuery("scheduledItems", failures, () => readScheduledItems(after, before, bookingUser.id!));
   if (scheduled) {
     synced = true;
     permissionWarnings.push(...scheduled.permissionWarnings);
     if (scheduled.note) failures.push(`scheduledItems: ${scheduled.note}`);
     scheduled.nodes.forEach((node) => remember("scheduled", node));
-  }
-
-  const requests = await runQuery("requests", failures, () => readRequestAssessments());
-  if (requests) {
-    synced = true;
-    requests.forEach((request) => {
-      if (isClosedRequest(request) || !request.assessment) return;
-      remember("request", {
-        id: request.assessment.id,
-        startAt: request.assessment.startAt,
-        endAt: request.assessment.endAt,
-        title: request.title,
-      });
-    });
   }
 
   return {
@@ -149,8 +141,8 @@ const SCHEDULE_ITEM_QUERIES = [
 
 function scheduledItemsQueryFor(fragment: string) {
   return `
-    query GetScheduledItems($occursWithin: DateRange!, $afterCursor: String, $scheduleItemType: ScheduledItemType) {
-      scheduledItems(first: 50, after: $afterCursor, filter: { occursWithin: $occursWithin, scheduleItemType: $scheduleItemType }) {
+    query GetScheduledItems($occursWithin: DateRange!, $afterCursor: String, $scheduleItemType: ScheduledItemType, $assignedTo: [EncodedId!]!) {
+      scheduledItems(first: 50, after: $afterCursor, filter: { occursWithin: $occursWithin, scheduleItemType: $scheduleItemType, assignedTo: $assignedTo }) {
         nodes {
           __typename
           id
@@ -163,14 +155,14 @@ function scheduledItemsQueryFor(fragment: string) {
   `;
 }
 
-async function readScheduledItems(after: string, before: string) {
+async function readScheduledItems(after: string, before: string, bookingUserId: string) {
   const nodes: ScheduledNode[] = [];
   const permissionWarnings: string[] = [];
   const fatal: string[] = [];
   let sawConnection = false;
 
   for (const [scheduleItemType, fragment] of SCHEDULE_ITEM_QUERIES) {
-    const page = await readScheduledItemType(after, before, scheduleItemType, scheduledItemsQueryFor(fragment));
+    const page = await readScheduledItemType(after, before, bookingUserId, scheduleItemType, scheduledItemsQueryFor(fragment));
     if (page.sawConnection) sawConnection = true;
     nodes.push(...page.nodes);
     permissionWarnings.push(...page.permissionWarnings);
@@ -188,7 +180,13 @@ async function readScheduledItems(after: string, before: string) {
   };
 }
 
-async function readScheduledItemType(after: string, before: string, scheduleItemType: string, query: string) {
+async function readScheduledItemType(
+  after: string,
+  before: string,
+  bookingUserId: string,
+  scheduleItemType: string,
+  query: string,
+) {
   const nodes: ScheduledNode[] = [];
   const permissionWarnings: string[] = [];
   const fatal: string[] = [];
@@ -196,10 +194,12 @@ async function readScheduledItemType(after: string, before: string, scheduleItem
   let sawConnection = false;
 
   for (let page = 0; page < 100; page += 1) {
+    const filter = bookingScheduleFilter(bookingUserId, { startAt: after, endAt: before }, scheduleItemType);
     const result: ScheduledItemsResult = await jobberGraphqlDetailed(query, {
-      occursWithin: { startAt: after, endAt: before },
+      occursWithin: filter.occursWithin,
       afterCursor,
-      scheduleItemType,
+      scheduleItemType: filter.scheduleItemType,
+      assignedTo: filter.assignedTo,
     });
     const hidden = result.errors.filter((message: string) => /hidden due to permissions/i.test(message));
     const other = result.errors.filter((message: string) => !/hidden due to permissions/i.test(message));
@@ -220,29 +220,6 @@ async function readScheduledItemType(after: string, before: string, scheduleItem
   }
 
   return { nodes, permissionWarnings, fatal, sawConnection };
-}
-
-async function readRequestAssessments() {
-  try {
-    return await readRequestPage(requestAssessmentsQuery);
-  } catch (error) {
-    if (isDisconnected(error)) throw error;
-    const message = sanitizeError(error);
-    console.error("[availability] Jobber GraphQL error:", "requests", message);
-    return readRequestPage(requestAssessmentsPlainQuery);
-  }
-}
-
-async function readRequestPage(query: string) {
-  const result: { data: { requests?: { nodes?: RequestNode[] | null } | null } | null; errors: string[] } =
-    await jobberGraphqlDetailed(query);
-  if (!result.data?.requests) {
-    throw new Error(result.errors.join(" ") || "Jobber did not return requests.");
-  }
-  if (result.errors.length > 0) {
-    throw new Error(result.errors.join(" "));
-  }
-  return result.data.requests.nodes ?? [];
 }
 
 function toInterval(node: ScheduledNode): BusyInterval | null {
@@ -268,42 +245,7 @@ function isCancelledTitle(title: string | null | undefined) {
   return (title ?? "").toLowerCase().includes("cancelled");
 }
 
-function isClosedRequest(request: RequestNode) {
-  const status = (request.requestStatus ?? "").trim().toUpperCase();
-  return status === "ARCHIVED" || status === "CANCELLED" || isCancelledTitle(request.title);
-}
-
-function isDisconnected(error: unknown) {
-  const message = error instanceof Error ? error.message : "";
-  return /not connected|token storage|network|fetch failed/i.test(message);
-}
-
 function sanitizeError(error: unknown) {
   const message = error instanceof Error ? error.message : "Jobber query failed.";
   return message.replace(/\s+/g, " ").slice(0, 300);
 }
-
-const requestAssessmentsQuery = `
-  query GetRequestAssessments {
-    requests(last: 25) {
-      nodes {
-        id
-        title
-        requestStatus
-        assessment { id startAt endAt }
-      }
-    }
-  }
-`;
-
-const requestAssessmentsPlainQuery = `
-  query GetRequestAssessmentsPlain {
-    requests(last: 25) {
-      nodes {
-        id
-        title
-        assessment { id startAt endAt }
-      }
-    }
-  }
-`;
