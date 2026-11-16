@@ -1,23 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useRef, useState, type DragEvent, type ReactNode } from "react";
+import { Suspense, useCallback, useEffect, useId, useRef, useState, type DragEvent, type ReactNode } from "react";
+import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/Header";
 import {
   APPOINTMENT_DURATION,
   APPOINTMENT_PRODUCTS,
-  APPOINTMENT_TIME_SLOTS,
   APPOINTMENT_TIME_ZONE,
   REFERRAL_SOURCES,
   US_STATES,
   formatPhoneInput,
-  isBookableDate,
-  isBookableSlot,
   pacificTodayParts,
   type AppointmentProduct,
   type JobberAppointmentPayload,
   type ReferralSource,
 } from "@/lib/jobber/booking-types";
+import {
+  APPOINTMENT_LOCATIONS,
+  appointmentLocationById,
+  type AppointmentLocationId,
+} from "@/lib/jobber/schedule-config";
+import { BOOKING_SCHEDULE_CONFIG, pacificYearMonth } from "@/lib/jobber/booking-schedule";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
@@ -56,9 +60,63 @@ type FormState = {
   referral: ReferralSource | "";
   date: string;
   timeSlot: string;
+  locationId: AppointmentLocationId | "";
 };
 
 type FieldErrors = Record<string, string>;
+
+const STEP_1_FIELD_ORDER = [
+  "location",
+  "firstName",
+  "lastName",
+  "email",
+  "phone",
+  "streetAddress",
+  "city",
+  "state",
+  "zipCode",
+] as const;
+
+const STEP_2_FIELD_ORDER = ["scopeOfWork", "products", "installationNeeded"] as const;
+
+const STEP_3_FIELD_ORDER = ["schedule"] as const;
+
+const FIELD_ERROR_KEYS: Record<string, string[]> = {
+  location: ["location"],
+  firstName: ["firstName"],
+  lastName: ["lastName"],
+  email: ["email"],
+  phone: ["phone"],
+  streetAddress: ["street"],
+  city: ["city"],
+  state: ["state"],
+  zipCode: ["zip"],
+  scopeOfWork: ["scope"],
+  products: ["products"],
+  installationNeeded: ["installation"],
+  schedule: ["date", "time"],
+};
+
+function firstInvalidField(step: number, nextErrors: FieldErrors) {
+  const order =
+    step === 0 ? STEP_1_FIELD_ORDER : step === 1 ? STEP_2_FIELD_ORDER : step === 2 ? STEP_3_FIELD_ORDER : [];
+  return order.find((key) => (FIELD_ERROR_KEYS[key] ?? []).some((errorKey) => nextErrors[errorKey]));
+}
+
+function scrollToField(fieldKey: string) {
+  requestAnimationFrame(() => {
+    const target = document.getElementById(`field-${fieldKey}`);
+    target?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const focusable = target?.querySelector("input, textarea, select");
+    if (
+      focusable instanceof HTMLInputElement ||
+      focusable instanceof HTMLTextAreaElement ||
+      focusable instanceof HTMLSelectElement
+    ) {
+      focusable.focus({ preventScroll: true });
+    }
+  });
+}
 
 const emptyForm: FormState = {
   firstName: "",
@@ -82,6 +140,7 @@ const emptyForm: FormState = {
   referral: "",
   date: "",
   timeSlot: "",
+  locationId: "",
 };
 
 export default function BookAppointmentPage() {
@@ -97,6 +156,10 @@ export default function BookAppointmentPage() {
     const today = pacificTodayParts();
     return { year: today.year, month: today.month };
   });
+  const [availabilityByMonth, setAvailabilityByMonth] = useState<
+    Record<string, { syncedWithJobber: boolean; availability: Record<string, string[]> }>
+  >({});
+  const [loadingMonth, setLoadingMonth] = useState<string | null>(null);
   const imagesRef = useRef<UploadedImage[]>([]);
   const skipScroll = useRef(true);
   const uploadId = useId();
@@ -111,12 +174,71 @@ export default function BookAppointmentPage() {
     };
   }, []);
 
+  const pickLocation = useCallback((id: AppointmentLocationId) => {
+    setForm((current) => (current.locationId ? current : { ...current, locationId: id }));
+    setErrors((current) => {
+      if (!current.location) return current;
+      const next = { ...current };
+      delete next.location;
+      return next;
+    });
+  }, []);
+
+  const visibleMonthKey = `${visibleMonth.year}-${String(visibleMonth.month + 1).padStart(2, "0")}`;
+
+  useEffect(() => {
+    if (step !== 2 || availabilityByMonth[visibleMonthKey]) return;
+    const controller = new AbortController();
+    setLoadingMonth(visibleMonthKey);
+    fetch(`/api/appointments/availability?month=${visibleMonthKey}`, { signal: controller.signal })
+      .then((response) => response.json())
+      .then((result: { ok?: boolean; syncedWithJobber?: boolean; availability?: Record<string, string[]> }) => {
+        if (!result?.ok || !result.availability || typeof result.availability !== "object") return;
+        setAvailabilityByMonth((current) => ({
+          ...current,
+          [visibleMonthKey]: {
+            syncedWithJobber: Boolean(result.syncedWithJobber),
+            availability: result.availability ?? {},
+          },
+        }));
+      })
+      .catch((error: unknown) => {
+        if (error instanceof Error && error.name === "AbortError") return;
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) {
+          setLoadingMonth((current) => (current === visibleMonthKey ? null : current));
+        }
+      });
+    return () => controller.abort();
+  }, [availabilityByMonth, step, visibleMonthKey]);
+
+  useEffect(() => {
+    if (step !== 2) return;
+    const monthData = availabilityByMonth[visibleMonthKey];
+    if (!monthData) return;
+    const openDates = Object.keys(monthData.availability)
+      .filter((date) => (monthData.availability[date]?.length ?? 0) > 0)
+      .sort();
+    setForm((current) => {
+      const selectedStillOpen = Boolean(
+        current.date.startsWith(`${visibleMonthKey}-`) && (monthData.availability[current.date]?.length ?? 0) > 0,
+      );
+      const date = selectedStillOpen ? current.date : (openDates[0] ?? "");
+      const slots = date ? (monthData.availability[date] ?? []) : [];
+      const timeSlot = slots.includes(current.timeSlot) ? current.timeSlot : "";
+      if (date === current.date && timeSlot === current.timeSlot) return current;
+      return { ...current, date, timeSlot };
+    });
+  }, [availabilityByMonth, step, visibleMonthKey]);
+
   useEffect(() => {
     if (skipScroll.current) {
       skipScroll.current = false;
       return;
     }
-    document.getElementById("booking-funnel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const targetId = confirmation ? "booking-funnel" : "booking-funnel-top";
+    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [step, confirmation]);
 
   function patch<K extends keyof FormState>(key: K, value: FormState[K]) {
@@ -130,9 +252,13 @@ export default function BookAppointmentPage() {
   }
 
   function goNext() {
-    const nextErrors = validateStep(step, form);
+    const nextErrors = validateStep(step, form, availabilityByMonth);
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0) return;
+    const firstInvalidKey = firstInvalidField(step, nextErrors);
+    if (firstInvalidKey) {
+      scrollToField(firstInvalidKey);
+      return;
+    }
     setStep((current) => Math.min(current + 1, 3));
   }
 
@@ -202,9 +328,12 @@ export default function BookAppointmentPage() {
   }
 
   function selectDate(iso: string) {
-    const slot = APPOINTMENT_TIME_SLOTS.find((item) => item.label === form.timeSlot);
-    const keepTime = Boolean(slot && isBookableSlot(iso, slot.startHour));
-    setForm((current) => ({ ...current, date: iso, timeSlot: keepTime ? current.timeSlot : "" }));
+    const slots = availabilityByMonth[visibleMonthKey]?.availability[iso] ?? [];
+    setForm((current) => ({
+      ...current,
+      date: iso,
+      timeSlot: slots.includes(current.timeSlot) ? current.timeSlot : "",
+    }));
     setErrors((current) => {
       const next = { ...current };
       delete next.date;
@@ -214,7 +343,7 @@ export default function BookAppointmentPage() {
   }
 
   async function confirmAppointment() {
-    const nextErrors = validateStep(3, form);
+    const nextErrors = validateStep(3, form, availabilityByMonth);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
       setSubmitError(nextErrors.time || nextErrors.date || "Choose an available weekday and time.");
@@ -278,15 +407,19 @@ export default function BookAppointmentPage() {
 
         <section className="bg-[#F4F6F9] py-8 md:py-12" style={{ backgroundColor: "#F4F6F9" }}>
           <div id="booking-funnel" className="mx-auto max-w-3xl scroll-mt-20 px-4 sm:px-6">
+            <Suspense fallback={null}>
+              <LocationFromQuery onPick={pickLocation} />
+            </Suspense>
             {confirmation ? (
               <Confirmation
                 referenceId={confirmation.referenceId}
                 dateLabel={formatLongDate(form.date)}
                 timeSlot={form.timeSlot}
+                locationId={form.locationId}
               />
             ) : (
               <>
-                <ol className="mb-6 grid grid-cols-4 gap-2" aria-label="Booking progress">
+                <ol id="booking-funnel-top" className="mb-6 grid scroll-mt-24 grid-cols-4 gap-2" aria-label="Booking progress">
                   {steps.map((label, index) => {
                     const active = index <= step;
                     return (
@@ -328,6 +461,8 @@ export default function BookAppointmentPage() {
                       form={form}
                       errors={errors}
                       visibleMonth={visibleMonth}
+                      availability={availabilityByMonth[visibleMonthKey]?.availability}
+                      loading={loadingMonth === visibleMonthKey && !availabilityByMonth[visibleMonthKey]}
                       onVisibleMonth={setVisibleMonth}
                       onSelectDate={selectDate}
                       onSelectTime={(timeSlot) => patch("timeSlot", timeSlot)}
@@ -389,12 +524,61 @@ function ContactStep({
   errors: FieldErrors;
   onChange: <K extends keyof FormState>(key: K, value: FormState[K]) => void;
 }) {
+  const selectedId = form.locationId;
   return (
     <div className="space-y-8">
+      <section id="field-location" className="scroll-mt-28">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <h2 className="text-lg font-bold text-[#0B192C]">Select a location</h2>
+          <RequiredBadge />
+        </div>
+        <div
+          role="radiogroup"
+          aria-label="Select a location"
+          aria-invalid={errors.location ? true : undefined}
+          className={`mb-6 grid grid-cols-1 gap-3 border-b border-slate-200 pb-6 sm:grid-cols-3 ${
+            errors.location ? "rounded-[4px] outline outline-1 outline-red-500" : ""
+          }`}
+        >
+          {APPOINTMENT_LOCATIONS.map((location) => {
+            const selected = selectedId === location.id;
+            return (
+              <button
+                key={location.id}
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                onClick={() => onChange("locationId", location.id)}
+                className={`relative rounded-[4px] p-3.5 text-left text-[#0B192C] transition-colors ${
+                  selected
+                    ? "border-2 border-[#0284C7] bg-sky-50/70"
+                    : "border border-slate-300 bg-white hover:border-[#38BDF8]"
+                } ${focusRing}`}
+              >
+                {selected ? (
+                  <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#0284C7] text-white">
+                    <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                      <path d="M3.5 8.2 6.4 11l6.1-6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                ) : null}
+                <span className="block pr-6 text-sm font-semibold">{location.name}</span>
+                <span className="mt-1 block text-xs leading-5 text-slate-600">{location.address}</span>
+                <span className="mt-1 block text-xs text-slate-500">
+                  {location.phone}
+                  {location.note ? ` · ${location.note}` : ""}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <FieldError message={errors.location} />
+      </section>
       <section>
         <h2 className="text-lg font-bold text-[#0B192C]">Contact details</h2>
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <TextField
+            id="field-firstName"
             label="First name"
             required
             value={form.firstName}
@@ -403,6 +587,7 @@ function ContactStep({
             onChange={(value) => onChange("firstName", value)}
           />
           <TextField
+            id="field-lastName"
             label="Last name"
             required
             value={form.lastName}
@@ -421,6 +606,7 @@ function ContactStep({
         </div>
         <div className="mt-4">
           <TextField
+            id="field-email"
             label="Email"
             required
             type="email"
@@ -438,6 +624,7 @@ function ContactStep({
         />
         <div className="mt-4">
           <TextField
+            id="field-phone"
             label="Phone"
             required
             type="tel"
@@ -464,6 +651,7 @@ function ContactStep({
         <h2 className="text-lg font-bold text-[#0B192C]">Address</h2>
         <div className="mt-4">
           <TextField
+            id="field-streetAddress"
             label="Street address"
             badge="Required"
             value={form.street}
@@ -482,6 +670,7 @@ function ContactStep({
         </div>
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <TextField
+            id="field-city"
             label="City"
             required
             value={form.city}
@@ -489,7 +678,7 @@ function ContactStep({
             autoComplete="address-level2"
             onChange={(value) => onChange("city", value)}
           />
-          <label className="block">
+          <label id="field-state" className="block scroll-mt-28">
             <FieldLabel required>State</FieldLabel>
             <select
               value={form.state}
@@ -507,6 +696,7 @@ function ContactStep({
             <FieldError message={errors.state} />
           </label>
           <TextField
+            id="field-zipCode"
             label="ZIP Code"
             required
             inputMode="numeric"
@@ -548,7 +738,7 @@ function ServiceStep({
 }) {
   return (
     <div className="space-y-6">
-      <label className="block">
+      <label id="field-scopeOfWork" className="block scroll-mt-28">
         <FieldLabel badge="Required">Please describe your project and/or scope of work</FieldLabel>
         <textarea
           rows={4}
@@ -560,7 +750,7 @@ function ServiceStep({
         <FieldError message={errors.scope} />
       </label>
 
-      <fieldset>
+      <fieldset id="field-products" className="scroll-mt-28">
         <legend className="mb-2">
           <FieldLabel badge="Required">What products are you looking for?</FieldLabel>
         </legend>
@@ -577,7 +767,7 @@ function ServiceStep({
         <FieldError message={errors.products} />
       </fieldset>
 
-      <fieldset>
+      <fieldset id="field-installationNeeded" className="scroll-mt-28">
         <legend className="mb-2">
           <FieldLabel badge="Required">Do you need installation of these products as well?</FieldLabel>
         </legend>
@@ -709,6 +899,8 @@ function ScheduleStep({
   form,
   errors,
   visibleMonth,
+  availability,
+  loading,
   onVisibleMonth,
   onSelectDate,
   onSelectTime,
@@ -716,6 +908,8 @@ function ScheduleStep({
   form: FormState;
   errors: FieldErrors;
   visibleMonth: { year: number; month: number };
+  availability?: Record<string, string[]>;
+  loading: boolean;
   onVisibleMonth: (value: { year: number; month: number }) => void;
   onSelectDate: (iso: string) => void;
   onSelectTime: (slot: string) => void;
@@ -726,11 +920,22 @@ function ScheduleStep({
     year: "numeric",
   });
   const monthOffset = (visibleMonth.year - today.year) * 12 + (visibleMonth.month - today.month);
+  const latestMonth = pacificYearMonth(
+    new Date(Date.now() + BOOKING_SCHEDULE_CONFIG.maxDaysInAdvance * 24 * 60 * 60 * 1000),
+  );
+  const [latestYear, latestMonthNumber] = latestMonth.split("-").map(Number);
+  const maxMonthOffset = (latestYear - today.year) * 12 + (latestMonthNumber - 1 - today.month);
   const cells = calendarCells(visibleMonth.year, visibleMonth.month);
+  const chosenLocation = appointmentLocationById(form.locationId);
 
   return (
-    <div>
+    <div id="field-schedule" className="scroll-mt-28">
       <h2 className="text-lg font-bold text-[#0B192C]">Schedule an appointment</h2>
+      {chosenLocation ? (
+        <p className="mt-3 inline-flex rounded-[4px] bg-sky-50 px-3 py-1.5 text-sm font-semibold text-[#0B192C]">
+          Location: {chosenLocation.name}
+        </p>
+      ) : null}
       <div className="mt-1 flex flex-wrap items-center gap-2">
         <p className="text-sm text-slate-600">Choose a date and time</p>
         <RequiredBadge />
@@ -756,7 +961,7 @@ function ScheduleStep({
               <button
                 type="button"
                 aria-label="Next month"
-                disabled={monthOffset >= 12}
+                disabled={monthOffset >= maxMonthOffset}
                 onClick={() => onVisibleMonth(shiftMonth(visibleMonth.year, visibleMonth.month, 1))}
                 className={`flex h-8 w-8 items-center justify-center rounded-[4px] border border-slate-300 text-sm font-bold text-[#0B192C] disabled:cursor-not-allowed disabled:opacity-40 ${focusRing}`}
               >
@@ -773,9 +978,7 @@ function ScheduleStep({
             {cells.map((cell, index) => {
               if (!cell) return <div key={`empty-${index}`} className="h-9" />;
               const iso = isoDate(visibleMonth.year, visibleMonth.month, cell.day);
-              const weekend = cell.weekday === 0 || cell.weekday === 6;
-              const past = iso < isoDate(today.year, today.month, today.day);
-              const disabled = weekend || past;
+              const disabled = loading || (availability?.[iso]?.length ?? 0) === 0;
               const selected = form.date === iso;
               return (
                 <button
@@ -812,26 +1015,30 @@ function ScheduleStep({
           </p>
           <p className="mt-1 text-sm text-slate-500">Estimated duration: 1h</p>
           <div className="mt-3 max-h-[360px] space-y-2 overflow-y-auto pr-1">
-            {APPOINTMENT_TIME_SLOTS.map((slot) => {
-              const available = Boolean(form.date) && isBookableSlot(form.date, slot.startHour);
-              const selected = form.timeSlot === slot.label;
-              return (
-                <button
-                  key={slot.label}
-                  type="button"
-                  disabled={!available}
-                  aria-pressed={selected}
-                  onClick={() => onSelectTime(slot.label)}
-                  className={`w-full rounded-[4px] border px-3 py-3 text-left text-sm transition-colors disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-300 ${
-                    selected
-                      ? "border-[#0284C7] bg-sky-50 font-semibold text-[#0B192C]"
-                      : "border-slate-200 bg-white text-[#0B192C] hover:border-[#38BDF8]"
-                  } ${focusRing}`}
-                >
-                  {slot.label}
-                </button>
-              );
-            })}
+            {loading ? <p className="text-sm text-slate-500">Checking live availability...</p> : null}
+            {!loading && form.date && (availability?.[form.date]?.length ?? 0) === 0 ? (
+              <p className="text-sm text-slate-500">No open times on this date. Please choose another highlighted day.</p>
+            ) : null}
+            {!loading
+              ? (availability?.[form.date] ?? []).map((label) => {
+                  const selected = form.timeSlot === label;
+                  return (
+                    <button
+                      key={label}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => onSelectTime(label)}
+                      className={`w-full rounded-[4px] border px-3 py-3 text-left text-sm transition-colors ${
+                        selected
+                          ? "border-[#0284C7] bg-sky-50 font-semibold text-[#0B192C]"
+                          : "border-slate-200 bg-white text-[#0B192C] hover:border-[#38BDF8]"
+                      } ${focusRing}`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })
+              : null}
           </div>
           <FieldError message={errors.time} />
         </div>
@@ -848,11 +1055,20 @@ function ReviewStep({ form, onEdit }: { form: FormState; onEdit: (step: number) 
       ? `Yes, ${form.workingWithName.trim()}`
       : "Yes"
     : "No";
+  const chosenLocation = appointmentLocationById(form.locationId);
 
   return (
     <div>
       <h2 className="text-lg font-bold text-[#0B192C]">Review</h2>
       <div className="mt-5 space-y-6">
+        <ReviewSection title="Location" onEdit={() => onEdit(0)}>
+          <ReviewRow
+            label="Location"
+            value={
+              chosenLocation ? `${chosenLocation.name}\n${chosenLocation.address}` : "-"
+            }
+          />
+        </ReviewSection>
         <ReviewSection title="Contact information" onEdit={() => onEdit(0)}>
           <ReviewRow label="Full name" value={`${form.firstName.trim()} ${form.lastName.trim()}`} />
           <ReviewRow label="Company name" value={form.companyName.trim() || "-"} />
@@ -887,11 +1103,14 @@ function Confirmation({
   referenceId,
   dateLabel,
   timeSlot,
+  locationId,
 }: {
   referenceId: string;
   dateLabel: string;
   timeSlot: string;
+  locationId: AppointmentLocationId | "";
 }) {
+  const chosenLocation = appointmentLocationById(locationId);
   return (
     <div className="mx-auto max-w-lg rounded-[4px] border border-slate-200 bg-white p-8 text-center shadow-sm md:p-10">
       <svg viewBox="0 0 48 48" className="mx-auto h-14 w-14 text-[#0284C7]" aria-hidden="true">
@@ -903,7 +1122,13 @@ function Confirmation({
         We have received your request and will get back to you shortly to confirm your appointment.
       </p>
       <div className="mt-6 rounded-[4px] bg-[#F4F6F9] px-4 py-4 text-left text-sm text-[#0B192C]">
-        <p>
+        {chosenLocation ? (
+          <p>
+            <span className="font-semibold">Location:</span> {chosenLocation.name}
+            <span className="mt-1 block text-slate-600">{chosenLocation.address}</span>
+          </p>
+        ) : null}
+        <p className={chosenLocation ? "mt-2" : ""}>
           <span className="font-semibold">Date:</span> {dateLabel}
         </p>
         <p className="mt-1">
@@ -959,6 +1184,7 @@ function ReviewRow({ label, value }: { label: string; value: string }) {
 }
 
 function TextField({
+  id,
   label,
   value,
   onChange,
@@ -970,6 +1196,7 @@ function TextField({
   autoComplete,
   placeholder,
 }: {
+  id?: string;
   label: string;
   value: string;
   onChange: (value: string) => void;
@@ -982,7 +1209,7 @@ function TextField({
   placeholder?: string;
 }) {
   return (
-    <label className="block">
+    <label id={id} className={id ? "block scroll-mt-28" : "block"}>
       <FieldLabel required={required} badge={badge}>
         {label}
       </FieldLabel>
@@ -1078,15 +1305,20 @@ function controlClass(invalid: boolean) {
   } ${focusRing}`;
 }
 
-function validateStep(step: number, form: FormState): FieldErrors {
+function validateStep(
+  step: number,
+  form: FormState,
+  availabilityByMonth: Record<string, { availability: Record<string, string[]> }>,
+): FieldErrors {
   if (step === 0) return validateContact(form);
   if (step === 1) return validateService(form);
-  if (step === 2 || step === 3) return validateSchedule(form);
+  if (step === 2 || step === 3) return validateSchedule(form, availabilityByMonth);
   return {};
 }
 
 function validateContact(form: FormState): FieldErrors {
   const errors: FieldErrors = {};
+  if (!form.locationId) errors.location = "! Please select a location";
   if (!form.firstName.trim()) errors.firstName = "! Invalid input";
   if (!form.lastName.trim()) errors.lastName = "! Invalid input";
   if (!form.email.trim()) errors.email = "! Invalid input";
@@ -1110,19 +1342,25 @@ function validateService(form: FormState): FieldErrors {
   return errors;
 }
 
-function validateSchedule(form: FormState): FieldErrors {
+function validateSchedule(
+  form: FormState,
+  availabilityByMonth: Record<string, { availability: Record<string, string[]> }>,
+): FieldErrors {
   const errors: FieldErrors = {};
-  if (!isBookableDate(form.date)) {
+  const open = availabilityByMonth[form.date.slice(0, 7)]?.availability[form.date] ?? [];
+  if (!form.date || open.length === 0) {
     errors.date = "Choose a weekday.";
     return errors;
   }
-  const slot = APPOINTMENT_TIME_SLOTS.find((item) => item.label === form.timeSlot);
-  if (!slot || !isBookableSlot(form.date, slot.startHour)) errors.time = "Choose a time slot.";
+  if (!open.includes(form.timeSlot)) errors.time = "Choose a time slot.";
   return errors;
 }
 
 function toPayload(form: FormState): JobberAppointmentPayload {
+  const location = appointmentLocationById(form.locationId);
+  if (!location) throw new Error("Select a Sound View location.");
   return {
+    location: location.name,
     contact: {
       firstName: form.firstName.trim(),
       lastName: form.lastName.trim(),
@@ -1159,6 +1397,16 @@ function toPayload(form: FormState): JobberAppointmentPayload {
     },
     submittedAt: new Date().toISOString(),
   };
+}
+
+function LocationFromQuery({ onPick }: { onPick: (id: AppointmentLocationId) => void }) {
+  const params = useSearchParams();
+  const value = params.get("location");
+  useEffect(() => {
+    const location = appointmentLocationById(value);
+    if (location) onPick(location.id);
+  }, [onPick, value]);
+  return null;
 }
 
 function addAndReset(input: HTMLInputElement, onAddImages: (files: FileList | File[]) => void) {

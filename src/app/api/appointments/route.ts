@@ -42,6 +42,7 @@ export async function POST(request: Request) {
       phone: parsed.value.contact.phone,
       email: parsed.value.contact.email,
       address: summary.address,
+      location: summary.location,
       requestedWhen: summary.requestedWhen,
       products: summary.products,
       installationNeeded: summary.installationNeeded,

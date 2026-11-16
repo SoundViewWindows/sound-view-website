@@ -23,6 +23,7 @@ export function ShowroomLocation({ slug }: { slug: ShowroomSlug }) {
             { label: "Showrooms", href: "/showrooms" },
             { label: room.name },
           ]}
+          bookingLocation={room.slug === "west-queen-anne" ? "queen-anne" : room.slug}
         />
 
         <section className="bg-[#F4FAFD] py-16 sm:py-20">

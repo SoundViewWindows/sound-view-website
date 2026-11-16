@@ -142,13 +142,14 @@ export async function createWebsiteAppointment(
 export function appointmentRequestTitle(appointment: JobberAppointmentPayload) {
   const products = appointment.serviceDetails.products.join(", ") || "Appointment";
   const start = appointment.schedule.timeSlot.split(" - ")[0] || appointment.schedule.timeSlot;
-  const title = `Website Appointment Request: ${products} (${shortDate(appointment.schedule.date)} at ${start})`;
+  const title = `Website Appointment Request [${appointment.location}]: ${products} (${shortDate(appointment.schedule.date)} at ${start})`;
   return title.length > 180 ? `${title.slice(0, 177)}...` : title;
 }
 
 export function appointmentSummary(appointment: JobberAppointmentPayload, referenceId: string) {
   return {
     title: appointmentRequestTitle(appointment),
+    location: appointment.location,
     requestedWhen: `${longDate(appointment.schedule.date)} | ${appointment.schedule.timeSlot} (${APPOINTMENT_TIME_ZONE})`,
     products: appointment.serviceDetails.products.join(", "),
     installationNeeded: appointment.serviceDetails.installationNeeded ? "Yes" : "No",
@@ -263,6 +264,7 @@ async function createRequest(
     { label: "Email", answerText: appointment.contact.email },
     { label: "Phone", answerText: appointment.contact.phone },
     { label: "Address", answerText: summary.address },
+    { label: "Location", answerText: appointment.location },
     { label: "Requested date and time", answerText: summary.requestedWhen },
     { label: "Products requested", answerText: summary.products },
     { label: "Installation needed", answerText: summary.installationNeeded },

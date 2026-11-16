@@ -14,11 +14,13 @@ export function ShowroomHero({
   title,
   subtitle,
   breadcrumb,
+  bookingLocation,
 }: {
   eyebrow: string;
   title: string;
   subtitle: string;
   breadcrumb: { label: string; href?: string }[];
+  bookingLocation?: "lake-city" | "queen-anne" | "bellevue";
 }) {
   return (
     <HeroQuoteLayout>
@@ -44,7 +46,7 @@ export function ShowroomHero({
         </h1>
         <p className="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed">{subtitle}</p>
         <Link
-          href="/book-appointment"
+          href={bookingLocation ? `/book-appointment?location=${bookingLocation}` : "/book-appointment"}
           className={`mt-6 inline-flex items-center justify-center rounded-[4px] bg-[#38BDF8] px-7 py-3.5 text-sm font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-[#0284C7] hover:text-white sm:text-base ${focusRing}`}
         >
           Book Appointment
@@ -61,6 +63,11 @@ export function ShowroomCards({ currentSlug }: { currentSlug?: ShowroomSlug }) {
       ))}
     </div>
   );
+}
+
+function bookingLocationForShowroom(slug: ShowroomSlug) {
+  if (slug === "west-queen-anne") return "queen-anne";
+  return slug;
 }
 
 function ShowroomCard({ room, current }: { room: Showroom; current: boolean }) {
@@ -93,7 +100,7 @@ function ShowroomCard({ room, current }: { room: Showroom; current: boolean }) {
         {room.phone}
       </a>
       <div className="mt-auto flex flex-wrap gap-3 pt-6">
-        <Link href="/book-appointment" className={bookButton}>
+        <Link href={`/book-appointment?location=${bookingLocationForShowroom(room.slug)}`} className={bookButton}>
           Book Showroom Visit
         </Link>
         <a href={room.directionsHref} target="_blank" rel="noopener noreferrer" className={directionsButton}>

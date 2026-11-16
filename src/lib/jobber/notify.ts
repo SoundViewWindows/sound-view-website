@@ -23,6 +23,7 @@ export type AppointmentNotification = {
   phone: string;
   email: string;
   address: string;
+  location: string;
   requestedWhen: string;
   products: string;
   installationNeeded: string;
@@ -78,6 +79,7 @@ export async function sendAppointmentNotification(notice: AppointmentNotificatio
     `Phone: ${notice.phone}`,
     `Email: ${notice.email}`,
     `Address: ${notice.address}`,
+    `Location: ${notice.location}`,
     `Requested date and time: ${notice.requestedWhen}`,
     `Products requested: ${notice.products}`,
     `Installation needed: ${notice.installationNeeded}`,

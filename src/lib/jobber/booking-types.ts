@@ -1,3 +1,6 @@
+import { openSlotLabels } from "@/lib/jobber/booking-schedule";
+import { appointmentLocationByName, type AppointmentLocationName } from "@/lib/jobber/schedule-config";
+
 export const APPOINTMENT_PRODUCTS = [
   "Windows",
   "Exterior Doors",
@@ -96,6 +99,7 @@ export type JobberAppointmentImage = {
 };
 
 export type JobberAppointmentPayload = {
+  location: AppointmentLocationName;
   contact: {
     firstName: string;
     lastName: string;
@@ -197,6 +201,9 @@ export function parseJobberAppointmentPayload(
   const body = asRecord(input);
   if (!body) return { ok: false, message: "Appointment details are missing." };
 
+  const location = appointmentLocationByName(text(body.location, 40));
+  if (!location) return { ok: false, message: "Select a Sound View location." };
+
   const contact = asRecord(body.contact);
   const address = asRecord(body.address);
   const serviceDetails = asRecord(body.serviceDetails);
@@ -253,7 +260,7 @@ export function parseJobberAppointmentPayload(
   const date = text(schedule.date, 10);
   const timeSlot = text(schedule.timeSlot, 40);
   const slot = APPOINTMENT_TIME_SLOTS.find((item) => item.label === timeSlot);
-  if (!isBookableDate(date, now) || !slot || !isBookableSlot(date, slot.startHour, now)) {
+  if (!slot || !openSlotLabels(date, [], now).includes(slot.label)) {
     return { ok: false, message: "Choose an available weekday and time." };
   }
   if (schedule.duration !== APPOINTMENT_DURATION || schedule.timeZone !== APPOINTMENT_TIME_ZONE) {
@@ -270,6 +277,7 @@ export function parseJobberAppointmentPayload(
   return {
     ok: true,
     value: {
+      location: location.name,
       contact: { firstName, lastName, companyName, email, phone },
       address: { street, unit, city, state, zip },
       serviceDetails: {
