@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --experimental-strip-types --test src/lib/quote-payloads.test.ts src/lib/quote-instances.test.ts src/lib/jobber/persistence.test.ts",
+    "test": "node --experimental-strip-types --test src/lib/quote-payloads.test.ts src/lib/quote-instances.test.ts src/lib/jobber/persistence.test.ts src/lib/jobber/booking-schedule.test.ts",
     "import:blogs": "node scripts/import-blogs.mjs"
   },
   "dependencies": {

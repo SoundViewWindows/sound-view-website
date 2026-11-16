@@ -140,7 +140,55 @@ async function runQuery<T>(label: string, failures: string[], load: () => Promis
   }
 }
 
+const SCHEDULE_ITEM_QUERIES = [
+  ["ASSESSMENT", "... on Assessment { startAt endAt }"],
+  ["VISIT", "... on Visit { startAt endAt }"],
+  ["EVENT", "... on Event { startAt endAt }"],
+  ["BASIC_TASK", "... on Task { startAt endAt }"],
+] as const;
+
+function scheduledItemsQueryFor(fragment: string) {
+  return `
+    query GetScheduledItems($occursWithin: DateRange!, $afterCursor: String, $scheduleItemType: ScheduledItemType) {
+      scheduledItems(first: 50, after: $afterCursor, filter: { occursWithin: $occursWithin, scheduleItemType: $scheduleItemType }) {
+        nodes {
+          __typename
+          id
+          title
+          ${fragment}
+        }
+        pageInfo { hasNextPage endCursor }
+      }
+    }
+  `;
+}
+
 async function readScheduledItems(after: string, before: string) {
+  const nodes: ScheduledNode[] = [];
+  const permissionWarnings: string[] = [];
+  const fatal: string[] = [];
+  let sawConnection = false;
+
+  for (const [scheduleItemType, fragment] of SCHEDULE_ITEM_QUERIES) {
+    const page = await readScheduledItemType(after, before, scheduleItemType, scheduledItemsQueryFor(fragment));
+    if (page.sawConnection) sawConnection = true;
+    nodes.push(...page.nodes);
+    permissionWarnings.push(...page.permissionWarnings);
+    fatal.push(...page.fatal);
+  }
+
+  if (!sawConnection) {
+    const message = [...new Set(fatal.length > 0 ? fatal : permissionWarnings)].join("; ");
+    throw new Error(message || "Jobber did not return scheduled items.");
+  }
+  return {
+    nodes,
+    permissionWarnings: [...new Set(permissionWarnings)],
+    note: fatal.length > 0 ? [...new Set(fatal)].join("; ") : null,
+  };
+}
+
+async function readScheduledItemType(after: string, before: string, scheduleItemType: string, query: string) {
   const nodes: ScheduledNode[] = [];
   const permissionWarnings: string[] = [];
   const fatal: string[] = [];
@@ -148,16 +196,17 @@ async function readScheduledItems(after: string, before: string) {
   let sawConnection = false;
 
   for (let page = 0; page < 100; page += 1) {
-    const result: ScheduledItemsResult = await jobberGraphqlDetailed(scheduledItemsQuery, {
+    const result: ScheduledItemsResult = await jobberGraphqlDetailed(query, {
       occursWithin: { startAt: after, endAt: before },
       afterCursor,
+      scheduleItemType,
     });
     const hidden = result.errors.filter((message: string) => /hidden due to permissions/i.test(message));
     const other = result.errors.filter((message: string) => !/hidden due to permissions/i.test(message));
     if (hidden.length > 0) {
-      console.error("[availability] Jobber GraphQL error:", "scheduledItems", [...new Set(hidden)].join("; "));
+      console.error("[availability] Jobber GraphQL error:", scheduleItemType, [...new Set(hidden)].join("; "));
+      permissionWarnings.push(...hidden);
     }
-    permissionWarnings.push(...hidden);
     const connection: ScheduledConnection | null | undefined = result.data?.scheduledItems;
     if (connection?.nodes) {
       sawConnection = true;
@@ -166,19 +215,11 @@ async function readScheduledItems(after: string, before: string) {
     if (other.length > 0) fatal.push(...other);
     const info: PageInfo = connection?.pageInfo ?? null;
     const nextCursor: string | null = info?.endCursor ?? null;
-    if (!info?.hasNextPage || !nextCursor || nextCursor === afterCursor) break;
+    if (!connection?.nodes || !info?.hasNextPage || !nextCursor || nextCursor === afterCursor) break;
     afterCursor = nextCursor;
   }
 
-  if (!sawConnection) {
-    const message = [...new Set([...permissionWarnings, ...fatal])].join("; ");
-    throw new Error(message || "Jobber did not return scheduled items.");
-  }
-  return {
-    nodes,
-    permissionWarnings: [...new Set(permissionWarnings)],
-    note: fatal.length > 0 ? [...new Set(fatal)].join("; ") : null,
-  };
+  return { nodes, permissionWarnings, fatal, sawConnection };
 }
 
 async function readRequestAssessments() {
@@ -241,23 +282,6 @@ function sanitizeError(error: unknown) {
   const message = error instanceof Error ? error.message : "Jobber query failed.";
   return message.replace(/\s+/g, " ").slice(0, 300);
 }
-
-const scheduledItemsQuery = `
-  query GetScheduledItems($occursWithin: DateRange!, $afterCursor: String) {
-    scheduledItems(first: 50, after: $afterCursor, filter: { occursWithin: $occursWithin }) {
-      nodes {
-        __typename
-        id
-        title
-        ... on Assessment { startAt endAt }
-        ... on Visit { startAt endAt }
-        ... on Event { startAt endAt }
-        ... on Task { startAt endAt }
-      }
-      pageInfo { hasNextPage endCursor }
-    }
-  }
-`;
 
 const requestAssessmentsQuery = `
   query GetRequestAssessments {
