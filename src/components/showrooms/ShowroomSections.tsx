@@ -15,15 +15,19 @@ export function ShowroomHero({
   subtitle,
   breadcrumb,
   bookingLocation,
+  videoSrc,
+  videoPoster,
 }: {
   eyebrow: string;
   title: string;
   subtitle: string;
   breadcrumb: { label: string; href?: string }[];
   bookingLocation?: "lake-city" | "queen-anne" | "bellevue";
+  videoSrc?: string;
+  videoPoster?: string;
 }) {
   return (
-    <HeroQuoteLayout>
+    <HeroQuoteLayout videoSrc={videoSrc} videoPoster={videoPoster}>
         <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-400">
           <ol className="flex flex-wrap items-center gap-2">
             {breadcrumb.map((item, index) => (

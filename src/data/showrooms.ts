@@ -14,6 +14,14 @@ export type Showroom = {
   directionsHref: string;
   mapSrc: string;
   mapTitle: string;
+  virtualTour?: {
+    heading: string;
+    embedSrc: string;
+    iframeTitle: string;
+    mapsHref: string;
+  };
+  heroVideo?: string;
+  heroPoster?: string;
   image: string;
   imageAlt: string;
   appointmentOnly: boolean;
@@ -44,6 +52,14 @@ export const showrooms: Showroom[] = [
     mapSrc:
       "https://maps.google.com/maps?q=12301+Lake+City+Way+NE,+Seattle,+WA+98125&t=&z=15&ie=UTF8&iwloc=&output=embed",
     mapTitle: "Map of the Lake City showroom at 12301 Lake City Way NE, Seattle, WA 98125",
+    virtualTour: {
+      heading: "Take A Virtual Tour of Our Lake City Showroom",
+      embedSrc:
+        "https://www.google.com/maps/embed?pb=!4v1688591010339!6m8!1m7!1sCAoSLEFGMVFpcE1feHppQ3hMT2l1Vnoya3FOWWFNUGZJVTdWaUFTWGU0cDdmb1lx!2m2!1d47.717732186356!2d-122.29656484772!3f181.84489893662033!4f-13.702526549570493!5f0.7820865974627469",
+      iframeTitle: "Virtual Tour of Sound View Window & Door Lake City Showroom",
+      mapsHref:
+        "https://www.google.com/maps/@47.7177322,-122.2965648,0a,94.2y,181.84h,76.3t/data=!3m4!1e1!3m2!1sAF1QipM_xziCxLOiuVz2kqNYaMPfIU7ViASXe4p7foYq!2e10?source=apiv3",
+    },
     image: "/showrooms/lake-city.jpg",
     imageAlt: "Sound View Window and Door storefront on Lake City Way NE",
     appointmentOnly: false,
@@ -73,6 +89,16 @@ export const showrooms: Showroom[] = [
     mapSrc:
       "https://maps.google.com/maps?q=921+Elliott+Ave+W,+Seattle,+WA+98119&t=&z=15&ie=UTF8&iwloc=&output=embed",
     mapTitle: "Map of the West Queen Anne showroom at 921 Elliott Ave W, Seattle",
+    virtualTour: {
+      heading: "Take A Virtual Tour of Our West Queen Anne Showroom",
+      embedSrc:
+        "https://www.google.com/maps/embed?pb=!4v1688590386410!6m8!1m7!1sCAoSLEFGMVFpcE0ya096eWZhMzJ5SnBUMDJPQklwVHdVOU9RV055OXBPTUgzM2Rf!2m2!1d47.627098625451!2d-122.3693579432!3f228.07508916648894!4f-9.493725992497474!5f0.7820865974627469",
+      iframeTitle: "Virtual Tour of Sound View Window & Door West Queen Anne Showroom",
+      mapsHref:
+        "https://www.google.com/maps/@47.6270987,-122.369358,0a,81.3y,228.07h,80.68t/data=!3m4!1e1!3m2!1sAF1QipM2kOzyfa32yJpT02OBIpTwU9OQWNy9pOMH33d_!2e10?source=apiv3",
+    },
+    heroVideo: "/videos/queen-anne-showroom.mp4",
+    heroPoster: "/images/queen-anne-showroom-poster.jpg",
     image: "/showrooms/west-queen-anne.jpg",
     imageAlt: "Sound View Window & Door storefront at 921 Elliott Ave W in West Queen Anne",
     appointmentOnly: false,
