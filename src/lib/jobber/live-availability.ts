@@ -95,12 +95,10 @@ async function loadBusyIntervals(after: string, before: string) {
     scheduled.nodes.forEach((node, index) => remember("scheduled", node, index));
   }
 
-  for (const field of ["events", "visits", "tasks"] as const) {
-    const recent = await runQuery(field, failures, () => readRecentCollection(field, after, before));
-    if (recent) {
-      synced = true;
-      recent.forEach((node, index) => remember(field, node, index));
-    }
+  const events = await runQuery("events", failures, () => readRecentEvents());
+  if (events) {
+    synced = true;
+    events.forEach((node, index) => remember("events", node, index));
   }
 
   const requests = await runQuery("requests", failures, () => readRequestAssessments());
@@ -134,53 +132,23 @@ async function runQuery<T>(label: string, failures: string[], load: () => Promis
 
 async function readScheduledItems(after: string, before: string) {
   const schema = await readScheduleSchema();
-  const notes: string[] = [];
-  try {
-    const filtered = await readConnection<ScheduledNode>(
-      scheduledItemsQuery(schema),
-      "scheduledItems",
-      { after, before },
-      "forward",
+  const occursWithin = occursWithinValue(schema?.dateRangeFields ?? [], after, before);
+  if (!occursWithin) {
+    throw new Error(
+      `DateRange fields were not found (${schema?.dateRangeFields.join(", ") || "none"}).`,
     );
-    if (filtered.length > 0) return { nodes: filtered, note: null };
-  } catch (error) {
-    if (isDisconnected(error)) throw error;
-    const message = sanitizeError(error);
-    console.error("[availability] Jobber GraphQL error:", "scheduledItems", message);
-    notes.push(message);
   }
-
-  const merged: ScheduledNode[] = [];
-  const types = schema?.possibleTypes.length
-    ? SCHEDULE_TYPES.filter((typeName) => schema.possibleTypes.includes(typeName))
-    : SCHEDULE_TYPES;
-  for (const typeName of types) {
-    try {
-      merged.push(
-        ...(await readConnection<ScheduledNode>(unfilteredTypeQuery(typeName), "scheduledItems", {}, "backward")),
-      );
-    } catch (error) {
-      if (isDisconnected(error)) throw error;
-      const message = sanitizeError(error);
-      console.error("[availability] Jobber GraphQL error:", typeName, message);
-      notes.push(`${typeName}: ${message}`);
-    }
-  }
-  if (merged.length === 0 && notes.length > 0) {
-    throw new Error(notes.join("; "));
-  }
-  return { nodes: merged, note: notes.length > 0 ? notes.join("; ") : null };
+  const nodes = await readConnection<ScheduledNode>(
+    scheduledItemsQuery(schema),
+    "scheduledItems",
+    { occursWithin },
+    "forward",
+  );
+  return { nodes, note: null };
 }
 
-async function readRecentCollection(field: "events" | "visits" | "tasks", after: string, before: string) {
-  try {
-    return await readConnection<ScheduledNode>(recentFilteredQuery(field), field, { after, before }, "backward");
-  } catch (error) {
-    if (isDisconnected(error)) throw error;
-    const message = sanitizeError(error);
-    console.error("[availability] Jobber GraphQL error:", field, message);
-    return readConnection<ScheduledNode>(recentPlainQuery(field), field, {}, "backward");
-  }
+async function readRecentEvents() {
+  return readConnection<ScheduledNode>(recentEventsQuery, "events", {}, "backward");
 }
 
 type ScheduleSchema = {
@@ -193,12 +161,16 @@ async function readScheduleSchema(): Promise<ScheduleSchema | null> {
   try {
     const data = await jobberGraphql<{
       dateRange: { inputFields?: { name: string }[] | null } | null;
-      scheduledItem: { fields?: { name: string }[] | null; possibleTypes?: { name: string }[] | null } | null;
+      scheduledItemInterface: { fields?: { name: string }[] | null; possibleTypes?: { name: string }[] | null } | null;
+      scheduledItemLegacy: { fields?: { name: string }[] | null; possibleTypes?: { name: string }[] | null } | null;
     }>(scheduleSchemaQuery);
+    const item = data.scheduledItemInterface?.fields?.length || data.scheduledItemInterface?.possibleTypes?.length
+      ? data.scheduledItemInterface
+      : data.scheduledItemLegacy;
     return {
       dateRangeFields: data.dateRange?.inputFields?.map((field) => field.name) ?? [],
-      itemFields: data.scheduledItem?.fields?.map((field) => field.name) ?? [],
-      possibleTypes: data.scheduledItem?.possibleTypes?.map((type) => type.name) ?? [],
+      itemFields: item?.fields?.map((field) => field.name) ?? [],
+      possibleTypes: item?.possibleTypes?.map((type) => type.name) ?? [],
     };
   } catch (error) {
     console.error("[availability] Jobber GraphQL error:", "schema", sanitizeError(error));
@@ -206,10 +178,27 @@ async function readScheduleSchema(): Promise<ScheduleSchema | null> {
   }
 }
 
+function occursWithinValue(fieldNames: string[], after: string, before: string) {
+  const names = new Set(fieldNames);
+  const pairs = [
+    ["startAt", "endAt"],
+    ["after", "before"],
+    ["start", "end"],
+    ["from", "to"],
+    ["startDate", "endDate"],
+  ] as const;
+  for (const [startName, endName] of pairs) {
+    if (names.has(startName) && names.has(endName)) {
+      return { [startName]: after, [endName]: before };
+    }
+  }
+  if (fieldNames.length >= 2) {
+    return { [fieldNames[0]]: after, [fieldNames[1]]: before };
+  }
+  return null;
+}
+
 function scheduledItemsQuery(schema: ScheduleSchema | null) {
-  const rangeFields = schema?.dateRangeFields ?? [];
-  const startName = ["startAt", "after", "start", "from"].find((name) => rangeFields.includes(name)) ?? "startAt";
-  const endName = ["endAt", "before", "end", "to"].find((name) => rangeFields.includes(name)) ?? "endAt";
   const types = schema?.possibleTypes.length
     ? SCHEDULE_TYPES.filter((typeName) => schema.possibleTypes.includes(typeName))
     : SCHEDULE_TYPES;
@@ -218,8 +207,8 @@ function scheduledItemsQuery(schema: ScheduleSchema | null) {
     : ["id", "title"];
   const fragments = types.map((typeName) => `... on ${typeName} { startAt endAt }`).join("\n");
   return `
-    query GetScheduledItems($after: ISO8601DateTime!, $before: ISO8601DateTime!, $cursor: String) {
-      scheduledItems(first: 100, after: $cursor, filter: { occursWithin: { ${startName}: $after, ${endName}: $before } }) {
+    query GetScheduledItems($occursWithin: DateRange!, $cursor: String) {
+      scheduledItems(first: 100, after: $cursor, filter: { occursWithin: $occursWithin }) {
         nodes {
           ${interfaceFields.join("\n")}
           ${fragments}
@@ -230,44 +219,14 @@ function scheduledItemsQuery(schema: ScheduleSchema | null) {
   `;
 }
 
-function unfilteredTypeQuery(typeName: (typeof SCHEDULE_TYPES)[number]) {
-  return `
-    query GetUnfiltered${typeName}($cursor: String) {
-      scheduledItems(last: 100, before: $cursor) {
-        nodes {
-          id
-          title
-          ... on ${typeName} { startAt endAt }
-        }
-        pageInfo { hasPreviousPage startCursor }
-      }
+const recentEventsQuery = `
+  query GetRecentEvents($cursor: String) {
+    events(last: 100, before: $cursor) {
+      nodes { id title startAt endAt }
+      pageInfo { hasPreviousPage startCursor }
     }
-  `;
-}
-
-function recentFilteredQuery(field: "events" | "visits" | "tasks") {
-  const operation = field[0].toUpperCase() + field.slice(1);
-  return `
-    query GetRecent${operation}($after: ISO8601DateTime!, $before: ISO8601DateTime!, $cursor: String) {
-      ${field}(last: 100, before: $cursor, filter: { occursWithin: { startAt: $after, endAt: $before } }) {
-        nodes { id title startAt endAt }
-        pageInfo { hasPreviousPage startCursor }
-      }
-    }
-  `;
-}
-
-function recentPlainQuery(field: "events" | "visits" | "tasks") {
-  const operation = field[0].toUpperCase() + field.slice(1);
-  return `
-    query GetRecentPlain${operation}($cursor: String) {
-      ${field}(last: 100, before: $cursor) {
-        nodes { id title startAt endAt }
-        pageInfo { hasPreviousPage startCursor }
-      }
-    }
-  `;
-}
+  }
+`;
 
 async function readRequestAssessments() {
   try {
@@ -343,11 +302,15 @@ function sanitizeError(error: unknown) {
 }
 
 const scheduleSchemaQuery = `
-  query AvailabilityScheduleSchema {
+  query IntrospectScheduleTypes {
     dateRange: __type(name: "DateRange") {
-      inputFields { name }
+      inputFields { name type { name kind ofType { name } } }
     }
-    scheduledItem: __type(name: "ScheduledItem") {
+    scheduledItemInterface: __type(name: "ScheduledItemInterface") {
+      fields { name }
+      possibleTypes { name }
+    }
+    scheduledItemLegacy: __type(name: "ScheduledItem") {
       fields { name }
       possibleTypes { name }
     }
