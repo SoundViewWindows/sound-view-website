@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { BOOKING_URL } from "@/config/links";
 import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 import { showrooms, type Showroom, type ShowroomSlug } from "@/data/showrooms";
 
@@ -44,14 +43,12 @@ export function ShowroomHero({
           {title}
         </h1>
         <p className="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed">{subtitle}</p>
-        <a
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/book-appointment"
           className={`mt-6 inline-flex items-center justify-center rounded-[4px] bg-[#38BDF8] px-7 py-3.5 text-sm font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-[#0284C7] hover:text-white sm:text-base ${focusRing}`}
         >
           Book Appointment
-        </a>
+        </Link>
     </HeroQuoteLayout>
   );
 }
@@ -96,9 +93,9 @@ function ShowroomCard({ room, current }: { room: Showroom; current: boolean }) {
         {room.phone}
       </a>
       <div className="mt-auto flex flex-wrap gap-3 pt-6">
-        <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className={bookButton}>
+        <Link href="/book-appointment" className={bookButton}>
           Book Showroom Visit
-        </a>
+        </Link>
         <a href={room.directionsHref} target="_blank" rel="noopener noreferrer" className={directionsButton}>
           Get Directions
         </a>

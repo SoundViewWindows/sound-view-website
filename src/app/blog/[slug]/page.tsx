@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
-import { BOOKING_URL } from "@/config/links";
 import { canonicalUrl } from "@/config/site";
 import { blogPosts, getBlogPost, type BlogPost } from "@/data/blogPosts";
 
@@ -224,8 +223,8 @@ function ctaFor(post: BlogPost) {
       heading: "See the products in a local showroom",
       body: "Book a visit to compare windows, doors, and glass with a specialist who works on Greater Seattle homes.",
       label: "Book a Showroom Visit",
-      href: BOOKING_URL,
-      external: true,
+      href: "/book-appointment",
+      external: false,
     };
   }
   if (/shower/.test(hay)) {

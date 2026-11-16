@@ -6,7 +6,6 @@ import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
 import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 import { WhyChooseSoundView } from "@/components/WhyChooseSoundView";
-import { BOOKING_URL } from "@/config/links";
 
 export const metadata: Metadata = {
   alternates: {
@@ -109,14 +108,12 @@ export default function AboutPage() {
             >
               Explore Our Showrooms
             </a>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/book-appointment"
               className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Book Appointment
-            </a>
+            </Link>
           </div>
         </HeroQuoteLayout>
 

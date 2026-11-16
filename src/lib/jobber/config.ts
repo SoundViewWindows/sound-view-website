@@ -30,3 +30,13 @@ export function missingJobberCredentials() {
   return missing;
 }
 
+const DEFAULT_NOTIFY_TO = ["dan@soundviewseattle.com", "matthew@soundviewseattle.com"];
+
+export function quoteNotifyConfig() {
+  const from = process.env.QUOTE_NOTIFY_FROM?.trim() ?? "";
+  const apiKey = process.env.RESEND_API_KEY?.trim() ?? "";
+  const rawTo = process.env.QUOTE_NOTIFY_TO?.trim();
+  const to = (rawTo ? rawTo.split(",") : DEFAULT_NOTIFY_TO).map((item) => item.trim()).filter(Boolean);
+  return { from, apiKey, to };
+}
+

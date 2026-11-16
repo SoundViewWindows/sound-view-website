@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BOOKING_URL } from "@/config/links";
+import Link from "next/link";
 
 type ShowroomPhone = {
   name: string;
@@ -44,10 +44,8 @@ export function HeroActionButtons({ appearance = "home" }: { appearance?: "home"
   }, []);
 
   const book = (
-    <a
-      href={BOOKING_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Link
+      href="/book-appointment"
       className={
         quote
           ? "inline-flex items-center justify-center rounded-[4px] bg-[#38BDF8] px-4 py-2 text-sm font-semibold text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
@@ -55,7 +53,7 @@ export function HeroActionButtons({ appearance = "home" }: { appearance?: "home"
       }
     >
       Book Appointment
-    </a>
+    </Link>
   );
 
   const call = (

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useId, useState, type MouseEvent } from "react";
-import { BOOKING_URL } from "@/config/links";
 import { services } from "@/lib/services";
 
 type NavChild = {
@@ -138,24 +137,20 @@ export function Header({ onServiceSelect }: HeaderProps) {
                 />
               ),
             )}
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/book-appointment"
               className={`inline-flex h-auto shrink-0 self-center rounded-none bg-[#0B192C] px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-[#0090c8] ${focusRing}`}
             >
               Book Appointment
-            </a>
+            </Link>
           </nav>
 
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/book-appointment"
             className={`inline-flex h-auto shrink-0 self-center rounded-none bg-[#0B192C] px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-[#0090c8] lg:hidden ${focusRing}`}
           >
             Book Appointment
-          </a>
+          </Link>
           <button
             type="button"
             className={`absolute right-4 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-md text-slate-800 hover:text-sky-600 lg:hidden ${focusRing}`}

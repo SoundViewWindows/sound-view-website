@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
-import { BOOKING_URL } from "@/config/links";
 
 const serviceAreas = [
   "Auburn",
@@ -440,14 +439,12 @@ export function ServiceAreasSection() {
                 >
                   Get a Free Quote in {selectedCity}
                 </button>
-                <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/book-appointment"
                   className="block w-full rounded-[4px] border border-[#0B192C] bg-white px-4 py-3 text-center text-sm font-semibold text-[#0B192C] transition-colors hover:border-[#0284C7] hover:text-[#0284C7]"
                 >
                   Book In-Home Measurement
-                </a>
+                </Link>
               </div>
             </div>
           </div>
