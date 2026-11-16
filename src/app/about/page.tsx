@@ -104,7 +104,7 @@ export default function AboutPage() {
           <div className="mt-6 flex flex-wrap gap-4">
             <a
               href="#showrooms"
-              className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
+              className={`inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-slate-100 ${focusRing}`}
             >
               Explore Our Showrooms
             </a>
