@@ -82,8 +82,8 @@ async function readCollection(field: string, query: string, start: string, end: 
   const intervals: BusyInterval[] = [];
   let cursor: string | null = null;
   for (let page = 0; page < 6; page += 1) {
-    const data = await jobberGraphql<Record<string, ConnectionData | null>>(query, { start, end, cursor });
-    const connection = data[field];
+    const data: Record<string, ConnectionData | null> = await jobberGraphql(query, { start, end, cursor });
+    const connection: ConnectionData | null | undefined = data[field];
     for (const node of connection?.nodes ?? []) {
       const interval = toInterval(node);
       if (!interval) continue;

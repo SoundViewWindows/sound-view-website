@@ -31,8 +31,22 @@ const LOCATION_USER_ENV: Record<AppointmentLocationId, string> = {
   bellevue: "JOBBER_SCHEDULER_USER_IDS_BELLEVUE",
 };
 
+const QUERY_LOCATION_IDS: Record<string, AppointmentLocationId> = {
+  lakecity: "lake-city",
+  queenanne: "queen-anne",
+  westqueenanne: "queen-anne",
+  bellevue: "bellevue",
+};
+
 export function appointmentLocationById(value: string | null | undefined) {
   return APPOINTMENT_LOCATIONS.find((location) => location.id === value) ?? null;
+}
+
+export function appointmentLocationFromQuery(value: string | null | undefined) {
+  if (!value) return null;
+  const key = value.trim().toLowerCase().replace(/[^a-z]/g, "");
+  const id = QUERY_LOCATION_IDS[key];
+  return id ? appointmentLocationById(id) : null;
 }
 
 export function appointmentLocationByName(value: string | null | undefined) {

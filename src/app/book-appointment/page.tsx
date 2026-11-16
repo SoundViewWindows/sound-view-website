@@ -19,6 +19,7 @@ import {
 import {
   APPOINTMENT_LOCATIONS,
   appointmentLocationById,
+  appointmentLocationFromQuery,
   type AppointmentLocationId,
 } from "@/lib/jobber/schedule-config";
 import { BOOKING_SCHEDULE_CONFIG, pacificYearMonth } from "@/lib/jobber/booking-schedule";
@@ -152,10 +153,7 @@ export default function BookAppointmentPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [confirmation, setConfirmation] = useState<{ referenceId: string } | null>(null);
-  const [visibleMonth, setVisibleMonth] = useState(() => {
-    const today = pacificTodayParts();
-    return { year: today.year, month: today.month };
-  });
+  const [visibleMonth, setVisibleMonth] = useState<{ year: number; month: number } | null>(null);
   const [availabilityByMonth, setAvailabilityByMonth] = useState<
     Record<string, { syncedWithJobber: boolean; availability: Record<string, string[]> }>
   >({});
@@ -169,13 +167,17 @@ export default function BookAppointmentPage() {
   }, [form.images]);
 
   useEffect(() => {
+    setVisibleMonth((current) => current ?? currentPacificMonth());
+  }, []);
+
+  useEffect(() => {
     return () => {
       imagesRef.current.forEach((image) => URL.revokeObjectURL(image.url));
     };
   }, []);
 
   const pickLocation = useCallback((id: AppointmentLocationId) => {
-    setForm((current) => (current.locationId ? current : { ...current, locationId: id }));
+    setForm((current) => (current.locationId === id ? current : { ...current, locationId: id }));
     setErrors((current) => {
       if (!current.location) return current;
       const next = { ...current };
@@ -184,10 +186,12 @@ export default function BookAppointmentPage() {
     });
   }, []);
 
-  const visibleMonthKey = `${visibleMonth.year}-${String(visibleMonth.month + 1).padStart(2, "0")}`;
+  const visibleMonthKey = visibleMonth
+    ? `${visibleMonth.year}-${String(visibleMonth.month + 1).padStart(2, "0")}`
+    : "";
 
   useEffect(() => {
-    if (step !== 2 || availabilityByMonth[visibleMonthKey]) return;
+    if (step !== 2 || !visibleMonthKey || availabilityByMonth[visibleMonthKey]) return;
     const controller = new AbortController();
     setLoadingMonth(visibleMonthKey);
     fetch(`/api/appointments/availability?month=${visibleMonthKey}`, { signal: controller.signal })
@@ -259,6 +263,7 @@ export default function BookAppointmentPage() {
       scrollToField(firstInvalidKey);
       return;
     }
+    setVisibleMonth((current) => current ?? currentPacificMonth());
     setStep((current) => Math.min(current + 1, 3));
   }
 
@@ -269,6 +274,7 @@ export default function BookAppointmentPage() {
 
   function jumpTo(index: number) {
     setSubmitError("");
+    setVisibleMonth((current) => current ?? currentPacificMonth());
     setStep(index);
   }
 
@@ -329,10 +335,11 @@ export default function BookAppointmentPage() {
 
   function selectDate(iso: string) {
     const slots = availabilityByMonth[visibleMonthKey]?.availability[iso] ?? [];
+    const keepTime = slots.includes(form.timeSlot);
     setForm((current) => ({
       ...current,
       date: iso,
-      timeSlot: slots.includes(current.timeSlot) ? current.timeSlot : "",
+      timeSlot: keepTime ? current.timeSlot : "",
     }));
     setErrors((current) => {
       const next = { ...current };
@@ -456,7 +463,7 @@ export default function BookAppointmentPage() {
                       onDrop={onDrop}
                     />
                   ) : null}
-                  {step === 2 ? (
+                  {step === 2 && visibleMonth ? (
                     <ScheduleStep
                       form={form}
                       errors={errors}
@@ -1403,7 +1410,7 @@ function LocationFromQuery({ onPick }: { onPick: (id: AppointmentLocationId) => 
   const params = useSearchParams();
   const value = params.get("location");
   useEffect(() => {
-    const location = appointmentLocationById(value);
+    const location = appointmentLocationFromQuery(value);
     if (location) onPick(location.id);
   }, [onPick, value]);
   return null;
@@ -1422,6 +1429,11 @@ function imageTypeFromName(name: string) {
   if (extension === "gif") return "image/gif";
   if (extension === "heic") return "image/heic";
   return "";
+}
+
+function currentPacificMonth() {
+  const today = pacificTodayParts();
+  return { year: today.year, month: today.month };
 }
 
 function calendarCells(year: number, month: number) {

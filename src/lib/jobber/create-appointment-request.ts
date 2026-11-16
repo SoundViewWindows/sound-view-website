@@ -320,6 +320,7 @@ async function createRequest(
 
   if (!slot) {
     const created = await submitRequest(base);
+    if (!created.request) throw new Error("Jobber did not create the request.");
     return { ...created.request, assessmentScheduled: false };
   }
 
