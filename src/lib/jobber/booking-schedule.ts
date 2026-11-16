@@ -64,6 +64,10 @@ export function openSlotLabels(date: string, busy: BusyInterval[], now = new Dat
     .map((slot) => slot.label);
 }
 
+export function isOpenSlot(date: string, label: string, busy: BusyInterval[], now = new Date()) {
+  return openSlotLabels(date, busy, now).includes(label);
+}
+
 function candidateSlots(date: string, now: Date) {
   const hours = BOOKING_SCHEDULE_CONFIG.weeklyHours[weekdayKey(date)];
   if (!hours) return [];

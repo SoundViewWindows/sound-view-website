@@ -1,3 +1,4 @@
+import { findBookingUserId } from "@/lib/jobber/booking-user";
 import { jobberGraphql } from "@/lib/jobber/graphql";
 import {
   APPOINTMENT_TIME_SLOTS,
@@ -25,6 +26,14 @@ type PropertyCreateData = {
     properties: { id: string }[] | null;
     userErrors: UserError[];
   };
+};
+
+type ClientPropertiesData = {
+  client: {
+    properties: {
+      nodes: { id: string; address?: { street1?: string | null; postalCode?: string | null } | null }[];
+    } | null;
+  } | null;
 };
 
 type ScheduledAssessment = { id: string; startAt: string | null; endAt: string | null } | null;
@@ -86,6 +95,22 @@ const createClientMutation = `
       userErrors {
         message
         path
+      }
+    }
+  }
+`;
+
+const clientPropertiesQuery = `
+  query WebsiteClientProperties($id: EncodedId!) {
+    client(id: $id) {
+      properties(first: 20) {
+        nodes {
+          id
+          address {
+            street1
+            postalCode
+          }
+        }
       }
     }
   }
@@ -160,10 +185,11 @@ export async function createWebsiteAppointment(
   appointment: JobberAppointmentPayload,
   referenceId: string,
 ): Promise<AppointmentSyncResult> {
+  const bookingUserId = await findBookingUserId();
   const clientId = await matchOrCreateClient(appointment);
   const propertyId = await createProperty(clientId, appointment);
   await recordConsentNote(clientId, appointment);
-  const request = await createRequest(clientId, propertyId, appointment, referenceId);
+  const request = await createRequest(clientId, propertyId, appointment, referenceId, bookingUserId);
   return {
     jobberSynced: true,
     jobberRequestId: request.id,
@@ -255,11 +281,32 @@ async function createProperty(clientId: string, appointment: JobberAppointmentPa
       input: { properties: [{ address }] },
     });
     assertNoUserErrors(data.propertyCreate.userErrors, "Jobber did not create the property.");
-    return data.propertyCreate.properties?.[0]?.id ?? null;
+    return data.propertyCreate.properties?.[0]?.id ?? (await findProperty(clientId, appointment));
   } catch (error) {
     console.error(
       "appointment property was not created",
       error instanceof Error ? error.message : "Jobber did not create the property.",
+    );
+    return findProperty(clientId, appointment);
+  }
+}
+
+async function findProperty(clientId: string, appointment: JobberAppointmentPayload) {
+  try {
+    const data = await jobberGraphql<ClientPropertiesData>(clientPropertiesQuery, { id: clientId });
+    const street = appointment.address.street.trim().toLowerCase();
+    const zip = appointment.address.zip.trim();
+    const nodes = data.client?.properties?.nodes ?? [];
+    const match = nodes.find((property) => {
+      const propertyStreet = property.address?.street1?.trim().toLowerCase() ?? "";
+      const propertyZip = property.address?.postalCode?.trim() ?? "";
+      return propertyStreet === street && propertyZip === zip;
+    });
+    return match?.id ?? null;
+  } catch (error) {
+    console.info(
+      "appointment property lookup was unavailable",
+      error instanceof Error ? error.message : "Jobber did not return properties.",
     );
     return null;
   }
@@ -288,6 +335,7 @@ async function createRequest(
   propertyId: string | null,
   appointment: JobberAppointmentPayload,
   referenceId: string,
+  bookingUserId: string | null,
 ) {
   const summary = appointmentSummary(appointment, referenceId);
   const items = [
@@ -343,6 +391,7 @@ async function createRequest(
     startDate && endDate
       ? {
           instructions: items.map((item) => `${item.label}: ${item.answerText}`).join("\n"),
+          ...(bookingUserId ? { assignedUserIds: [bookingUserId] } : {}),
           schedule: { startAt: startDate, endAt: endDate },
         }
       : null;
@@ -367,6 +416,10 @@ async function createRequest(
   let assessmentScheduled = isScheduledAssessment(created.request.assessment) && !created.assessmentRejected;
   if (!assessmentScheduled && assessmentInput) {
     assessmentScheduled = await createAssessment(created.request.id, assessmentInput);
+    if (!assessmentScheduled && bookingUserId) {
+      const { assignedUserIds: _assignedUserIds, ...withoutAssignee } = assessmentInput;
+      assessmentScheduled = await createAssessment(created.request.id, withoutAssignee);
+    }
   }
 
   return {

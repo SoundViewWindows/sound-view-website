@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { parseJobberAppointmentPayload } from "@/lib/jobber/booking-types";
 import { jobberConfig } from "@/lib/jobber/config";
 import { appointmentSummary, createWebsiteAppointment } from "@/lib/jobber/create-appointment-request";
+import { getLiveAvailability } from "@/lib/jobber/live-availability";
 import { logQuoteNotificationFailure, sendAppointmentNotification } from "@/lib/jobber/notify";
 
 export async function POST(request: Request) {
@@ -18,6 +19,19 @@ export async function POST(request: Request) {
   let jobberWebUri: string | null = null;
 
   if (jobberConfig().writesEnabled) {
+    const month = parsed.value.schedule.date.slice(0, 7);
+    const live = await getLiveAvailability(month);
+    const openSlots = live.availability[parsed.value.schedule.date] ?? [];
+    if (live.syncedWithJobber && !openSlots.includes(parsed.value.schedule.timeSlot)) {
+      return NextResponse.json(
+        {
+          ok: false,
+          code: "SLOT_UNAVAILABLE",
+          message: "That time slot was just booked. Please select another available time.",
+        },
+        { status: 409 },
+      );
+    }
     try {
       const synced = await createWebsiteAppointment(parsed.value, referenceId);
       jobberSynced = synced.jobberSynced;

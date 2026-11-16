@@ -152,6 +152,7 @@ export default function BookAppointmentPage() {
   const [dragOver, setDragOver] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [slotError, setSlotError] = useState("");
   const [confirmation, setConfirmation] = useState<{ referenceId: string } | null>(null);
   const [visibleMonth, setVisibleMonth] = useState<{ year: number; month: number } | null>(null);
   const [availabilityByMonth, setAvailabilityByMonth] = useState<
@@ -194,7 +195,10 @@ export default function BookAppointmentPage() {
     if (step !== 2 || !visibleMonthKey || availabilityByMonth[visibleMonthKey]) return;
     const controller = new AbortController();
     setLoadingMonth(visibleMonthKey);
-    fetch(`/api/appointments/availability?month=${visibleMonthKey}`, { signal: controller.signal })
+    fetch(`/api/appointments/availability?month=${visibleMonthKey}`, {
+      signal: controller.signal,
+      cache: "no-store",
+    })
       .then((response) => response.json())
       .then((result: { ok?: boolean; syncedWithJobber?: boolean; availability?: Record<string, string[]> }) => {
         if (!result?.ok || !result.availability || typeof result.availability !== "object") return;
@@ -333,6 +337,16 @@ export default function BookAppointmentPage() {
     if (event.dataTransfer.files.length) addImages(event.dataTransfer.files);
   }
 
+  function clearMonthAvailability(month: string) {
+    if (!month) return;
+    setAvailabilityByMonth((current) => {
+      if (!current[month]) return current;
+      const next = { ...current };
+      delete next[month];
+      return next;
+    });
+  }
+
   function selectDate(iso: string) {
     const slots = availabilityByMonth[visibleMonthKey]?.availability[iso] ?? [];
     const keepTime = slots.includes(form.timeSlot);
@@ -364,11 +378,29 @@ export default function BookAppointmentPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(toPayload(form)),
       });
-      const result = (await response.json().catch(() => null)) as { ok?: boolean; referenceId?: string; message?: string } | null;
+      const result = (await response.json().catch(() => null)) as {
+        ok?: boolean;
+        code?: string;
+        referenceId?: string;
+        message?: string;
+      } | null;
+      if (response.status === 409 || result?.code === "SLOT_UNAVAILABLE") {
+        clearMonthAvailability(form.date.slice(0, 7));
+        setForm((current) => ({ ...current, timeSlot: "" }));
+        setStep(2);
+        setSlotError(result?.message || "That time slot was just booked. Please select another available time.");
+        setSubmitError("");
+        requestAnimationFrame(() => {
+          document.getElementById("field-schedule")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        return;
+      }
       if (!response.ok || !result?.ok || !result.referenceId) {
         setSubmitError(result?.message || "We could not send your request. Please try again.");
         return;
       }
+      clearMonthAvailability(form.date.slice(0, 7));
+      setSlotError("");
       setConfirmation({ referenceId: result.referenceId });
     } catch {
       setSubmitError("We could not send your request. Please try again.");
@@ -470,9 +502,13 @@ export default function BookAppointmentPage() {
                       visibleMonth={visibleMonth}
                       availability={availabilityByMonth[visibleMonthKey]?.availability}
                       loading={loadingMonth === visibleMonthKey && !availabilityByMonth[visibleMonthKey]}
+                      slotError={slotError}
                       onVisibleMonth={setVisibleMonth}
                       onSelectDate={selectDate}
-                      onSelectTime={(timeSlot) => patch("timeSlot", timeSlot)}
+                      onSelectTime={(timeSlot) => {
+                        setSlotError("");
+                        patch("timeSlot", timeSlot);
+                      }}
                     />
                   ) : null}
                   {step === 3 ? <ReviewStep form={form} onEdit={jumpTo} /> : null}
@@ -908,6 +944,7 @@ function ScheduleStep({
   visibleMonth,
   availability,
   loading,
+  slotError,
   onVisibleMonth,
   onSelectDate,
   onSelectTime,
@@ -917,6 +954,7 @@ function ScheduleStep({
   visibleMonth: { year: number; month: number };
   availability?: Record<string, string[]>;
   loading: boolean;
+  slotError: string;
   onVisibleMonth: (value: { year: number; month: number }) => void;
   onSelectDate: (iso: string) => void;
   onSelectTime: (slot: string) => void;
@@ -1017,6 +1055,11 @@ function ScheduleStep({
 
         <div>
           <h3 className="text-sm font-bold text-[#0B192C]">Select a time</h3>
+          {slotError ? (
+            <p className="mt-2 text-sm font-medium text-red-600" role="alert">
+              {slotError}
+            </p>
+          ) : null}
           <p className="mt-2 text-sm font-semibold text-[#0B192C]">
             {form.date ? formatLongDate(form.date) : "Select a weekday to view times"}
           </p>
