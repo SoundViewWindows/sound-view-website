@@ -1,4 +1,4 @@
-import { jobberGraphql, jobberGraphqlDetailed } from "@/lib/jobber/graphql";
+import { jobberGraphqlDetailed } from "@/lib/jobber/graphql";
 import {
   BOOKING_SCHEDULE_CONFIG,
   buildMonthAvailability,
@@ -9,10 +9,10 @@ import {
 } from "@/lib/jobber/booking-schedule";
 
 type ScheduledNode = {
+  __typename?: string | null;
   id?: string | null;
   startAt?: string | null;
   endAt?: string | null;
-  dueAt?: string | null;
   title?: string | null;
 };
 
@@ -26,12 +26,9 @@ type RequestNode = {
 type PageInfo = {
   hasNextPage?: boolean | null;
   endCursor?: string | null;
-  hasPreviousPage?: boolean | null;
-  startCursor?: string | null;
 } | null;
 
 const SLOT_MS = 60 * 60 * 1000;
-const SCHEDULE_TYPES = ["Assessment", "Visit", "Event", "Task"] as const;
 
 export type BusySample = { title: string; startAt: string; endAt: string };
 
@@ -49,6 +46,7 @@ export async function getLiveAvailability(month = pacificYearMonth(), now = new 
     busy: loaded.intervals,
     busyCount: loaded.intervals.length,
     busySample: loaded.samples,
+    permissionWarning: loaded.permissionWarning,
     availabilityError: loaded.availabilityError,
     availability: buildMonthAvailability(month, loaded.intervals, now),
   };
@@ -68,10 +66,11 @@ async function loadBusyIntervals(after: string, before: string) {
   const collected = new Map<string, BusyInterval>();
   const samples: BusySample[] = [];
   const failures: string[] = [];
+  const permissionWarnings: string[] = [];
   let synced = false;
 
-  const remember = (source: string, node: ScheduledNode, index: number) => {
-    if (isCancelledTitle(node.title)) return;
+  const remember = (source: string, node: ScheduledNode | null | undefined) => {
+    if (!node || isCancelledTitle(node.title)) return;
     const interval = toInterval(node);
     if (!interval) return;
     const windowStart = Date.parse(after);
@@ -92,25 +91,22 @@ async function loadBusyIntervals(after: string, before: string) {
   const scheduled = await runQuery("scheduledItems", failures, () => readScheduledItems(after, before));
   if (scheduled) {
     synced = true;
+    permissionWarnings.push(...scheduled.permissionWarnings);
     if (scheduled.note) failures.push(`scheduledItems: ${scheduled.note}`);
-    scheduled.nodes.forEach((node, index) => remember("scheduled", node, index));
-  }
-
-  for (const field of ["visits", "tasks"] as const) {
-    const recent = await runQuery(field, failures, () => readRecentCollection(field));
-    if (recent) {
-      synced = true;
-      recent.forEach((node, index) => remember(field, node, index));
-    }
+    scheduled.nodes.forEach((node) => remember("scheduled", node));
   }
 
   const requests = await runQuery("requests", failures, () => readRequestAssessments());
   if (requests) {
     synced = true;
-    requests.forEach((request, index) => {
-      if (isClosedRequest(request)) return;
-      if (!request.assessment) return;
-      remember("request", { id: request.assessment.id, startAt: request.assessment.startAt, endAt: request.assessment.endAt, title: request.title }, index);
+    requests.forEach((request) => {
+      if (isClosedRequest(request) || !request.assessment) return;
+      remember("request", {
+        id: request.assessment.id,
+        startAt: request.assessment.startAt,
+        endAt: request.assessment.endAt,
+        title: request.title,
+      });
     });
   }
 
@@ -118,6 +114,7 @@ async function loadBusyIntervals(after: string, before: string) {
     intervals: [...collected.values()],
     synced,
     samples,
+    permissionWarning: permissionWarnings.length > 0 ? [...new Set(permissionWarnings)].join("; ") : null,
     availabilityError: failures.length > 0 ? failures.join("; ") : null,
   };
 }
@@ -128,238 +125,83 @@ async function runQuery<T>(label: string, failures: string[], load: () => Promis
   } catch (error) {
     const message = sanitizeError(error);
     console.error("[availability] Jobber GraphQL error:", label, message);
-    if (!isHiddenPermission(error)) failures.push(`${label}: ${message}`);
+    failures.push(`${label}: ${message}`);
     return null;
   }
 }
 
 async function readScheduledItems(after: string, before: string) {
-  const schema = await readScheduleSchema();
-  const occursWithin = occursWithinValue(schema?.dateRangeFields ?? [], after, before);
-  if (!occursWithin) {
-    throw new Error(
-      `DateRange fields were not found (${schema?.dateRangeFields.join(", ") || "none"}).`,
-    );
-  }
-  const itemTypes = schema?.itemTypes.length ? schema.itemTypes : ["ASSESSMENT", "VISIT", "EVENT", "BASIC_TASK"];
   const nodes: ScheduledNode[] = [];
-  const notes: string[] = [];
-  for (const scheduleItemType of itemTypes) {
-    const typeName = graphqlTypeName(scheduleItemType);
-    try {
-      nodes.push(
-        ...(await readConnection<ScheduledNode>(
-          scheduledItemsQuery(schema, typeName, false),
-          "scheduledItems",
-          { occursWithin, scheduleItemType },
-          "forward",
-        )),
-      );
-    } catch (error) {
-      if (isDisconnected(error)) throw error;
-      if (isHiddenPermission(error)) {
-        const message = sanitizeError(error);
-        console.error("[availability] Jobber GraphQL error:", scheduleItemType, message);
-        notes.push(message);
-        continue;
-      }
-      if (!isTaskEndFieldError(error) || typeName !== "Task") {
-        notes.push(`${scheduleItemType}: ${sanitizeError(error)}`);
-        continue;
-      }
-      try {
-        nodes.push(
-          ...(await readConnection<ScheduledNode>(
-            scheduledItemsQuery(schema, typeName, true),
-            "scheduledItems",
-            { occursWithin, scheduleItemType },
-            "forward",
-          )),
-        );
-      } catch (retryError) {
-        if (isDisconnected(retryError)) throw retryError;
-        if (!isHiddenPermission(retryError)) notes.push(`${scheduleItemType}: ${sanitizeError(retryError)}`);
-      }
+  const permissionWarnings: string[] = [];
+  const fatal: string[] = [];
+  let afterCursor: string | null = null;
+  let sawConnection = false;
+
+  for (let page = 0; page < 100; page += 1) {
+    const result = await jobberGraphqlDetailed<{
+      scheduledItems?: {
+        nodes?: Array<ScheduledNode | null> | null;
+        pageInfo?: PageInfo;
+      } | null;
+    }>(scheduledItemsQuery, {
+      occursWithin: { startAt: after, endAt: before },
+      afterCursor,
+    });
+    const hidden = result.errors.filter((message) => /hidden due to permissions/i.test(message));
+    const other = result.errors.filter((message) => !/hidden due to permissions/i.test(message));
+    if (hidden.length > 0) {
+      console.error("[availability] Jobber GraphQL error:", "scheduledItems", [...new Set(hidden)].join("; "));
     }
-  }
-  if (nodes.length === 0 && notes.length > 0) throw new Error([...new Set(notes)].join("; "));
-  return { nodes, note: notes.length > 0 ? [...new Set(notes)].join("; ") : null };
-}
-
-async function readRecentCollection(field: "visits" | "tasks") {
-  try {
-    return await readConnection<ScheduledNode>(recentCollectionQuery(field, "endAt"), field, {}, "backward");
-  } catch (error) {
-    if (isDisconnected(error) || field !== "tasks" || !isTaskEndFieldError(error)) throw error;
-    const nodes = await readConnection<ScheduledNode>(recentCollectionQuery(field, "dueAt"), field, {}, "backward");
-    return nodes.map((node) => ({ ...node, endAt: node.endAt ?? node.dueAt ?? null }));
-  }
-}
-
-type ScheduleSchema = {
-  dateRangeFields: string[];
-  itemFields: string[];
-  possibleTypes: string[];
-  taskFields: string[];
-  itemTypes: string[];
-};
-
-async function readScheduleSchema(): Promise<ScheduleSchema | null> {
-  try {
-    const data = await jobberGraphql<{
-      dateRange: { inputFields?: { name: string }[] | null } | null;
-      scheduledItemInterface: { fields?: { name: string }[] | null; possibleTypes?: { name: string }[] | null } | null;
-      scheduledItemLegacy: { fields?: { name: string }[] | null; possibleTypes?: { name: string }[] | null } | null;
-      taskType: { fields?: { name: string }[] | null } | null;
-      itemType: { enumValues?: { name: string }[] | null } | null;
-    }>(scheduleSchemaQuery);
-    const item = data.scheduledItemInterface?.fields?.length || data.scheduledItemInterface?.possibleTypes?.length
-      ? data.scheduledItemInterface
-      : data.scheduledItemLegacy;
-    return {
-      dateRangeFields: data.dateRange?.inputFields?.map((field) => field.name) ?? [],
-      itemFields: item?.fields?.map((field) => field.name) ?? [],
-      possibleTypes: item?.possibleTypes?.map((type) => type.name) ?? [],
-      taskFields: data.taskType?.fields?.map((field) => field.name) ?? [],
-      itemTypes: (data.itemType?.enumValues?.map((value) => value.name) ?? []).filter((name) =>
-        ["ASSESSMENT", "VISIT", "EVENT", "TASK", "BASIC_TASK"].includes(name),
-      ),
-    };
-  } catch (error) {
-    console.error("[availability] Jobber GraphQL error:", "schema", sanitizeError(error));
-    return null;
-  }
-}
-
-function occursWithinValue(fieldNames: string[], after: string, before: string) {
-  const names = new Set(fieldNames);
-  const pairs = [
-    ["startAt", "endAt"],
-    ["after", "before"],
-    ["start", "end"],
-    ["from", "to"],
-    ["startDate", "endDate"],
-  ] as const;
-  for (const [startName, endName] of pairs) {
-    if (names.has(startName) && names.has(endName)) {
-      return { [startName]: after, [endName]: before };
+    permissionWarnings.push(...hidden);
+    const connection = result.data?.scheduledItems;
+    if (connection?.nodes) {
+      sawConnection = true;
+      nodes.push(...connection.nodes.filter((node): node is ScheduledNode => node != null));
     }
+    if (other.length > 0) fatal.push(...other);
+    const info = connection?.pageInfo;
+    const nextCursor = info?.endCursor ?? null;
+    if (!info?.hasNextPage || !nextCursor || nextCursor === afterCursor) break;
+    afterCursor = nextCursor;
   }
-  if (fieldNames.length >= 2) {
-    return { [fieldNames[0]]: after, [fieldNames[1]]: before };
+
+  if (!sawConnection) {
+    const message = [...new Set([...permissionWarnings, ...fatal])].join("; ");
+    throw new Error(message || "Jobber did not return scheduled items.");
   }
-  return null;
-}
-
-function scheduledItemsQuery(schema: ScheduleSchema | null, typeName: string, taskUsesDueAt: boolean) {
-  const allowed = schema?.possibleTypes.length ? schema.possibleTypes : [...SCHEDULE_TYPES];
-  const interfaceFields = schema?.itemFields.length
-    ? ["id", "title", "startAt", "endAt"].filter((name) => schema.itemFields.includes(name))
-    : ["id", "title"];
-  const taskDueAt = taskUsesDueAt || (schema?.taskFields.length ? !schema.taskFields.includes("endAt") && schema.taskFields.includes("dueAt") : false);
-  const fragment = allowed.includes(typeName)
-    ? `... on ${typeName} { ${typeName === "Task" && taskDueAt ? "startAt endAt: dueAt" : "startAt endAt"} }`
-    : "";
-  return `
-    query GetScheduledItems($occursWithin: DateRange!, $scheduleItemType: ScheduledItemType, $cursor: String) {
-      scheduledItems(first: 100, after: $cursor, filter: { occursWithin: $occursWithin, scheduleItemType: $scheduleItemType }) {
-        nodes {
-          ${interfaceFields.join("\n")}
-          ${fragment}
-        }
-        pageInfo { hasNextPage endCursor }
-      }
-    }
-  `;
-}
-
-function graphqlTypeName(enumValue: string) {
-  if (enumValue === "BASIC_TASK" || enumValue === "TASK") return "Task";
-  return enumValue
-    .toLowerCase()
-    .split("_")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join("");
-}
-
-function isHiddenPermission(error: unknown) {
-  const message = error instanceof Error ? error.message : "";
-  return /hidden due to permissions|not authorized|unauthorized|access denied|forbidden/i.test(message) && !/scope/i.test(message);
-}
-
-function recentCollectionQuery(field: "visits" | "tasks", endField: "endAt" | "dueAt") {
-  const operation = field[0].toUpperCase() + field.slice(1);
-  const endSelection = endField === "dueAt" ? "dueAt" : "endAt";
-  return `
-    query GetRecent${operation}($cursor: String) {
-      ${field}(last: 100, before: $cursor) {
-        nodes { id title startAt ${endSelection} }
-        pageInfo { hasPreviousPage startCursor }
-      }
-    }
-  `;
-}
-
-function isTaskEndFieldError(error: unknown) {
-  const message = error instanceof Error ? error.message : "";
-  return /Task/i.test(message) && /endAt|dueAt/i.test(message);
+  return {
+    nodes,
+    permissionWarnings: [...new Set(permissionWarnings)],
+    note: fatal.length > 0 ? [...new Set(fatal)].join("; ") : null,
+  };
 }
 
 async function readRequestAssessments() {
   try {
-    return await readConnection<RequestNode>(requestAssessmentsQuery, "requests", {}, "backward");
+    return await readRequestPage(requestAssessmentsQuery);
   } catch (error) {
     if (isDisconnected(error)) throw error;
     const message = sanitizeError(error);
     console.error("[availability] Jobber GraphQL error:", "requests", message);
-    if (/throttl/i.test(message)) {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      return readConnection<RequestNode>(requestAssessmentsQuery, "requests", {}, "backward");
-    }
-    return readConnection<RequestNode>(requestAssessmentsPlainQuery, "requests", {}, "backward");
+    return readRequestPage(requestAssessmentsPlainQuery);
   }
 }
 
-async function readConnection<T>(
-  query: string,
-  field: string,
-  variables: Record<string, unknown>,
-  direction: "forward" | "backward",
-) {
-  const nodes: T[] = [];
-  let cursor: string | null = null;
-  for (let page = 0; page < 40; page += 1) {
-    const result = await jobberGraphqlDetailed<Record<string, { nodes?: T[] | null; pageInfo?: PageInfo } | null>>(query, {
-      ...variables,
-      ...(query.includes("$cursor") ? { cursor } : {}),
-    });
-    if (!result.data) {
-      throw new Error(result.errors.join(" ") || "Jobber did not return any data.");
-    }
-    const fatal = result.errors.filter((message) => !/hidden due to permissions/i.test(message));
-    if (fatal.length > 0 && !(result.data[field]?.nodes?.length)) {
-      throw new Error(fatal.join(" "));
-    }
-    const data = result.data;
-    const connection = data[field];
-    nodes.push(...(connection?.nodes ?? []));
-    const info = connection?.pageInfo;
-    const nextCursor = direction === "backward" ? info?.startCursor : info?.endCursor;
-    const hasMore = direction === "backward" ? info?.hasPreviousPage : info?.hasNextPage;
-    if (!hasMore || !nextCursor || nextCursor === cursor) break;
-    cursor = nextCursor;
+async function readRequestPage(query: string) {
+  const result = await jobberGraphqlDetailed<{ requests?: { nodes?: RequestNode[] | null } | null }>(query);
+  if (!result.data?.requests) {
+    throw new Error(result.errors.join(" ") || "Jobber did not return requests.");
   }
-  return nodes;
+  if (result.errors.length > 0) {
+    throw new Error(result.errors.join(" "));
+  }
+  return result.data.requests.nodes ?? [];
 }
 
 function toInterval(node: ScheduledNode): BusyInterval | null {
   const start = node.startAt ? Date.parse(node.startAt) : Number.NaN;
-  const due = node.dueAt ? Date.parse(node.dueAt) : Number.NaN;
-  if (!Number.isFinite(start)) {
-    if (!Number.isFinite(due)) return null;
-    return { start: due, end: due + SLOT_MS };
-  }
-  const rawEnd = node.endAt?.trim() || (Number.isFinite(due) ? node.dueAt?.trim() ?? "" : "");
+  if (!Number.isFinite(start)) return null;
+  const rawEnd = node.endAt?.trim() ?? "";
   const endIso = rawEnd ? rawEnd : new Date(new Date(start).getTime() + 60 * 60 * 1000).toISOString();
   const parsedEnd = Date.parse(endIso);
   const end = Number.isFinite(parsedEnd) && parsedEnd > start ? parsedEnd : start + SLOT_MS;
@@ -394,51 +236,44 @@ function sanitizeError(error: unknown) {
   return message.replace(/\s+/g, " ").slice(0, 300);
 }
 
-const scheduleSchemaQuery = `
-  query IntrospectScheduleTypes {
-    dateRange: __type(name: "DateRange") {
-      inputFields { name type { name kind ofType { name } } }
-    }
-    scheduledItemInterface: __type(name: "ScheduledItemInterface") {
-      fields { name }
-      possibleTypes { name }
-    }
-    scheduledItemLegacy: __type(name: "ScheduledItem") {
-      fields { name }
-      possibleTypes { name }
-    }
-    taskType: __type(name: "Task") {
-      fields { name }
-    }
-    itemType: __type(name: "ScheduledItemType") {
-      enumValues { name }
+const scheduledItemsQuery = `
+  query GetScheduledItems($occursWithin: DateRange!, $afterCursor: String) {
+    scheduledItems(first: 50, after: $afterCursor, filter: { occursWithin: $occursWithin }) {
+      nodes {
+        __typename
+        id
+        title
+        ... on Assessment { startAt endAt }
+        ... on Visit { startAt endAt }
+        ... on Event { startAt endAt }
+        ... on Task { startAt endAt }
+      }
+      pageInfo { hasNextPage endCursor }
     }
   }
 `;
 
 const requestAssessmentsQuery = `
-  query GetRequestAssessments($cursor: String) {
-    requests(last: 100, before: $cursor) {
+  query GetRequestAssessments {
+    requests(last: 25) {
       nodes {
         id
         title
         requestStatus
         assessment { id startAt endAt }
       }
-      pageInfo { hasPreviousPage startCursor }
     }
   }
 `;
 
 const requestAssessmentsPlainQuery = `
-  query GetRequestAssessmentsPlain($cursor: String) {
-    requests(last: 100, before: $cursor) {
+  query GetRequestAssessmentsPlain {
+    requests(last: 25) {
       nodes {
         id
         title
         assessment { id startAt endAt }
       }
-      pageInfo { hasPreviousPage startCursor }
     }
   }
 `;
