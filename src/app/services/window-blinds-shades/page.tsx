@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
 import { CostComparison } from "@/components/CostComparison";
+import { treatmentStyles } from "@/lib/window-treatments";
 
 export const metadata: Metadata = {
   alternates: {
@@ -17,38 +18,14 @@ export const metadata: Metadata = {
 const shopHref =
   "https://sound-view-window-door.myshopify.com/collections/window-treatments";
 
-const treatments = [
-  {
-    tagline: "CLEAN & MINIMALIST",
-    title: "Roller & Solar Shades",
-    copy: "Sleek low-profile design that cuts glare and protects interior flooring from UV damage while maintaining natural light.",
-    image: "/services/blinds/roller-solar-shades.jpg",
-    imageAlt:
-      "Custom dark solar roller shades on kitchen picture windows cutting glare and UV light",
-  },
-  {
-    tagline: "MAXIMUM INSULATION",
-    title: "Cellular / Honeycomb Shades",
-    copy: "Honeycomb air pockets trap air along window glass, reducing heat loss during damp Seattle winters and keeping rooms cool in summer.",
-    image: "/services/blinds/cellular-honeycomb-shades.jpg",
-    imageAlt:
-      "Cordless insulating cellular honeycomb shades for cold weather window thermal efficiency",
-  },
-  {
-    tagline: "CLASSIC LIGHT CONTROL",
-    title: "Wood & Faux Wood Blinds",
-    copy: "Timeless handcrafted slat styling with precision tilt control. Moisture-resistant composite options available for kitchens and bathrooms.",
-    image: "/services/blinds/wood-faux-wood-blinds.jpg",
-    imageAlt: "Warm natural wood horizontal slat blinds over residential living room windows",
-  },
-  {
-    tagline: "CONNECTED LIVING",
-    title: "Motorized & Smart Shades",
-    copy: "Whisper-quiet automated shades synchronized with sunrise, sunset, or your smartphone and voice assistant routines.",
-    image: "/services/blinds/motorized-smart-shades.jpg",
-    imageAlt: "Hand holding wireless remote operating smart motorized roller window shade",
-  },
-];
+const treatments = treatmentStyles.map((style) => ({
+  tagline: style.tagline,
+  title: style.styleName,
+  copy: style.cardCopy,
+  image: style.cardImage,
+  imageAlt: style.cardImageAlt,
+  href: style.path,
+}));
 
 export default function WindowBlindsShadesPage() {
   return (
@@ -116,11 +93,9 @@ export default function WindowBlindsShadesPage() {
         <section aria-label="Treatment categories">
           <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 pb-16 sm:grid-cols-2 sm:px-5 lg:grid-cols-4">
             {treatments.map((item) => (
-              <a
+              <Link
                 key={item.title}
-                href={shopHref}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={item.href}
                 className="group flex h-full cursor-pointer flex-col rounded-[4px] border border-white/15 bg-[#182B3E]/75 p-4 backdrop-blur-[2px] transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 <span className="relative mb-2 h-[135px] w-full shrink-0 overflow-hidden rounded-[4px] bg-slate-800 sm:h-[145px]">
@@ -142,11 +117,11 @@ export default function WindowBlindsShadesPage() {
                     {item.copy}
                   </span>
                   <span className="mt-auto inline-flex items-center gap-1 pt-2.5 text-xs font-semibold text-white">
-                    Shop Style Online
+                    Explore Style & Details
                     <span className="transition-transform group-hover:translate-x-1">→</span>
                   </span>
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
         </section>
