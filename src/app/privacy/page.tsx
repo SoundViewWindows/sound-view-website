@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { canonicalUrl } from "@/config/site";
+import { publicPaths } from "@/lib/public-paths";
 
 export const metadata: Metadata = {
-  alternates: { canonical: canonicalUrl("/privacy") },
+  alternates: { canonical: canonicalUrl(publicPaths.privacy) },
   title: "Privacy Policy | Sound View Window & Door",
   description: "How Sound View Window & Door handles information shared through this website.",
 };

@@ -21,7 +21,7 @@ export type BlogCard = Pick<
   | "excerpt"
   | "coverImage"
   | "coverAlt"
->;
+> & { href: string };
 
 export function BlogIndex({
   posts,
@@ -185,7 +185,7 @@ export function BlogIndex({
         <section className="bg-white py-12 text-[#0B192C]">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
-            href={`/blog/${featured.slug}`}
+            href={featured.href}
             className={`group grid grid-cols-1 overflow-hidden rounded-[4px] border border-slate-200/80 bg-white shadow-sm transition-shadow hover:shadow-md lg:grid-cols-2 ${focusRing}`}
           >
             <div className="overflow-hidden">
@@ -239,7 +239,7 @@ export function BlogIndex({
             {recent.map((post) => (
               <Link
                 key={post.id || post.slug}
-                href={`/blog/${post.slug}`}
+                href={post.href}
                 className={`group flex h-full flex-col justify-between overflow-hidden rounded-[4px] border border-slate-200/90 bg-white shadow-sm transition-shadow hover:shadow-md ${focusRing}`}
               >
                 <div>

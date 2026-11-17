@@ -69,7 +69,7 @@ const lakeCity: Showroom = {
   phone: "(206) 572-3411",
   tel: "2065723411",
   hours: "Mon-Fri: 8:00 AM - 4:30 PM",
-  href: "/showrooms/lake-city",
+  href: "/window-and-door-showroom-in-seattle-wa-lake-city-way-ne/",
   lat: 47.7196,
   lng: -122.2951,
 };
@@ -80,7 +80,7 @@ const westQueenAnne: Showroom = {
   phone: "(206) 402-4229",
   tel: "2064024229",
   hours: "Mon-Fri: 8:00 AM - 4:30 PM",
-  href: "/showrooms/west-queen-anne",
+  href: "/window-and-door-showroom-in-seattle-wa-921-elliott-ave/",
   lat: 47.6267,
   lng: -122.3712,
 };
@@ -91,7 +91,7 @@ const bellevue: Showroom = {
   phone: "(425) 417-3005",
   tel: "4254173005",
   hours: "Open by Appointment",
-  href: "/showrooms/bellevue",
+  href: "/bellevue-showroom/",
   lat: 47.6285,
   lng: -122.162,
 };

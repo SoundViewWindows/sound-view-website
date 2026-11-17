@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
+import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { Compass, Ruler, Wrench } from "lucide-react";
 import { CtaBanner } from "@/components/CtaBanner";
@@ -9,7 +10,7 @@ import { WhyChooseSoundView } from "@/components/WhyChooseSoundView";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: canonicalUrl("/about"),
+    canonical: canonicalUrl(publicPaths.about),
   },
   title: "About Us | Sound View Window & Door",
   description:
@@ -40,7 +41,7 @@ const workSystem = [
 const showrooms = [
   {
     name: "Lake City Showroom",
-    href: "/showrooms/lake-city",
+    href: "/window-and-door-showroom-in-seattle-wa-lake-city-way-ne/",
     address: "12301 Lake City Way NE, Seattle, WA 98125",
     phone: "(206) 572-3411",
     phoneHref: "tel:2065723411",
@@ -48,7 +49,7 @@ const showrooms = [
   },
   {
     name: "West Queen Anne Showroom",
-    href: "/showrooms/west-queen-anne",
+    href: "/window-and-door-showroom-in-seattle-wa-921-elliott-ave/",
     address: "921 Elliott Ave W, Seattle, WA 98119",
     phone: "(206) 402-4229",
     phoneHref: "tel:2064024229",
@@ -56,7 +57,7 @@ const showrooms = [
   },
   {
     name: "Bellevue Showroom",
-    href: "/showrooms/bellevue",
+    href: "/bellevue-showroom/",
     address: "13555 NE Bel Red Rd Ste 207, Bellevue, WA 98005",
     phone: "(425) 417-3005",
     phoneHref: "tel:4254173005",

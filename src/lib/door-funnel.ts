@@ -1,3 +1,5 @@
+import { publicPaths } from "@/lib/public-paths";
+
 export type DoorChoice = {
   slug: string;
   name: string;
@@ -273,5 +275,6 @@ export function doorStepHref(
   if (step !== "types" && params.material) search.set("material", params.material);
   if (step !== "types" && params.manufacturer) search.set("manufacturer", params.manufacturer);
   const query = search.toString();
+  if (step === "types") return publicPaths.doors;
   return `/services/door-replacement/${step}${query ? `?${query}` : ""}`;
 }

@@ -98,7 +98,7 @@ export function DoorMaterialsStep() {
                   Showing available materials for: {style ? doorChoiceLabel(style) : "all door types"}
                 </span>
                 <Link
-                  href="/services/door-replacement/types"
+                  href="/doors-seattle-wa/"
                   className="font-medium text-home-accent underline decoration-home-accent/40 underline-offset-4 hover:text-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent"
                 >
                   {style ? "Change" : "Choose a door type"}

@@ -42,7 +42,7 @@ export function GlassQuoteStep() {
               <div className="relative z-20 lg:col-span-6">
                 <GlassStepNav
                   current="Your Estimate"
-                  backHref="/services/glass-replacement/types"
+                  backHref="/glass-replacement/"
                   backLabel="Glass Types"
                 />
                 <div className="space-y-1.5">
@@ -56,7 +56,7 @@ export function GlassQuoteStep() {
                 <p className="inline-flex items-center gap-2 rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-2.5 py-1 text-xs font-medium text-white shadow-sm">
                   <span>{typeName}</span>
                   <Link
-                    href="/services/glass-replacement/types"
+                    href="/glass-replacement/"
                     className="ml-1 font-semibold text-[#38BDF8] underline decoration-[#38BDF8]/40 underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                   >
                     Edit

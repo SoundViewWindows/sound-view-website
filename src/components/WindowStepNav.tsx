@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { windowStepHref } from "@/lib/window-funnel";
+import { publicPaths } from "@/lib/public-paths";
 
 const crumbLink =
   "rounded-sm text-slate-300 hover:text-home-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent";
@@ -27,11 +28,11 @@ export function WindowStepNav({
   const previous = step > 1 ? steps[step - 2] : null;
   const backHref = previous
     ? windowStepHref(previous.key, { material, type, manufacturer })
-    : "/services/window-replacement/materials";
+    : publicPaths.windows;
   const crumbs = [
     { label: "Home", href: "/" },
     { label: "Services" },
-    { label: "Window Replacement", href: "/services/window-replacement/materials" },
+    { label: "Window Replacement", href: publicPaths.windows },
     { label: current.name },
   ];
 

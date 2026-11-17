@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { canonicalUrl } from "@/config/site";
+import { publicPaths } from "@/lib/public-paths";
 
 export const metadata: Metadata = {
-  alternates: { canonical: canonicalUrl("/terms") },
+  alternates: { canonical: canonicalUrl(publicPaths.terms) },
   title: "Terms of Service | Sound View Window & Door",
   description: "Terms for using the Sound View Window & Door website.",
 };

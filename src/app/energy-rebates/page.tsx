@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
+import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
@@ -7,7 +8,7 @@ import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: canonicalUrl("/energy-rebates"),
+    canonical: canonicalUrl(publicPaths.rebates),
   },
   title: "Energy Rebates | Sound View Window & Door",
   description:

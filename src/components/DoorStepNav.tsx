@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { doorStepHref } from "@/lib/door-funnel";
+import { publicPaths } from "@/lib/public-paths";
 
 const crumbLink =
   "rounded-sm text-slate-300 hover:text-home-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent";
@@ -27,11 +28,11 @@ export function DoorStepNav({
   const previous = step > 1 ? steps[step - 2] : null;
   const backHref = previous
     ? doorStepHref(previous.key, { type, material, manufacturer })
-    : "/services/door-replacement/types";
+    : publicPaths.doors;
   const crumbs = [
     { label: "Home", href: "/" },
     { label: "Services" },
-    { label: "Door Replacement", href: "/services/door-replacement/types" },
+    { label: "Door Replacement", href: publicPaths.doors },
     { label: current.name },
   ];
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
+import { publicPaths } from "@/lib/public-paths";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
@@ -7,7 +8,7 @@ import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: canonicalUrl("/portfolio"),
+    canonical: canonicalUrl(publicPaths.portfolio),
   },
   title: "Portfolio | Sound View Window & Door",
   description:
@@ -45,7 +46,7 @@ const projects = [
     badge: "MASONRY OPENING RETROFIT",
     title: "Brick Exterior Single-Hung Window Replacement",
     copy: "Removed aged drafty single-pane wood sash set into masonry and installed a custom-sized, energy-efficient replacement unit with seamless exterior trim and tight perimeter seals.",
-    href: "/services/window-replacement/materials",
+    href: "/replacement-windows-seattle-wa/",
   },
   {
     src: "/portfolio/siding-slider-before-after.jpg",
@@ -53,7 +54,7 @@ const projects = [
     badge: "SIDING PRESERVATION INSTALL",
     title: "Horizontal Sliding Window Upgrade",
     copy: "Upgraded an outdated gridded aluminum slider with a high-performance, smooth-glide vinyl slider, boosting thermal insulation and opening up natural garden light.",
-    href: "/services/window-replacement/materials",
+    href: "/replacement-windows-seattle-wa/",
   },
 ];
 
@@ -193,13 +194,13 @@ export default function PortfolioPage() {
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-4">
               <Link
-                href="/services/window-replacement/materials"
+                href="/replacement-windows-seattle-wa/"
                 className={`rounded-xl bg-[#38BDF8] px-6 py-3 font-extrabold uppercase tracking-wide text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
               >
                 Start Your Window Estimate
               </Link>
               <Link
-                href="/services/door-replacement/types"
+                href="/doors-seattle-wa/"
                 className={`rounded-lg border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-700 transition-colors hover:border-sky-400 ${focusRing}`}
               >
                 Start Your Door Estimate

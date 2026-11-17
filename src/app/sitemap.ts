@@ -3,6 +3,8 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { canonicalUrl } from "@/config/site";
 import { blogPosts } from "@/data/blogPosts";
+import { migrationRedirects } from "@/lib/migration-redirects";
+import { articlePublicPath, preservedPublicPaths } from "@/lib/public-paths";
 
 function isRedirectOnly(file: string) {
   try {
@@ -54,13 +56,18 @@ function articleDate(value: string) {
   return Number.isNaN(parsed.getTime()) ? undefined : parsed;
 }
 
+const redirectedPaths = new Set(migrationRedirects().map((redirect) => redirect.source));
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = collectStaticPaths();
+  const preserved = new Set<string>(preservedPublicPaths);
+  const staticPaths = collectStaticPaths()
+    .filter((route) => !redirectedPaths.has(route))
+    .map((route) => (preserved.has(route.endsWith("/") ? route : `${route}/`) ? (route.endsWith("/") ? route : `${route}/`) : route));
   const pages = staticPaths.map((route) => ({
     url: canonicalUrl(route),
   }));
   const articles = blogPosts.map((post) => ({
-    url: canonicalUrl(`/blog/${post.slug}`),
+    url: canonicalUrl(articlePublicPath(post.originalPath)),
     lastModified: articleDate(post.publishedAt),
   }));
   return [...pages, ...articles];

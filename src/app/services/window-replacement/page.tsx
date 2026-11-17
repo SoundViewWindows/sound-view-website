@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
+import { publicPaths } from "@/lib/public-paths";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: canonicalUrl("/services/window-replacement"),
+    canonical: canonicalUrl(publicPaths.windows),
   },
   title: "Window Replacement | Sound View Window & Door",
   description:
@@ -12,5 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function WindowReplacementPage() {
-  redirect("/services/window-replacement/materials");
+  redirect(publicPaths.windows);
 }

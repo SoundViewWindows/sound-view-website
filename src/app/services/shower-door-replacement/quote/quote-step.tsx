@@ -42,7 +42,7 @@ export function ShowerQuoteStep() {
               <div className="relative z-20 lg:col-span-6">
                 <ShowerStepNav
                   current="Your Estimate"
-                  backHref="/services/shower-door-replacement/types"
+                  backHref="/frameless-shower-doors-and-enclosures/"
                   backLabel="Styles"
                 />
                 <div className="space-y-1.5">
@@ -56,7 +56,7 @@ export function ShowerQuoteStep() {
                 <p className="inline-flex items-center gap-2 rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-2.5 py-1 text-xs font-medium text-white shadow-sm">
                   <span>{styleName}</span>
                   <Link
-                    href="/services/shower-door-replacement/types"
+                    href="/frameless-shower-doors-and-enclosures/"
                     className="ml-1 font-semibold text-[#38BDF8] underline decoration-[#38BDF8]/40 underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                   >
                     Edit

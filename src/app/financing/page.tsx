@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
+import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
@@ -7,7 +8,7 @@ import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: canonicalUrl("/financing"),
+    canonical: canonicalUrl(publicPaths.financing),
   },
   title: "Financing | Sound View Window & Door",
   description:
@@ -218,7 +219,7 @@ export default function FinancingPage() {
                 perfectly fits your home improvement goals.
               </p>
               <Link
-                href="/contact"
+                href="/contact-us-for-window-and-door-estimates-in-seattle-wa/"
                 className="mt-6 inline-flex items-center justify-center rounded-[4px] bg-[#0090c8] px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#007fb1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
                 CONTACT SOUND VIEW

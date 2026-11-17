@@ -130,13 +130,13 @@ export default function Home() {
                 key={service.id}
                 href={
                   service.id === "window-replacement"
-                    ? "/services/window-replacement/materials"
+                    ? "/replacement-windows-seattle-wa/"
                     : service.id === "door-replacement"
-                      ? "/services/door-replacement/types"
+                      ? "/doors-seattle-wa/"
                       : service.id === "shower-door-replacement"
-                        ? "/services/shower-door-replacement/types"
+                        ? "/frameless-shower-doors-and-enclosures/"
                         : service.id === "glass-replacement"
-                          ? "/services/glass-replacement/types"
+                          ? "/glass-replacement/"
                           : service.id === "glass-railing-installation"
                             ? "/services/glass-railing-installation"
                             : service.id === "window-blinds-shades"

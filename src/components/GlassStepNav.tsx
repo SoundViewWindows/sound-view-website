@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { publicPaths } from "@/lib/public-paths";
 
 const focusRing =
   "rounded-sm text-slate-300 hover:text-home-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent";
@@ -15,7 +16,7 @@ export function GlassStepNav({
   const crumbs = [
     { label: "Home", href: "/" },
     { label: "Services" },
-    { label: "Glass Replacement", href: "/services/glass-replacement/types" },
+    { label: "Glass Replacement", href: publicPaths.glass },
     { label: current },
   ];
 

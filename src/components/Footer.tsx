@@ -4,8 +4,8 @@ const focusRing =
   "rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 const links = [
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms of Service", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy-policy/" },
+  { label: "Terms of Service", href: "/terms-and-conditions/" },
   { label: "Sitemap", href: "/sitemap.xml" },
 ];
 

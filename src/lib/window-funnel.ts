@@ -1,3 +1,5 @@
+import { publicPaths } from "@/lib/public-paths";
+
 export type WindowChoice = {
   slug: string;
   name: string;
@@ -241,5 +243,6 @@ export function windowStepHref(
   }
   if (step === "quote" && params.manufacturer) search.set("manufacturer", params.manufacturer);
   const query = search.toString();
+  if (step === "materials") return publicPaths.windows;
   return `/services/window-replacement/${step}${query ? `?${query}` : ""}`;
 }

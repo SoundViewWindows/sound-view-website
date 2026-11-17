@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
+import { publicPaths } from "@/lib/public-paths";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: canonicalUrl("/services/shower-door-replacement/types"),
+    canonical: canonicalUrl(publicPaths.shower),
   },
   title: "Shower Door Styles | Sound View Window & Door",
   description:

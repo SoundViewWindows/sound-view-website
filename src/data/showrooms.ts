@@ -3,7 +3,7 @@ export type ShowroomSlug = "lake-city" | "west-queen-anne" | "bellevue";
 export type Showroom = {
   slug: ShowroomSlug;
   name: string;
-  href: `/showrooms/${ShowroomSlug}`;
+  href: string;
   summary: string;
   phone: string;
   phoneHref: string;
@@ -35,7 +35,7 @@ export const showrooms: Showroom[] = [
   {
     slug: "lake-city",
     name: "Lake City",
-    href: "/showrooms/lake-city",
+    href: "/window-and-door-showroom-in-seattle-wa-lake-city-way-ne/",
     summary:
       "Full displays of Milgard, Andersen, clad-wood patio doors, and frameless shower hardware.",
     phone: "(206) 572-3411",
@@ -73,7 +73,7 @@ export const showrooms: Showroom[] = [
   {
     slug: "west-queen-anne",
     name: "West Queen Anne",
-    href: "/showrooms/west-queen-anne",
+    href: "/window-and-door-showroom-in-seattle-wa-921-elliott-ave/",
     summary: "Architectural modern windows, slimline sliders, and custom interior glass.",
     phone: "(206) 402-4229",
     phoneHref: "tel:2064024229",
@@ -112,7 +112,7 @@ export const showrooms: Showroom[] = [
   {
     slug: "bellevue",
     name: "Bellevue",
-    href: "/showrooms/bellevue",
+    href: "/bellevue-showroom/",
     summary: "Private design studio.",
     phone: "(425) 417-3005",
     phoneHref: "tel:4254173005",

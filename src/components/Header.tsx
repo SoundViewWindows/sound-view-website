@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useId, useState, type MouseEvent } from "react";
 import { services } from "@/lib/services";
+import { publicPaths } from "@/lib/public-paths";
 
 type NavChild = {
   label: string;
@@ -23,13 +24,13 @@ const navigation: NavEntry[] = [
       label: service.title,
       href:
         service.id === "window-replacement"
-          ? "/services/window-replacement/materials"
+          ? publicPaths.windows
           : service.id === "door-replacement"
-            ? "/services/door-replacement/types"
+            ? publicPaths.doors
             : service.id === "shower-door-replacement"
-              ? "/services/shower-door-replacement/types"
+              ? publicPaths.shower
               : service.id === "glass-replacement"
-                ? "/services/glass-replacement/types"
+                ? publicPaths.glass
                 : service.id === "window-blinds-shades"
                   ? "/services/window-blinds-shades"
                   : `/services/${service.id}`,
@@ -40,30 +41,30 @@ const navigation: NavEntry[] = [
     kind: "menu",
     label: "Resources",
     items: [
-      { label: "Financing", href: "/financing" },
+      { label: "Financing", href: publicPaths.financing },
       {
         label: "Energy Rebates for Windows & Doors",
-        href: "/energy-rebates",
+        href: publicPaths.rebates,
       },
-      { label: "Blog & Guides", href: "/blog" },
+      { label: "Blog & Guides", href: publicPaths.blog },
     ],
   },
   {
     kind: "menu",
     label: "Showrooms",
     items: [
-      { label: "All Showrooms", href: "/showrooms" },
-      { label: "Lake City Showroom", href: "/showrooms/lake-city" },
-      { label: "West Queen Anne Showroom", href: "/showrooms/west-queen-anne" },
+      { label: "All Showrooms", href: publicPaths.showrooms },
+      { label: "Lake City Showroom", href: publicPaths.lakeCity },
+      { label: "West Queen Anne Showroom", href: publicPaths.queenAnne },
       {
         label: "Bellevue Showroom (By Appointment ONLY)",
-        href: "/showrooms/bellevue",
+        href: publicPaths.bellevue,
       },
     ],
   },
-  { kind: "link", label: "Portfolio", href: "/portfolio" },
-  { kind: "link", label: "About", href: "/about" },
-  { kind: "link", label: "Contact Us", href: "/contact" },
+  { kind: "link", label: "Portfolio", href: publicPaths.portfolio },
+  { kind: "link", label: "About", href: publicPaths.about },
+  { kind: "link", label: "Contact Us", href: publicPaths.contact },
 ];
 
 const focusRing =
@@ -217,7 +218,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
               ),
             )}
             <Link
-              href="/blog"
+              href={publicPaths.blog}
               onClick={() => setMobileOpen(false)}
               className={`px-2 py-3 text-sm font-medium uppercase tracking-wide text-slate-800 hover:text-sky-600 ${focusRing}`}
             >
