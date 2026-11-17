@@ -1,5 +1,5 @@
-import { openSlotLabels } from "@/lib/jobber/booking-schedule";
-import { appointmentLocationByName, type AppointmentLocationName } from "@/lib/jobber/schedule-config";
+import { openSlotLabels } from "./booking-schedule";
+import { appointmentLocationByName, type AppointmentLocationName } from "./schedule-config";
 
 export const APPOINTMENT_PRODUCTS = [
   "Windows",

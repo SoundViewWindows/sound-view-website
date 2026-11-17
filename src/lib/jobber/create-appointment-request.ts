@@ -1,10 +1,9 @@
 import { findBookingUserId } from "@/lib/jobber/booking-user";
 import { jobberGraphql } from "@/lib/jobber/graphql";
-import {
-  APPOINTMENT_TIME_SLOTS,
-  APPOINTMENT_TIME_ZONE,
-  type JobberAppointmentPayload,
-} from "@/lib/jobber/booking-types";
+import { type JobberAppointmentPayload } from "@/lib/jobber/booking-types";
+import { reserveScheduledAppointment } from "./appointment-reserve";
+
+export { appointmentRequestTitle, appointmentSummary, assessmentMatchesRequestedSlot } from "./appointment-reserve";
 
 type UserError = { message?: string | null; path?: string[] | null };
 
@@ -71,7 +70,10 @@ export type AppointmentSyncResult = {
   clientId: string | null;
   propertyId: string | null;
   assessmentScheduled: boolean;
+  assessmentMatchesSlot: boolean;
 };
+
+export type { JobberCaller } from "./appointment-reserve";
 
 const matchClientQuery = `
   query MatchWebsiteAppointmentClient($search: String!) {
@@ -130,43 +132,6 @@ const createPropertyMutation = `
   }
 `;
 
-const createRequestMutation = `
-  mutation CreateWebsiteAppointmentRequest($input: RequestCreateInput!) {
-    requestCreate(input: $input) {
-      request {
-        id
-        title
-        jobberWebUri
-        assessment {
-          id
-          startAt
-          endAt
-        }
-      }
-      userErrors {
-        message
-        path
-      }
-    }
-  }
-`;
-
-const createAssessmentMutation = `
-  mutation CreateWebsiteAppointmentAssessment($requestId: EncodedId!, $input: AssessmentCreateInput!) {
-    assessmentCreate(requestId: $requestId, input: $input) {
-      assessment {
-        id
-        startAt
-        endAt
-      }
-      userErrors {
-        message
-        path
-      }
-    }
-  }
-`;
-
 const createClientNoteMutation = `
   mutation CreateWebsiteAppointmentClientNote($clientId: EncodedId!, $message: String!) {
     clientCreateNote(clientId: $clientId, input: { message: $message }) {
@@ -184,39 +149,30 @@ const createClientNoteMutation = `
 export async function createWebsiteAppointment(
   appointment: JobberAppointmentPayload,
   referenceId: string,
+  pendingRequestId?: string | null,
 ): Promise<AppointmentSyncResult> {
   const bookingUserId = await findBookingUserId();
   const clientId = await matchOrCreateClient(appointment);
   const propertyId = await createProperty(clientId, appointment);
   await recordConsentNote(clientId, appointment);
-  const request = await createRequest(clientId, propertyId, appointment, referenceId, bookingUserId);
+  const request = await reserveScheduledAppointment({
+    graphql: jobberGraphql,
+    clientId,
+    propertyId,
+    appointment,
+    referenceId,
+    bookingUserId,
+    pendingRequestId,
+  });
+  const booked = Boolean(request.requestId) && request.assessmentScheduled && request.assessmentMatchesSlot;
   return {
-    jobberSynced: true,
-    jobberRequestId: request.id,
+    jobberSynced: booked,
+    jobberRequestId: request.requestId,
     jobberWebUri: request.jobberWebUri,
     clientId,
     propertyId,
     assessmentScheduled: request.assessmentScheduled,
-  };
-}
-
-export function appointmentRequestTitle(_appointment: JobberAppointmentPayload) {
-  return "Website Appointment Booking";
-}
-
-export function appointmentSummary(appointment: JobberAppointmentPayload, referenceId: string) {
-  return {
-    title: appointmentRequestTitle(appointment),
-    location: appointment.location,
-    requestedWhen: `${longDate(appointment.schedule.date)} | ${appointment.schedule.timeSlot} (${APPOINTMENT_TIME_ZONE})`,
-    products: appointment.serviceDetails.products.join(", "),
-    installationNeeded: appointment.serviceDetails.installationNeeded ? "Yes" : "No",
-    workingWith: workingWithText(appointment),
-    referralSource: appointment.serviceDetails.referralSource || "Not provided",
-    scopeOfWork: appointment.serviceDetails.scopeOfWork,
-    address: formatAddress(appointment),
-    imageNames: appointment.serviceDetails.images.map((image) => image.name),
-    referenceId,
+    assessmentMatchesSlot: request.assessmentMatchesSlot,
   };
 }
 
@@ -328,176 +284,6 @@ async function recordConsentNote(clientId: string, appointment: JobberAppointmen
       error instanceof Error ? error.message : "Jobber did not save the client note.",
     );
   }
-}
-
-async function createRequest(
-  clientId: string,
-  propertyId: string | null,
-  appointment: JobberAppointmentPayload,
-  referenceId: string,
-  bookingUserId: string | null,
-) {
-  const summary = appointmentSummary(appointment, referenceId);
-  const items = [
-    { label: "Name", answerText: `${appointment.contact.firstName} ${appointment.contact.lastName}` },
-    { label: "Company", answerText: appointment.contact.companyName || "-" },
-    { label: "Email", answerText: appointment.contact.email },
-    { label: "Phone", answerText: appointment.contact.phone },
-    { label: "Address", answerText: summary.address },
-    { label: "Location", answerText: appointment.location },
-    { label: "Requested date and time", answerText: summary.requestedWhen },
-    { label: "Products requested", answerText: summary.products },
-    { label: "Installation needed", answerText: summary.installationNeeded },
-    { label: "Working with someone at Sound View", answerText: summary.workingWith },
-    { label: "How did you hear about us", answerText: summary.referralSource },
-    { label: "Scope of work", answerText: summary.scopeOfWork },
-    { label: "Reference ID", answerText: referenceId },
-    { label: "Marketing email", answerText: yesNo(appointment.consents.marketingEmail) },
-    { label: "Marketing SMS", answerText: yesNo(appointment.consents.marketingSms) },
-    {
-      label: "Uploaded image names",
-      answerText:
-        summary.imageNames.length > 0
-          ? `${summary.imageNames.join(", ")}. File names only. The image files were not uploaded.`
-          : "None. File names only. The image files were not uploaded.",
-    },
-  ];
-  const base: Record<string, unknown> = {
-    clientId,
-    title: summary.title,
-    requestDetails: {
-      form: {
-        sections: [
-          {
-            label: "Website appointment",
-            items: [
-              ...items,
-              {
-                label: "Request description",
-                answerText: items.map((item) => `${item.label}: ${item.answerText}`).join("\n"),
-              },
-            ],
-          },
-        ],
-      },
-    },
-  };
-  if (propertyId) base.propertyId = propertyId;
-
-  const slot = APPOINTMENT_TIME_SLOTS.find((item) => item.label === appointment.schedule.timeSlot);
-  const startDate = slot ? localDateTime(appointment.schedule.date, slot.startHour) : null;
-  const endDate = slot ? localDateTime(appointment.schedule.date, slot.startHour + 1) : null;
-  const assessmentInput =
-    startDate && endDate
-      ? {
-          instructions: items.map((item) => `${item.label}: ${item.answerText}`).join("\n"),
-          ...(bookingUserId ? { assignedUserIds: [bookingUserId] } : {}),
-          schedule: { startAt: startDate, endAt: endDate },
-        }
-      : null;
-  const withAssessment = assessmentInput ? { ...base, assessment: assessmentInput } : base;
-
-  let created: Awaited<ReturnType<typeof submitRequest>> | null = null;
-  if (assessmentInput) {
-    try {
-      created = await submitRequest(withAssessment);
-    } catch (error) {
-      console.error(
-        "[appointment] Jobber requestCreate error:",
-        error instanceof Error ? error.message : "Jobber did not create the scheduled assessment.",
-      );
-    }
-  }
-  if (!created?.request) {
-    created = await submitRequest(base);
-  }
-  if (!created.request) throw new Error("Jobber did not create the request.");
-
-  let assessmentScheduled = isScheduledAssessment(created.request.assessment) && !created.assessmentRejected;
-  if (!assessmentScheduled && assessmentInput) {
-    assessmentScheduled = await createAssessment(created.request.id, assessmentInput);
-    if (!assessmentScheduled && bookingUserId) {
-      const { assignedUserIds: _assignedUserIds, ...withoutAssignee } = assessmentInput;
-      assessmentScheduled = await createAssessment(created.request.id, withoutAssignee);
-    }
-  }
-
-  return {
-    id: created.request.id,
-    title: created.request.title,
-    jobberWebUri: created.request.jobberWebUri,
-    assessmentScheduled,
-  };
-}
-
-async function submitRequest(input: Record<string, unknown>) {
-  const data = await jobberGraphql<RequestCreateData>(createRequestMutation, { input });
-  const request = data.requestCreate.request;
-  const assessmentRejected = userErrorsMentionAssessment(data.requestCreate.userErrors);
-  if (request?.id) {
-    if (data.requestCreate.userErrors?.length) {
-      console.error(
-        "[appointment] Jobber requestCreate error:",
-        data.requestCreate.userErrors.map((error) => error.message).filter(Boolean).join(" "),
-      );
-    }
-    return { request, assessmentRejected };
-  }
-  if (assessmentRejected) return { request: null, assessmentRejected: true };
-  assertNoUserErrors(data.requestCreate.userErrors, "Jobber did not create the request.");
-  throw new Error("Jobber did not create the request.");
-}
-
-async function createAssessment(requestId: string, input: Record<string, unknown>) {
-  try {
-    const data = await jobberGraphql<AssessmentCreateData>(createAssessmentMutation, { requestId, input });
-    const errors = data.assessmentCreate.userErrors;
-    if (errors?.length) {
-      console.error(
-        "[appointment] Jobber assessmentCreate error:",
-        errors.map((error) => error.message).filter(Boolean).join(" "),
-      );
-    }
-    return isScheduledAssessment(data.assessmentCreate.assessment);
-  } catch (error) {
-    console.error(
-      "[appointment] Jobber assessmentCreate error:",
-      error instanceof Error ? error.message : "Jobber did not schedule the assessment.",
-    );
-    return false;
-  }
-}
-
-function isScheduledAssessment(assessment: ScheduledAssessment) {
-  return Boolean(assessment?.startAt && assessment.endAt);
-}
-
-function userErrorsMentionAssessment(errors: UserError[] | null | undefined) {
-  return (errors ?? []).some((error) => {
-    const path = (error.path ?? []).join(" ").toLowerCase();
-    const message = (error.message ?? "").toLowerCase();
-    return path.includes("assessment") || message.includes("assessment") || message.includes("schedule");
-  });
-}
-
-function localDateTime(isoDate: string, hour: number) {
-  return {
-    date: isoDate,
-    time: `${String(hour).padStart(2, "0")}:00:00`,
-    timezone: APPOINTMENT_TIME_ZONE,
-  };
-}
-
-function workingWithText(appointment: JobberAppointmentPayload) {
-  if (!appointment.serviceDetails.workingWithSoundView) return "No";
-  return appointment.serviceDetails.workingWithName
-    ? `Yes (${appointment.serviceDetails.workingWithName})`
-    : "Yes";
-}
-
-function formatAddress(appointment: JobberAppointmentPayload) {
-  const street = [appointment.address.street, appointment.address.unit].filter(Boolean).join(", ");
-  return `${street}, ${appointment.address.city}, ${appointment.address.state} ${appointment.address.zip}`;
 }
 
 function e164Phone(phone: string) {

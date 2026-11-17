@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { appointmentSaveError, appointmentTimeError, confirmedAppointment } from "@/lib/jobber/appointment-confirmation";
 import { parseJobberAppointmentPayload } from "@/lib/jobber/booking-types";
 import { clearAvailabilityCache, isCompanyClosedDate, isSlotAtLeastAdvanceNotice, slotLabelStartUtcMs } from "@/lib/jobber/booking-schedule";
 import { jobberConfig } from "@/lib/jobber/config";
@@ -38,9 +39,6 @@ export async function POST(request: Request) {
 
   const referenceId = createReferenceId();
   const summary = appointmentSummary(parsed.value, referenceId);
-  let jobberSynced = false;
-  let jobberRequestId: string | null = null;
-  let jobberWebUri: string | null = null;
 
   clearAvailabilityCache();
   const month = parsed.value.schedule.date.slice(0, 7);
@@ -59,20 +57,39 @@ export async function POST(request: Request) {
     );
   }
 
-  if (jobberConfig().writesEnabled) {
-    try {
-      const synced = await createWebsiteAppointment(parsed.value, referenceId);
-      jobberSynced = synced.jobberSynced;
-      jobberRequestId = synced.jobberRequestId;
-      jobberWebUri = synced.jobberWebUri;
-    } catch (error) {
-      console.error(
-        "appointment Jobber sync failed",
-        error instanceof Error ? error.message : "Jobber did not accept the appointment.",
+  if (!jobberConfig().writesEnabled) {
+    return NextResponse.json({ ok: false, message: appointmentSaveError }, { status: 503 });
+  }
+
+  let synced;
+  try {
+    synced = await createWebsiteAppointment(parsed.value, referenceId, pendingRequestId(body));
+  } catch (error) {
+    console.error(
+      "appointment Jobber sync failed",
+      error instanceof Error ? error.message : "Jobber did not accept the appointment.",
+    );
+    return NextResponse.json({ ok: false, message: appointmentSaveError }, { status: 502 });
+  }
+
+  const confirmation = confirmedAppointment(synced);
+  if (!confirmation.ok) {
+    if (confirmation.pendingRequestId) {
+      console.error("appointment time was not reserved", {
+        requestId: confirmation.pendingRequestId,
+        referenceId,
+      });
+      return NextResponse.json(
+        {
+          ok: false,
+          code: "TIME_NOT_RESERVED",
+          pendingRequestId: confirmation.pendingRequestId,
+          message: appointmentTimeError,
+        },
+        { status: 409 },
       );
     }
-  } else {
-    console.info("appointment Jobber sync skipped because writes are disabled", { referenceId });
+    return NextResponse.json({ ok: false, message: appointmentSaveError }, { status: 502 });
   }
 
   try {
@@ -94,12 +111,12 @@ export async function POST(request: Request) {
       marketingEmail: parsed.value.consents.marketingEmail ? "Yes" : "No",
       marketingSms: parsed.value.consents.marketingSms ? "Yes" : "No",
       imageNames: summary.imageNames,
-      jobberRequestId,
-      jobberWebUri,
+      jobberRequestId: confirmation.jobberRequestId,
+      jobberWebUri: synced.jobberWebUri,
     });
   } catch (error) {
     logQuoteNotificationFailure(
-      jobberRequestId || referenceId,
+      confirmation.jobberRequestId,
       error instanceof Error ? error.message : "The notification email did not send.",
     );
   }
@@ -107,10 +124,20 @@ export async function POST(request: Request) {
   clearAvailabilityCache();
   return NextResponse.json({
     ok: true,
+    jobberSynced: true,
+    assessmentScheduled: true,
+    jobberRequestId: confirmation.jobberRequestId,
     referenceId,
-    jobberSynced,
-    jobberRequestId,
   });
+}
+
+function pendingRequestId(body: unknown) {
+  if (!body || typeof body !== "object" || !("pendingRequestId" in body)) return null;
+  const value = body.pendingRequestId;
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.length > 200) return null;
+  return trimmed;
 }
 
 function createReferenceId() {
