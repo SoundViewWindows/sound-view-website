@@ -26,12 +26,6 @@ const videos = [
       "Precision removal of old failed units, sill prep, and airtight sealing engineered for wet maritime winters.",
   },
   {
-    src: "https://www.youtube.com/embed/5o-PiIu_kRk",
-    title: "Custom Exterior Door Fitting & Flashing",
-    description:
-      "Step-by-step structural leveling, weather barrier integration, and heavy-duty sill flashing.",
-  },
-  {
     src: "https://www.youtube.com/embed/wcTlT2Mdw_E",
     title: "On-Site Architectural Glass & Trim Installation",
     description:
@@ -108,7 +102,7 @@ export default function PortfolioPage() {
             See the care, precision flashing, and clean craftsmanship that goes
             into every Puget Sound installation.
           </p>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {videos.map((video) => (
               <article
                 key={video.src}
