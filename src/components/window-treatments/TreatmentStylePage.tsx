@@ -5,6 +5,7 @@ import {
   type TreatmentStyle,
 } from "@/lib/window-treatments";
 import { ProductGallery } from "@/components/window-treatments/ProductGallery";
+import { TreatmentQuoteCard } from "@/components/window-treatments/TreatmentQuoteCard";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
@@ -56,22 +57,40 @@ export function TreatmentStylePage({ style }: { style: TreatmentStyle }) {
           </div>
         </section>
 
-        <section className="bg-[#F4F6F9] pb-14 pt-8 text-[#0B192C] md:pb-16 md:pt-10">
-          <div className="mx-auto grid max-w-[1440px] items-start gap-10 px-4 sm:px-5 lg:grid-cols-2 lg:gap-14">
-            <ProductGallery images={style.images} />
-            <div>
+        <section className="bg-[#F4F6F9] py-6 text-[#0B192C] lg:py-8">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-1 items-start gap-6 px-4 sm:px-5 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <ProductGallery images={style.images} />
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <a
+                  href={style.shopifyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center justify-center rounded-[4px] bg-[#38BDF8] px-4 py-2.5 text-center text-sm font-semibold text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white ${focusRing}`}
+                >
+                  {style.shopifyLabel ?? "View This Product on Shopify"}
+                </a>
+                <Link
+                  href="/book-appointment"
+                  className={`inline-flex items-center justify-center rounded-[4px] border border-[#0B192C] bg-white px-4 py-2.5 text-center text-sm font-semibold text-[#0B192C] transition-colors hover:bg-[#0B192C] hover:text-white ${focusRing}`}
+                >
+                  Book Appointment
+                </Link>
+              </div>
+            </div>
+            <div className="lg:col-span-4">
               <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#0284C7]">
                 {style.categoryEyebrow}
               </p>
-              <h1 className="text-3xl font-bold leading-tight tracking-tight text-[#0B192C] sm:text-4xl">
+              <h1 className="text-2xl font-bold leading-tight tracking-tight text-[#0B192C] sm:text-3xl">
                 {style.productTitle}
               </h1>
-              <div className="mt-4 space-y-4 text-base leading-7 text-[#556980]">
+              <div className="mt-3 space-y-3 text-sm leading-6 text-[#556980] sm:text-base">
                 {style.description.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
-              <ul className="mt-6 space-y-2 text-sm leading-6 text-[#0B192C]">
+              <ul className="mt-4 space-y-1.5 text-sm leading-6 text-[#0B192C]">
                 {style.features.map((feature) => (
                   <li key={feature} className="flex gap-2">
                     <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#0284C7]" />
@@ -79,22 +98,9 @@ export function TreatmentStylePage({ style }: { style: TreatmentStyle }) {
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <a
-                  href={style.shopifyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center justify-center rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-semibold text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white ${focusRing}`}
-                >
-                  {style.shopifyLabel ?? "View This Product on Shopify"}
-                </a>
-                <Link
-                  href="/book-appointment"
-                  className={`inline-flex items-center justify-center rounded-[4px] border border-[#0B192C] bg-white px-6 py-3 text-sm font-semibold text-[#0B192C] transition-colors hover:bg-[#0B192C] hover:text-white ${focusRing}`}
-                >
-                  Schedule Free Measurement
-                </Link>
-              </div>
+            </div>
+            <div className="lg:col-span-4">
+              <TreatmentQuoteCard productTitle={style.productTitle} />
             </div>
           </div>
         </section>

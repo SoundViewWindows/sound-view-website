@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent, type ReactNode } from "react";
 import { QuoteThankYou, quoteServiceFromProject } from "@/components/QuoteThankYou";
-import { standardQuoteSubmission } from "@/lib/quote-payloads";
+import { standardQuoteSubmission, type QuoteAnswer } from "@/lib/quote-payloads";
 import { submitWebsiteQuote } from "@/lib/quote-submit";
 import { services } from "@/lib/services";
 
@@ -14,6 +14,11 @@ type QuoteRequestFormProps = {
   onProjectTypeChange: (value: string) => void;
   onSubmittedChange?: (submitted: boolean) => void;
   variant?: "sidebar" | "horizontal";
+  heading?: string;
+  subtitle?: string;
+  detailsPlaceholder?: string;
+  extraAnswers?: QuoteAnswer[];
+  formName?: string;
 };
 
 type FieldErrors = Partial<
@@ -25,6 +30,11 @@ export function QuoteRequestForm({
   onProjectTypeChange,
   onSubmittedChange,
   variant = "sidebar",
+  heading = "Request a Free Quote",
+  subtitle = "Get in touch with our installation experts today.",
+  detailsPlaceholder = "Briefly describe your installation needs...",
+  extraAnswers,
+  formName,
 }: QuoteRequestFormProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -98,6 +108,8 @@ export function QuoteRequestForm({
         projectType,
         details,
         photoNames: files.map((file) => file.name),
+        answers: extraAnswers,
+        form: formName,
       }),
     );
     setIsSubmitting(false);
@@ -128,8 +140,8 @@ export function QuoteRequestForm({
       <form noValidate onSubmit={handleSubmit}>
         <div className="mb-3.5 flex flex-col gap-1 border-b border-white/15 pb-2.5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-xl font-bold leading-tight text-white">Request a Free Quote</h2>
-            <p className="text-xs text-home-mist">Get in touch with our installation experts today.</p>
+            <h2 className="text-xl font-bold leading-tight text-white">{heading}</h2>
+            <p className="text-xs text-home-mist">{subtitle}</p>
           </div>
           <p className="rounded-md bg-white/10 px-2.5 py-1 text-right text-[11px] font-bold text-white">
             SPECIAL OFFER: Save 10% on Labor
@@ -218,7 +230,7 @@ export function QuoteRequestForm({
               id="quote-details"
               name="details"
               rows={1}
-              placeholder="Briefly describe your installation needs..."
+              placeholder={detailsPlaceholder}
               value={details}
               onChange={(event) => setDetails(event.target.value)}
               className={`${compactInputClass(Boolean(errors.details))} resize-none py-2`}
@@ -270,10 +282,10 @@ export function QuoteRequestForm({
     <form noValidate className="flex flex-col space-y-3" onSubmit={handleSubmit}>
       <div>
         <h2 className="mb-1 text-2xl font-black tracking-tight text-white">
-          Request a Free Quote
+          {heading}
         </h2>
         <p className="mb-5 text-xs text-home-mist sm:text-sm">
-          Get in touch with our installation experts today.
+          {subtitle}
         </p>
       </div>
 
@@ -358,7 +370,7 @@ export function QuoteRequestForm({
           id="quote-details"
           name="details"
           rows={2}
-          placeholder="Briefly describe your installation needs..."
+          placeholder={detailsPlaceholder}
           value={details}
           onChange={(event) => setDetails(event.target.value)}
           className={`${inputClass(Boolean(errors.details), false)} resize-none`}

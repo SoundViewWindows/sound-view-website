@@ -11,15 +11,17 @@ export function ProductGallery({ images }: { images: TreatmentImage[] }) {
 
   return (
     <div>
-      <div className="overflow-hidden rounded-[4px] border border-slate-200/80 bg-[#F4F6F9]">
+      <div className="aspect-[4/3] max-h-[340px] w-full overflow-hidden rounded-xl border border-slate-200 bg-white">
         <img
           src={active.src}
           alt={active.alt}
-          className="aspect-[4/3] w-full object-contain"
+          className={`h-full w-full ${
+            active.fit === "contain" ? "object-contain" : "object-cover object-center"
+          }`}
         />
       </div>
       {images.length > 1 ? (
-        <ul className="mt-3 flex gap-2 overflow-x-auto pb-1">
+        <ul className="mt-2 flex gap-2 overflow-x-auto pb-1">
           {images.map((image, index) => {
             const selected = index === activeIndex;
             return (
@@ -29,7 +31,7 @@ export function ProductGallery({ images }: { images: TreatmentImage[] }) {
                   onClick={() => setActiveIndex(index)}
                   aria-label={`Show image ${index + 1}: ${image.alt}`}
                   aria-pressed={selected}
-                  className={`block h-16 w-16 overflow-hidden rounded-[4px] border bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] sm:h-20 sm:w-20 ${
+                  className={`block h-12 w-12 overflow-hidden rounded-[4px] border bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
                     selected
                       ? "border-[#0284C7]"
                       : "border-slate-200 hover:border-slate-400"

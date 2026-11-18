@@ -4,6 +4,7 @@ export const shopTreatmentsHref =
 export type TreatmentImage = {
   src: string;
   alt: string;
+  fit?: "cover" | "contain";
 };
 
 export type TreatmentSpec = {
@@ -73,18 +74,22 @@ export const treatmentStyles: TreatmentStyle[] = [
       {
         src: "/images/window-treatments/roller-solar-shades/02-roller-shade-profile.png",
         alt: "Side profile of a Norman roller shade",
+        fit: "contain",
       },
       {
         src: "/images/window-treatments/roller-solar-shades/03-smart-motorization.png",
         alt: "Smart motorization option for Norman roller shades",
+        fit: "contain",
       },
       {
         src: "/images/window-treatments/roller-solar-shades/04-lightguard-channels.png",
         alt: "LightGuard side channels on a Norman roller shade",
+        fit: "contain",
       },
       {
         src: "/images/window-treatments/roller-solar-shades/05-roller-shade-diagram.png",
         alt: "Diagram of Norman roller shade light control",
+        fit: "contain",
       },
       {
         src: "/images/window-treatments/roller-solar-shades/06-antique-sage-room-darkening.jpg",
@@ -169,22 +174,27 @@ export const treatmentStyles: TreatmentStyle[] = [
       {
         src: "/images/window-treatments/honeycomb-shades/04-cordless-top-down-bottom-up.png",
         alt: "Cordless top-down bottom-up control for honeycomb shades",
+        fit: "contain",
       },
       {
         src: "/images/window-treatments/honeycomb-shades/05-smartrise-cordless-bottom-up.png",
         alt: "SmartRise cordless bottom-up control for honeycomb shades",
+        fit: "contain",
       },
       {
         src: "/images/window-treatments/honeycomb-shades/06-cord-loop-top-down.png",
         alt: "Cord loop top-down control for honeycomb shades",
+        fit: "contain",
       },
       {
         src: "/images/window-treatments/honeycomb-shades/07-honeycomb-profile.png",
         alt: "Profile view of a Norman honeycomb shade cell",
+        fit: "contain",
       },
       {
         src: "/images/window-treatments/honeycomb-shades/08-smart-motorization.png",
         alt: "Smart motorization option for Norman honeycomb shades",
+        fit: "contain",
       },
     ],
     specs: [
@@ -263,6 +273,7 @@ export const treatmentStyles: TreatmentStyle[] = [
       {
         src: "/images/window-treatments/wood-faux-wood-blinds/06-smartprivacy.jpg",
         alt: "SmartPrivacy slat closure on Ultimate Faux Wood Blinds",
+        fit: "contain",
       },
       {
         src: "/images/window-treatments/wood-faux-wood-blinds/07-cordless-lift.jpg",
@@ -347,10 +358,12 @@ export const treatmentStyles: TreatmentStyle[] = [
       {
         src: "/images/window-treatments/motorized-smart-shades/01-total-blackout.png",
         alt: "Norman LightGuard 360 total blackout shade with side channels",
+        fit: "contain",
       },
       {
         src: "/images/window-treatments/motorized-smart-shades/02-smart-motorization.png",
         alt: "Smart motorization for Norman LightGuard blackout shades",
+        fit: "contain",
       },
     ],
     specs: [

@@ -28,6 +28,8 @@ export function standardQuoteSubmission(
     projectType: string;
     details: string;
     photoNames: string[];
+    answers?: QuoteAnswer[];
+    form?: string;
   },
 ): WebsiteQuoteSubmission {
   return {
@@ -37,8 +39,8 @@ export function standardQuoteSubmission(
     email: input.email,
     projectType: input.projectType,
     details: input.details,
-    answers: [],
-    form: input.variant === "sidebar" ? "Homepage quote" : "Interior quote",
+    answers: input.answers ?? [],
+    form: input.form ?? (input.variant === "sidebar" ? "Homepage quote" : "Interior quote"),
     photoNames: input.photoNames,
   };
 }
