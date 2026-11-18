@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --experimental-strip-types --import ./scripts/register-ts-imports.mjs --test src/lib/quote-payloads.test.ts src/lib/quote-instances.test.ts src/lib/jobber/persistence.test.ts src/lib/jobber/booking-schedule.test.ts src/lib/jobber/appointment-confirmation.test.ts src/lib/jobber/appointment-schedule.test.ts src/lib/public-paths.test.ts",
+    "test": "node --experimental-strip-types --import ./scripts/register-ts-imports.mjs --test src/lib/quote-payloads.test.ts src/lib/quote-instances.test.ts src/lib/jobber/persistence.test.ts src/lib/jobber/booking-schedule.test.ts src/lib/jobber/appointment-confirmation.test.ts src/lib/jobber/appointment-schedule.test.ts src/lib/jobber/appointment-guard.test.ts src/lib/jobber/appointment-client-search.test.ts src/lib/jobber/appointment-lock.test.ts src/lib/public-paths.test.ts",
     "import:blogs": "node scripts/import-blogs.mjs"
   },
   "dependencies": {
@@ -25,6 +25,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
+    "redis": "^6.3.1",
+    "redis-memory-server": "^0.17.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

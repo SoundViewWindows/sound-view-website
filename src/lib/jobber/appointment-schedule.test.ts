@@ -5,6 +5,7 @@ import type { JobberAppointmentPayload } from "./booking-types.ts";
 import {
   assessmentMatchesRequestedSlot,
   reserveScheduledAppointment,
+  UncertainJobberMutation,
   type JobberCaller,
 } from "./appointment-reserve.ts";
 
@@ -133,9 +134,7 @@ test("both assessment attempts can fail after the request exists", async () => {
         userErrors: [],
       },
     }),
-    () => {
-      throw new Error("assessment create failed");
-    },
+    () => ({ assessmentCreate: { assessment: null, userErrors: [{ message: "unavailable", path: ["schedule"] }] } }),
     () => ({ assessmentCreate: { assessment: null, userErrors: [{ message: "no", path: [] }] } }),
   ]);
   const result = await reserveScheduledAppointment({
@@ -148,6 +147,81 @@ test("both assessment attempts can fail after the request exists", async () => {
   });
   assert.equal(result.assessmentMatchesSlot, false);
   assert.equal(result.requestId, "request-9");
+  assert.equal(client.calls.filter((query) => query.includes("assessmentCreate")).length, 2);
+});
+
+test("a timed-out requestCreate stays uncertain", async () => {
+  const client = graphql([() => {
+    throw new Error("timed out");
+  }]);
+  await assert.rejects(
+    () =>
+      reserveScheduledAppointment({
+        graphql: client,
+        clientId: "client-1",
+        propertyId: null,
+        appointment,
+        referenceId: "SV-TEST",
+        bookingUserId: "booking-user",
+      }),
+    UncertainJobberMutation,
+  );
+  assert.equal(client.calls.filter((query) => query.includes("assessmentCreate")).length, 0);
+});
+
+test("a timed-out first assessment attempt does not continue", async () => {
+  const client = graphql([
+    () => ({
+      requestCreate: {
+        request: { id: "request-1", title: null, jobberWebUri: null, assessment: null },
+        userErrors: [],
+      },
+    }),
+    () => {
+      throw new Error("timed out");
+    },
+    () => ({ assessmentCreate: { assessment: matchingAssessment(), userErrors: [] } }),
+  ]);
+  await assert.rejects(
+    () =>
+      reserveScheduledAppointment({
+        graphql: client,
+        clientId: "client-1",
+        propertyId: null,
+        appointment,
+        referenceId: "SV-TEST",
+        bookingUserId: "booking-user",
+      }),
+    UncertainJobberMutation,
+  );
+  assert.equal(client.calls.filter((query) => query.includes("assessmentCreate")).length, 1);
+});
+
+test("a timed-out second assessment attempt stays uncertain", async () => {
+  const client = graphql([
+    () => ({
+      requestCreate: {
+        request: { id: "request-1", title: null, jobberWebUri: null, assessment: { id: "a", startAt: iso(8), endAt: iso(9) } },
+        userErrors: [],
+      },
+    }),
+    () => ({ assessmentCreate: { assessment: null, userErrors: [{ message: "unavailable", path: ["schedule"] }] } }),
+    () => {
+      throw new Error("timed out");
+    },
+  ]);
+  await assert.rejects(
+    () =>
+      reserveScheduledAppointment({
+        graphql: client,
+        clientId: "client-1",
+        propertyId: null,
+        appointment,
+        referenceId: "SV-TEST",
+        bookingUserId: "booking-user",
+      }),
+    UncertainJobberMutation,
+  );
   assert.equal(client.calls.filter((query) => query.includes("assessmentCreate")).length, 2);
 });
 

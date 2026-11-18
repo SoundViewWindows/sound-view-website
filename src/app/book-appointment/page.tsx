@@ -154,7 +154,6 @@ export default function BookAppointmentPage() {
   const [submitError, setSubmitError] = useState("");
   const [slotError, setSlotError] = useState("");
   const [confirmation, setConfirmation] = useState<{ referenceId: string } | null>(null);
-  const [pendingRequestId, setPendingRequestId] = useState("");
   const [visibleMonth, setVisibleMonth] = useState<{ year: number; month: number } | null>(null);
   const [availabilityByMonth, setAvailabilityByMonth] = useState<
     Record<string, { syncedWithJobber: boolean; availability: Record<string, string[]> }>
@@ -171,16 +170,6 @@ export default function BookAppointmentPage() {
   useEffect(() => {
     setVisibleMonth((current) => current ?? currentPacificMonth());
   }, []);
-
-  useEffect(() => {
-    const stored = window.sessionStorage.getItem("sv-pending-appointment") ?? "";
-    if (stored) setPendingRequestId(stored);
-  }, []);
-
-  useEffect(() => {
-    if (pendingRequestId) window.sessionStorage.setItem("sv-pending-appointment", pendingRequestId);
-    else window.sessionStorage.removeItem("sv-pending-appointment");
-  }, [pendingRequestId]);
 
   useEffect(() => {
     return () => {
@@ -387,7 +376,7 @@ export default function BookAppointmentPage() {
       const response = await fetch("/api/appointments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...toPayload(form), pendingRequestId: pendingRequestId || undefined }),
+        body: JSON.stringify(toPayload(form)),
       });
       const result = (await response.json().catch(() => null)) as {
         ok?: boolean;
@@ -395,16 +384,10 @@ export default function BookAppointmentPage() {
         jobberSynced?: boolean;
         assessmentScheduled?: boolean;
         jobberRequestId?: string;
-        pendingRequestId?: string;
         referenceId?: string;
         message?: string;
       } | null;
-      if (
-        response.status === 409 ||
-        result?.code === "SLOT_UNAVAILABLE" ||
-        result?.code === "TOO_SOON" ||
-        result?.code === "HOLIDAY_CLOSED"
-      ) {
+      if (result?.code === "SLOT_UNAVAILABLE" || result?.code === "TOO_SOON" || result?.code === "HOLIDAY_CLOSED") {
         clearMonthAvailability(form.date.slice(0, 7));
         setForm((current) => ({ ...current, timeSlot: "" }));
         setStep(2);
@@ -415,7 +398,6 @@ export default function BookAppointmentPage() {
         });
         return;
       }
-      if (result?.pendingRequestId) setPendingRequestId(result.pendingRequestId);
       if (
         !response.ok ||
         result?.ok !== true ||
@@ -428,7 +410,6 @@ export default function BookAppointmentPage() {
         );
         return;
       }
-      setPendingRequestId("");
       clearMonthAvailability(form.date.slice(0, 7));
       setSlotError("");
       setConfirmation({ referenceId: result.referenceId || result.jobberRequestId });

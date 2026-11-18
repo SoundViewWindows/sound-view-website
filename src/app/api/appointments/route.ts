@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
-import { appointmentSaveError, appointmentTimeError, confirmedAppointment } from "@/lib/jobber/appointment-confirmation";
+import { appointmentSaveError } from "@/lib/jobber/appointment-confirmation";
+import { storedVisitTarget, runGuardedAppointment } from "@/lib/jobber/appointment-guard";
+import { appointmentLockStore } from "@/lib/jobber/appointment-lock";
 import { parseJobberAppointmentPayload } from "@/lib/jobber/booking-types";
 import { clearAvailabilityCache, isCompanyClosedDate, isSlotAtLeastAdvanceNotice, slotLabelStartUtcMs } from "@/lib/jobber/booking-schedule";
 import { jobberConfig } from "@/lib/jobber/config";
-import { appointmentSummary, createWebsiteAppointment } from "@/lib/jobber/create-appointment-request";
+import { appointmentSummary, createWebsiteAppointment, lookupAppointmentRequest } from "@/lib/jobber/create-appointment-request";
 import { getLiveAvailability } from "@/lib/jobber/live-availability";
 import { logQuoteNotificationFailure, sendAppointmentNotification } from "@/lib/jobber/notify";
 
@@ -37,88 +39,79 @@ export async function POST(request: Request) {
     );
   }
 
-  const referenceId = createReferenceId();
-  const summary = appointmentSummary(parsed.value, referenceId);
-
-  clearAvailabilityCache();
-  const month = parsed.value.schedule.date.slice(0, 7);
-  const live = await getLiveAvailability(month);
-  const openSlots = live.availability[parsed.value.schedule.date] ?? [];
-  if (!live.syncedWithJobber || !openSlots.includes(parsed.value.schedule.timeSlot)) {
-    return NextResponse.json(
-      {
-        ok: false,
-        code: "SLOT_UNAVAILABLE",
-        message: live.syncedWithJobber
-          ? "That time slot was just booked. Please select another available time."
-          : "We could not confirm that this time is still open. Please select another available time.",
-      },
-      { status: 409 },
-    );
-  }
-
   if (!jobberConfig().writesEnabled) {
     return NextResponse.json({ ok: false, message: appointmentSaveError }, { status: 503 });
   }
+  const store = appointmentLockStore();
+  if (!store) {
+    return NextResponse.json({ ok: false, message: appointmentSaveError }, { status: 503 });
+  }
 
-  let synced;
-  try {
-    synced = await createWebsiteAppointment(parsed.value, referenceId, pendingRequestId(body));
-  } catch (error) {
-    console.error(
-      "appointment Jobber sync failed",
-      error instanceof Error ? error.message : "Jobber did not accept the appointment.",
-    );
+  const outcome = await runGuardedAppointment({
+    now: Date.now(),
+    appointment: parsed.value,
+    store,
+    readCalendar: () => readRequestedHour(parsed.value.schedule.date, parsed.value.schedule.timeSlot),
+    lookup: (visit) => lookupAppointmentRequest(storedVisitTarget(visit), visit.referenceId),
+    createRequest: async (visit) => {
+      const synced = await createWebsiteAppointment(parsed.value, visit.referenceId, null);
+      if (!synced.jobberRequestId) return null;
+      return { requestId: synced.jobberRequestId, jobberWebUri: synced.jobberWebUri, assessment: synced.assessment };
+    },
+    scheduleRequest: async (visit) => {
+      const synced = await createWebsiteAppointment(parsed.value, visit.referenceId, visit.requestId);
+      return synced.assessment;
+    },
+    createReferenceId,
+  });
+
+  if (outcome.code === "processing") {
+    return NextResponse.json({ ok: false, code: "PROCESSING", message: outcome.message }, { status: 409 });
+  }
+  if (outcome.code === "time_not_reserved") {
+    return NextResponse.json({ ok: false, code: "TIME_NOT_RESERVED", message: outcome.message }, { status: 409 });
+  }
+  if (outcome.code === "unconfirmed") {
+    return NextResponse.json({ ok: false, code: "UNCONFIRMED", message: outcome.message }, { status: 409 });
+  }
+  if (outcome.code === "unavailable") {
+    return NextResponse.json({ ok: false, code: "SLOT_UNAVAILABLE", message: outcome.message }, { status: 409 });
+  }
+  if (outcome.code !== "confirmed") {
     return NextResponse.json({ ok: false, message: appointmentSaveError }, { status: 502 });
   }
 
-  const confirmation = confirmedAppointment(synced);
-  if (!confirmation.ok) {
-    if (confirmation.pendingRequestId) {
-      console.error("appointment time was not reserved", {
-        requestId: confirmation.pendingRequestId,
+  const referenceId = outcome.referenceId;
+  const summary = appointmentSummary(parsed.value, referenceId);
+  if (outcome.notify) {
+    try {
+      await sendAppointmentNotification({
         referenceId,
+        requestTitle: summary.title,
+        name: `${parsed.value.contact.firstName} ${parsed.value.contact.lastName}`,
+        companyName: parsed.value.contact.companyName,
+        phone: parsed.value.contact.phone,
+        email: parsed.value.contact.email,
+        address: summary.address,
+        location: summary.location,
+        requestedWhen: summary.requestedWhen,
+        products: summary.products,
+        installationNeeded: summary.installationNeeded,
+        workingWith: summary.workingWith,
+        referralSource: summary.referralSource,
+        scopeOfWork: summary.scopeOfWork,
+        marketingEmail: parsed.value.consents.marketingEmail ? "Yes" : "No",
+        marketingSms: parsed.value.consents.marketingSms ? "Yes" : "No",
+        imageNames: summary.imageNames,
+        jobberRequestId: outcome.requestId,
+        jobberWebUri: outcome.jobberWebUri,
       });
-      return NextResponse.json(
-        {
-          ok: false,
-          code: "TIME_NOT_RESERVED",
-          pendingRequestId: confirmation.pendingRequestId,
-          message: appointmentTimeError,
-        },
-        { status: 409 },
+    } catch (error) {
+      logQuoteNotificationFailure(
+        outcome.requestId,
+        error instanceof Error ? error.message : "The notification email did not send.",
       );
     }
-    return NextResponse.json({ ok: false, message: appointmentSaveError }, { status: 502 });
-  }
-
-  try {
-    await sendAppointmentNotification({
-      referenceId,
-      requestTitle: summary.title,
-      name: `${parsed.value.contact.firstName} ${parsed.value.contact.lastName}`,
-      companyName: parsed.value.contact.companyName,
-      phone: parsed.value.contact.phone,
-      email: parsed.value.contact.email,
-      address: summary.address,
-      location: summary.location,
-      requestedWhen: summary.requestedWhen,
-      products: summary.products,
-      installationNeeded: summary.installationNeeded,
-      workingWith: summary.workingWith,
-      referralSource: summary.referralSource,
-      scopeOfWork: summary.scopeOfWork,
-      marketingEmail: parsed.value.consents.marketingEmail ? "Yes" : "No",
-      marketingSms: parsed.value.consents.marketingSms ? "Yes" : "No",
-      imageNames: summary.imageNames,
-      jobberRequestId: confirmation.jobberRequestId,
-      jobberWebUri: synced.jobberWebUri,
-    });
-  } catch (error) {
-    logQuoteNotificationFailure(
-      confirmation.jobberRequestId,
-      error instanceof Error ? error.message : "The notification email did not send.",
-    );
   }
 
   clearAvailabilityCache();
@@ -126,18 +119,16 @@ export async function POST(request: Request) {
     ok: true,
     jobberSynced: true,
     assessmentScheduled: true,
-    jobberRequestId: confirmation.jobberRequestId,
+    jobberRequestId: outcome.requestId,
     referenceId,
   });
 }
 
-function pendingRequestId(body: unknown) {
-  if (!body || typeof body !== "object" || !("pendingRequestId" in body)) return null;
-  const value = body.pendingRequestId;
-  if (typeof value !== "string") return null;
-  const trimmed = value.trim();
-  if (!trimmed || trimmed.length > 200) return null;
-  return trimmed;
+async function readRequestedHour(date: string, timeSlot: string) {
+  clearAvailabilityCache();
+  const live = await getLiveAvailability(date.slice(0, 7));
+  if (!live.syncedWithJobber) return "failed" as const;
+  return live.availability[date]?.includes(timeSlot) ? ("free" as const) : ("busy" as const);
 }
 
 function createReferenceId() {

@@ -1,38 +1,19 @@
 import { findBookingUserId } from "@/lib/jobber/booking-user";
 import { jobberGraphql } from "@/lib/jobber/graphql";
 import { type JobberAppointmentPayload } from "@/lib/jobber/booking-types";
-import { reserveScheduledAppointment } from "./appointment-reserve";
+import { lookupAppointmentRequest as lookupVisit, searchClientByEmail } from "./appointment-client-search";
+import { establishAppointmentProperty } from "./appointment-property";
+import { reserveScheduledAppointment, type JobberCaller } from "./appointment-reserve";
 
 export { appointmentRequestTitle, appointmentSummary, assessmentMatchesRequestedSlot } from "./appointment-reserve";
 
 type UserError = { message?: string | null; path?: string[] | null };
-
-type ClientMatchData = {
-  clients: {
-    nodes: { id: string; emails: { address: string | null }[] }[];
-  } | null;
-};
 
 type ClientCreateData = {
   clientCreate: {
     client: { id: string } | null;
     userErrors: UserError[];
   };
-};
-
-type PropertyCreateData = {
-  propertyCreate: {
-    properties: { id: string }[] | null;
-    userErrors: UserError[];
-  };
-};
-
-type ClientPropertiesData = {
-  client: {
-    properties: {
-      nodes: { id: string; address?: { street1?: string | null; postalCode?: string | null } | null }[];
-    } | null;
-  } | null;
 };
 
 type ScheduledAssessment = { id: string; startAt: string | null; endAt: string | null } | null;
@@ -71,57 +52,16 @@ export type AppointmentSyncResult = {
   propertyId: string | null;
   assessmentScheduled: boolean;
   assessmentMatchesSlot: boolean;
+  assessment: { startAt: string | null; endAt: string | null } | null;
 };
 
 export type { JobberCaller } from "./appointment-reserve";
-
-const matchClientQuery = `
-  query MatchWebsiteAppointmentClient($search: String!) {
-    clients(searchTerm: $search, first: 5) {
-      nodes {
-        id
-        emails {
-          address
-        }
-      }
-    }
-  }
-`;
+export type { AppointmentLookup, ClientSearch } from "./appointment-client-search";
 
 const createClientMutation = `
   mutation CreateWebsiteAppointmentClient($input: ClientCreateInput!) {
     clientCreate(input: $input) {
       client {
-        id
-      }
-      userErrors {
-        message
-        path
-      }
-    }
-  }
-`;
-
-const clientPropertiesQuery = `
-  query WebsiteClientProperties($id: EncodedId!) {
-    client(id: $id) {
-      properties(first: 20) {
-        nodes {
-          id
-          address {
-            street1
-            postalCode
-          }
-        }
-      }
-    }
-  }
-`;
-
-const createPropertyMutation = `
-  mutation CreateWebsiteAppointmentProperty($clientId: EncodedId!, $input: PropertyCreateInput!) {
-    propertyCreate(clientId: $clientId, input: $input) {
-      properties {
         id
       }
       userErrors {
@@ -173,12 +113,14 @@ export async function createWebsiteAppointment(
     propertyId,
     assessmentScheduled: request.assessmentScheduled,
     assessmentMatchesSlot: request.assessmentMatchesSlot,
+    assessment: request.assessment,
   };
 }
 
 async function matchOrCreateClient(appointment: JobberAppointmentPayload) {
-  const matched = await findClientByEmail(appointment.contact.email);
-  if (matched) return matched;
+  const matched = await searchClientByEmail(jobberGraphql, appointment.contact.email);
+  if (matched.status === "incomplete") throw new Error("Jobber client search did not finish.");
+  if (matched.status === "found") return matched.id;
   const phone = e164Phone(appointment.contact.phone);
   const input: Record<string, unknown> = {
     firstName: appointment.contact.firstName,
@@ -205,67 +147,16 @@ async function matchOrCreateClient(appointment: JobberAppointmentPayload) {
   return clientId;
 }
 
-async function findClientByEmail(email: string) {
-  try {
-    const data = await jobberGraphql<ClientMatchData>(matchClientQuery, { search: email });
-    const target = email.trim().toLowerCase();
-    const match = data.clients?.nodes.find((client) =>
-      client.emails.some((item) => item.address?.trim().toLowerCase() === target),
-    );
-    return match?.id ?? null;
-  } catch (error) {
-    console.info(
-      "appointment client search skipped",
-      error instanceof Error ? error.message : "Jobber client search was not available.",
-    );
-    return null;
-  }
+export function lookupAppointmentRequest(
+  appointment: Pick<JobberAppointmentPayload, "contact" | "address">,
+  referenceId: string,
+  graphql: JobberCaller = jobberGraphql,
+) {
+  return lookupVisit(appointment, referenceId, graphql);
 }
 
 async function createProperty(clientId: string, appointment: JobberAppointmentPayload) {
-  const address: Record<string, string> = {
-    street1: appointment.address.street,
-    city: appointment.address.city,
-    province: appointment.address.state,
-    postalCode: appointment.address.zip,
-    country: "US",
-  };
-  if (appointment.address.unit) address.street2 = appointment.address.unit;
-  try {
-    const data = await jobberGraphql<PropertyCreateData>(createPropertyMutation, {
-      clientId,
-      input: { properties: [{ address }] },
-    });
-    assertNoUserErrors(data.propertyCreate.userErrors, "Jobber did not create the property.");
-    return data.propertyCreate.properties?.[0]?.id ?? (await findProperty(clientId, appointment));
-  } catch (error) {
-    console.error(
-      "appointment property was not created",
-      error instanceof Error ? error.message : "Jobber did not create the property.",
-    );
-    return findProperty(clientId, appointment);
-  }
-}
-
-async function findProperty(clientId: string, appointment: JobberAppointmentPayload) {
-  try {
-    const data = await jobberGraphql<ClientPropertiesData>(clientPropertiesQuery, { id: clientId });
-    const street = appointment.address.street.trim().toLowerCase();
-    const zip = appointment.address.zip.trim();
-    const nodes = data.client?.properties?.nodes ?? [];
-    const match = nodes.find((property) => {
-      const propertyStreet = property.address?.street1?.trim().toLowerCase() ?? "";
-      const propertyZip = property.address?.postalCode?.trim() ?? "";
-      return propertyStreet === street && propertyZip === zip;
-    });
-    return match?.id ?? null;
-  } catch (error) {
-    console.info(
-      "appointment property lookup was unavailable",
-      error instanceof Error ? error.message : "Jobber did not return properties.",
-    );
-    return null;
-  }
+  return establishAppointmentProperty(jobberGraphql, clientId, appointment);
 }
 
 async function recordConsentNote(clientId: string, appointment: JobberAppointmentPayload) {

@@ -8,6 +8,8 @@ export const APPOINTMENT_PRODUCTS = [
   "Shower door/Shower Enclosure",
   "Replacement Glass",
   "Commercial Glass",
+  "Glass Railing Installation",
+  "Window Blinds & Shades",
   "Other",
 ] as const;
 

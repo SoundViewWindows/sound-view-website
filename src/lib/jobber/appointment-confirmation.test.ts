@@ -41,7 +41,7 @@ test("a request id without a matching assessment is not a booking", () => {
 test("the appointment route returns success only after the assessment matches the slot", () => {
   const route = readFileSync(new URL("../../app/api/appointments/route.ts", import.meta.url), "utf8");
   const page = readFileSync(new URL("../../app/book-appointment/page.tsx", import.meta.url), "utf8");
-  assert.match(route, /confirmedAppointment\(synced\)/);
+  assert.match(route, /runGuardedAppointment/);
   assert.match(route, /TIME_NOT_RESERVED/);
   assert.match(route, /status: 502/);
   assert.match(route, /status: 503/);

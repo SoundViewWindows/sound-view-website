@@ -15,6 +15,13 @@ type AssessmentCreateData = {
 
 export type JobberCaller = <T>(query: string, variables: Record<string, unknown>) => Promise<T>;
 
+export class UncertainJobberMutation extends Error {
+  constructor(message = "Jobber did not confirm the appointment mutation.") {
+    super(message);
+    this.name = "UncertainJobberMutation";
+  }
+}
+
 const createRequestMutation = `
   mutation CreateWebsiteAppointmentRequest($input: RequestCreateInput!) {
     requestCreate(input: $input) {
@@ -33,13 +40,13 @@ const createAssessmentMutation = `
   }
 `;
 
-export function appointmentRequestTitle(_appointment: JobberAppointmentPayload) {
-  return "Website Appointment Booking";
+export function appointmentRequestTitle(referenceId: string) {
+  return `Website Appointment Booking ${referenceId}`;
 }
 
 export function appointmentSummary(appointment: JobberAppointmentPayload, referenceId: string) {
   return {
-    title: appointmentRequestTitle(appointment),
+    title: appointmentRequestTitle(referenceId),
     location: appointment.location,
     requestedWhen: longDate(appointment.schedule.date) + " | " + appointment.schedule.timeSlot + " (" + APPOINTMENT_TIME_ZONE + ")",
     products: appointment.serviceDetails.products.join(", "),
@@ -95,13 +102,13 @@ export async function reserveScheduledAppointment(input: {
   if (!requestId) {
     let created: Awaited<ReturnType<typeof submitRequest>> | null = null;
     try {
-      created = await submitRequest(input.graphql, requestInput(input, items, assessmentInput));
+      created = await submitRequest(input.graphql, requestInput(input, items, assessmentInput, summary.title));
     } catch (error) {
       console.error(
         "[appointment] Jobber requestCreate error:",
         error instanceof Error ? error.message : "Jobber did not create the scheduled assessment.",
       );
-      throw new Error("Jobber did not create the request.");
+      throw new UncertainJobberMutation("Jobber did not create the request.");
     }
     if (!created.request?.id) throw new Error("Jobber did not create the request.");
     requestId = created.request.id;
@@ -110,14 +117,19 @@ export async function reserveScheduledAppointment(input: {
     assessmentRejected = created.assessmentRejected;
   }
 
-  let matches = !assessmentRejected && assessmentMatchesRequestedSlot(assessment, input.appointment);
+  let latestAssessment = assessment;
+  let matches = !assessmentRejected && assessmentMatchesRequestedSlot(latestAssessment, input.appointment);
   if (!matches) {
     const scheduled = await createAssessment(input.graphql, requestId, assessmentInput);
-    matches = assessmentMatchesRequestedSlot(scheduled, input.appointment);
+    if (scheduled.status === "uncertain") throw new UncertainJobberMutation("Jobber did not confirm the assessment.");
+    if (scheduled.assessment) latestAssessment = scheduled.assessment;
+    matches = assessmentMatchesRequestedSlot(latestAssessment, input.appointment);
     if (!matches && input.bookingUserId) {
       const { assignedUserIds: _assignedUserIds, ...withoutAssignee } = assessmentInput;
       const unassigned = await createAssessment(input.graphql, requestId, withoutAssignee);
-      matches = assessmentMatchesRequestedSlot(unassigned, input.appointment);
+      if (unassigned.status === "uncertain") throw new UncertainJobberMutation("Jobber did not confirm the assessment.");
+      if (unassigned.assessment) latestAssessment = unassigned.assessment;
+      matches = assessmentMatchesRequestedSlot(latestAssessment, input.appointment);
     }
   }
 
@@ -126,6 +138,7 @@ export async function reserveScheduledAppointment(input: {
     jobberWebUri,
     assessmentScheduled: matches,
     assessmentMatchesSlot: matches,
+    assessment: latestAssessment,
   };
 }
 
@@ -166,10 +179,11 @@ function requestInput(
   },
   items: { label: string; answerText: string }[],
   assessmentInput: Record<string, unknown>,
+  title: string,
 ) {
   const base: Record<string, unknown> = {
     clientId: input.clientId,
-    title: "Website Appointment Booking",
+    title,
     requestDetails: {
       form: {
         sections: [
@@ -210,9 +224,14 @@ async function submitRequest(graphql: JobberCaller, input: Record<string, unknow
   throw new Error("Jobber did not create the request.");
 }
 
-async function createAssessment(graphql: JobberCaller, requestId: string, input: Record<string, unknown>) {
+async function createAssessment(
+  graphql: JobberCaller,
+  requestId: string,
+  input: Record<string, unknown>,
+): Promise<{ status: "completed"; assessment: ScheduledAssessment } | { status: "uncertain" }> {
   try {
     const data = await graphql<AssessmentCreateData>(createAssessmentMutation, { requestId, input });
+    if (!data.assessmentCreate) return { status: "uncertain" };
     const errors = data.assessmentCreate.userErrors;
     if (errors?.length) {
       console.error(
@@ -220,13 +239,13 @@ async function createAssessment(graphql: JobberCaller, requestId: string, input:
         errors.map((error) => error.message).filter(Boolean).join(" "),
       );
     }
-    return data.assessmentCreate.assessment;
+    return { status: "completed", assessment: data.assessmentCreate.assessment ?? null };
   } catch (error) {
     console.error(
       "[appointment] Jobber assessmentCreate error:",
       error instanceof Error ? error.message : "Jobber did not schedule the assessment.",
     );
-    return null;
+    return { status: "uncertain" };
   }
 }
 
