@@ -136,6 +136,7 @@ export function DoorMaterialsStep() {
                   alt={material.alt}
                   title={material.name}
                   description={material.body}
+                  detail={material.detail}
                   cta={`Explore ${material.name} Doors`}
                   theme="home"
                   layout="material"

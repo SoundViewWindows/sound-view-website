@@ -150,58 +150,55 @@ test("homepage quote uses the sidebar handler", async () => {
   );
 });
 
-const interiorPages = [
-  ["Financing", "src/app/financing/page.tsx", "HeroQuoteLayout"],
-  ["Energy Rebates", "src/app/energy-rebates/page.tsx", "HeroQuoteLayout"],
-  ["Blog index", "src/app/blog/blog-index.tsx", "HeroQuoteLayout"],
-  ["Portfolio", "src/app/portfolio/page.tsx", "HeroQuoteLayout"],
-  ["About", "src/app/about/page.tsx", "HeroQuoteLayout"],
-  ["Contact quote box", "src/app/contact/page.tsx", "HeroQuoteLayout"],
-  ["All showrooms", "src/components/showrooms/ShowroomSections.tsx", "HeroQuoteLayout"],
+const identityPages = [
+  ["Financing", "src/app/financing/page.tsx"],
+  ["Energy Rebates", "src/app/energy-rebates/page.tsx"],
+  ["Blog index", "src/app/blog/blog-index.tsx"],
+  ["Portfolio", "src/app/portfolio/page.tsx"],
+  ["About", "src/app/about/page.tsx"],
+  ["Contact", "src/app/contact/page.tsx"],
+  ["All showrooms", "src/app/showrooms/page.tsx"],
 ] as const;
 
-for (const [label, file, marker] of interiorPages) {
-  test(`${label} renders the interior quote handler`, async () => {
+for (const [label, file] of identityPages) {
+  test(`${label} opens with a page identity hero`, () => {
     const page = source(file);
-    assert.match(page, new RegExp(marker));
-    assert.doesNotMatch(page, /variant="sidebar"/);
-    const card = source("src/components/HeroQuoteSidebar.tsx");
-    assert.match(card, /variant="horizontal"/);
-    assert.match(card, /<QuoteRequestForm/);
-    assertConnectedHandler("src/components/quote-request-form.tsx", "standardQuoteSubmission");
-    await verifyInstance(
-      standardQuoteSubmission({
-        ...customer,
-        variant: "horizontal",
-        projectType: "door-replacement",
-        details: `${label} project details`,
-        photoNames: [],
-      }),
-      [],
-    );
+    assert.match(page, /SoundViewPageHero/);
+    assert.doesNotMatch(page, /HeroQuoteLayout|QuoteRequestForm/);
   });
 }
+
+test("the shared quote form still supports an interior submission", async () => {
+  const card = source("src/components/HeroQuoteSidebar.tsx");
+  assert.match(card, /variant="horizontal"/);
+  assert.match(card, /<QuoteRequestForm/);
+  assertConnectedHandler("src/components/quote-request-form.tsx", "standardQuoteSubmission");
+  await verifyInstance(
+    standardQuoteSubmission({
+      ...customer,
+      variant: "horizontal",
+      projectType: "door-replacement",
+      details: "Interior project details",
+      photoNames: [],
+    }),
+    [],
+  );
+});
 
 for (const [label, file] of [
   ["Lake City showroom", "src/app/showrooms/lake-city/page.tsx"],
   ["Queen Anne showroom", "src/app/showrooms/west-queen-anne/page.tsx"],
   ["Bellevue showroom", "src/app/showrooms/bellevue/page.tsx"],
 ] as const) {
-  test(`${label} reaches the interior quote through ShowroomHero`, async () => {
+  test(`${label} opens with the showroom identity hero`, () => {
     assert.match(source(file), /<ShowroomLocation/);
-    assert.match(source("src/components/showrooms/ShowroomLocation.tsx"), /<ShowroomHero/);
-    assert.match(source("src/components/showrooms/ShowroomSections.tsx"), /<HeroQuoteLayout/);
-    assert.match(source("src/components/HeroQuoteSidebar.tsx"), /variant="horizontal"/);
-    await verifyInstance(
-      standardQuoteSubmission({
-        ...customer,
-        variant: "horizontal",
-        projectType: "glass-replacement",
-        details: `${label} project details`,
-        photoNames: ["showroom.png"],
-      }),
-      [],
-    );
+    const location = source("src/components/showrooms/ShowroomLocation.tsx");
+    assert.match(location, /SoundViewPageHero/);
+    assert.match(location, /SOUND VIEW SHOWROOM LOCATION/);
+    assert.match(location, /Showroom Address/);
+    assert.match(location, /Book Showroom Appointment/);
+    assert.doesNotMatch(location, /HeroQuoteLayout|heroVideo/);
+    assert.doesNotMatch(source("src/components/showrooms/ShowroomSections.tsx"), /HeroQuoteLayout/);
   });
 }
 
@@ -293,7 +290,7 @@ test("glass railing page renders its own request form", async () => {
 
 test("blog and showroom pages render the traced quote components", () => {
   assert.match(source("src/app/blog/page.tsx"), /<BlogIndex/);
-  assert.match(source("src/app/showrooms/page.tsx"), /<ShowroomHero/);
+  assert.match(source("src/app/showrooms/page.tsx"), /SoundViewPageHero/);
 });
 
 test("contact message form creates a general Jobber inquiry", async () => {

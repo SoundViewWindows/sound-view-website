@@ -4,7 +4,7 @@ import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
-import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
+import { SoundViewPageHero } from "@/components/SoundViewPageHero";
 
 export const metadata: Metadata = {
   alternates: {
@@ -29,49 +29,28 @@ export default function FinancingPage() {
     <div className="bg-white text-[#0B192C]">
       <Header />
       <main>
-        <HeroQuoteLayout>
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li>
-                <Link
-                  href="/"
-                  className="rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
-                >
-                  Home
-                </Link>
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true">&gt;</span>
-                <span>Resources</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true">&gt;</span>
-                <span aria-current="page">Financing</span>
-              </li>
-            </ol>
-          </nav>
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
-            Payment Options & Plans
-          </p>
-          <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
-            Flexible Financing for Your Pacific Northwest Home
-          </h1>
-          <p className="mb-8 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Sound View Window & Door partners with Synchrony Bank to offer
-            competitive, straightforward financing solutions with convenient
-            monthly payments so you can complete your project without
-            compromise.
-          </p>
-          <a
-            href={synchronyHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
-          >
-            Apply for Financing
-            <ExternalLinkIcon />
-          </a>
-        </HeroQuoteLayout>
+        <SoundViewPageHero
+          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Financing" }]}
+          eyebrow="FINANCING & PAYMENT OPTIONS"
+          title="Flexible Financing for Your Home Upgrade"
+          subtitle="Explore monthly payment plans and simple pre-qualification options built to fit your window, door, or glass project budget."
+          primaryAction={{ label: "Book a Consultation", href: "/book-appointment" }}
+          secondaryAction={{ label: "Call (206) 331-4296", href: "tel:+12063314296" }}
+          cards={[
+            {
+              title: "Predictable Monthly Plans",
+              body: "Spread your project investment out over flexible terms that fit your household budget.",
+            },
+            {
+              title: "Simple Pre-Qualification",
+              body: "Quick, straightforward application steps with clear terms before you commit.",
+            },
+            {
+              title: "Full-Project Coverage",
+              body: "Apply financing toward replacement windows, exterior doors, shower glass, or shades.",
+            },
+          ]}
+        />
 
         <section
           className="bg-[#F4F6F9] pt-24 pb-24"

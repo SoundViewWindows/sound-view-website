@@ -1,11 +1,34 @@
 import Image from "next/image";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
-import { ShowroomCards, ShowroomHero } from "@/components/showrooms/ShowroomSections";
+import { SoundViewPageHero } from "@/components/SoundViewPageHero";
+import { ShowroomCards } from "@/components/showrooms/ShowroomSections";
 import { getShowroom, type Showroom, type ShowroomSlug } from "@/data/showrooms";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
+
+function showroomHeroCards(room: Showroom) {
+  const weekday = room.hours[0];
+  const hours =
+    weekday?.time === "8:00 AM to 4:30 PM"
+      ? "Monday through Friday: 8:00 AM to 4:30 PM (Closed weekends and major holidays)."
+      : "Monday through Friday: By appointment only (Closed weekends and major holidays).";
+  return [
+    {
+      title: "Showroom Address",
+      body: `${room.address}. ${room.addressNote}`,
+    },
+    {
+      title: "Hours of Operation",
+      body: hours,
+    },
+    {
+      title: "What You Can See",
+      body: "Operating window models, exterior doors, heavy-glass shower displays, and custom shades.",
+    },
+  ];
+}
 
 export function ShowroomLocation({ slug }: { slug: ShowroomSlug }) {
   const room = getShowroom(slug);
@@ -14,18 +37,21 @@ export function ShowroomLocation({ slug }: { slug: ShowroomSlug }) {
     <div className="bg-white text-[#0B192C]">
       <Header />
       <main>
-        <ShowroomHero
-          eyebrow={room.eyebrow}
-          title={room.title}
-          subtitle={room.subtitle}
-          breadcrumb={[
+        <SoundViewPageHero
+          breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Showrooms", href: "/showrooms" },
-            { label: room.name },
+            { label: `${room.name} Showroom` },
           ]}
-          bookingLocation={room.slug === "west-queen-anne" ? "queen-anne" : room.slug}
-          videoSrc={room.heroVideo}
-          videoPoster={room.heroPoster}
+          eyebrow="SOUND VIEW SHOWROOM LOCATION"
+          title={`${room.name} Showroom`}
+          subtitle={`Test full-size window, entry door, shower glass, and window treatment displays in person with our ${room.name} team.`}
+          primaryAction={{
+            label: "Book Showroom Appointment",
+            href: `/book-appointment?location=${room.slug === "west-queen-anne" ? "queen-anne" : room.slug}`,
+          }}
+          secondaryAction={{ label: `Call ${room.phone}`, href: room.phoneHref }}
+          cards={showroomHeroCards(room)}
         />
 
         <section className="bg-[#F4FAFD] py-16 sm:py-20">

@@ -3,7 +3,7 @@ import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
+import { SoundViewPageHero } from "@/components/SoundViewPageHero";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
@@ -58,31 +58,28 @@ export default function ContactPage() {
     <div className="flex flex-1 flex-col bg-white text-[#0B192C]">
       <Header />
       <main className="flex-1">
-        <HeroQuoteLayout>
-            <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-400">
-              <ol className="flex flex-wrap items-center gap-2">
-                <li>
-                  <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                    Home
-                  </Link>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span aria-hidden="true">&gt;</span>
-                  <span aria-current="page">Contact Us</span>
-                </li>
-              </ol>
-            </nav>
-            <p className="text-sky-400 font-bold text-xs uppercase tracking-widest mb-2">
-              GET IN TOUCH
-            </p>
-            <h1 className="text-white font-black text-3xl sm:text-5xl tracking-tight mb-3">
-              We Are Here To Help
-            </h1>
-            <p className="text-slate-300 text-base sm:text-lg max-w-2xl">
-              Reach out by phone, send project specs, or schedule a consultation
-              with our local installation specialists.
-            </p>
-        </HeroQuoteLayout>
+        <SoundViewPageHero
+          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]}
+          eyebrow="CONTACT OUR TEAM"
+          title="Get in Touch With Sound View"
+          subtitle="Ask a product question, request an estimate, or connect directly with our Greater Seattle showroom specialists."
+          primaryAction={{ label: "Book Appointment", href: "/book-appointment" }}
+          secondaryAction={{ label: "Call (206) 331-4296", href: "tel:+12063314296" }}
+          cards={[
+            {
+              title: "Direct Showroom Phone",
+              body: "Speak with our team Monday through Friday, 8:00 AM to 4:30 PM at (206) 331-4296.",
+            },
+            {
+              title: "Fast Project Estimates",
+              body: "Send your project details or photos using the form below for a tailored response.",
+            },
+            {
+              title: "In-Person Consultations",
+              body: "Drop by our Lake City, West Queen Anne, or Bellevue showrooms during weekday hours.",
+            },
+          ]}
+        />
 
         <section className="bg-white py-16 sm:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">

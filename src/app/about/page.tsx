@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Compass, Ruler, Wrench } from "lucide-react";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
-import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
+import { SoundViewPageHero } from "@/components/SoundViewPageHero";
 import { WhyChooseSoundView } from "@/components/WhyChooseSoundView";
 
 export const metadata: Metadata = {
@@ -70,53 +70,28 @@ export default function AboutPage() {
     <div>
       <Header />
       <main>
-        <HeroQuoteLayout
-          sectionClassName="pb-14"
-          sectionStyle={{ paddingBottom: "56px" }}
-          contentStyle={{ paddingBottom: "0px" }}
-        >
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li>
-                <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                  Home
-                </Link>
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true">&gt;</span>
-                <span aria-current="page">About Us</span>
-              </li>
-            </ol>
-          </nav>
-
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
-            Local Pacific Northwest Craftsmanship
-          </p>
-          <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
-            A Consultative Approach to Windows, Doors, and Glass
-          </h1>
-          <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Sound View Window & Door was founded on a simple premise: homeowners
-            deserve honest guidance, technical expertise, and zero high-pressure
-            sales tactics. We help Puget Sound homeowners and builders navigate
-            Pacific Northwest weather with products engineered to perform for
-            decades.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-4">
-            <a
-              href="#showrooms"
-              className={`inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-slate-100 ${focusRing}`}
-            >
-              Explore Our Showrooms
-            </a>
-            <Link
-              href="/book-appointment"
-              className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 ${focusRing}`}
-            >
-              Book Appointment
-            </Link>
-          </div>
-        </HeroQuoteLayout>
+        <SoundViewPageHero
+          breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+          eyebrow="ABOUT SOUND VIEW WINDOW & DOOR"
+          title="Greater Seattle's Architectural Window & Door Team"
+          subtitle="Relaxed consultations, honest answers, and zero pressure to buy: backed by local Pacific Northwest installation specialists."
+          primaryAction={{ label: "Book Appointment", href: "/book-appointment" }}
+          secondaryAction={{ label: "Explore Our Showrooms", href: "/showrooms/lake-city" }}
+          cards={[
+            {
+              title: "Zero-Pressure Guidance",
+              body: "Straightforward product comparisons and transparent pricing with no high-pressure sales tactics.",
+            },
+            {
+              title: "Precision Local Installation",
+              body: "Experienced Greater Seattle crews trained in weather-tight flashing and clean interior finishes.",
+            },
+            {
+              title: "3 Local Showrooms",
+              body: "Visit us in Lake City, West Queen Anne, or Bellevue to test full-size displays in person.",
+            },
+          ]}
+        />
 
         <section
           className="bg-[#F4F6F9] py-14 text-[#0B192C] md:py-16"

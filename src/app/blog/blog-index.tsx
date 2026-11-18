@@ -3,7 +3,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
+import { SoundViewPageHero } from "@/components/SoundViewPageHero";
 import type { BlogPost } from "@/data/blogPosts";
 
 const focusRing =
@@ -73,39 +73,30 @@ export function BlogIndex({
 
   return (
     <main>
-      <HeroQuoteLayout>
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li>
-                <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                  Home
-                </Link>
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true">&gt;</span>
-                <span>Resources</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true">&gt;</span>
-                <span aria-current="page">Blog &amp; Guides</span>
-              </li>
-            </ol>
-          </nav>
+      <SoundViewPageHero
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Blog & Guides" }]}
+        eyebrow="HOMEOWNER GUIDES & RESOURCES"
+        title="Window, Door & Glass Buying Guides"
+        subtitle="Practical advice from our Seattle installation specialists on replacement timing, glass performance, and maintenance."
+        primaryAction={{ label: "Book Appointment", href: "/book-appointment" }}
+        secondaryAction={{ label: "Ask a Specialist", href: "/contact" }}
+        cards={[
+          {
+            title: "Replacement Planning",
+            body: "How to spot failing seals, drafts, and frame rot before winter rain sets in.",
+          },
+          {
+            title: "Glass & Energy Specs",
+            body: "Plain-English breakdowns of U-factor, SHGC, Low-E coatings, and noise reduction.",
+          },
+          {
+            title: "Care & Hardware Guides",
+            body: "Maintenance tips for smooth-gliding patio doors, frameless shower glass, and custom shades.",
+          },
+        ]}
+      />
 
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
-            Pacific Northwest Homeowner Guides
-          </p>
-          <h1 className="mb-4 w-full min-w-0 break-words text-3xl font-extrabold leading-[1.12] tracking-tight text-white sm:text-4xl lg:text-[40px] xl:text-5xl">
-            Expert Advice on Windows, Doors, and Glass
-          </h1>
-          <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Straightforward, technical advice from local specialists to help you
-            plan upgrades, understand building science, and make confident
-            investments in your home.
-          </p>
-      </HeroQuoteLayout>
-
-      <section className="bg-[#F4F6F9] py-8" style={{ backgroundColor: "#F4F6F9" }}>
+      <section id="guide-categories" className="scroll-mt-24 bg-[#F4F6F9] py-8" style={{ backgroundColor: "#F4F6F9" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center">
           <div

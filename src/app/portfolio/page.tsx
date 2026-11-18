@@ -4,7 +4,8 @@ import { publicPaths } from "@/lib/public-paths";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
+import { CategoryFunnel } from "@/components/portfolio/CategoryFunnel";
+import { SoundViewPageHero } from "@/components/SoundViewPageHero";
 
 export const metadata: Metadata = {
   alternates: {
@@ -57,38 +58,30 @@ export default function PortfolioPage() {
     <div className="bg-white text-[#0B192C]">
       <Header />
       <main>
-        <HeroQuoteLayout
-          sectionClassName="pb-14"
-          sectionStyle={{ paddingBottom: "56px" }}
-          contentStyle={{ paddingBottom: "0px" }}
-        >
-          <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li>
-                <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                  Home
-                </Link>
-              </li>
-              <li className="flex items-center gap-2">
-                <span aria-hidden="true">&gt;</span>
-                <span aria-current="page">Portfolio</span>
-              </li>
-            </ol>
-          </nav>
+        <SoundViewPageHero
+          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Portfolio" }]}
+          eyebrow="PROJECT PORTFOLIO"
+          title="Completed Window, Door & Glass Installations"
+          subtitle="Browse real Greater Seattle projects, field installation videos, and before-and-after home transformations."
+          primaryAction={{ label: "Schedule a Showroom Visit", href: "/book-appointment" }}
+          secondaryAction={{ label: "Request a Free Quote", href: "/contact" }}
+          cards={[
+            {
+              title: "Windows & Entry Doors",
+              body: "Weatherproof tear-outs, precision sill flashing, and custom exterior door installations.",
+            },
+            {
+              title: "Architectural & Shower Glass",
+              body: "Frameless heavy-glass shower enclosures, glass railings, and custom glass replacements.",
+            },
+            {
+              title: "Seattle, Bellevue & Puget Sound",
+              body: "Residential and commercial craftsmanship completed across Seattle, Bellevue, and Puget Sound.",
+            },
+          ]}
+        />
 
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
-            Proven Pacific Northwest Craftsmanship
-          </p>
-          <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight lg:text-5xl">
-            Our Real-World Installations
-          </h1>
-          <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Explore our recent window replacements, custom door upgrades, and
-            architectural glass projects across Greater Seattle. Watch our
-            certified crew in action and review actual before-and-after
-            transformations.
-          </p>
-        </HeroQuoteLayout>
+        <CategoryFunnel />
 
         <section
           className="bg-white pt-20 pb-20"
@@ -128,7 +121,8 @@ export default function PortfolioPage() {
         </section>
 
         <section
-          className="bg-[#F4FAFD] pt-20 pb-20"
+          id="project-gallery"
+          className="scroll-mt-8 bg-[#F4FAFD] pt-20 pb-20"
           style={{ paddingTop: "80px", paddingBottom: "80px" }}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

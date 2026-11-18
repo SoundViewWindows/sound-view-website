@@ -79,7 +79,7 @@ export function SelectionCard({
           {description}
         </span>
         {detail ? (
-          <span className="mt-1.5 text-xs font-medium text-sky-400">{detail}</span>
+          <span className="mt-1.5 text-xs font-medium leading-snug text-sky-400">{detail}</span>
         ) : null}
         <span className="mt-auto inline-flex items-center gap-1 pt-2.5 text-xs font-semibold text-white">
           {cta}

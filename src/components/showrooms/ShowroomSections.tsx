@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
 import { showrooms, type Showroom, type ShowroomSlug } from "@/data/showrooms";
 
 const focusRing =
@@ -8,56 +7,6 @@ const focusRing =
 const bookButton = `inline-flex items-center justify-center bg-[#0090c8] hover:bg-[#007fb1] text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-sm transition-all ${focusRing}`;
 
 const directionsButton = `inline-flex items-center justify-center border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold text-sm px-4 py-2.5 rounded-xl transition-all ${focusRing}`;
-
-export function ShowroomHero({
-  eyebrow,
-  title,
-  subtitle,
-  breadcrumb,
-  bookingLocation,
-  videoSrc,
-  videoPoster,
-}: {
-  eyebrow: string;
-  title: string;
-  subtitle: string;
-  breadcrumb: { label: string; href?: string }[];
-  bookingLocation?: "lake-city" | "queen-anne" | "bellevue";
-  videoSrc?: string;
-  videoPoster?: string;
-}) {
-  return (
-    <HeroQuoteLayout videoSrc={videoSrc} videoPoster={videoPoster}>
-        <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-400">
-          <ol className="flex flex-wrap items-center gap-2">
-            {breadcrumb.map((item, index) => (
-              <li key={item.label} className="flex items-center gap-2">
-                {index > 0 ? <span aria-hidden="true">&gt;</span> : null}
-                {item.href ? (
-                  <Link href={item.href} className={`rounded-sm hover:text-white ${focusRing}`}>
-                    {item.label}
-                  </Link>
-                ) : (
-                  <span aria-current="page">{item.label}</span>
-                )}
-              </li>
-            ))}
-          </ol>
-        </nav>
-        <p className="text-sky-400 font-bold text-xs uppercase tracking-widest mb-2">{eyebrow}</p>
-        <h1 className="text-white font-extrabold text-3xl sm:text-5xl tracking-tight mb-4 max-w-4xl">
-          {title}
-        </h1>
-        <p className="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed">{subtitle}</p>
-        <Link
-          href={bookingLocation ? `/book-appointment?location=${bookingLocation}` : "/book-appointment"}
-          className={`mt-6 inline-flex items-center justify-center rounded-[4px] bg-[#38BDF8] px-7 py-3.5 text-sm font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-[#0284C7] hover:text-white sm:text-base ${focusRing}`}
-        >
-          Book Appointment
-        </Link>
-    </HeroQuoteLayout>
-  );
-}
 
 export function ShowroomCards({ currentSlug }: { currentSlug?: ShowroomSlug }) {
   return (

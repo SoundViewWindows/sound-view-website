@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
-import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
-import { HeroQuoteLayout } from "@/components/HeroQuoteSidebar";
+import { SoundViewPageHero } from "@/components/SoundViewPageHero";
 
 export const metadata: Metadata = {
   alternates: {
@@ -73,37 +72,28 @@ export default function EnergyRebatesPage() {
     <div className="flex flex-1 flex-col bg-white text-[#0B192C]">
       <Header />
       <main className="flex-1">
-        <HeroQuoteLayout>
-            <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
-              <ol className="flex flex-wrap items-center gap-2">
-                <li>
-                  <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                    Home
-                  </Link>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span aria-hidden="true">&gt;</span>
-                  <span>Resources</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span aria-hidden="true">&gt;</span>
-                  <span aria-current="page">Energy Rebates</span>
-                </li>
-              </ol>
-            </nav>
-            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
-              Local Utility Incentives
-            </p>
-            <h1 className="mb-4 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
-              Save on Energy-Efficient Windows &amp; Doors in Washington
-            </h1>
-            <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
-              Upgrading to high-performance windows and patio doors can significantly
-              lower heating costs in the Pacific Northwest. Local utility providers
-              offer cash rebates and incentives to homeowners installing qualifying
-              energy-efficient products.
-            </p>
-        </HeroQuoteLayout>
+        <SoundViewPageHero
+          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Energy Rebates" }]}
+          eyebrow="REBATES & TAX CREDITS"
+          title="Energy Rebates & Tax Credits for Windows & Doors"
+          subtitle="See which ENERGY STAR rated windows and doors qualify for federal tax credits and Greater Seattle utility incentives."
+          primaryAction={{ label: "Book an Energy Consultation", href: "/book-appointment" }}
+          secondaryAction={{ label: "Request a Free Quote", href: "/contact" }}
+          cards={[
+            {
+              title: "Federal 25C Tax Credits",
+              body: "Qualifying ENERGY STAR Most Efficient windows and exterior doors may be eligible for federal tax credits.",
+            },
+            {
+              title: "Local Utility Rebates",
+              body: "Check current Puget Sound Energy and regional electric or gas utility efficiency incentives.",
+            },
+            {
+              title: "Pacific Northwest Performance",
+              body: "Lower winter heat loss and summer solar gain with high-efficiency Low-E glass packages.",
+            },
+          ]}
+        />
 
         <section
           className="bg-[#F4F6F9] pt-16 pb-20 text-[#0B192C] md:pt-20 md:pb-24"

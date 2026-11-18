@@ -161,6 +161,18 @@ export function CostComparison({
   const copy = comparisons[service];
   const home = theme === "home";
   const about = theme === "about";
+  const cardPhotos =
+    service === "windows"
+      ? { old: "/images/aging-window-card.jpg", upgraded: "/images/upgraded-window-card.jpg" }
+      : service === "doors"
+        ? { old: "/images/aging-door-card.jpg", upgraded: "/images/upgraded-door-card.jpg" }
+        : service === "shower-doors"
+          ? { old: "/images/aging-shower-card.jpg", upgraded: "/images/upgraded-shower-card.jpg" }
+          : service === "glass-replacement"
+            ? { old: "/images/aging-glass-card.jpg", upgraded: "/images/upgraded-glass-card.jpg" }
+            : service === "blinds-shades"
+              ? { old: "/images/aging-treatments-card.jpg", upgraded: "/images/upgraded-treatments-card.jpg" }
+              : { old: null, upgraded: null };
 
   return (
     <section
@@ -208,44 +220,50 @@ export function CostComparison({
           <article
             className={
               about
-                ? "rounded-[4px] border border-red-300 bg-[#F8FAFC] p-6 shadow-sm sm:p-8"
+                ? `rounded-[4px] border border-red-300 p-6 shadow-sm sm:p-8${cardPhotos.old ? " relative overflow-hidden" : " bg-[#F8FAFC]"}`
                 : home
-                  ? "rounded-xl border border-red-300 bg-home-canvas p-6 shadow-sm sm:p-8"
-                  : "rounded-2xl border border-red-300 bg-[#132238] p-6 shadow-sm sm:p-8"
+                  ? `rounded-xl border border-red-300 p-6 shadow-sm sm:p-8${cardPhotos.old ? " relative overflow-hidden" : " bg-home-canvas"}`
+                  : `rounded-2xl border border-red-300 p-6 shadow-sm sm:p-8${cardPhotos.old ? " relative overflow-hidden" : " bg-[#132238]"}`
             }
           >
-            <header className="mb-5 flex items-center justify-between gap-3">
-              <h3 className={`text-xl font-bold ${about ? "text-[#0B192C]" : "text-white"}`}>
-                {copy.oldTitle}
-              </h3>
-              <Mark tone="problem" label="Problem" about={about} />
-            </header>
-            <ul className="space-y-4">
-              {copy.oldItems.map((item) => (
-                <Item key={item.title} tone="problem" item={item} home={home} about={about} />
-              ))}
-            </ul>
+            <CardPhoto src={cardPhotos.old} />
+            <div className={cardPhotos.old ? "relative z-10" : undefined}>
+              <header className="mb-5 flex items-center justify-between gap-3">
+                <h3 className={`text-xl font-bold ${about ? "text-slate-900" : "text-white"}`}>
+                  {copy.oldTitle}
+                </h3>
+                <Mark tone="problem" label="Problem" about={about} />
+              </header>
+              <ul className="space-y-4">
+                {copy.oldItems.map((item) => (
+                  <Item key={item.title} tone="problem" item={item} home={home} about={about} />
+                ))}
+              </ul>
+            </div>
           </article>
           <article
             className={
               about
-                ? "relative rounded-[4px] border border-emerald-500 bg-white p-6 shadow-md sm:p-8"
+                ? `relative rounded-[4px] border border-emerald-500 p-6 shadow-md sm:p-8${cardPhotos.upgraded ? " overflow-hidden" : " bg-white"}`
                 : home
-                  ? "relative rounded-xl border border-emerald-500 bg-home-canvas p-6 shadow-md sm:p-8"
-                  : "relative rounded-2xl border-2 border-emerald-500 bg-[#132238] p-6 shadow-md sm:p-8"
+                  ? `relative rounded-xl border border-emerald-500 p-6 shadow-md sm:p-8${cardPhotos.upgraded ? " overflow-hidden" : " bg-home-canvas"}`
+                  : `relative rounded-2xl border-2 border-emerald-500 p-6 shadow-md sm:p-8${cardPhotos.upgraded ? " overflow-hidden" : " bg-[#132238]"}`
             }
           >
-            <header className="mb-5 flex items-center justify-between gap-3">
-              <h3 className={`text-xl font-bold ${about ? "text-[#0B192C]" : "text-white"}`}>
-                {copy.newTitle}
-              </h3>
-              <Mark tone="value" label="Upgrade" about={about} />
-            </header>
-            <ul className="space-y-4">
-              {copy.newItems.map((item) => (
-                <Item key={item.title} tone="value" item={item} home={home} about={about} />
-              ))}
-            </ul>
+            <CardPhoto src={cardPhotos.upgraded} />
+            <div className={cardPhotos.upgraded ? "relative z-10" : undefined}>
+              <header className="mb-5 flex items-center justify-between gap-3">
+                <h3 className={`text-xl font-bold ${about ? "text-slate-900" : "text-white"}`}>
+                  {copy.newTitle}
+                </h3>
+                <Mark tone="value" label="Upgrade" about={about} />
+              </header>
+              <ul className="space-y-4">
+                {copy.newItems.map((item) => (
+                  <Item key={item.title} tone="value" item={item} home={home} about={about} />
+                ))}
+              </ul>
+            </div>
           </article>
         </div>
         <p className={`mt-6 text-center text-xs ${about ? "text-[#556980]" : home ? "text-slate-300" : "text-slate-400"}`}>
@@ -253,6 +271,20 @@ export function CostComparison({
         </p>
       </div>
     </section>
+  );
+}
+
+function CardPhoto({ src }: { src: string | null }) {
+  if (!src) return null;
+  return (
+    <>
+      <img
+        src={src}
+        alt=""
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-100"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/60" />
+    </>
   );
 }
 
@@ -270,8 +302,8 @@ function Item({
   return (
     <li className="flex gap-3">
       <Mark tone={tone} about={about} />
-      <p className={`text-sm leading-6 ${about ? "text-slate-600" : home ? "text-slate-200" : "text-slate-300"}`}>
-        <span className={`font-semibold ${about ? "text-[#0B192C]" : "text-white"}`}>{item.title}: </span>
+      <p className={`text-sm leading-6 ${about ? "text-slate-800" : home ? "text-slate-200" : "text-slate-300"}`}>
+        <span className={`font-semibold ${about ? "text-slate-900" : "text-white"}`}>{item.title}: </span>
         {item.body}
       </p>
     </li>

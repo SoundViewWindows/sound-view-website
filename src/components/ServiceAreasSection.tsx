@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
@@ -194,6 +195,8 @@ type LiveEta = {
 
 export function ServiceAreasSection() {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const visibleLocations = isExpanded ? serviceAreas : serviceAreas.slice(0, 12);
   const [liveEta, setLiveEta] = useState<LiveEta | null>(null);
   const [etaStatus, setEtaStatus] = useState<"idle" | "calculating" | "denied">("idle");
   const locationRequest = useRef(0);
@@ -289,7 +292,7 @@ export function ServiceAreasSection() {
           and certified installation across King and Snohomish Counties, including:
         </p>
         <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-3.5 lg:grid-cols-4">
-          {serviceAreas.map((area) => (
+          {visibleLocations.map((area) => (
             <li key={area}>
               <button
                 type="button"
@@ -305,6 +308,20 @@ export function ServiceAreasSection() {
             </li>
           ))}
         </ul>
+        <div className="mt-8 flex justify-center">
+          <button
+            type="button"
+            aria-expanded={isExpanded}
+            onClick={() => setIsExpanded((open) => !open)}
+            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition-colors hover:border-sky-500 hover:text-sky-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+          >
+            {isExpanded ? "Show Less" : `View All ${serviceAreas.length} Service Areas`}
+            <ChevronDown
+              aria-hidden="true"
+              className={`h-4 w-4 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+            />
+          </button>
+        </div>
       </div>
 
       {selectedCity && showroom ? (
