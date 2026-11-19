@@ -68,20 +68,19 @@ export default function PortfolioPage() {
           cards={[
             {
               title: "Windows & Entry Doors",
-              body: "Weatherproof tear-outs, precision sill flashing, and custom exterior door installations.",
+              body: "Tear-outs, sill flashing, and custom entry doors.",
             },
             {
               title: "Architectural & Shower Glass",
-              body: "Frameless heavy-glass shower enclosures, glass railings, and custom glass replacements.",
+              body: "Frameless showers, railings, and replacement glass.",
             },
             {
-              title: "Seattle, Bellevue & Puget Sound",
-              body: "Residential and commercial craftsmanship completed across Seattle, Bellevue, and Puget Sound.",
+              title: "Greater Seattle & Puget Sound",
+              body: "Residential and commercial work across the region.",
             },
           ]}
+          rightContent={<CategoryFunnel />}
         />
-
-        <CategoryFunnel />
 
         <section
           className="bg-white pt-20 pb-20"
