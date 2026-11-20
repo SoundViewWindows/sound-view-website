@@ -4,6 +4,7 @@ import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
+import { EnergyRebatesQuoteSidebar } from "./quote-sidebar";
 
 export const metadata: Metadata = {
   alternates: {
@@ -41,6 +42,21 @@ const providers = [
   },
 ];
 
+const qualifications = [
+  {
+    title: "ENERGY STAR Most Efficient",
+    text: "High-performance Low-E glass packages engineered for Pacific Northwest climate zones.",
+  },
+  {
+    title: "NFRC & Tax Credit Paperwork",
+    text: "Itemized invoices and NFRC certification stickers provided for federal 25C and utility filings.",
+  },
+  {
+    title: "Free Rebate Eligibility Check",
+    text: "We verify which PSE, TPU, Avista, and federal incentives apply to your home before you order.",
+  },
+];
+
 const steps = [
   {
     number: "01",
@@ -72,18 +88,19 @@ export default function EnergyRebatesPage() {
     <div className="flex flex-1 flex-col bg-white text-[#0B192C]">
       <Header />
       <main className="flex-1">
-        <section className="relative overflow-hidden bg-[#0F1D2E] pt-10 pb-16 text-white sm:pt-12 sm:pb-20">
-          <div className="pointer-events-none absolute inset-0 z-0 select-none">
-            <img
-              src="/images/hero-bg.jpg"
-              alt=""
-              aria-hidden="true"
-              className="h-full w-full object-cover object-center opacity-40"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
-          </div>
-          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-6 py-5 backdrop-blur-xs sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
+        <section className="flex flex-col lg:flex-row">
+          <div className="relative flex flex-1 flex-col overflow-hidden bg-[#0F1D2E] pb-8 pl-4 pr-4 pt-8 text-white sm:pl-6 sm:pr-6 lg:pb-10 lg:pl-10 lg:pr-10 lg:pt-10 xl:pl-16">
+            <div className="pointer-events-none absolute inset-0 z-0 select-none">
+              <img
+                src="/images/hero-bg.jpg"
+                alt=""
+                aria-hidden="true"
+                className="h-full w-full object-cover object-center opacity-40"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
+            </div>
+            <div className="relative z-10 flex flex-col gap-4">
+            <div className="flex flex-col gap-5 rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-7 py-6 backdrop-blur-xs sm:px-8 sm:py-7 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
                   <ol className="flex flex-wrap items-center gap-2">
@@ -115,12 +132,12 @@ export default function EnergyRebatesPage() {
                 >
                   Book an Energy Consultation
                 </Link>
-                <Link
-                  href="/#quote"
+                <a
+                  href="tel:+12063314296"
                   className={`inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
                 >
-                  Request a Free Quote
-                </Link>
+                  Call (206) 331-4296
+                </a>
               </div>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -130,7 +147,7 @@ export default function EnergyRebatesPage() {
                   href={provider.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs transition-shadow hover:shadow-2xl sm:p-8 ${focusRing}`}
+                  className={`group flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs transition-shadow hover:shadow-2xl sm:p-7 ${focusRing}`}
                 >
                   <div>
                     <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
@@ -149,7 +166,25 @@ export default function EnergyRebatesPage() {
                 </a>
               ))}
             </div>
+            <div className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 backdrop-blur-xs">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
+                Included With Every Sound View Energy Upgrade
+              </p>
+              <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-3">
+                {qualifications.map((item) => (
+                  <div key={item.title}>
+                    <p className="flex items-start gap-2 text-sm font-bold text-white">
+                      <CheckIcon />
+                      {item.title}
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-slate-300">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            </div>
           </div>
+          <EnergyRebatesQuoteSidebar />
         </section>
 
         <section className="bg-slate-50 pt-16 pb-20 text-[#0B192C] md:pt-20 md:pb-24">
@@ -208,6 +243,14 @@ export default function EnergyRebatesPage() {
         }}
       />
     </div>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 shrink-0 text-[#38BDF8]" fill="none" stroke="currentColor" strokeWidth="2">
+      <path strokeLinecap="round" strokeLinejoin="round" d="m5 10.5 3.2 3.2L15 6.5" />
+    </svg>
   );
 }
 
