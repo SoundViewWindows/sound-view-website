@@ -217,50 +217,30 @@ export function CostComparison({
           {subtitle}
         </p>
         <div className={`grid grid-cols-1 md:grid-cols-2 ${home || about ? "gap-4" : "gap-6"}`}>
-          <article
-            className={
-              about
-                ? `rounded-[4px] border border-red-300 p-6 shadow-sm sm:p-8${cardPhotos.old ? " relative overflow-hidden" : " bg-[#F8FAFC]"}`
-                : home
-                  ? `rounded-xl border border-red-300 p-6 shadow-sm sm:p-8${cardPhotos.old ? " relative overflow-hidden" : " bg-home-canvas"}`
-                  : `rounded-2xl border border-red-300 p-6 shadow-sm sm:p-8${cardPhotos.old ? " relative overflow-hidden" : " bg-[#132238]"}`
-            }
-          >
-            <CardPhoto src={cardPhotos.old} />
-            <div className={cardPhotos.old ? "relative z-10" : undefined}>
+          <article className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md">
+            <PhotoBanner src={cardPhotos.old} label="BEFORE / AGING UNIT" tone="before" />
+            <div className="relative z-10 p-6 sm:p-8">
               <header className="mb-5 flex items-center justify-between gap-3">
-                <h3 className={`text-xl font-bold ${about ? "text-slate-900" : "text-white"}`}>
-                  {copy.oldTitle}
-                </h3>
-                <Mark tone="problem" label="Problem" about={about} />
+                <h3 className="text-xl font-bold text-slate-900">{copy.oldTitle}</h3>
+                <Mark tone="problem" label="Problem" />
               </header>
               <ul className="space-y-4">
                 {copy.oldItems.map((item) => (
-                  <Item key={item.title} tone="problem" item={item} home={home} about={about} />
+                  <Item key={item.title} tone="problem" item={item} />
                 ))}
               </ul>
             </div>
           </article>
-          <article
-            className={
-              about
-                ? `relative rounded-[4px] border border-emerald-500 p-6 shadow-md sm:p-8${cardPhotos.upgraded ? " overflow-hidden" : " bg-white"}`
-                : home
-                  ? `relative rounded-xl border border-emerald-500 p-6 shadow-md sm:p-8${cardPhotos.upgraded ? " overflow-hidden" : " bg-home-canvas"}`
-                  : `relative rounded-2xl border-2 border-emerald-500 p-6 shadow-md sm:p-8${cardPhotos.upgraded ? " overflow-hidden" : " bg-[#132238]"}`
-            }
-          >
-            <CardPhoto src={cardPhotos.upgraded} />
-            <div className={cardPhotos.upgraded ? "relative z-10" : undefined}>
+          <article className="flex flex-col overflow-hidden rounded-2xl border-2 border-[#38BDF8] bg-[#0F1D2E] shadow-xl">
+            <PhotoBanner src={cardPhotos.upgraded} label="AFTER / SOUND VIEW UPGRADE" tone="after" />
+            <div className="relative z-10 p-6 sm:p-8">
               <header className="mb-5 flex items-center justify-between gap-3">
-                <h3 className={`text-xl font-bold ${about ? "text-slate-900" : "text-white"}`}>
-                  {copy.newTitle}
-                </h3>
-                <Mark tone="value" label="Upgrade" about={about} />
+                <h3 className="text-xl font-bold text-white">{copy.newTitle}</h3>
+                <Mark tone="value" label="Upgrade" />
               </header>
               <ul className="space-y-4">
                 {copy.newItems.map((item) => (
-                  <Item key={item.title} tone="value" item={item} home={home} about={about} />
+                  <Item key={item.title} tone="value" item={item} />
                 ))}
               </ul>
             </div>
@@ -274,56 +254,55 @@ export function CostComparison({
   );
 }
 
-function CardPhoto({ src }: { src: string | null }) {
+function PhotoBanner({
+  src,
+  label,
+  tone,
+}: {
+  src: string | null;
+  label: string;
+  tone: "before" | "after";
+}) {
   if (!src) return null;
   return (
-    <>
-      <img
-        src={src}
-        alt=""
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-100"
-      />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white/60" />
-    </>
+    <div className="relative h-48 w-full overflow-hidden rounded-t-2xl sm:h-56">
+      <img src={src} alt="" className="h-full w-full object-cover object-center" />
+      <span
+        className={`absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-bold ${
+          tone === "before" ? "bg-slate-900/85 text-white" : "bg-[#38BDF8] text-[#0F1D2E]"
+        }`}
+      >
+        {label}
+      </span>
+    </div>
   );
 }
 
-function Item({
-  tone,
-  item,
-  home = false,
-  about = false,
-}: {
-  tone: "problem" | "value";
-  item: ComparisonItem;
-  home?: boolean;
-  about?: boolean;
-}) {
+function Item({ tone, item }: { tone: "problem" | "value"; item: ComparisonItem }) {
+  const problem = tone === "problem";
   return (
     <li className="flex gap-3">
-      <Mark tone={tone} about={about} />
-      <p className={`text-sm leading-6 ${about ? "text-slate-800" : home ? "text-slate-200" : "text-slate-300"}`}>
-        <span className={`font-semibold ${about ? "text-slate-900" : "text-white"}`}>{item.title}: </span>
+      {problem ? (
+        <Mark tone="problem" />
+      ) : (
+        <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-[#38BDF8]" />
+      )}
+      <p className={`text-sm leading-6 ${problem ? "text-slate-600" : "text-slate-300"}`}>
+        <span className={`font-semibold ${problem ? "text-slate-900" : "text-white"}`}>{item.title}: </span>
         {item.body}
       </p>
     </li>
   );
 }
 
-function Mark({
-  tone,
-  label,
-  about = false,
-}: {
-  tone: "problem" | "value";
-  label?: string;
-  about?: boolean;
-}) {
+function Mark({ tone, label }: { tone: "problem" | "value"; label?: string }) {
   const problem = tone === "problem";
   return (
     <span
-      className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center ${about ? "rounded-[4px]" : "rounded-full"} ${
-        problem ? "bg-red-600 text-white" : "bg-emerald-600 text-white"
+      className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${
+        problem
+          ? "border-red-200 bg-red-50 text-red-600"
+          : "border-transparent bg-[#38BDF8] text-[#0F1D2E]"
       }`}
       aria-hidden={label ? undefined : true}
       aria-label={label}
@@ -341,9 +320,9 @@ function XIcon() {
   );
 }
 
-function CheckIcon() {
+function CheckIcon({ className = "h-3.5 w-3.5" }: { className?: string }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg aria-hidden="true" viewBox="0 0 20 20" className={className} fill="none" stroke="currentColor" strokeWidth="2">
       <path strokeLinecap="round" strokeLinejoin="round" d="m5 10.2 3.2 3.2L15 6.8" />
     </svg>
   );
