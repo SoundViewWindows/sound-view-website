@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckCircle2, Ruler, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { Suspense, useCallback, useEffect, useId, useRef, useState, type DragEvent, type ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
@@ -28,6 +29,63 @@ const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
 const steps = ["Contact & Address", "Service Details", "Date & Time", "Review"] as const;
+
+const showroomCards: Record<
+  AppointmentLocationId,
+  {
+    image: string;
+    imageAlt: string;
+    shortAddress: string;
+    hours: string;
+    phoneHref: string;
+    appointmentOnly: boolean;
+  }
+> = {
+  "lake-city": {
+    image: "/images/sound-view-lake-city-storefront.jpg",
+    imageAlt: "Sound View Window and Door storefront on Lake City Way NE",
+    shortAddress: "12301 Lake City Way NE, Seattle",
+    hours: "Mon-Fri 8:00 AM - 4:30 PM",
+    phoneHref: "tel:2065723411",
+    appointmentOnly: false,
+  },
+  "queen-anne": {
+    image: "/images/sound-view-queen-anne-showroom.jpg",
+    imageAlt: "Sound View Window & Door West Queen Anne showroom exterior",
+    shortAddress: "921 Elliott Ave W, Seattle",
+    hours: "Mon-Fri 8:00 AM - 4:30 PM",
+    phoneHref: "tel:2064024229",
+    appointmentOnly: false,
+  },
+  bellevue: {
+    image: "/images/sound-view-bellevue-showroom.jpg",
+    imageAlt: "Sound View Window & Door Bellevue showroom exterior",
+    shortAddress: "13555 NE Bel Red Rd Ste 207, Bellevue",
+    hours: "By Appointment Only",
+    phoneHref: "tel:4254173005",
+    appointmentOnly: true,
+  },
+};
+
+const trustPills = ["4.9/5 Homeowner Rating", "10,000+ Puget Sound Installs", "Zero-Pressure Written Quotes"];
+
+const consultationPoints = [
+  {
+    icon: CheckCircle2,
+    title: "45-Minute Relaxed Walkthrough",
+    body: "Compare operable Milgard, Andersen, and STILE windows, doors, and glass side by side.",
+  },
+  {
+    icon: Ruler,
+    title: "Honest Options & Sizing",
+    body: "Get straightforward recommendations tailored to your home's architecture and budget.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Upfront Written Proposal",
+    body: "Clear, itemized pricing with zero pressure to sign on the spot.",
+  },
+];
 
 const weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
@@ -420,74 +478,96 @@ export default function BookAppointmentPage() {
     }
   }
 
+  const selectedLocation = appointmentLocationById(form.locationId);
+  const serviceSummary = form.products.length > 0 ? form.products.join(", ") : "";
+  const scheduleSummary =
+    form.date && form.timeSlot ? `${formatLongDate(form.date)}, ${form.timeSlot}` : "";
+
   return (
-    <div className="flex flex-1 flex-col bg-[#F4F6F9] text-[#0B192C]">
+    <div className="flex flex-1 flex-col bg-[#0F1D2E] text-white">
       <Header />
       <main>
-        <section className="relative overflow-hidden bg-[#0B192C] text-white">
-          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-            <img src="/images/hero-bg.jpg" alt="" className="h-full w-full object-cover opacity-35" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0B192C] via-[#0B192C]/85 to-[#0B192C]/70" />
+        <section className="relative overflow-hidden bg-[#0F1D2E]">
+          <div className="pointer-events-none absolute inset-0 z-0 select-none" aria-hidden="true">
+            <img
+              src="/images/hero-bg.jpg"
+              alt=""
+              className="h-full w-full object-cover object-center opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
           </div>
-          <div className="relative mx-auto max-w-7xl px-6 py-8 sm:px-10 md:py-10">
-            <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
-              <ol className="flex flex-wrap items-center gap-2">
-                <li>
-                  <Link href="/" className={`rounded-[4px] hover:text-white ${focusRing}`}>
-                    Home
-                  </Link>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span aria-hidden="true">&gt;</span>
-                  <span aria-current="page">Book Appointment</span>
-                </li>
-              </ol>
-            </nav>
-            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
-              In-Home Consultations & Showroom Visits
-            </p>
-            <h1 className="mb-3 max-w-4xl text-4xl font-bold leading-tight text-white lg:text-5xl">
-              Schedule Your Appointment
-            </h1>
-            <p className="max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
-              Choose a date and time for a relaxed, zero-pressure consultation with a local Sound View specialist.
-            </p>
-          </div>
-        </section>
+          <div id="booking-funnel" className="relative z-10 mx-auto grid max-w-7xl scroll-mt-20 grid-cols-1 gap-8 px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-8 lg:grid-cols-12 lg:px-8">
+            <div className="lg:col-span-7">
+              <Suspense fallback={null}>
+                <LocationFromQuery onPick={pickLocation} />
+              </Suspense>
+              {confirmation ? (
+                <Confirmation
+                  referenceId={confirmation.referenceId}
+                  dateLabel={formatLongDate(form.date)}
+                  timeSlot={form.timeSlot}
+                  locationId={form.locationId}
+                />
+              ) : (
+                <div className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-2xl backdrop-blur-xs sm:p-8">
+                  <div className="mb-5 flex flex-col gap-2 border-b border-slate-700/70 pb-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
+                        <ol className="flex flex-wrap items-center gap-1.5">
+                          <li>
+                            <Link href="/" className={`rounded-[4px] hover:text-white ${focusRing}`}>
+                              Home
+                            </Link>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <span aria-hidden="true">&gt;</span>
+                            <span aria-current="page">Book Appointment</span>
+                          </li>
+                        </ol>
+                      </nav>
+                      <h1 className="text-xl font-bold text-white sm:text-2xl">Schedule Your Appointment</h1>
+                    </div>
+                    <span className="self-start rounded-full border border-sky-400/40 bg-[#0F1D2E]/90 px-3 py-1 text-xs font-semibold text-[#38BDF8] sm:self-auto">
+                      Zero-Pressure Consultation
+                    </span>
+                  </div>
+                  <div id="booking-funnel-top" className="mb-8 scroll-mt-24">
+                    <div className="mb-4 h-1.5 overflow-hidden rounded-full bg-slate-700/80" aria-hidden="true">
+                      <div
+                        className="h-full rounded-full bg-[#38BDF8]"
+                        style={{ width: `${((step + 1) / steps.length) * 100}%` }}
+                      />
+                    </div>
+                    <ol className="grid grid-cols-4 gap-2" aria-label="Booking progress">
+                      {steps.map((label, index) => {
+                        const active = index === step;
+                        const complete = index < step;
+                        return (
+                          <li key={label} className="text-center">
+                            <span
+                              className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${
+                                active
+                                  ? "bg-[#38BDF8] text-[#0F1D2E] ring-4 ring-[#38BDF8]/20"
+                                  : complete
+                                    ? "border border-[#38BDF8] bg-[#0F1D2E] text-[#38BDF8]"
+                                    : "border border-slate-700 bg-[#0F1D2E]/80 text-slate-400"
+                              }`}
+                            >
+                              {index + 1}
+                            </span>
+                            <p
+                              className={`mt-2 text-[11px] font-semibold leading-tight sm:text-xs ${
+                                active ? "text-white" : complete ? "text-slate-200" : "text-slate-400"
+                              }`}
+                            >
+                              {index + 1}. {label}
+                            </p>
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  </div>
 
-        <section className="bg-[#F4F6F9] py-8 md:py-12" style={{ backgroundColor: "#F4F6F9" }}>
-          <div id="booking-funnel" className="mx-auto max-w-3xl scroll-mt-20 px-4 sm:px-6">
-            <Suspense fallback={null}>
-              <LocationFromQuery onPick={pickLocation} />
-            </Suspense>
-            {confirmation ? (
-              <Confirmation
-                referenceId={confirmation.referenceId}
-                dateLabel={formatLongDate(form.date)}
-                timeSlot={form.timeSlot}
-                locationId={form.locationId}
-              />
-            ) : (
-              <>
-                <ol id="booking-funnel-top" className="mb-6 grid scroll-mt-24 grid-cols-4 gap-2" aria-label="Booking progress">
-                  {steps.map((label, index) => {
-                    const active = index <= step;
-                    return (
-                      <li key={label}>
-                        <div className={`h-1.5 rounded-[4px] ${active ? "bg-[#38BDF8]" : "bg-slate-300"}`} />
-                        <p
-                          className={`mt-2 text-center text-[11px] font-semibold leading-tight sm:text-xs ${
-                            active ? "text-[#0B192C]" : "text-slate-500"
-                          }`}
-                        >
-                          {index + 1}. {label}
-                        </p>
-                      </li>
-                    );
-                  })}
-                </ol>
-
-                <div className="rounded-[4px] border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
                   {step === 0 ? (
                     <ContactStep form={form} errors={errors} onChange={patch} />
                   ) : null}
@@ -523,48 +603,124 @@ export default function BookAppointmentPage() {
                     />
                   ) : null}
                   {step === 3 ? <ReviewStep form={form} onEdit={jumpTo} /> : null}
-                </div>
 
-                {submitError ? (
-                  <p className="mt-4 text-sm font-medium text-red-600" role="alert">
-                    {submitError}
-                  </p>
-                ) : null}
-
-                <div className="mt-6 flex items-center justify-end gap-3">
-                  {step > 0 ? (
-                    <button
-                      type="button"
-                      onClick={goBack}
-                      className={`rounded-[4px] border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-[#0B192C] transition-colors hover:bg-slate-50 ${focusRing}`}
-                    >
-                      Back
-                    </button>
+                  {submitError ? (
+                    <p className="mt-4 text-sm font-medium text-red-600" role="alert">
+                      {submitError}
+                    </p>
                   ) : null}
-                  {step < 3 ? (
-                    <button
-                      type="button"
-                      onClick={goNext}
-                      className={`rounded-[4px] bg-[#38BDF8] px-5 py-2.5 text-sm font-bold text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white ${focusRing}`}
-                    >
-                      Next
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={confirmAppointment}
-                      disabled={submitting}
-                      className={`rounded-[4px] bg-[#38BDF8] px-5 py-2.5 text-sm font-bold text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white disabled:cursor-wait disabled:opacity-70 ${focusRing}`}
-                    >
-                      {submitting ? "Sending..." : "Confirm"}
-                    </button>
-                  )}
+
+                  <div className="mt-6 flex items-center justify-end gap-3">
+                    {step > 0 ? (
+                      <button
+                        type="button"
+                        onClick={goBack}
+                        className={`rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
+                      >
+                        Back
+                      </button>
+                    ) : null}
+                    {step < 3 ? (
+                      <button
+                        type="button"
+                        onClick={goNext}
+                        className={`rounded-lg bg-[#38BDF8] px-6 py-2.5 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
+                      >
+                        Next
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={confirmAppointment}
+                        disabled={submitting}
+                        className={`rounded-lg bg-[#38BDF8] px-6 py-2.5 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 disabled:cursor-wait disabled:opacity-70 ${focusRing}`}
+                      >
+                        {submitting ? "Sending..." : "Confirm"}
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </>
-            )}
+              )}
+            </div>
+            <aside className="lg:col-span-5 lg:sticky lg:top-24 lg:self-start">
+              <ConsultationSidebar
+                showroom={selectedLocation?.name ?? ""}
+                service={serviceSummary}
+                schedule={scheduleSummary}
+              />
+            </aside>
           </div>
         </section>
       </main>
+    </div>
+  );
+}
+
+function ConsultationSidebar({
+  showroom,
+  service,
+  schedule,
+}: {
+  showroom: string;
+  service: string;
+  schedule: string;
+}) {
+  const recap = [
+    { label: "Showroom Location", value: showroom || "Not selected yet" },
+    { label: "Service Type", value: service || "Not selected yet" },
+    { label: "Date and Time", value: schedule || "Not selected yet" },
+  ];
+  return (
+    <div className="overflow-hidden rounded-2xl border border-slate-700/80 bg-[#152538]/95 text-white shadow-2xl backdrop-blur-xs">
+      <div className="px-6 py-6">
+        <h2 className="text-lg font-bold text-white">Your consultation</h2>
+        <dl className="mt-4 space-y-3">
+          {recap.map((item) => (
+            <div key={item.label}>
+              <dt className="text-xs font-semibold uppercase tracking-wider text-[#38BDF8]">{item.label}</dt>
+              <dd className="mt-1 text-sm text-white">{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="mt-6 grid gap-2">
+          {trustPills.map((item) => (
+            <li
+              key={item}
+              className="rounded-xl border border-slate-700/80 bg-[#0F1D2E]/80 px-4 py-3 text-xs font-semibold text-white"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+        <h3 className="mt-8 text-base font-bold text-white">What to Expect</h3>
+        <ul className="mt-4 space-y-4">
+          {consultationPoints.map((item) => (
+            <li key={item.title} className="flex gap-3">
+              <item.icon aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-[#38BDF8]" />
+              <p className="text-sm leading-6 text-slate-300">
+                <span className="font-semibold text-white">{item.title}: </span>
+                {item.body}
+              </p>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 rounded-xl border border-slate-700/80 bg-[#152538] p-4">
+          <p className="text-sm font-semibold text-white">4.9/5 Average Rating across 10,000+ Puget Sound Installations</p>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-[#38BDF8]">WA Licensed, Bonded & Insured</p>
+          <blockquote className="mt-3 text-sm leading-6 text-slate-300">
+            &quot;Clear communication from the showroom visit to installation day, flawless finish trim work, and complete cleanup when they were done.&quot;
+            <footer className="mt-2 text-xs font-semibold text-white">Marcus & Elena R., Lake City, Seattle</footer>
+          </blockquote>
+        </div>
+      </div>
+      <div className="border-t border-slate-800 bg-[#152538] px-6 py-4">
+        <p className="text-sm text-slate-300">
+          Prefer to book by phone? Call{" "}
+          <a href="tel:2063314296" className={`font-bold text-[#38BDF8] hover:text-sky-300 ${focusRing}`}>
+            (206) 331-4296
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
@@ -579,10 +735,11 @@ function ContactStep({
   onChange: <K extends keyof FormState>(key: K, value: FormState[K]) => void;
 }) {
   const selectedId = form.locationId;
+  const [optionalOpen, setOptionalOpen] = useState(Boolean(form.companyName || form.unit));
   return (
     <div className="space-y-8">
       <section>
-        <h2 className="text-lg font-bold text-[#0B192C]">Contact details</h2>
+        <h2 className="text-lg font-bold text-white">Contact details</h2>
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <TextField
             id="field-firstName"
@@ -601,14 +758,6 @@ function ContactStep({
             error={errors.lastName}
             autoComplete="family-name"
             onChange={(value) => onChange("lastName", value)}
-          />
-        </div>
-        <div className="mt-4">
-          <TextField
-            label="Company name"
-            value={form.companyName}
-            autoComplete="organization"
-            onChange={(value) => onChange("companyName", value)}
           />
         </div>
         <div className="mt-4">
@@ -643,7 +792,7 @@ function ContactStep({
             onChange={(value) => onChange("phone", formatPhoneInput(value))}
           />
         </div>
-        <p className="mt-2 text-xs leading-relaxed text-slate-500">
+        <p className="mt-2 text-xs leading-relaxed text-slate-400">
           By providing your phone number, you agree to receive Visit Reminders and other transactional text messages (SMS) from Sound View Window & Door, Inc. You can unsubscribe at any time by replying STOP. Message and data rates may apply. Message frequency varies. Reply HELP for help or STOP to cancel.
         </p>
         <CheckRow
@@ -655,7 +804,7 @@ function ContactStep({
       </section>
 
       <section>
-        <h2 className="text-lg font-bold text-[#0B192C]">Address</h2>
+        <h2 className="text-lg font-bold text-white">Address</h2>
         <div className="mt-4">
           <TextField
             id="field-streetAddress"
@@ -667,14 +816,30 @@ function ContactStep({
             onChange={(value) => onChange("street", value)}
           />
         </div>
-        <div className="mt-4">
-          <TextField
-            label="Unit, apartment, suite, etc. (optional)"
-            value={form.unit}
-            autoComplete="address-line2"
-            onChange={(value) => onChange("unit", value)}
-          />
-        </div>
+        {optionalOpen ? (
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <TextField
+              label="Company name"
+              value={form.companyName}
+              autoComplete="organization"
+              onChange={(value) => onChange("companyName", value)}
+            />
+            <TextField
+              label="Unit, apartment, suite, etc. (optional)"
+              value={form.unit}
+              autoComplete="address-line2"
+              onChange={(value) => onChange("unit", value)}
+            />
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setOptionalOpen(true)}
+            className={`mt-4 text-sm font-semibold text-[#38BDF8] hover:text-white ${focusRing}`}
+          >
+            + Add company or unit/suite (optional)
+          </button>
+        )}
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <TextField
             id="field-city"
@@ -715,48 +880,66 @@ function ContactStep({
         </div>
       </section>
 
-      <section id="field-location" className="scroll-mt-28 border-t border-slate-200 pt-8">
+      <section id="field-location" className="scroll-mt-28 border-t border-slate-700/70 pt-8">
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <h2 className="text-lg font-bold text-[#0B192C]">Select ShowRoom Appointment Location</h2>
+          <h2 className="text-lg font-bold text-white">Select Showroom Appointment Location</h2>
           <RequiredBadge />
         </div>
         <div
           role="radiogroup"
-          aria-label="Select ShowRoom Appointment Location"
+          aria-label="Select Showroom Appointment Location"
           aria-invalid={errors.location ? true : undefined}
           className={`grid grid-cols-1 gap-3 sm:grid-cols-3 ${
-            errors.location ? "rounded-[4px] outline outline-1 outline-red-500" : ""
+            errors.location ? "rounded-xl outline outline-1 outline-red-500" : ""
           }`}
         >
           {APPOINTMENT_LOCATIONS.map((location) => {
             const selected = selectedId === location.id;
+            const card = showroomCards[location.id];
             return (
-              <button
+              <div
                 key={location.id}
-                type="button"
                 role="radio"
                 aria-checked={selected}
+                tabIndex={0}
                 onClick={() => onChange("locationId", location.id)}
-                className={`relative rounded-[4px] p-3.5 text-left text-[#0B192C] transition-colors ${
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    onChange("locationId", location.id);
+                  }
+                }}
+                className={`cursor-pointer overflow-hidden rounded-xl border-2 text-left transition-all ${
                   selected
-                    ? "border-2 border-[#0284C7] bg-sky-50/70"
-                    : "border border-slate-300 bg-white hover:border-[#38BDF8]"
+                    ? "border-[#38BDF8] bg-[#1B314B] ring-2 ring-[#38BDF8]/30"
+                    : "border-slate-700/80 bg-[#0F1D2E]/90 hover:border-sky-400/60"
                 } ${focusRing}`}
               >
-                {selected ? (
-                  <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#0284C7] text-white">
-                    <svg viewBox="0 0 16 16" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
-                      <path d="M3.5 8.2 6.4 11l6.1-6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                <div className="h-24 w-full overflow-hidden">
+                  <img src={card.image} alt={card.imageAlt} className="h-full w-full object-cover object-center" />
+                </div>
+                <div className="space-y-1.5 p-3">
+                  <span className="flex items-center justify-between gap-1.5">
+                    <span className="text-sm font-bold text-white">{location.name}</span>
+                    {selected ? (
+                      <svg viewBox="0 0 16 16" className="h-4 w-4 shrink-0 text-[#38BDF8]" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                        <path d="M3.5 8.2 6.4 11l6.1-6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    ) : null}
                   </span>
-                ) : null}
-                <span className="block pr-6 text-sm font-semibold">{location.name}</span>
-                <span className="mt-1 block text-xs leading-5 text-slate-600">{location.address}</span>
-                <span className="mt-1 block text-xs text-slate-500">
-                  {location.phone}
-                  {location.note ? ` · ${location.note}` : ""}
-                </span>
-              </button>
+                  <span className="block text-xs leading-snug text-slate-300">{card.shortAddress}</span>
+                  <span className="inline-block rounded border border-slate-700/80 bg-[#152538] px-2 py-0.5 text-[11px] font-medium text-slate-300">
+                    {card.appointmentOnly ? "By Appointment Only" : card.hours}
+                  </span>
+                  <a
+                    href={card.phoneHref}
+                    onClick={(event) => event.stopPropagation()}
+                    className={`block text-xs font-semibold text-[#38BDF8] hover:text-white ${focusRing}`}
+                  >
+                    {location.phone}
+                  </a>
+                </div>
+              </div>
             );
           })}
         </div>
@@ -841,11 +1024,11 @@ function ServiceStep({
       </fieldset>
 
       <div>
-        <p className="text-sm font-semibold text-[#0B192C]">
+        <p className="text-sm font-semibold text-slate-200">
           Have you been working with someone at Sound View currently or in the past?
         </p>
         <div className="mt-3 flex items-center gap-3">
-          <span className={form.workingWith ? "text-sm text-slate-400" : "text-sm font-semibold text-[#0B192C]"}>No</span>
+          <span className={form.workingWith ? "text-sm text-slate-400" : "text-sm font-semibold text-white"}>No</span>
           <button
             type="button"
             role="switch"
@@ -860,7 +1043,7 @@ function ServiceStep({
               }`}
             />
           </button>
-          <span className={form.workingWith ? "text-sm font-semibold text-[#0B192C]" : "text-sm text-slate-400"}>Yes</span>
+          <span className={form.workingWith ? "text-sm font-semibold text-white" : "text-sm text-slate-400"}>Yes</span>
         </div>
         <div
           inert={form.workingWith ? undefined : true}
@@ -880,12 +1063,12 @@ function ServiceStep({
 
       <div>
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-lg font-bold text-[#0B192C]">Upload images</h2>
-          <span className="rounded-[4px] bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">
+          <h2 className="text-lg font-bold text-white">Upload images</h2>
+          <span className="rounded border border-slate-700 bg-[#0F1D2E] px-2 py-0.5 text-[11px] font-semibold text-[#38BDF8]">
             {form.images.length}/10
           </span>
         </div>
-        <p className="mt-1 text-sm text-slate-500">Share images of the work to be done</p>
+        <p className="mt-1 text-sm text-slate-400">Share images of the work to be done</p>
         <label
           htmlFor={uploadId}
           onDragOver={(event) => {
@@ -894,12 +1077,12 @@ function ServiceStep({
           }}
           onDragLeave={() => onDragState(false)}
           onDrop={onDrop}
-          className={`mt-3 flex cursor-pointer flex-col items-center justify-center rounded-[4px] border-2 border-dashed px-4 py-8 text-center transition-colors ${
-            dragOver ? "border-[#38BDF8] bg-sky-50" : "border-slate-300 hover:border-[#38BDF8]"
+          className={`mt-3 flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed px-4 py-8 text-center transition-colors ${
+            dragOver ? "border-[#38BDF8] bg-[#1B314B]" : "border-slate-700/80 bg-[#0F1D2E]/85 hover:border-sky-400/60"
           } ${focusRing}`}
         >
-          <span className="text-sm font-semibold text-[#0B192C]">Drag images here or click to upload</span>
-          <span className="mt-1 text-xs text-slate-500">PNG, JPG, WEBP, or other images. Up to 10 files.</span>
+          <span className="text-sm font-semibold text-white">Drag images here or click to upload</span>
+          <span className="mt-1 text-xs text-slate-400">PNG, JPG, WEBP, or other images. Up to 10 files.</span>
           <input
             id={uploadId}
             type="file"
@@ -986,9 +1169,9 @@ function ScheduleStep({
 
   return (
     <div id="field-schedule" className="scroll-mt-28">
-      <h2 className="text-lg font-bold text-[#0B192C]">Schedule an appointment</h2>
+      <h2 className="text-lg font-bold text-white">Schedule an appointment</h2>
       <div className="mt-1 flex flex-wrap items-center gap-2">
-        <p className="text-sm text-slate-600">Choose a date and time</p>
+        <p className="text-sm text-slate-300">Choose a date and time</p>
         <RequiredBadge />
       </div>
       <FieldError message={errors.date} />
@@ -996,8 +1179,8 @@ function ScheduleStep({
         <div>
           <div className="mb-3 flex items-center justify-between gap-3">
             <div>
-              <h3 className="text-sm font-bold text-[#0B192C]">Select a date</h3>
-              <p className="mt-1 text-sm font-semibold text-[#0B192C]">{monthLabel}</p>
+              <h3 className="text-sm font-bold text-white">Select a date</h3>
+              <p className="mt-1 text-sm font-semibold text-slate-200">{monthLabel}</p>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -1005,7 +1188,7 @@ function ScheduleStep({
                 aria-label="Previous month"
                 disabled={monthOffset <= 0}
                 onClick={() => onVisibleMonth(shiftMonth(visibleMonth.year, visibleMonth.month, -1))}
-                className={`flex h-8 w-8 items-center justify-center rounded-[4px] border border-slate-300 text-sm font-bold text-[#0B192C] disabled:cursor-not-allowed disabled:opacity-40 ${focusRing}`}
+                className={`flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-[#0F1D2E]/85 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-40 ${focusRing}`}
               >
                 &lt;
               </button>
@@ -1014,7 +1197,7 @@ function ScheduleStep({
                 aria-label="Next month"
                 disabled={monthOffset >= maxMonthOffset}
                 onClick={() => onVisibleMonth(shiftMonth(visibleMonth.year, visibleMonth.month, 1))}
-                className={`flex h-8 w-8 items-center justify-center rounded-[4px] border border-slate-300 text-sm font-bold text-[#0B192C] disabled:cursor-not-allowed disabled:opacity-40 ${focusRing}`}
+                className={`flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-[#0F1D2E]/85 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-40 ${focusRing}`}
               >
                 &gt;
               </button>
@@ -1022,7 +1205,7 @@ function ScheduleStep({
           </div>
           <div className="grid grid-cols-7 gap-1 text-center">
             {weekdays.map((day) => (
-              <div key={day} className="py-1 text-[11px] font-semibold tracking-wide text-slate-500">
+              <div key={day} className="py-1 text-[11px] font-semibold tracking-wide text-slate-400">
                 {day}
               </div>
             ))}
@@ -1038,12 +1221,12 @@ function ScheduleStep({
                   disabled={disabled}
                   aria-pressed={selected}
                   onClick={() => onSelectDate(iso)}
-                  className={`h-9 rounded-[4px] text-sm ${
+                  className={`h-9 rounded-lg text-sm ${
                     selected
-                      ? "bg-[#0284C7] font-bold text-white"
+                      ? "bg-[#38BDF8] font-bold text-[#0F1D2E]"
                       : disabled
-                        ? "cursor-not-allowed text-slate-300"
-                        : "bg-slate-100 text-[#0B192C] hover:bg-sky-100"
+                        ? "cursor-not-allowed text-slate-600"
+                        : "border border-slate-700/80 bg-[#0F1D2E]/85 text-white hover:border-sky-400/60"
                   } ${focusRing}`}
                 >
                   {cell.day}
@@ -1052,28 +1235,28 @@ function ScheduleStep({
             })}
           </div>
           <div className="mt-5">
-            <p className="mb-2 text-sm font-bold text-[#0B192C]">Time Zone</p>
-            <div className="rounded-[4px] border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-[#0B192C]">
+            <p className="mb-2 text-sm font-bold text-white">Time Zone</p>
+            <div className="rounded-lg border border-slate-700/80 bg-[#0F1D2E]/85 px-3 py-2 text-sm text-white">
               America/Los_Angeles (Pacific Time)
             </div>
           </div>
         </div>
 
         <div>
-          <h3 className="text-sm font-bold text-[#0B192C]">Select a time</h3>
+          <h3 className="text-sm font-bold text-white">Select a time</h3>
           {slotError ? (
             <p className="mt-2 text-sm font-medium text-red-600" role="alert">
               {slotError}
             </p>
           ) : null}
-          <p className="mt-2 text-sm font-semibold text-[#0B192C]">
+          <p className="mt-2 text-sm font-semibold text-white">
             {form.date ? formatLongDate(form.date) : "Select a weekday to view times"}
           </p>
-          <p className="mt-1 text-sm text-slate-500">Estimated duration: 1h</p>
+          <p className="mt-1 text-sm text-slate-400">Estimated duration: 1h</p>
           <div className="mt-3 max-h-[360px] space-y-2 overflow-y-auto pr-1">
-            {loading ? <p className="text-sm text-slate-500">Checking live availability...</p> : null}
+            {loading ? <p className="text-sm text-slate-400">Checking live availability...</p> : null}
             {!loading && form.date && (availability?.[form.date]?.length ?? 0) === 0 ? (
-              <p className="text-sm text-slate-500">No open times on this date. Please choose another highlighted day.</p>
+              <p className="text-sm text-slate-400">No open times on this date. Please choose another highlighted day.</p>
             ) : null}
             {!loading
               ? (availability?.[form.date] ?? []).map((label) => {
@@ -1084,10 +1267,10 @@ function ScheduleStep({
                       type="button"
                       aria-pressed={selected}
                       onClick={() => onSelectTime(label)}
-                      className={`w-full rounded-[4px] border px-3 py-3 text-left text-sm transition-colors ${
+                      className={`w-full rounded-lg border px-3 py-3 text-left text-sm transition-colors ${
                         selected
-                          ? "border-[#0284C7] bg-sky-50 font-semibold text-[#0B192C]"
-                          : "border-slate-200 bg-white text-[#0B192C] hover:border-[#38BDF8]"
+                          ? "border-[#38BDF8] bg-[#38BDF8] font-bold text-[#0F1D2E]"
+                          : "border-slate-700/80 bg-[#0F1D2E]/85 text-white hover:border-sky-400/60"
                       } ${focusRing}`}
                     >
                       {label}
@@ -1115,7 +1298,7 @@ function ReviewStep({ form, onEdit }: { form: FormState; onEdit: (step: number) 
 
   return (
     <div>
-      <h2 className="text-lg font-bold text-[#0B192C]">Review</h2>
+      <h2 className="text-lg font-bold text-white">Review</h2>
       <div className="mt-5 space-y-6">
         <ReviewSection title="Location" onEdit={() => onEdit(0)}>
           <ReviewRow
@@ -1168,20 +1351,20 @@ function Confirmation({
 }) {
   const chosenLocation = appointmentLocationById(locationId);
   return (
-    <div className="mx-auto max-w-lg rounded-[4px] border border-slate-200 bg-white p-8 text-center shadow-sm md:p-10">
-      <svg viewBox="0 0 48 48" className="mx-auto h-14 w-14 text-[#0284C7]" aria-hidden="true">
+    <div className="mx-auto max-w-lg rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-8 text-center shadow-2xl backdrop-blur-xs md:p-10">
+      <svg viewBox="0 0 48 48" className="mx-auto h-14 w-14 text-[#38BDF8]" aria-hidden="true">
         <circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" strokeWidth="2.5" />
         <path d="M14 25.5 21 32l13-15" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      <h2 className="mt-4 text-3xl font-bold text-[#0B192C]">Thank You</h2>
-      <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
+      <h2 className="mt-4 text-3xl font-bold text-white">Thank You</h2>
+      <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
         We have received your request and will get back to you shortly to confirm your appointment.
       </p>
-      <div className="mt-6 rounded-[4px] bg-[#F4F6F9] px-4 py-4 text-left text-sm text-[#0B192C]">
+      <div className="mt-6 rounded-xl border border-slate-700/80 bg-[#0F1D2E]/85 px-4 py-4 text-left text-sm text-white">
         {chosenLocation ? (
           <p>
             <span className="font-semibold">Location:</span> {chosenLocation.name}
-            <span className="mt-1 block text-slate-600">{chosenLocation.address}</span>
+            <span className="mt-1 block text-slate-300">{chosenLocation.address}</span>
           </p>
         ) : null}
         <p className={chosenLocation ? "mt-2" : ""}>
@@ -1196,7 +1379,7 @@ function Confirmation({
       </div>
       <Link
         href="/"
-        className={`mt-6 inline-flex rounded-[4px] bg-[#38BDF8] px-5 py-2.5 text-sm font-bold text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white ${focusRing}`}
+        className={`mt-6 inline-flex rounded-lg bg-[#38BDF8] px-6 py-2.5 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
       >
         Return to Home
       </Link>
@@ -1214,13 +1397,13 @@ function ReviewSection({
   children: ReactNode;
 }) {
   return (
-    <section>
+    <section className="rounded-xl border border-slate-700/80 bg-[#0F1D2E]/85 p-4">
       <div className="flex items-center justify-between gap-3">
-        <h3 className="text-base font-bold text-[#0B192C]">{title}</h3>
+        <h3 className="text-base font-bold text-white">{title}</h3>
         <button
           type="button"
           onClick={onEdit}
-          className={`text-sm font-semibold text-[#0284C7] ${focusRing}`}
+          className={`text-sm font-semibold text-[#38BDF8] ${focusRing}`}
         >
           Edit
         </button>
@@ -1233,8 +1416,8 @@ function ReviewSection({
 function ReviewRow({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-xs text-slate-500">{label}</p>
-      <p className="mt-0.5 whitespace-pre-wrap text-sm text-[#0B192C]">{value}</p>
+      <p className="text-xs text-slate-400">{label}</p>
+      <p className="mt-0.5 whitespace-pre-wrap text-sm text-white">{value}</p>
     </div>
   );
 }
@@ -1294,7 +1477,7 @@ function FieldLabel({
   badge?: string;
 }) {
   return (
-    <span className="mb-1.5 flex flex-wrap items-center gap-2 text-sm font-semibold text-[#0B192C]">
+    <span className="mb-1.5 flex flex-wrap items-center gap-2 text-sm font-semibold text-slate-200">
       <span>
         {children}
         {required ? <span aria-hidden="true"> *</span> : null}
@@ -1306,7 +1489,7 @@ function FieldLabel({
 
 function RequiredBadge({ label = "Required" }: { label?: string }) {
   return (
-    <span className="rounded-[4px] bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">
+    <span className="rounded border border-slate-700 bg-[#0F1D2E] px-2 py-0.5 text-[11px] font-semibold text-[#38BDF8]">
       {label}
     </span>
   );
@@ -1336,11 +1519,11 @@ function CheckRow({
       role={role}
       aria-checked={checked}
       onClick={() => onChange(!checked)}
-      className={`flex w-full items-start gap-3 rounded-[4px] text-left text-sm leading-5 text-[#0B192C] ${focusRing} ${className}`}
+      className={`flex w-full items-start gap-3 rounded-[4px] text-left text-sm leading-5 text-slate-200 accent-[#38BDF8] ${focusRing} ${className}`}
     >
       <span
         className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-[4px] border ${
-          checked ? "border-[#0284C7] bg-[#0284C7] text-white" : "border-slate-400 bg-white"
+          checked ? "border-[#38BDF8] bg-[#38BDF8] text-[#0F1D2E]" : "border-slate-400 bg-white"
         }`}
         aria-hidden="true"
       >
@@ -1356,7 +1539,7 @@ function CheckRow({
 }
 
 function controlClass(invalid: boolean) {
-  return `w-full rounded-[4px] border bg-white px-3 py-2.5 text-sm text-[#0B192C] outline-none transition-colors placeholder:text-slate-400 focus:border-[#0284C7] ${
+  return `w-full rounded-lg border bg-white px-3 py-2.5 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-[#38BDF8] focus:ring-2 focus:ring-[#38BDF8]/30 ${
     invalid ? "border-red-500" : "border-slate-300"
   } ${focusRing}`;
 }
