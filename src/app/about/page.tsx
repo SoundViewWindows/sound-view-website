@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Award, CheckCircle2, ShieldCheck, Star } from "lucide-react";
+import { FlushQuoteSidebar } from "@/components/FlushQuoteSidebar";
 import { Header } from "@/components/Header";
 import { canonicalUrl } from "@/config/site";
 import { showrooms } from "@/data/showrooms";
@@ -18,8 +19,6 @@ export const metadata: Metadata = {
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
-
-const quoteHref = "/#quote";
 
 const trustItems = [
   {
@@ -102,30 +101,31 @@ export default function AboutPage() {
     <div className="bg-white text-[#0F1D2E]">
       <Header />
       <main>
-        <section className="relative overflow-hidden bg-[#0F1D2E] pt-10 pb-16 text-white sm:pt-14 sm:pb-20">
-          <div className="pointer-events-none absolute inset-0 z-0 select-none">
-            <img
-              src="/images/hero-bg.jpg"
-              alt=""
-              aria-hidden="true"
-              className="h-full w-full object-cover object-center opacity-40"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
-          </div>
-          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-6">
+        <section className="flex flex-col lg:flex-row">
+          <div className="relative flex-1 overflow-hidden bg-[#0F1D2E] py-8 pl-4 pr-4 text-white sm:pl-6 sm:pr-6 lg:py-10 lg:pl-10 lg:pr-10 xl:pl-16">
+            <div className="pointer-events-none absolute inset-0 z-0 select-none">
+              <img
+                src="/images/hero-bg.jpg"
+                alt=""
+                aria-hidden="true"
+                className="h-full w-full object-cover object-center opacity-40"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
+            </div>
+            <div className="relative z-10">
+            <div className="grid grid-cols-1 items-center gap-6 xl:grid-cols-2">
+            <div>
               <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-slate-700/80 shadow-2xl">
                 <Image
                   src="/images/sound-view-lake-city-storefront.jpg"
                   alt="Sound View Window & Door Lake City showroom exterior"
                   fill
-                  sizes="(min-width: 1024px) 36rem, 100vw"
+                  sizes="(min-width: 1280px) 36rem, 100vw"
                   className="h-full w-full object-cover object-center"
                 />
               </div>
             </div>
-            <div className="lg:col-span-6">
+            <div>
               <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
                 <ol className="flex flex-wrap items-center gap-2">
                   <li>
@@ -186,16 +186,16 @@ export default function AboutPage() {
                 >
                   Book Appointment
                 </Link>
-                <Link
-                  href={quoteHref}
+                <a
+                  href="#about-quote"
                   className={`inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
                 >
                   Get a Free Quote
-                </Link>
+                </a>
               </div>
             </div>
             </div>
-            <ul className="mt-10 grid grid-cols-1 gap-4 border-t border-slate-700/70 pt-8 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="mt-8 grid grid-cols-1 gap-3.5 border-t border-slate-700/70 pt-6 sm:grid-cols-2">
               {trustItems.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -212,7 +212,9 @@ export default function AboutPage() {
                 );
               })}
             </ul>
+            </div>
           </div>
+          <FlushQuoteSidebar id="about-quote" formName="about-quote" />
         </section>
 
         <section className="bg-slate-50">
