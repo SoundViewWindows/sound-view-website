@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
+import { BackToTopButton } from "@/components/BackToTopButton";
+import { CookieBanner } from "@/components/CookieBanner";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { canonicalUrl, siteUrl } from "@/config/site";
@@ -37,6 +39,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <JsonLd />
         {children}
         <Footer />
+        <BackToTopButton />
+        <CookieBanner />
       </body>
     </html>
   );

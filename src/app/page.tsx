@@ -368,7 +368,7 @@ const faqs = [
 
 function ShowroomShowcase() {
   return (
-    <section className="border-b border-slate-200/80 bg-white py-14 lg:py-20">
+    <section className="border-b border-slate-200/80 bg-white pb-7 pt-12 lg:pb-8 lg:pt-16">
       <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
         <p className="text-xs font-bold uppercase tracking-wider text-[#0284C7]">
           Visit Our Greater Seattle Showrooms
@@ -419,11 +419,11 @@ function ShowroomShowcase() {
           </article>
         ))}
       </div>
-      <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-6 border-t border-slate-200 px-4 pt-8 sm:px-6 xl:flex-row xl:px-8">
-        <p className="text-center text-xs font-bold uppercase tracking-wider text-slate-500 xl:text-left">
+      <div className="mx-auto mt-7 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-slate-200/80 px-4 pt-5 sm:px-6 lg:flex-row lg:px-8">
+        <p className="text-center text-[11px] font-bold uppercase tracking-wider text-slate-500 sm:text-xs lg:text-left">
           Authorized Factory Dealer For Top Manufacturers
         </p>
-        <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-3 xl:w-auto">
+        <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-3 lg:w-auto">
           {factoryBrands.map((brand) => (
             <a
               key={brand.name}
@@ -431,7 +431,7 @@ function ShowroomShowcase() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Visit ${brand.name} website`}
-              className={`group flex h-20 min-w-[180px] items-center justify-center rounded-2xl shadow-xs transition-all hover:shadow-md sm:h-24 sm:min-w-[210px] ${brand.cardClass}`}
+              className={`group flex h-14 min-w-[145px] items-center justify-center overflow-hidden rounded-xl shadow-2xs transition-all hover:shadow-sm sm:h-16 sm:min-w-[165px] ${brand.cardClass}`}
             >
               <img src={brand.src} alt={brand.alt} className={brand.imageClass} />
             </a>
@@ -451,7 +451,7 @@ const statLabelClass = "text-sm font-medium text-[#1e293b] sm:text-base";
 function HowItWorks() {
   return (
     <section className="bg-[#f4fafd]">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pb-16 pt-10 sm:px-6 sm:pb-20 lg:px-8 lg:pt-12">
         <ScrollReveal>
           <p className="mb-3 block text-xs font-bold uppercase tracking-widest text-[#608b9e] sm:text-sm">
             How It Works
