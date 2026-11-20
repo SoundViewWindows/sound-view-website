@@ -229,12 +229,6 @@ export default function BookAppointmentPage() {
   }, []);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const location = appointmentLocationFromQuery(params.get("showroom") ?? params.get("location"));
-    if (location) pickLocation(location.id);
-  }, [pickLocation]);
-
-  useEffect(() => {
     return () => {
       imagesRef.current.forEach((image) => URL.revokeObjectURL(image.url));
     };
@@ -249,6 +243,12 @@ export default function BookAppointmentPage() {
       return next;
     });
   }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const location = appointmentLocationFromQuery(params.get("showroom") ?? params.get("location"));
+    if (location) pickLocation(location.id);
+  }, [pickLocation]);
 
   const visibleMonthKey = visibleMonth
     ? `${visibleMonth.year}-${String(visibleMonth.month + 1).padStart(2, "0")}`
