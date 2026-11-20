@@ -14,8 +14,8 @@ export const showerStyles: ShowerChoice[] = [
     name: "Framed Shower Door",
     option: "Framed Shower Door",
     detail: "Metal frame all the way around the glass",
-    image: "/showers/framed.png",
-    alt: "Framed sliding shower enclosure in a light bathroom",
+    image: "/images/shower-doors/framed.jpg",
+    alt: "Framed shower door with a black metal grid and an open panel",
     body: "Durable aluminum profile enclosing all glass edges, providing maximum water containment and dependable daily performance.",
   },
   {
@@ -23,8 +23,8 @@ export const showerStyles: ShowerChoice[] = [
     name: "Semi-Frameless Shower Door",
     option: "Semi-Frameless Shower Door",
     detail: "Metal only around the outside, clear glass in the middle",
-    image: "/showers/semi-frameless.jpg",
-    alt: "Black semi-frameless sliding shower door with a tile niche",
+    image: "/images/shower-doors/semi-frameless.jpg",
+    alt: "Semi-frameless sliding shower door with a black frame",
     body: "Framing along the perimeter edges while keeping the door panel frameless for an open feel at a practical investment level.",
   },
   {
@@ -32,8 +32,8 @@ export const showerStyles: ShowerChoice[] = [
     name: "Frameless Shower Door",
     option: "Frameless Shower Door",
     detail: "Thick glass held with small clips, almost no metal",
-    image: "/showers/frameless.png",
-    alt: "Frameless glass shower with a herringbone tile wall",
+    image: "/images/shower-doors/frameless.jpg",
+    alt: "Frameless glass shower with clip hardware and an open door",
     body: "Heavy 3/8-inch or 1/2-inch tempered architectural glass with minimal hardware clips to highlight custom tilework and maximize openness.",
   },
   {
@@ -41,8 +41,8 @@ export const showerStyles: ShowerChoice[] = [
     name: "Barn Door Style Shower Door",
     option: "Barn Door Style Shower Door",
     detail: "Slides sideways on a track above the opening",
-    image: "/showers/barn-door.jpg",
-    alt: "Glass barn-door shower with an exposed roller track",
+    image: "/images/shower-doors/barn-door.jpg",
+    alt: "Barn door style shower with a black roller track",
     body: "Exposed top-roller rolling hardware that glides effortlessly along a precision header bar, ideal for modern spaces and compact footprints.",
   },
 ];
