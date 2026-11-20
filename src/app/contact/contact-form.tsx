@@ -81,11 +81,11 @@ export function ContactForm() {
 
   if (submittedName) {
     return (
-      <div className="rounded-[4px] border border-sky-100 bg-[#F4FAFD] px-5 py-8">
-        <h3 className="text-2xl font-black text-[#0B192C]">
+      <div className="rounded-2xl border border-slate-700/70 bg-[#0F1D2E]/90 px-5 py-8">
+        <h3 className="text-2xl font-black text-white">
           Thank you, {submittedName}.
         </h3>
-        <p className="mt-3 text-sm leading-6 text-slate-700">
+        <p className="mt-3 text-sm leading-6 text-slate-300">
           Your message is in. A local specialist will follow up during operating
           hours, typically within 2 business hours. No high-pressure sales calls.
         </p>
@@ -181,18 +181,18 @@ export function ContactForm() {
       </Field>
 
       {submitError ? (
-        <p role="alert" className="text-sm text-red-600">
+        <p role="alert" className="text-sm text-red-300">
           {submitError}
         </p>
       ) : null}
       <button
         type="submit"
         disabled={submitting}
-        className="bg-[#38BDF8] hover:bg-[#0284C7] text-[#0B192C] hover:text-white font-bold uppercase tracking-wide transition-colors rounded-[4px] disabled:opacity-70 w-full py-4 px-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B192C]"
+        className="bg-[#38BDF8] hover:bg-sky-400 text-[#0F1D2E] font-bold uppercase tracking-wide transition-colors rounded-md disabled:opacity-70 w-full py-4 px-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
       >
         {submitting ? "Sending" : "Send Message"}
       </button>
-      <p className="text-center text-sm text-slate-500">
+      <p className="text-center text-sm text-slate-400">
         We respect your privacy and never sell your information.
       </p>
     </form>
@@ -214,13 +214,13 @@ function Field({
 }) {
   return (
     <label htmlFor={id} className="block">
-      <span className="text-slate-800 font-extrabold text-xs uppercase tracking-wider block mb-1.5">
+      <span className="text-xs font-bold uppercase tracking-wider text-slate-300 block mb-1.5">
         {label}
         {required ? <span> *</span> : null}
       </span>
       {children}
       {error ? (
-        <span id={`${id}-error`} role="alert" className="mt-1 block text-xs font-normal text-red-600">
+        <span id={`${id}-error`} role="alert" className="mt-1 block text-xs font-normal text-red-300">
           {error}
         </span>
       ) : null}
@@ -230,7 +230,7 @@ function Field({
 
 function inputClass(invalid: boolean) {
   return [
-    "w-full bg-white border border-slate-200 rounded-[4px] px-4 py-3 text-sm text-slate-900 focus:ring-2 focus:ring-sky-400 focus:outline-none placeholder:text-slate-400",
+    "w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#38BDF8] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/30",
     invalid ? "border-red-600" : "",
   ].join(" ");
 }

@@ -3,7 +3,6 @@ import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { SoundViewPageHero } from "@/components/SoundViewPageHero";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
@@ -58,37 +57,23 @@ export default function ContactPage() {
     <div className="flex flex-1 flex-col bg-white text-[#0B192C]">
       <Header />
       <main className="flex-1">
-        <SoundViewPageHero
-          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]}
-          eyebrow="CONTACT OUR TEAM"
-          title="Get in Touch With Sound View"
-          subtitle="Ask a product question, request an estimate, or connect directly with our Greater Seattle showroom specialists."
-          primaryAction={{ label: "Book Appointment", href: "/book-appointment" }}
-          secondaryAction={{ label: "Call (206) 331-4296", href: "tel:+12063314296" }}
-          cards={[
-            {
-              title: "Direct Showroom Phone",
-              body: "Speak with our team Monday through Friday, 8:00 AM to 4:30 PM at (206) 331-4296.",
-            },
-            {
-              title: "Fast Project Estimates",
-              body: "Send your project details or photos using the form below for a tailored response.",
-            },
-            {
-              title: "In-Person Consultations",
-              body: "Drop by our Lake City, West Queen Anne, or Bellevue showrooms during weekday hours.",
-            },
-          ]}
-        />
-
-        <section className="bg-white py-16 sm:py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <section className="relative overflow-hidden bg-[#0B192C] pt-10 pb-16 sm:pt-12 sm:pb-20">
+          <div className="pointer-events-none absolute inset-0 z-0 select-none">
+            <img
+              src="/images/hero-bg.jpg"
+              alt=""
+              aria-hidden="true"
+              className="h-full w-full object-cover object-center opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/65" />
+          </div>
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-7">
-              <div className="bg-white border border-slate-200 p-6 sm:p-10 shadow-sm rounded-[4px]">
-                <h2 className="mb-2 text-2xl font-black tracking-tight text-[#0B192C] sm:text-3xl">
+              <div className="bg-[#152538]/90 backdrop-blur-xs border border-slate-700/70 rounded-2xl shadow-2xl p-6 sm:p-10">
+                <h1 className="mb-2 text-2xl font-black tracking-tight text-white sm:text-3xl">
                   Leave Us a Message
-                </h2>
-                <p className="mb-8 text-sm leading-6 text-slate-600 sm:text-base">
+                </h1>
+                <p className="mb-8 text-sm leading-6 text-slate-300 sm:text-base">
                   Have a question about our showrooms, products, or scheduling?
                   Send us a note and our team will get back to you during
                   operating hours.
@@ -101,43 +86,45 @@ export default function ContactPage() {
               {showrooms.map((room) => (
                 <article
                   key={room.href}
-                  className="rounded-[4px] border border-slate-200 bg-white p-5 shadow-md"
+                  className="rounded-2xl border border-slate-700/70 bg-[#152538]/90 p-5 shadow-xl"
                 >
-                  <h2 className="text-lg font-black text-[#0B192C]">{room.name}</h2>
-                  <p className="mt-1 text-sm leading-6 text-slate-600">{room.address}</p>
+                  <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
+                  <h2 className="text-lg font-black text-white">{room.name}</h2>
+                  <p className="mt-1 text-sm leading-6 text-slate-300">{room.address}</p>
                   <a
                     href={room.phoneHref}
-                    className={`text-[#0090c8] font-black text-lg hover:underline block mb-1 mt-3 ${focusRing}`}
+                    className={`text-[#38BDF8] font-black text-lg hover:text-sky-300 hover:underline block mb-1 mt-3 ${focusRing}`}
                   >
                     {room.phone}
                   </a>
                   {room.note ? (
-                    <p className="text-sm text-slate-600">{room.note}</p>
+                    <p className="text-sm text-slate-300">{room.note}</p>
                   ) : null}
                   <Link
                     href={room.href}
-                    className={`mt-2 inline-flex text-sm font-bold text-slate-700 underline-offset-4 hover:text-[#0090c8] hover:underline ${focusRing}`}
+                    className={`mt-2 inline-flex text-sm font-bold text-white underline-offset-4 hover:text-[#38BDF8] hover:underline ${focusRing}`}
                   >
                     Showroom details
                   </Link>
                 </article>
               ))}
 
-              <article className="rounded-[4px] border border-slate-200 bg-white p-5 shadow-md">
-                <h2 className="text-slate-800 font-extrabold text-xs uppercase tracking-wider mb-4">
+              <article className="rounded-2xl border border-slate-700/70 bg-[#152538]/90 p-5 shadow-xl">
+                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
+                <h2 className="text-white font-extrabold text-xs uppercase tracking-wider mb-4">
                   Showroom Hours
                 </h2>
-                <dl className="space-y-2 text-sm text-slate-700">
+                <dl className="space-y-2 text-sm text-slate-300">
                   {hours.map((row) => (
                     <div key={row.day} className="flex items-baseline justify-between gap-4">
                       <dt>{row.day}</dt>
-                      <dd className="text-right font-bold text-[#0B192C]">{row.time}</dd>
+                      <dd className="text-right font-bold text-white">{row.time}</dd>
                     </div>
                   ))}
                 </dl>
               </article>
 
-              <p className="bg-[#F4FAFD] border border-sky-100 rounded-[4px] p-5 text-slate-700 text-sm">
+              <p className="rounded-2xl border border-slate-700/70 bg-[#152538]/90 p-5 text-sm text-slate-300">
                 Typical response time is under 2 business hours during operating
                 hours. You will hear from a local specialist, with no
                 high-pressure sales call.
