@@ -647,6 +647,15 @@ export default function BookAppointmentPage() {
                 showroom={selectedLocation?.name ?? ""}
                 service={serviceSummary}
                 schedule={scheduleSummary}
+                phone={
+                  selectedLocation
+                    ? {
+                        place: `${selectedLocation.name} at `,
+                        display: selectedLocation.phone,
+                        href: showroomCards[selectedLocation.id].phoneHref,
+                      }
+                    : { place: "", display: "(206) 331-4296", href: "tel:2063314296" }
+                }
               />
             </aside>
           </div>
@@ -660,10 +669,12 @@ function ConsultationSidebar({
   showroom,
   service,
   schedule,
+  phone,
 }: {
   showroom: string;
   service: string;
   schedule: string;
+  phone: { place: string; display: string; href: string };
 }) {
   const recap = [
     { label: "Showroom Location", value: showroom || "Not selected yet" },
@@ -715,9 +726,12 @@ function ConsultationSidebar({
       </div>
       <div className="border-t border-slate-800 bg-[#152538] px-6 py-4">
         <p className="text-sm text-slate-300">
-          Prefer to book by phone? Call{" "}
-          <a href="tel:2063314296" className={`font-bold text-[#38BDF8] hover:text-sky-300 ${focusRing}`}>
-            (206) 331-4296
+          Prefer to book by phone? Call {phone.place}
+          <a
+            href={phone.href}
+            className={`font-bold text-[#38BDF8] transition-colors hover:text-sky-300 ${focusRing}`}
+          >
+            {phone.display}
           </a>
         </p>
       </div>
@@ -1027,23 +1041,37 @@ function ServiceStep({
         <p className="text-sm font-semibold text-slate-200">
           Have you been working with someone at Sound View currently or in the past?
         </p>
-        <div className="mt-3 flex items-center gap-3">
-          <span className={form.workingWith ? "text-sm text-slate-400" : "text-sm font-semibold text-white"}>No</span>
+        <div className="mt-3 inline-flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => onChange("workingWith", false)}
+            className={form.workingWith ? "text-sm text-slate-400" : "text-sm font-semibold text-white"}
+          >
+            No
+          </button>
           <button
             type="button"
             role="switch"
             aria-checked={form.workingWith}
             aria-label="Working with someone at Sound View"
             onClick={() => onChange("workingWith", !form.workingWith)}
-            className={`relative h-7 w-14 rounded-[4px] transition-colors ${form.workingWith ? "bg-[#0284C7]" : "bg-slate-300"} ${focusRing}`}
+            className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center overflow-hidden rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/50 ${
+              form.workingWith ? "bg-[#38BDF8]" : "bg-slate-600"
+            }`}
           >
             <span
-              className={`absolute top-1 h-5 w-5 rounded-[4px] bg-white transition-transform ${
-                form.workingWith ? "translate-x-8" : "translate-x-1"
+              className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
+                form.workingWith ? "translate-x-5" : "translate-x-0"
               }`}
             />
           </button>
-          <span className={form.workingWith ? "text-sm font-semibold text-white" : "text-sm text-slate-400"}>Yes</span>
+          <button
+            type="button"
+            onClick={() => onChange("workingWith", true)}
+            className={form.workingWith ? "text-sm font-semibold text-white" : "text-sm text-slate-400"}
+          >
+            Yes
+          </button>
         </div>
         <div
           inert={form.workingWith ? undefined : true}
