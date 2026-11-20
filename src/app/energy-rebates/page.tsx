@@ -127,27 +127,27 @@ export default function EnergyRebatesPage() {
                   href={provider.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group flex cursor-pointer flex-col rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xl transition-colors hover:border-sky-400/70 sm:p-6 ${focusRing}`}
+                  className={`group flex cursor-pointer flex-col rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-5 shadow-2xl backdrop-blur-md transition-colors hover:border-sky-400/70 sm:p-6 ${focusRing}`}
                 >
                   <div>
-                    <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#0284C7]" />
-                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#0284C7]">
+                    <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
                       {provider.tagline}
                     </p>
-                    <h2 className="text-xl font-bold text-[#0F1D2E] transition-colors group-hover:text-[#0284C7] sm:text-[22px]">
+                    <h2 className="text-xl font-bold text-white transition-colors group-hover:text-sky-300 sm:text-[22px]">
                       {provider.title}
                     </h2>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-700">{provider.description}</p>
-                    <ul className="mt-4 space-y-2 text-xs text-slate-700">
+                    <p className="mt-3 text-sm leading-relaxed text-slate-200">{provider.description}</p>
+                    <ul className="mt-4 space-y-2 text-xs text-slate-200">
                       {provider.points.map((point) => (
                         <li key={point} className="flex items-start gap-2">
-                          <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#0284C7]" />
+                          <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#38BDF8]" />
                           {point}
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <span className="mt-5 inline-flex items-center gap-1.5 border-t border-slate-200 pt-4 text-sm font-semibold text-[#0284C7] hover:text-sky-700">
+                  <span className="mt-5 inline-flex items-center gap-1.5 border-t border-white/15 pt-4 text-sm font-semibold text-[#38BDF8] hover:text-sky-300">
                     {provider.cta}
                     <ExternalLinkIcon />
                   </span>
