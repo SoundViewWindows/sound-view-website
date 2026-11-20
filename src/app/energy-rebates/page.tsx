@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
-import { SoundViewPageHero } from "@/components/SoundViewPageHero";
 
 export const metadata: Metadata = {
   alternates: {
@@ -72,64 +72,87 @@ export default function EnergyRebatesPage() {
     <div className="flex flex-1 flex-col bg-white text-[#0B192C]">
       <Header />
       <main className="flex-1">
-        <SoundViewPageHero
-          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Energy Rebates" }]}
-          eyebrow="REBATES & TAX CREDITS"
-          title="Energy Rebates & Tax Credits for Windows & Doors"
-          subtitle="See which ENERGY STAR rated windows and doors qualify for federal tax credits and Greater Seattle utility incentives."
-          primaryAction={{ label: "Book an Energy Consultation", href: "/book-appointment" }}
-          secondaryAction={{ label: "Request a Free Quote", href: "/contact" }}
-          cards={[
-            {
-              title: "Federal 25C Tax Credits",
-              body: "Qualifying ENERGY STAR Most Efficient windows and exterior doors may be eligible for federal tax credits.",
-            },
-            {
-              title: "Local Utility Rebates",
-              body: "Check current Puget Sound Energy and regional electric or gas utility efficiency incentives.",
-            },
-            {
-              title: "Pacific Northwest Performance",
-              body: "Lower winter heat loss and summer solar gain with high-efficiency Low-E glass packages.",
-            },
-          ]}
-        />
-
-        <section
-          className="bg-[#F4F6F9] pt-16 pb-20 text-[#0B192C] md:pt-20 md:pb-24"
-          style={{ backgroundColor: "#F4F6F9" }}
-        >
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
-            {providers.map((provider) => (
-              <a
-                key={provider.title}
-                href={provider.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group flex h-full cursor-pointer flex-col justify-between rounded-[4px] border border-slate-200/90 bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8 ${focusRing}`}
-              >
-                <div>
-                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#0284C7]">
-                    {provider.tagline}
-                  </p>
-                  <h2 className="mb-3 text-2xl font-bold text-[#0B192C] transition-colors group-hover:text-[#0090c8]">
-                    {provider.title}
-                  </h2>
-                  <p className="text-sm leading-relaxed text-[#556980]">{provider.description}</p>
-                </div>
-                <span className="mt-8 inline-flex items-center justify-center gap-2 self-start rounded-[4px] bg-[#0090c8] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#007fb1]">
-                  {provider.cta}
-                  <ExternalLinkIcon />
-                </span>
-              </a>
-            ))}
+        <section className="relative overflow-hidden bg-[#0F1D2E] pt-10 pb-16 text-white sm:pt-12 sm:pb-20">
+          <div className="pointer-events-none absolute inset-0 z-0 select-none">
+            <img
+              src="/images/hero-bg.jpg"
+              alt=""
+              aria-hidden="true"
+              className="h-full w-full object-cover object-center opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
+          </div>
+          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-6 py-5 backdrop-blur-xs sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
+                  <ol className="flex flex-wrap items-center gap-2">
+                    <li>
+                      <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
+                        Home
+                      </Link>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span aria-hidden="true">&gt;</span>
+                      <span aria-current="page">Energy Rebates</span>
+                    </li>
+                  </ol>
+                </nav>
+                <p className="text-xs font-bold tracking-wider text-[#38BDF8]">
+                  REBATES &amp; TAX CREDITS
+                </p>
+                <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
+                  Energy Rebates &amp; Tax Credits for Windows &amp; Doors
+                </h1>
+                <p className="mt-1.5 text-sm text-slate-300">
+                  See which ENERGY STAR rated windows and doors qualify for federal tax credits and Greater Seattle utility incentives.
+                </p>
+              </div>
+              <div className="flex shrink-0 flex-wrap items-center gap-3">
+                <Link
+                  href="/book-appointment"
+                  className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-5 py-2.5 font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
+                >
+                  Book an Energy Consultation
+                </Link>
+                <Link
+                  href="/#quote"
+                  className={`inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
+                >
+                  Request a Free Quote
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {providers.map((provider) => (
+                <a
+                  key={provider.title}
+                  href={provider.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs transition-shadow hover:shadow-2xl sm:p-8 ${focusRing}`}
+                >
+                  <div>
+                    <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
+                      {provider.tagline}
+                    </p>
+                    <h2 className="mb-3 text-2xl font-bold text-white transition-colors group-hover:text-[#38BDF8]">
+                      {provider.title}
+                    </h2>
+                    <p className="text-sm leading-relaxed text-slate-300">{provider.description}</p>
+                  </div>
+                  <span className="mt-8 inline-flex items-center justify-center gap-2 self-start text-sm font-bold text-[#38BDF8]">
+                    {provider.cta}
+                    <ExternalLinkIcon />
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section
-          className="bg-[#E6ECF2] pt-16 pb-20 text-[#0B192C] md:pt-20 md:pb-24"
-          style={{ backgroundColor: "#E6ECF2" }}
-        >
+        <section className="bg-slate-50 pt-16 pb-20 text-[#0B192C] md:pt-20 md:pb-24">
           <h2 className="mb-3 text-center text-3xl font-bold text-[#0B192C] sm:text-4xl">
             Before You Start Your Project
           </h2>
@@ -176,9 +199,9 @@ export default function EnergyRebatesPage() {
         <p>© 2026 Sound View Window &amp; Door. All Rights Reserved.</p>
       </footer>
       <CtaBanner
-        className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
+        className="bg-[#0F1D2E] py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
         style={{
-          backgroundColor: "#182B3E",
+          backgroundColor: "#0F1D2E",
           paddingTop: "64px",
           paddingBottom: "64px",
           borderTop: "none",
