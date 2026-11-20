@@ -295,8 +295,9 @@ const factoryBrands = [
     href: "https://www.plygem.com/",
     src: "/images/brands/ply-gem.png",
     alt: "Ply Gem Windows",
-    cardClass: "border border-slate-200 bg-white px-6 hover:border-sky-400 sm:px-8",
-    imageClass: "h-10 w-auto max-w-[185px] object-contain sm:h-12",
+    cardClass: "overflow-hidden border border-slate-200 bg-white hover:border-sky-400",
+    imageClass:
+      "h-full w-full object-contain scale-[1.45] transition-transform group-hover:scale-[1.6] sm:scale-[1.55]",
   },
 ] as const;
 
