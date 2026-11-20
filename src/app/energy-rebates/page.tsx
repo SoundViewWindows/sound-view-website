@@ -113,21 +113,21 @@ export default function EnergyRebatesPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
             </div>
-            <div className="relative z-10 flex h-full flex-1 flex-col gap-4">
+            <div className="relative z-10 flex h-full flex-col gap-5">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h1 className="text-xs font-bold uppercase tracking-wider text-[#38BDF8] sm:text-sm">
                 Energy Rebates &amp; Tax Credits for Windows &amp; Doors
               </h1>
               <span className="text-xs text-slate-400">Greater Seattle Utility &amp; Federal 25C Incentives</span>
             </div>
-            <div className="grid flex-1 grid-cols-1 gap-5 md:grid-cols-3">
+            <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-3">
               {providers.map((provider) => (
                 <a
                   key={provider.title}
                   href={provider.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs transition-colors hover:border-sky-400/70 sm:p-7 ${focusRing}`}
+                  className={`group flex cursor-pointer flex-col rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-5 shadow-xl backdrop-blur-xs transition-colors hover:border-sky-400/70 sm:p-6 ${focusRing}`}
                 >
                   <div>
                     <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
@@ -147,12 +147,28 @@ export default function EnergyRebatesPage() {
                       ))}
                     </ul>
                   </div>
-                  <span className="mt-6 inline-flex items-center gap-1.5 border-t border-slate-700/60 pt-4 text-sm font-semibold text-[#38BDF8] hover:text-sky-300">
+                  <span className="mt-5 inline-flex items-center gap-1.5 border-t border-slate-700/60 pt-4 text-sm font-semibold text-[#38BDF8] hover:text-sky-300">
                     {provider.cta}
                     <ExternalLinkIcon />
                   </span>
                 </a>
               ))}
+            </div>
+            <div className="flex flex-col gap-4 border-t border-slate-700/70 pt-5 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8]">
+                  Federal Tax Incentive (Section 25C)
+                </p>
+                <h2 className="mt-1 text-base font-bold text-white sm:text-lg">
+                  Up to $600 Annual Federal Tax Credit on Qualifying Windows
+                </h2>
+                <p className="mt-1 max-w-3xl text-xs leading-relaxed text-slate-300 sm:text-sm">
+                  Windows and skylights meeting ENERGY STAR Most Efficient criteria can qualify for a 30% federal tax credit (up to $600 per year) when installed in your primary residence.
+                </p>
+              </div>
+              <span className="shrink-0 rounded-lg border border-slate-700/80 bg-[#152538]/90 px-3.5 py-2 text-xs font-semibold text-[#38BDF8]">
+                ENERGY STAR Most Efficient Certified
+              </span>
             </div>
             <div className="border-t border-slate-700/70 pt-5">
               <p className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
