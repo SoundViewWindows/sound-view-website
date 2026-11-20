@@ -153,12 +153,18 @@ test("homepage quote uses the sidebar handler", async () => {
 const identityPages = [
   ["Financing", "src/app/financing/page.tsx"],
   ["Energy Rebates", "src/app/energy-rebates/page.tsx"],
-  ["Blog index", "src/app/blog/blog-index.tsx"],
   ["Portfolio", "src/app/portfolio/page.tsx"],
   ["About", "src/app/about/page.tsx"],
   ["Contact", "src/app/contact/page.tsx"],
   ["All showrooms", "src/app/showrooms/page.tsx"],
 ] as const;
+
+test("Blog index opens with a framed navy header", () => {
+  const page = source("src/app/blog/blog-index.tsx");
+  assert.doesNotMatch(page, /SoundViewPageHero|HeroQuoteLayout|QuoteRequestForm/);
+  assert.match(page, /Window, Door &amp; Glass Buying Guides/);
+  assert.match(page, /bg-\[#0F1D2E\]/);
+});
 
 for (const [label, file] of identityPages) {
   test(`${label} opens with a page identity hero`, () => {

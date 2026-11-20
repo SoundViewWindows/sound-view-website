@@ -40,7 +40,7 @@ export default function BlogPage() {
       <CtaBanner
         className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
         style={{
-          backgroundColor: "#182B3E",
+          backgroundColor: "#0F1D2E",
           paddingTop: "64px",
           paddingBottom: "64px",
           borderTop: "none",
