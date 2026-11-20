@@ -199,10 +199,12 @@ for (const [label, file] of [
   test(`${label} opens with the showroom identity hero`, () => {
     assert.match(source(file), /<ShowroomLocation/);
     const location = source("src/components/showrooms/ShowroomLocation.tsx");
-    assert.match(location, /SoundViewPageHero/);
-    assert.match(location, /SOUND VIEW SHOWROOM LOCATION/);
+    assert.match(location, /bg-\[#0F1D2E\]/);
+    assert.match(location, /bg-\[#152538\]\/90/);
+    assert.match(location, /Sound View Showroom Location/);
     assert.match(location, /Showroom Address/);
     assert.match(location, /Book Showroom Appointment/);
+    assert.doesNotMatch(location, /SoundViewPageHero/);
     assert.doesNotMatch(location, /HeroQuoteLayout|heroVideo/);
     assert.doesNotMatch(source("src/components/showrooms/ShowroomSections.tsx"), /HeroQuoteLayout/);
   });

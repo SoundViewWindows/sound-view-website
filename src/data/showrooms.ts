@@ -129,8 +129,8 @@ export const showrooms: Showroom[] = [
     mapSrc:
       "https://maps.google.com/maps?q=13555+NE+Bel+Red+Rd+Ste+207,+Bellevue,+WA+98005&t=&z=15&ie=UTF8&iwloc=&output=embed",
     mapTitle: "Map of the Bellevue showroom at 13555 NE Bel Red Rd Ste 207, Bellevue, WA 98005",
-    image: "/images/sound-view-bellevue-showroom.jpg",
-    imageAlt: "Sound View Window & Door Bellevue showroom exterior",
+    image: "/showrooms/bellevue.jpg",
+    imageAlt: "Sound View Window and Door storefront at 13555 NE Bel Red Rd in Bellevue",
     appointmentOnly: true,
     eyebrow: "Bellevue Design Studio",
     title: "Visit Our Bellevue Showroom",
