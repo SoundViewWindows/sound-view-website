@@ -99,7 +99,7 @@ export default function EnergyRebatesPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
             </div>
-            <div className="relative z-10 flex flex-col gap-4">
+            <div className="relative z-10 flex h-full flex-1 flex-col gap-5 lg:gap-6">
             <div className="flex flex-col gap-5 rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-7 py-6 backdrop-blur-xs sm:px-8 sm:py-7 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
@@ -121,7 +121,7 @@ export default function EnergyRebatesPage() {
                 <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
                   Energy Rebates &amp; Tax Credits for Windows &amp; Doors
                 </h1>
-                <p className="mt-1.5 text-sm text-slate-300">
+                <p className="mt-2 text-sm leading-relaxed text-slate-300">
                   See which ENERGY STAR rated windows and doors qualify for federal tax credits and Greater Seattle utility incentives.
                 </p>
               </div>
@@ -140,7 +140,7 @@ export default function EnergyRebatesPage() {
                 </a>
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid flex-1 grid-cols-1 gap-5 md:grid-cols-3">
               {providers.map((provider) => (
                 <a
                   key={provider.title}
@@ -154,30 +154,30 @@ export default function EnergyRebatesPage() {
                     <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
                       {provider.tagline}
                     </p>
-                    <h2 className="mb-3 text-2xl font-bold text-white transition-colors group-hover:text-[#38BDF8]">
+                    <h2 className="text-xl font-bold text-white transition-colors group-hover:text-[#38BDF8] sm:text-[22px]">
                       {provider.title}
                     </h2>
-                    <p className="text-sm leading-relaxed text-slate-300">{provider.description}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-300">{provider.description}</p>
                   </div>
-                  <span className="mt-8 inline-flex items-center justify-center gap-2 self-start text-sm font-bold text-[#38BDF8]">
+                  <span className="mt-6 inline-flex items-center gap-1.5 border-t border-slate-700/60 pt-4 text-sm font-semibold text-[#38BDF8] hover:text-sky-300">
                     {provider.cta}
                     <ExternalLinkIcon />
                   </span>
                 </a>
               ))}
             </div>
-            <div className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 backdrop-blur-xs">
+            <div className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-7 py-6 backdrop-blur-xs sm:px-8 sm:py-7">
               <p className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
                 Included With Every Sound View Energy Upgrade
               </p>
-              <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-3">
+              <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-3">
                 {qualifications.map((item) => (
                   <div key={item.title}>
                     <p className="flex items-start gap-2 text-sm font-bold text-white">
                       <CheckIcon />
                       {item.title}
                     </p>
-                    <p className="mt-1 text-xs leading-relaxed text-slate-300">{item.text}</p>
+                    <p className="mt-1.5 text-xs leading-relaxed text-slate-300 sm:text-[13px]">{item.text}</p>
                   </div>
                 ))}
               </div>

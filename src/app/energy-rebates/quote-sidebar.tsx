@@ -9,7 +9,7 @@ export function EnergyRebatesQuoteSidebar() {
 
   return (
     <aside className="flex w-full shrink-0 flex-col self-stretch bg-[#0B4F78] pt-0 text-white lg:w-[380px] xl:w-[420px]">
-      <div className="px-6 py-8 sm:px-8 lg:sticky lg:top-20">
+      <div className="px-6 pb-8 pt-8 sm:px-8 lg:sticky lg:top-20 lg:pb-10">
         {quoteSubmitted ? null : (
           <div className="text-center">
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8] sm:text-sm">
