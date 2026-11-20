@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Award, CheckCircle2, ShieldCheck, Star } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { FlushQuoteSidebar } from "@/components/FlushQuoteSidebar";
 import { Header } from "@/components/Header";
 import { canonicalUrl } from "@/config/site";
@@ -23,23 +23,19 @@ const focusRing =
 const trustItems = [
   {
     title: "17+ Years in Puget Sound",
-    body: "Local Greater Seattle expertise",
-    icon: Award,
+    body: "Locally rooted across Seattle, Bellevue, and King and Snohomish counties with product recommendations built to last decades.",
   },
   {
-    title: "10,000+ Installations",
-    body: "Completed residential and commercial projects",
-    icon: CheckCircle2,
+    title: "10,000+ Local Installations",
+    body: "Proven precision across replacement windows, patio doors, frameless shower glass, and architectural railings in Pacific Northwest homes.",
   },
   {
     title: "4.9/5 Homeowner Rating",
-    body: "Verified Pacific Northwest customer reviews",
-    icon: Star,
+    body: "Backed by transparent written proposals, plain-language product comparisons, and accountable local project coordination.",
   },
   {
     title: "WA Licensed, Bonded & Insured",
-    body: "Full contractor protection and accountability",
-    icon: ShieldCheck,
+    body: "Full contractor protection, factory-authorized Milgard, Andersen, and STILE support, and clean job-site care from start to finish.",
   },
 ];
 
@@ -97,12 +93,13 @@ const installVideo = {
 };
 
 export default function AboutPage() {
+  const quoteHref = "#quote";
   return (
     <div className="bg-white text-[#0F1D2E]">
       <Header />
       <main>
         <section className="flex flex-col lg:flex-row">
-          <div className="relative flex-1 overflow-hidden bg-[#0F1D2E] py-8 pl-4 pr-4 text-white sm:pl-6 sm:pr-6 lg:py-10 lg:pl-10 lg:pr-10 xl:pl-16">
+          <div className="relative flex flex-1 flex-col overflow-hidden bg-[#0F1D2E] py-10 pl-4 pr-4 text-white sm:pl-6 sm:pr-6 lg:py-12 lg:pl-10 lg:pr-10 xl:pl-16">
             <div className="pointer-events-none absolute inset-0 z-0 select-none">
               <img
                 src="/images/hero-bg.jpg"
@@ -112,109 +109,49 @@ export default function AboutPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
             </div>
-            <div className="relative z-10">
-            <div className="grid grid-cols-1 items-center gap-6 xl:grid-cols-2">
-            <div>
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-slate-700/80 shadow-2xl">
-                <Image
-                  src="/images/sound-view-lake-city-storefront.jpg"
-                  alt="Sound View Window & Door Lake City showroom exterior"
-                  fill
-                  sizes="(min-width: 1280px) 36rem, 100vw"
-                  className="h-full w-full object-cover object-center"
-                />
-              </div>
-            </div>
-            <div>
-              <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
-                <ol className="flex flex-wrap items-center gap-2">
-                  <li>
-                    <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                      Home
-                    </Link>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span aria-hidden="true">&gt;</span>
-                    <span aria-current="page">About</span>
-                  </li>
-                </ol>
-              </nav>
-              <p className="mt-3 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
-                About Sound View Window & Door
-              </p>
-              <h1 className="mt-1 text-3xl font-bold text-white sm:text-4xl">
-                A Name Greater Seattle Homeowners Trust
-              </h1>
-              <div className="mt-5 space-y-4 text-base leading-relaxed text-slate-200">
-                <p>
-                  Sound View Window & Door grew up in Greater Seattle by staying
-                  with the same homes for the long term. Homeowners come back
-                  because the recommendation still makes sense years later, not
-                  because someone rushed a signature on the first visit.
+            <div className="relative z-10 flex h-full flex-col gap-6">
+              <div className="mx-auto max-w-3xl pt-2 text-center">
+                <p className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
+                  About Sound View Window & Door
                 </p>
-                <p>
-                  We compare{" "}
-                  <Link href={publicPaths.windows} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:text-sky-300 hover:underline ${focusRing}`}>
-                    replacement windows
+                <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                  A Name Greater Seattle Homeowners Trust
+                </h1>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+                  Over 17 years of honest, zero-pressure guidance on replacement
+                  windows, exterior doors, and custom glass, from your first
+                  showroom visit through final walkthrough.
+                </p>
+                <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                  <Link
+                    href="/book-appointment"
+                    className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-2.5 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
+                  >
+                    Book Appointment
                   </Link>
-                  ,{" "}
-                  <Link href={publicPaths.doors} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:text-sky-300 hover:underline ${focusRing}`}>
-                    doors
+                  <Link
+                    href="#showrooms"
+                    className={`inline-flex items-center justify-center rounded-lg bg-white px-6 py-2.5 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
+                  >
+                    Explore Our Showrooms
                   </Link>
-                  , and{" "}
-                  <Link href={publicPaths.glass} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:text-sky-300 hover:underline ${focusRing}`}>
-                    custom glass
-                  </Link>{" "}
-                  in plain language. You see the tradeoffs in frame material,
-                  glass package, and hardware before anyone talks about a start
-                  date.
-                </p>
-                <p>
-                  The same team stays accountable from the first conversation in
-                  one of our{" "}
-                  <Link href={publicPaths.showrooms} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:text-sky-300 hover:underline ${focusRing}`}>
-                    showrooms
-                  </Link>{" "}
-                  through measurement, installation, and the final walkthrough.
-                  If something needs attention, you know who to call.
-                </p>
+                </div>
               </div>
-              <div className="mt-6 flex flex-wrap gap-4">
-                <Link
-                  href="/book-appointment"
-                  className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
-                >
-                  Book Appointment
-                </Link>
-                <a
-                  href="#about-quote"
-                  className={`inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
-                >
-                  Get a Free Quote
-                </a>
-              </div>
-            </div>
-            </div>
-            <ul className="mt-8 grid grid-cols-1 gap-3.5 border-t border-slate-700/70 pt-6 sm:grid-cols-2">
-              {trustItems.map((item) => {
-                const Icon = item.icon;
-                return (
+              <ul className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2">
+                {trustItems.map((item) => (
                   <li
                     key={item.title}
-                    className="flex items-start gap-3 rounded-xl border border-slate-700/80 bg-[#152538]/90 p-4"
+                    className="flex flex-col justify-center rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-5 backdrop-blur-xs sm:p-6"
                   >
-                    <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[#38BDF8]" aria-hidden="true" />
-                    <div>
-                      <p className="text-sm font-semibold text-white">{item.title}</p>
-                      <p className="mt-1 text-sm leading-5 text-slate-300">{item.body}</p>
-                    </div>
+                    <span aria-hidden="true" className="mb-3 h-0.5 w-8 bg-[#38BDF8]" />
+                    <p className="text-base font-bold text-white">{item.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">{item.body}</p>
                   </li>
-                );
-              })}
-            </ul>
+                ))}
+              </ul>
             </div>
           </div>
-          <FlushQuoteSidebar id="about-quote" formName="about-quote" />
+          <FlushQuoteSidebar id="quote" formName="about-quote" className="scroll-mt-24" />
         </section>
 
         <section className="bg-slate-50">
