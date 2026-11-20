@@ -52,7 +52,8 @@ export default function DoorTypesPage() {
                 theme="home"
                 layout="type"
                 surface="veil"
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 300px, 280px"
+                imageClassName="object-center transition-transform duration-300 group-hover:scale-[1.03]"
               />
             ))}
           </ServiceFunnelCarousel>

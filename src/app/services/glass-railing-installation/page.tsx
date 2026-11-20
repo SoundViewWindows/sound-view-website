@@ -54,6 +54,12 @@ const systems = [
     alt: "Interior staircase and loft glass railing",
     src: "/images/interior-staircase-railings.jpg",
   },
+  {
+    title: "Base-Shoe Deck & Pool Railings",
+    body: "Tempered glass sits in a low charcoal base channel with a slim top cap, so deck and pool edges stay open without vertical posts.",
+    alt: "Frameless base-shoe glass railing along a deck overlooking a pool",
+    src: "/images/railings/base-shoe-deck-pool.jpg",
+  },
 ];
 
 export default function GlassRailingPage() {
