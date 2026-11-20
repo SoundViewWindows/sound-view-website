@@ -14,5 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function BellevueShowroomPage() {
-  return <ShowroomLocation slug="bellevue" />;
+  return (
+    <ShowroomLocation
+      slug="bellevue"
+      excludeShowroom="bellevue"
+      otherShowroomsHeading="Explore Our Other Showrooms"
+    />
+  );
 }

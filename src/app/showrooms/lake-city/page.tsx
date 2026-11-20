@@ -14,5 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function LakeCityShowroomPage() {
-  return <ShowroomLocation slug="lake-city" />;
+  return (
+    <ShowroomLocation
+      slug="lake-city"
+      excludeShowroom="lake-city"
+      otherShowroomsHeading="Explore Our Other Showrooms"
+    />
+  );
 }

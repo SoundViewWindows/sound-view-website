@@ -14,5 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function WestQueenAnneShowroomPage() {
-  return <ShowroomLocation slug="west-queen-anne" />;
+  return (
+    <ShowroomLocation
+      slug="west-queen-anne"
+      excludeShowroom="west-queen-anne"
+      otherShowroomsHeading="Explore Our Other Showrooms"
+    />
+  );
 }
