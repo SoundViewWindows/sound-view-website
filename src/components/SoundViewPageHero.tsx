@@ -35,6 +35,7 @@ export function SoundViewPageHero({
   cards,
   pills,
   rightContent,
+  afterActions,
 }: {
   breadcrumbs: SoundViewBreadcrumb[];
   eyebrow: string;
@@ -45,6 +46,7 @@ export function SoundViewPageHero({
   cards?: SoundViewHeroCard[];
   pills?: SoundViewHeroPill[];
   rightContent?: ReactNode;
+  afterActions?: ReactNode;
 }) {
   if (rightContent) {
     return (
@@ -87,7 +89,9 @@ export function SoundViewPageHero({
                 <HeroLink action={secondaryAction} tone="secondary" />
               </div>
             ) : null}
-            {cards ? (
+            {afterActions ? (
+              afterActions
+            ) : cards ? (
               <div className="mt-6 grid w-full grid-cols-1 gap-4 border-t border-slate-700/70 pt-6 sm:grid-cols-3">
                 {cards.map((card) => (
                   <article key={card.title}>

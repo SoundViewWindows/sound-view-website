@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
-import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { CategoryFunnel } from "@/components/portfolio/CategoryFunnel";
@@ -23,33 +22,12 @@ const videos = [
   {
     src: "https://www.youtube.com/embed/_330VSt1DKs",
     title: "Complete Window Tear-Out & Weatherproof Install",
-    description:
-      "Precision removal of old failed units, sill prep, and airtight sealing engineered for wet maritime winters.",
+    label: "Complete Window Tear-Out & Install",
   },
   {
     src: "https://www.youtube.com/embed/wcTlT2Mdw_E",
     title: "On-Site Architectural Glass & Trim Installation",
-    description:
-      "Detailed exterior casing, insulation pack, and smooth operating sash adjustments.",
-  },
-];
-
-const projects = [
-  {
-    src: "/portfolio/brick-window-before-after.jpg",
-    alt: "Before and after of a brick exterior single-hung window replacement",
-    badge: "MASONRY OPENING RETROFIT",
-    title: "Brick Exterior Single-Hung Window Replacement",
-    copy: "Removed aged drafty single-pane wood sash set into masonry and installed a custom-sized, energy-efficient replacement unit with seamless exterior trim and tight perimeter seals.",
-    href: "/replacement-windows-seattle-wa/",
-  },
-  {
-    src: "/portfolio/siding-slider-before-after.jpg",
-    alt: "Before and after of a horizontal sliding window upgrade on lap siding",
-    badge: "SIDING PRESERVATION INSTALL",
-    title: "Horizontal Sliding Window Upgrade",
-    copy: "Upgraded an outdated gridded aluminum slider with a high-performance, smooth-glide vinyl slider, boosting thermal insulation and opening up natural garden light.",
-    href: "/replacement-windows-seattle-wa/",
+    label: "On-Site Glass & Trim Installation",
   },
 ];
 
@@ -64,111 +42,38 @@ export default function PortfolioPage() {
           title="Completed Window, Door & Glass Installations"
           subtitle="Browse real Greater Seattle projects, field installation videos, and before-and-after home transformations."
           primaryAction={{ label: "Schedule a Showroom Visit", href: "/book-appointment" }}
-          secondaryAction={{ label: "Request a Free Quote", href: "/contact" }}
-          cards={[
-            {
-              title: "Windows & Entry Doors",
-              body: "Tear-outs, sill flashing, and custom entry doors.",
-            },
-            {
-              title: "Architectural & Shower Glass",
-              body: "Frameless showers, railings, and replacement glass.",
-            },
-            {
-              title: "Greater Seattle & Puget Sound",
-              body: "Residential and commercial work across the region.",
-            },
-          ]}
+          secondaryAction={{ label: "Request a Free Quote", href: "/#homepage-quote-box" }}
+          afterActions={
+            <div className="mt-6 w-full border-t border-slate-700/70 pt-5">
+              <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
+                Watch Our Installers in the Field
+              </p>
+              <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+                {videos.map((video) => (
+                  <article
+                    key={video.src}
+                    className="overflow-hidden rounded-xl border border-slate-700/80 bg-[#152538]/90 transition-colors hover:border-sky-400/70"
+                  >
+                    <div className="aspect-video w-full bg-black">
+                      <iframe
+                        src={video.src}
+                        title={video.title}
+                        className="h-full w-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                    <p className="truncate px-3 py-2 text-xs font-semibold text-white">{video.label}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          }
           rightContent={<CategoryFunnel />}
         />
 
         <section
           className="bg-white pt-20 pb-20"
-          style={{ paddingTop: "80px", paddingBottom: "80px" }}
-        >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mt-0 mb-3 text-3xl font-bold text-[#0B192C]">
-            Watch Our Installers in the Field
-          </h2>
-          <p className="mb-8 max-w-2xl text-[#556980]">
-            See the care, precision flashing, and clean craftsmanship that goes
-            into every Puget Sound installation.
-          </p>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {videos.map((video) => (
-              <article
-                key={video.src}
-                className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md"
-              >
-                <div className="relative w-full overflow-hidden rounded-t-2xl bg-black pb-[56.25%]">
-                  <iframe
-                    src={video.src}
-                    title={video.title}
-                    className="absolute inset-0 h-full w-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-5 sm:p-6">
-                  <h3 className="text-xl font-bold text-[#0B192C]">{video.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#556980]">{video.description}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-          </div>
-        </section>
-
-        <section
-          id="project-gallery"
-          className="scroll-mt-8 bg-[#F4FAFD] pt-20 pb-20"
-          style={{ paddingTop: "80px", paddingBottom: "80px" }}
-        >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mt-0 mb-3 text-3xl font-bold text-[#0B192C]">
-            Real Transformations Across Greater Seattle
-          </h2>
-          <p className="mb-8 max-w-2xl text-[#556980]">
-            Direct comparisons of drafty, aged units replaced with high-efficiency
-            modern systems.
-          </p>
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            {projects.map((project) => (
-              <Link
-                key={project.src}
-                href={project.href}
-                className={`group block h-full rounded-2xl border border-slate-200 bg-white p-6 shadow-md transition-shadow hover:shadow-md sm:p-7 ${focusRing}`}
-              >
-                <div className="overflow-hidden rounded-2xl">
-                  <Image
-                    src={project.src}
-                    alt={project.alt}
-                    width={819}
-                    height={1024}
-                    className="h-auto w-full border border-slate-200 object-cover shadow-md transition-transform duration-500 ease-out group-hover:scale-105"
-                  />
-                </div>
-                <p className="mb-3 mt-4 inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-sky-700">
-                  {project.badge}
-                </p>
-                <h3 className="text-2xl font-bold text-[#0B192C] transition-colors group-hover:text-[#0090c8]">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-[#556980]">{project.copy}</p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#0090c8] group-hover:underline">
-                  Explore window options
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    →
-                  </span>
-                </span>
-              </Link>
-            ))}
-          </div>
-          </div>
-        </section>
-
-        <section
-          className="border-t border-slate-100 bg-white pt-20 pb-20"
           style={{ paddingTop: "80px", paddingBottom: "80px" }}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
