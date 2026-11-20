@@ -4,6 +4,7 @@ import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
+import { FinancingQuoteSidebar } from "./financing-quote-sidebar";
 
 export const metadata: Metadata = {
   alternates: {
@@ -31,7 +32,7 @@ export default function FinancingPage() {
     <div className="bg-white text-[#0B192C]">
       <Header />
       <main>
-        <section className="relative overflow-hidden bg-[#0F1D2E] pt-10 pb-16 text-white sm:pt-12 sm:pb-20">
+        <section className="relative bg-[#0F1D2E] text-white">
           <div className="pointer-events-none absolute inset-0 z-0 select-none">
             <img
               src="/images/hero-bg.jpg"
@@ -41,7 +42,8 @@ export default function FinancingPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
           </div>
-          <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-stretch">
+            <div className="min-w-0 flex-1 py-8 pl-4 pr-4 sm:pl-6 sm:pr-6 lg:py-10 lg:pl-10 lg:pr-10 xl:pl-16">
             <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-6 py-5 backdrop-blur-xs sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
@@ -83,7 +85,7 @@ export default function FinancingPage() {
               </div>
             </div>
 
-            <div className="mx-auto max-w-4xl space-y-6">
+            <div className="w-full space-y-5">
               <article className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs sm:p-8">
                 <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
                 <CheckBadge />
@@ -184,6 +186,8 @@ export default function FinancingPage() {
                 </ol>
               </article>
             </div>
+            </div>
+            <FinancingQuoteSidebar />
           </div>
         </section>
 
