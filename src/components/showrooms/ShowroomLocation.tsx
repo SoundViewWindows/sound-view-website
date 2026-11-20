@@ -14,7 +14,7 @@ const whiteButton = `inline-flex items-center justify-center rounded-lg bg-white
 
 function bookHrefFor(slug: ShowroomSlug) {
   const location = slug === "west-queen-anne" ? "queen-anne" : slug;
-  return `/book-appointment?location=${location}`;
+  return `/book-appointment?showroom=${location}`;
 }
 
 function headerHours(room: Showroom) {

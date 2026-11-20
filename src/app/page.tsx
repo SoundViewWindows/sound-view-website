@@ -248,6 +248,7 @@ const homepageShowrooms = [
     phone: "(206) 572-3411",
     phoneHref: "tel:2065723411",
     href: "/window-and-door-showroom-in-seattle-wa-lake-city-way-ne/",
+    booking: "/book-appointment?showroom=lake-city",
   },
   {
     name: "West Queen Anne Showroom",
@@ -258,6 +259,7 @@ const homepageShowrooms = [
     phone: "(206) 402-4229",
     phoneHref: "tel:2064024229",
     href: "/window-and-door-showroom-in-seattle-wa-921-elliott-ave/",
+    booking: "/book-appointment?showroom=queen-anne",
   },
   {
     name: "Bellevue Showroom",
@@ -268,6 +270,7 @@ const homepageShowrooms = [
     phone: "(425) 417-3005",
     phoneHref: "tel:4254173005",
     href: "/bellevue-showroom/",
+    booking: "/book-appointment?showroom=bellevue",
   },
 ] as const;
 
@@ -403,7 +406,7 @@ function ShowroomShowcase() {
               </div>
               <div className="mt-5 flex items-center gap-2.5 border-t border-slate-100 pt-4">
                 <Link
-                  href="/book-appointment"
+                  href={room.booking}
                   className="flex-1 rounded-lg bg-[#38BDF8] px-3 py-2.5 text-center text-xs font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400"
                 >
                   Book Visit

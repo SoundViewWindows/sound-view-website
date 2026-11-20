@@ -2,8 +2,7 @@
 
 import { CheckCircle2, Ruler, ShieldCheck } from "lucide-react";
 import Link from "next/link";
-import { Suspense, useCallback, useEffect, useId, useRef, useState, type DragEvent, type ReactNode } from "react";
-import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useId, useRef, useState, type DragEvent, type ReactNode } from "react";
 import { Header } from "@/components/Header";
 import {
   APPOINTMENT_DURATION,
@@ -228,6 +227,12 @@ export default function BookAppointmentPage() {
   useEffect(() => {
     setVisibleMonth((current) => current ?? currentPacificMonth());
   }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const location = appointmentLocationFromQuery(params.get("showroom") ?? params.get("location"));
+    if (location) pickLocation(location.id);
+  }, [pickLocation]);
 
   useEffect(() => {
     return () => {
@@ -498,9 +503,6 @@ export default function BookAppointmentPage() {
           </div>
           <div id="booking-funnel" className="relative z-10 mx-auto grid max-w-7xl scroll-mt-20 grid-cols-1 gap-8 px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-8 lg:grid-cols-12 lg:px-8">
             <div className="lg:col-span-7">
-              <Suspense fallback={null}>
-                <LocationFromQuery onPick={pickLocation} />
-              </Suspense>
               {confirmation ? (
                 <Confirmation
                   referenceId={confirmation.referenceId}
@@ -1674,16 +1676,6 @@ function toPayload(form: FormState): JobberAppointmentPayload {
     },
     submittedAt: new Date().toISOString(),
   };
-}
-
-function LocationFromQuery({ onPick }: { onPick: (id: AppointmentLocationId) => void }) {
-  const params = useSearchParams();
-  const value = params.get("location");
-  useEffect(() => {
-    const location = appointmentLocationFromQuery(value);
-    if (location) onPick(location.id);
-  }, [onPick, value]);
-  return null;
 }
 
 function addAndReset(input: HTMLInputElement, onAddImages: (files: FileList | File[]) => void) {

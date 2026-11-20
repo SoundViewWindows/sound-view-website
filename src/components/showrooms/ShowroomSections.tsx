@@ -79,7 +79,7 @@ function ShowroomCard({ room, current }: { room: Showroom; current: boolean }) {
         {room.phone}
       </a>
       <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
-        <Link href={`/book-appointment?location=${bookingLocationForShowroom(room.slug)}`} className={bookButton}>
+        <Link href={`/book-appointment?showroom=${bookingLocationForShowroom(room.slug)}`} className={bookButton}>
           Book Showroom Visit
         </Link>
         <a href={room.directionsHref} target="_blank" rel="noopener noreferrer" className={directionsButton}>

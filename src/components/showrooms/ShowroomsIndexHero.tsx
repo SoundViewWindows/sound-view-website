@@ -157,7 +157,7 @@ function ShowroomHeroCard({ room }: { room: Showroom }) {
       </div>
       <div className="mx-4 mb-4 mt-4 flex flex-wrap gap-2 border-t border-slate-700/70 pt-4">
         <Link
-          href={`/book-appointment?location=${bookingLocation(room.slug)}`}
+          href={`/book-appointment?showroom=${bookingLocation(room.slug)}`}
           className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-3 py-2 text-xs font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
         >
           Book Showroom Visit
