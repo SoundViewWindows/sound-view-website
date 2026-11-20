@@ -226,7 +226,7 @@ export default function Home() {
       </section>
     </div>
 
-      <SoundViewDifference />
+      <ShowroomShowcase />
       <HowItWorks />
       <FaqAndCta
         openIndex={openFaq}
@@ -238,12 +238,67 @@ export default function Home() {
   );
 }
 
-const differencePoints = [
-  "17+ Years of Greater Seattle Experience",
-  "Low-Pressure Showroom & In-Home Consultations",
-  "Certified Installation & Full Manufacturer Warranties",
-  "Certified, Licensed & Insured",
-];
+const homepageShowrooms = [
+  {
+    name: "Lake City Showroom",
+    image: "/images/sound-view-lake-city-storefront.jpg",
+    imageAlt: "Sound View Window and Door storefront on Lake City Way NE",
+    address: "12301 Lake City Way NE, Seattle, WA 98125",
+    hours: "Mon-Fri: 8:00 AM - 4:30 PM",
+    phone: "(206) 572-3411",
+    phoneHref: "tel:2065723411",
+    href: "/window-and-door-showroom-in-seattle-wa-lake-city-way-ne/",
+  },
+  {
+    name: "West Queen Anne Showroom",
+    image: "/images/sound-view-queen-anne-showroom.jpg",
+    imageAlt: "Sound View Window & Door West Queen Anne showroom exterior",
+    address: "921 Elliott Ave W, Seattle, WA 98119",
+    hours: "Mon-Fri: 8:00 AM - 4:30 PM",
+    phone: "(206) 402-4229",
+    phoneHref: "tel:2064024229",
+    href: "/window-and-door-showroom-in-seattle-wa-921-elliott-ave/",
+  },
+  {
+    name: "Bellevue Showroom",
+    image: "/images/sound-view-bellevue-showroom.jpg",
+    imageAlt: "Sound View Window & Door Bellevue showroom exterior",
+    address: "13555 NE Bel Red Rd Ste 207, Bellevue, WA 98005",
+    hours: "Mon-Fri: By Appointment Only",
+    phone: "(425) 417-3005",
+    phoneHref: "tel:4254173005",
+    href: "/bellevue-showroom/",
+  },
+] as const;
+
+const factoryBrands = [
+  {
+    name: "Milgard",
+    href: "https://www.milgard.com/",
+    src: "/images/brands/milgard.png",
+    alt: "Milgard Windows & Doors",
+    cardClass: "overflow-hidden border border-[#D6001C] bg-[#D6001C] hover:border-red-800",
+    imageClass:
+      "h-full w-full object-contain scale-[1.6] transition-transform group-hover:scale-[1.75] sm:scale-[1.7]",
+  },
+  {
+    name: "Andersen",
+    href: "https://www.andersenwindows.com/",
+    src: "/images/brands/andersen.png",
+    alt: "Andersen Windows & Doors",
+    cardClass: "overflow-hidden border border-slate-200 bg-white hover:border-sky-400",
+    imageClass:
+      "h-full w-full object-contain scale-[1.35] transition-transform group-hover:scale-[1.45] sm:scale-[1.4]",
+  },
+  {
+    name: "Ply Gem",
+    href: "https://www.plygem.com/",
+    src: "/images/brands/ply-gem.png",
+    alt: "Ply Gem Windows",
+    cardClass: "border border-slate-200 bg-white px-6 hover:border-sky-400 sm:px-8",
+    imageClass: "h-10 w-auto max-w-[185px] object-contain sm:h-12",
+  },
+] as const;
 
 const steps = [
   {
@@ -310,45 +365,76 @@ const faqs = [
   },
 ];
 
-function SoundViewDifference() {
+function ShowroomShowcase() {
   return (
-    <section className="w-full border-y border-slate-100 bg-white pb-16 pt-12 text-slate-900 sm:pb-20 sm:pt-14 lg:py-24">
-      <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-4 sm:px-5 lg:grid-cols-2 lg:gap-16">
-        <div>
-          <p className="mb-3 block text-xs font-bold uppercase tracking-widest text-sky-600 sm:text-sm">
-            The Sound View Difference
-          </p>
-          <h2 className="mb-6 text-3xl font-black leading-tight tracking-tight text-[#0B192C] sm:text-4xl lg:text-5xl">
-            A Seamless Experience From Start To Finish
-          </h2>
-          <p className="mb-6 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-            Replacing your windows and doors should not feel stressful. We guide
-            you through selecting the right high-efficiency products, verify
-            exact measurements, and complete your installation with precision
-            and care: zero high-pressure sales tactics, just honest advice and
-            quality craftsmanship.
-          </p>
-          <div className="my-6 w-full max-w-md border-t border-slate-200/80" />
-          <ul className="space-y-3">
-            {differencePoints.map((point) => (
-              <li
-                key={point}
-                className="flex items-center gap-3 text-sm font-semibold text-slate-800 sm:text-base"
-              >
-                <span className="h-1.5 w-1.5 shrink-0 rounded-sm bg-slate-900" />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-slate-100 shadow-xl lg:aspect-[5/4]">
-          <Image
-            src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1600&q=80"
-            alt="Bright living room with large windows and a door opening onto trees"
-            fill
-            sizes="(min-width: 1024px) 40vw, 100vw"
-            className="object-cover object-center"
-          />
+    <section className="border-b border-slate-200/80 bg-white py-14 lg:py-20">
+      <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+        <p className="text-xs font-bold uppercase tracking-wider text-[#0284C7]">
+          Visit Our Greater Seattle Showrooms
+        </p>
+        <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#0F1D2E] sm:text-4xl">
+          Compare Full-Size Windows & Doors Before You Decide
+        </h2>
+        <p className="mt-3 text-base leading-relaxed text-slate-600">
+          Skip the kitchen-table sales pitch. Operate full-size windows, patio doors, hardware, and glass packages in daylight at any of our three local showrooms.
+        </p>
+      </div>
+      <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
+        {homepageShowrooms.map((room) => (
+          <article
+            key={room.name}
+            className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:border-sky-400 hover:shadow-md"
+          >
+            <div className="h-48 w-full overflow-hidden bg-slate-100">
+              <img src={room.image} alt={room.imageAlt} className="h-full w-full object-cover object-center" />
+            </div>
+            <div className="flex flex-1 flex-col justify-between p-6">
+              <div>
+                <h3 className="text-lg font-bold text-[#0F1D2E]">{room.name}</h3>
+                <p className="mt-2 text-sm leading-5 text-slate-600">{room.address}</p>
+                <p className="mt-2 text-sm text-slate-600">{room.hours}</p>
+                <a
+                  href={room.phoneHref}
+                  className="mt-2 inline-block text-sm font-semibold text-[#0284C7] hover:text-[#0F1D2E]"
+                >
+                  {room.phone}
+                </a>
+              </div>
+              <div className="mt-5 flex items-center gap-2.5 border-t border-slate-100 pt-4">
+                <Link
+                  href="/book-appointment"
+                  className="flex-1 rounded-lg bg-[#38BDF8] px-3 py-2.5 text-center text-xs font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400"
+                >
+                  Book Visit
+                </Link>
+                <Link
+                  href={room.href}
+                  className="flex-1 rounded-lg bg-slate-100 px-3 py-2.5 text-center text-xs font-semibold text-[#0F1D2E] transition-colors hover:bg-slate-200"
+                >
+                  View Showroom
+                </Link>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-6 border-t border-slate-200 px-4 pt-8 sm:px-6 xl:flex-row xl:px-8">
+        <p className="text-center text-xs font-bold uppercase tracking-wider text-slate-500 xl:text-left">
+          Authorized Factory Dealer For Top Manufacturers
+        </p>
+        <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-3 xl:w-auto">
+          {factoryBrands.map((brand) => (
+            <a
+              key={brand.name}
+              href={brand.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${brand.name} website`}
+              className={`group flex h-20 min-w-[180px] items-center justify-center rounded-2xl shadow-xs transition-all hover:shadow-md sm:h-24 sm:min-w-[210px] ${brand.cardClass}`}
+            >
+              <img src={brand.src} alt={brand.alt} className={brand.imageClass} />
+            </a>
+          ))}
         </div>
       </div>
     </section>
@@ -503,7 +589,8 @@ function FaqAndCta({
 }) {
   return (
     <>
-    <section className="w-full border-t border-home-line bg-home-panel px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <ServiceAreasSection />
+    <section className="w-full bg-[#0F1D2E] px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-16">
         <ScrollReveal className="lg:col-span-5">
           <h2 className="mb-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
@@ -546,7 +633,6 @@ function FaqAndCta({
         </div>
       </div>
     </section>
-    <ServiceAreasSection />
     <section className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-5 lg:py-20">
           <ScrollReveal>

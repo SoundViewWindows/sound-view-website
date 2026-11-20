@@ -274,7 +274,7 @@ export function ServiceAreasSection() {
   return (
     <section
       aria-labelledby="service-areas-title"
-      className="border-b border-slate-200/80 bg-[#F4F6F9] py-16 md:py-20"
+      className="border-t border-slate-200/80 bg-[#F4F6F9] py-16 md:py-20"
       style={{ backgroundColor: "#F4F6F9", paddingTop: "72px", paddingBottom: "72px" }}
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
