@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import { CtaBanner } from "@/components/CtaBanner";
@@ -21,6 +20,11 @@ const providers = [
     tagline: "ELECTRIC & NATURAL GAS CUSTOMERS",
     description:
       "Offers substantial rebates per square foot or per window unit for qualifying high-efficiency window and door replacements across King, Pierce, and Snohomish counties.",
+    points: [
+      "Rebates calculated per square foot or qualifying window unit",
+      "Requires qualifying primary electric or PSE natural gas heat",
+      "Must meet current PSE U-Factor and ENERGY STAR specifications",
+    ],
     cta: "View PSE Window Rebates",
     href: "https://www.pse.com/en/rebates/windows-rebates",
   },
@@ -29,6 +33,11 @@ const providers = [
     tagline: "TACOMA POWER CUSTOMERS",
     description:
       "Provides incentives for residential window upgrades meeting strict U-Factor thresholds when replacing single-pane or uninsulated windows.",
+    points: [
+      "Designed for homes replacing single-pane or metal-frame windows",
+      "Requires Tacoma Power electric heat and strict U-Factor ratings",
+      "Must be installed by a participating contractor with itemized invoices",
+    ],
     cta: "View TPU Window Rebates",
     href: "https://www.mytpu.org/ways-to-save/for-my-home/heating-cooling/windows/",
   },
@@ -37,6 +46,11 @@ const providers = [
     tagline: "WASHINGTON SERVICE TERRITORIES",
     description:
       "Incentive programs for weatherization, high-efficiency window packages, and thermal boundary improvements.",
+    points: [
+      "Covers qualifying high-efficiency window upgrades in Washington service areas",
+      "Available for homes with qualifying electric or natural gas heating",
+      "Requires NFRC-rated glazing meeting Avista thermal guidelines",
+    ],
     cta: "View Avista Rebates",
     href: "https://www.myavista.com/energy-savings/rebates-washington",
   },
@@ -89,7 +103,7 @@ export default function EnergyRebatesPage() {
       <Header />
       <main className="flex-1">
         <section className="flex flex-col lg:flex-row">
-          <div className="relative flex flex-1 flex-col overflow-hidden bg-[#0F1D2E] pb-8 pl-4 pr-4 pt-8 text-white sm:pl-6 sm:pr-6 lg:pb-10 lg:pl-10 lg:pr-10 lg:pt-10 xl:pl-16">
+          <div className="relative flex flex-1 flex-col overflow-hidden bg-[#0F1D2E] py-6 pl-4 pr-4 text-white sm:pl-6 sm:pr-6 lg:py-7 lg:pl-10 lg:pr-10 xl:pl-16">
             <div className="pointer-events-none absolute inset-0 z-0 select-none">
               <img
                 src="/images/hero-bg.jpg"
@@ -99,46 +113,12 @@ export default function EnergyRebatesPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
             </div>
-            <div className="relative z-10 flex h-full flex-1 flex-col gap-5 lg:gap-6">
-            <div className="flex flex-col gap-5 rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-7 py-6 backdrop-blur-xs sm:px-8 sm:py-7 lg:flex-row lg:items-center lg:justify-between">
-              <div>
-                <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
-                  <ol className="flex flex-wrap items-center gap-2">
-                    <li>
-                      <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                        Home
-                      </Link>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span aria-hidden="true">&gt;</span>
-                      <span aria-current="page">Energy Rebates</span>
-                    </li>
-                  </ol>
-                </nav>
-                <p className="text-xs font-bold tracking-wider text-[#38BDF8]">
-                  REBATES &amp; TAX CREDITS
-                </p>
-                <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
-                  Energy Rebates &amp; Tax Credits for Windows &amp; Doors
-                </h1>
-                <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                  See which ENERGY STAR rated windows and doors qualify for federal tax credits and Greater Seattle utility incentives.
-                </p>
-              </div>
-              <div className="flex shrink-0 flex-wrap items-center gap-3">
-                <Link
-                  href="/book-appointment"
-                  className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-5 py-2.5 font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
-                >
-                  Book an Energy Consultation
-                </Link>
-                <a
-                  href="tel:+12063314296"
-                  className={`inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
-                >
-                  Call (206) 331-4296
-                </a>
-              </div>
+            <div className="relative z-10 flex h-full flex-1 flex-col gap-4">
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <h1 className="text-xs font-bold uppercase tracking-wider text-[#38BDF8] sm:text-sm">
+                Energy Rebates &amp; Tax Credits for Windows &amp; Doors
+              </h1>
+              <span className="text-xs text-slate-400">Greater Seattle Utility &amp; Federal 25C Incentives</span>
             </div>
             <div className="grid flex-1 grid-cols-1 gap-5 md:grid-cols-3">
               {providers.map((provider) => (
@@ -147,7 +127,7 @@ export default function EnergyRebatesPage() {
                   href={provider.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs transition-shadow hover:shadow-2xl sm:p-7 ${focusRing}`}
+                  className={`group flex h-full cursor-pointer flex-col justify-between rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs transition-colors hover:border-sky-400/70 sm:p-7 ${focusRing}`}
                 >
                   <div>
                     <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
@@ -158,6 +138,14 @@ export default function EnergyRebatesPage() {
                       {provider.title}
                     </h2>
                     <p className="mt-3 text-sm leading-relaxed text-slate-300">{provider.description}</p>
+                    <ul className="mt-4 space-y-2 text-xs text-slate-300">
+                      {provider.points.map((point) => (
+                        <li key={point} className="flex items-start gap-2">
+                          <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#38BDF8]" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                   <span className="mt-6 inline-flex items-center gap-1.5 border-t border-slate-700/60 pt-4 text-sm font-semibold text-[#38BDF8] hover:text-sky-300">
                     {provider.cta}
@@ -166,7 +154,7 @@ export default function EnergyRebatesPage() {
                 </a>
               ))}
             </div>
-            <div className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-7 py-6 backdrop-blur-xs sm:px-8 sm:py-7">
+            <div className="border-t border-slate-700/70 pt-5">
               <p className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
                 Included With Every Sound View Energy Upgrade
               </p>
@@ -206,29 +194,6 @@ export default function EnergyRebatesPage() {
           </div>
         </section>
 
-        <section className="bg-white pt-16 pb-20 md:pt-20 md:pb-24">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6">
-            <div className="rounded-[4px] border border-slate-200/90 bg-[#F8FAFC] p-8 text-center shadow-sm sm:p-10">
-              <span
-                aria-hidden="true"
-                className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-[4px] bg-[#0284C7] text-lg font-bold text-white"
-              >
-                i
-              </span>
-              <h2 className="mb-2 text-2xl font-bold text-[#0B192C]">Please Confirm Program Details</h2>
-              <span aria-hidden="true" className="mx-auto mb-6 block h-0.5 w-12 bg-[#0284C7]" />
-              <p className="mx-auto max-w-3xl text-sm leading-relaxed text-slate-600">
-                Rebate availability, eligibility requirements, incentive amounts, and
-                application deadlines can change. Programs may require specific
-                products, existing window types, qualifying heating systems, approved
-                contractors, or advance approval. Check the current requirements
-                directly with your provider before making purchasing or installation
-                decisions. Sound View Window &amp; Door cannot guarantee that a
-                particular project or product will qualify for a utility rebate.
-              </p>
-            </div>
-          </div>
-        </section>
       </main>
       <footer className="border-t border-slate-100 bg-white px-4 py-8 text-center text-xs text-slate-400 sm:text-sm">
         <p>© 2026 Sound View Window &amp; Door. All Rights Reserved.</p>
