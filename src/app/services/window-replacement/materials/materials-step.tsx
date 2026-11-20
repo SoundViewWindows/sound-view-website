@@ -2,6 +2,7 @@
 
 import { Header } from "@/components/Header";
 import { SelectionCard } from "@/components/SelectionCard";
+import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
 import { SkipAhead } from "@/components/SkipAhead";
 import { WindowStepNav } from "@/components/WindowStepNav";
 import { windowMaterials, windowStepHref } from "@/lib/window-funnel";
@@ -40,7 +41,7 @@ export function MaterialsStep() {
         </div>
 
         <section>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ServiceFunnelCarousel>
             {windowMaterials.map((material) => (
               <SelectionCard
                 key={material.slug}
@@ -54,13 +55,11 @@ export function MaterialsStep() {
                 sizes="(min-width: 768px) 50vw, 100vw"
                 theme="home"
                 layout="material"
-                tallImage
                 surface="veil"
-                imageFrameClassName="relative mb-2 h-64 w-full shrink-0 overflow-hidden rounded-[4px] bg-slate-800 sm:h-72"
-                imageClassName="object-[50%_72%] transition-transform duration-300 group-hover:scale-[1.03]"
+                imageClassName="object-[50%_72%]"
               />
             ))}
-          </div>
+          </ServiceFunnelCarousel>
           <div className="mt-10 text-center">
             <SkipAhead theme="home" href={windowStepHref("types", { material: "undecided" })}>
               Not sure yet? Continue to Window Types

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { GlassRailingRequest, RequestInstallationButton } from "@/components/GlassRailingRequest";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
+import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
 import { WhyChooseSoundView } from "@/components/WhyChooseSoundView";
 
 export const metadata: Metadata = {
@@ -149,33 +150,30 @@ export default function GlassRailingPage() {
             <h2 id="railing-systems" className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
               Glass Railing Systems & Applications
             </h2>
-            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <ServiceFunnelCarousel className="mt-8">
               {systems.map((system) => (
                 <article
                   key={system.title}
-                  className="overflow-hidden rounded-[4px] border border-slate-200/80 bg-white shadow-sm"
+                  className="flex h-full flex-col overflow-hidden rounded-[4px] border border-slate-200/80 bg-white shadow-sm"
                 >
-                  <div className="relative h-[160px] overflow-hidden">
+                  <div className="relative h-52 w-full shrink-0 overflow-hidden sm:h-56">
                     <Image
                       src={system.src}
                       alt={system.alt}
                       fill
-                      sizes="(min-width: 768px) 33vw, 100vw"
-                      className={
-                        "position" in system
-                          ? "object-cover"
-                          : "h-full w-full object-cover object-center"
-                      }
-                      style={"position" in system ? { objectPosition: system.position } : undefined}
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 300px, 280px"
+                      className="h-full w-full object-cover object-center"
                     />
                   </div>
-                  <div className="p-4">
-                    <h3 className="text-[15px] font-bold leading-tight text-[#0B192C]">{system.title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-slate-600">{system.body}</p>
+                  <div className="flex min-h-0 flex-1 flex-col justify-between overflow-hidden p-5 sm:p-6">
+                    <div>
+                      <h3 className="mb-2 text-[15px] font-bold leading-tight text-[#0B192C]">{system.title}</h3>
+                      <p className="line-clamp-4 text-xs leading-relaxed text-slate-600">{system.body}</p>
+                    </div>
                   </div>
                 </article>
               ))}
-            </div>
+            </ServiceFunnelCarousel>
           </div>
         </section>
       </main>

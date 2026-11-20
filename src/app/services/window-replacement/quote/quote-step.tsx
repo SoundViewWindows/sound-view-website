@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Header } from "@/components/Header";
-import { HeroActionButtons } from "@/components/HeroActionButtons";
+import { QuoteContactBar } from "@/components/HeroActionButtons";
 import { CostComparison } from "@/components/CostComparison";
+import { PugetSoundProofCard, QuoteSelectionCard, WhatHappensNextCard } from "@/components/QuoteReassurance";
 import { WindowQuoteBox } from "@/components/WindowQuoteBox";
 import { WindowStepNav } from "@/components/WindowStepNav";
 import {
@@ -39,11 +39,12 @@ export function QuoteStep() {
     setManufacturer(manufacturerFromSlug(manufacturerParam)?.option ?? "");
   }, [typeParam, materialParam, manufacturerParam]);
 
-  const styleName = choiceLabel(windowStyles.find((item) => item.option === style) ?? null);
-  const materialName = choiceLabel(windowMaterials.find((item) => item.option === material) ?? null);
-  const manufacturerName = choiceLabel(
-    windowManufacturers.find((item) => item.option === manufacturer) ?? null,
-  );
+  const styleChoice = windowStyles.find((item) => item.option === style) ?? null;
+  const materialChoice = windowMaterials.find((item) => item.option === material) ?? null;
+  const manufacturerChoice = windowManufacturers.find((item) => item.option === manufacturer) ?? null;
+  const styleName = choiceLabel(styleChoice);
+  const materialName = choiceLabel(materialChoice);
+  const manufacturerName = choiceLabel(manufacturerChoice);
   const materialSlug = materialSlugFromOption(material);
   const typeSlug = styleSlugFromOption(style);
   const manufacturerSlug = manufacturerSlugFromOption(manufacturer);
@@ -81,25 +82,37 @@ export function QuoteStep() {
                   Review the material, type, and manufacturer you chose, then share
                   a few details so a local specialist can prepare upfront pricing.
                 </p>
-                <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                  <SummaryBadge
-                    label={`Material: ${materialName}`}
-                    href={windowStepHref("materials")}
-                  />
-                  <SummaryBadge
-                    label={`Type: ${styleName}`}
-                    href={windowStepHref("types", { material: materialSlug })}
-                  />
-                  <SummaryBadge
-                    label={`Manufacturer: ${manufacturerName}`}
-                    href={windowStepHref("manufacturers", {
-                      material: materialSlug,
-                      type: typeSlug,
-                    })}
-                  />
                 </div>
-                </div>
-                <HeroActionButtons appearance="quote" />
+                <QuoteSelectionCard
+                  selections={[
+                    {
+                      label: "Material",
+                      name: materialName,
+                      href: windowStepHref("materials"),
+                      image: materialChoice?.image,
+                      imageAlt: materialChoice?.alt,
+                    },
+                    {
+                      label: "Window Type",
+                      name: styleName,
+                      href: windowStepHref("types", { material: materialSlug }),
+                      image: styleChoice?.image,
+                      imageAlt: styleChoice?.alt,
+                    },
+                    {
+                      label: "Manufacturer",
+                      name: manufacturerName,
+                      href: windowStepHref("manufacturers", {
+                        material: materialSlug,
+                        type: typeSlug,
+                      }),
+                      image: manufacturerChoice?.image,
+                      imageAlt: manufacturerChoice?.alt,
+                    },
+                  ]}
+                />
+                <WhatHappensNextCard />
+                <PugetSoundProofCard />
               </div>
               <div className="lg:col-span-6">
                 <WindowQuoteBox
@@ -111,6 +124,7 @@ export function QuoteStep() {
                   onStyleChange={setStyle}
                   onManufacturerChange={setManufacturer}
                 />
+                <QuoteContactBar />
               </div>
             </div>
           </div>
@@ -118,19 +132,5 @@ export function QuoteStep() {
         <CostComparison service="windows" theme="about" />
       </main>
     </div>
-  );
-}
-
-function SummaryBadge({ label, href }: { label: string; href: string }) {
-  return (
-    <p className="inline-flex items-center gap-2 rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-2.5 py-1 text-xs font-medium text-white shadow-sm">
-      <span>{label}</span>
-      <Link
-        href={href}
-        className="ml-1 font-semibold text-[#38BDF8] underline decoration-[#38BDF8]/40 underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
-      >
-        Edit
-      </Link>
-    </p>
   );
 }

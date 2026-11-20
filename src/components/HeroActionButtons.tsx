@@ -83,7 +83,7 @@ export function HeroActionButtons({ appearance = "home" }: { appearance?: "home"
           id="showroom-phones"
           className={
             quote
-              ? "absolute left-0 top-full z-50 w-[min(24rem,calc(100vw-2rem))] pt-2 shadow-2xl"
+              ? "absolute bottom-full right-0 z-50 mb-2 w-[min(24rem,calc(100vw-2rem))] shadow-2xl"
               : "absolute right-0 top-full z-50 w-[calc(100vw-2rem)] max-w-sm pt-2 shadow-2xl sm:right-auto sm:left-1/2 sm:w-[min(24rem,calc(100vw-2rem))] sm:max-w-none sm:-translate-x-1/2"
           }
         >
@@ -128,7 +128,7 @@ export function HeroActionButtons({ appearance = "home" }: { appearance?: "home"
 
   if (quote) {
     return (
-      <div className="relative z-20 mt-7 flex flex-wrap items-center gap-3.5">
+      <div className="relative z-20 flex shrink-0 flex-wrap items-center gap-2.5">
         {book}
         {call}
       </div>
@@ -140,6 +140,17 @@ export function HeroActionButtons({ appearance = "home" }: { appearance?: "home"
       {book}
       {call}
     </>
+  );
+}
+
+export function QuoteContactBar() {
+  return (
+    <div className="relative z-20 mt-4 flex flex-col gap-3 rounded-2xl border border-white/15 bg-[#0F1D2E]/85 p-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-4">
+      <p className="text-xs font-medium text-slate-200 sm:text-sm">
+        Prefer to visit a showroom or talk now?
+      </p>
+      <HeroActionButtons appearance="quote" />
+    </div>
   );
 }
 

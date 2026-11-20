@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { DoorStepNav } from "@/components/DoorStepNav";
 import { Header } from "@/components/Header";
 import { ManufacturerCard } from "@/components/ManufacturerCard";
+import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
 import { SkipAhead } from "@/components/SkipAhead";
 import {
   doorChoiceLabel,
@@ -80,7 +81,7 @@ export function DoorManufacturersStep() {
         </div>
 
         <section>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ServiceFunnelCarousel>
             {doorManufacturers.map((brand) => {
               const active = selected?.slug === brand.slug;
               return (
@@ -93,6 +94,7 @@ export function DoorManufacturersStep() {
                   })}
                   name={brand.name}
                   description={brand.body}
+                  detail={brand.detail}
                   image={brand.image}
                   alt={brand.alt}
                   selected={active}
@@ -101,7 +103,7 @@ export function DoorManufacturersStep() {
                 />
               );
             })}
-          </div>
+          </ServiceFunnelCarousel>
           <div className="mt-10 flex justify-center">
             <SkipAhead theme="home" href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>

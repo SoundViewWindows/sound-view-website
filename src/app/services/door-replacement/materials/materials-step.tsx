@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { DoorStepNav } from "@/components/DoorStepNav";
 import { Header } from "@/components/Header";
 import { SelectionCard } from "@/components/SelectionCard";
+import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
 import { SkipAhead } from "@/components/SkipAhead";
 import {
   DOOR_MATERIAL_STORAGE_KEY,
@@ -119,7 +120,7 @@ export function DoorMaterialsStep() {
         </div>
 
         <section>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ServiceFunnelCarousel>
             {materials.map((material) => {
               const selected = selectedSlug === material.slug;
               return (
@@ -145,7 +146,7 @@ export function DoorMaterialsStep() {
                 />
               );
             })}
-          </div>
+          </ServiceFunnelCarousel>
           <div className="mt-10 text-center">
             <SkipAhead theme="home" href={skipHref} onClick={clearStoredMaterial}>
               Not sure yet? Continue to Manufacturers

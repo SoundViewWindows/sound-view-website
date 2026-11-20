@@ -5,6 +5,7 @@ type ManufacturerCardProps = {
   href: string;
   name: string;
   description: string;
+  detail?: string;
   image?: string;
   alt: string;
   selected?: boolean;
@@ -16,50 +17,53 @@ export function ManufacturerCard({
   href,
   name,
   description,
+  detail,
   image,
   alt,
   selected = false,
-  theme = "default",
   surface = "solid",
 }: ManufacturerCardProps) {
-  const home = theme === "home";
-  const veil = surface === "veil" ? "bg-[#182B3E]/75 backdrop-blur-[2px]" : "";
+  const veil = surface === "veil" ? "bg-[#182B3E]/75 backdrop-blur-[2px]" : "bg-[#2B3E50]/85";
+
   return (
     <Link
       href={href}
       aria-current={selected ? "true" : undefined}
-      className={`group flex cursor-pointer flex-col justify-between p-5 focus-visible:outline-2 focus-visible:outline-offset-2 ${
-        home
-          ? `rounded-xl border ${veil || "bg-home-panel/80"} shadow-sm transition-shadow hover:shadow-md focus-visible:outline-home-accent ${
-              selected ? "border-home-accent ring-2 ring-home-accent" : "border-[#8AA0B2]/35"
-            }`
-          : `rounded-2xl border bg-[#132238] transition-all duration-200 hover:border-sky-400 hover:shadow-xl hover:shadow-sky-500/10 focus-visible:outline-[#38BDF8] ${
-              selected ? "border-transparent ring-2 ring-sky-400" : "border-slate-700/70"
-            }`
+      className={`group flex h-full cursor-pointer flex-col overflow-hidden rounded-[4px] border transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${veil} ${
+        selected ? "border-sky-400 ring-2 ring-sky-400" : "border-white/15"
       }`}
     >
-      <span>
-        <span className="relative mb-4 flex h-28 w-full items-center justify-center overflow-hidden rounded-xl border border-slate-200/80 bg-white p-4 shadow-inner">
-          {image ? (
-            <Image src={image} alt={alt} fill sizes="(min-width: 1024px) 22vw, (min-width: 768px) 40vw, 100vw" className="object-contain p-2" />
-          ) : (
-            <span className="text-center text-sm font-extrabold uppercase tracking-wider text-[#0B192C]">
-              No Preference
-            </span>
-          )}
-        </span>
-        <span className={`mb-1 block text-white ${home ? "text-base font-bold sm:text-lg" : "text-lg font-extrabold sm:text-xl"}`}>{name}</span>
-        <span className={`mb-4 line-clamp-2 block ${home ? "text-xs text-slate-200 sm:text-sm" : "text-xs text-slate-300 sm:text-sm"}`}>{description}</span>
+      <span className="relative flex h-52 w-full shrink-0 items-center justify-center overflow-hidden bg-white sm:h-56">
+        {image ? (
+          <Image
+            src={image}
+            alt={alt}
+            fill
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 300px, 280px"
+            className="h-full w-full object-contain p-6"
+          />
+        ) : (
+          <span className="px-4 text-center text-sm font-extrabold uppercase tracking-wider text-[#0B192C]">
+            No Preference
+          </span>
+        )}
       </span>
-      <span
-        className={`inline-flex items-center text-xs ${
-          home
-            ? "font-semibold text-white transition-colors group-hover:text-home-accent"
-            : "font-bold uppercase tracking-wider text-sky-400 group-hover:text-sky-300"
-        }`}
-      >
-        Select Brand
-        <span className="ml-1.5 transition-transform group-hover:translate-x-1">→</span>
+      <span className="flex min-h-0 flex-1 flex-col justify-between overflow-hidden p-5 sm:p-6">
+        <span>
+          <span className="mb-2 block text-[15px] font-bold leading-tight text-white">{name}</span>
+          <span className="line-clamp-4 block text-xs leading-relaxed text-slate-300">{description}</span>
+        </span>
+        <span className="mt-auto pt-3">
+          {detail ? (
+            <span className="mb-2 block text-xs font-medium leading-snug text-sky-400">{detail}</span>
+          ) : null}
+          <span className="inline-flex items-center gap-1 text-xs font-semibold text-white">
+            Select Brand
+            <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+              →
+            </span>
+          </span>
+        </span>
       </span>
     </Link>
   );

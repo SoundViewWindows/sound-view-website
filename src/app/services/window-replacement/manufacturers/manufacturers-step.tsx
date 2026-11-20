@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/Header";
 import { ManufacturerCard } from "@/components/ManufacturerCard";
+import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
 import { SkipAhead } from "@/components/SkipAhead";
 import { WindowStepNav } from "@/components/WindowStepNav";
 import {
@@ -67,7 +68,7 @@ export function ManufacturersStep() {
         </div>
 
         <section>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ServiceFunnelCarousel>
             {windowManufacturers.map((brand) => (
               <ManufacturerCard
                 key={brand.slug}
@@ -78,13 +79,14 @@ export function ManufacturersStep() {
                 })}
                 name={brand.name}
                 description={brand.body}
+                detail={brand.detail}
                 image={brand.image}
                 alt={brand.alt}
                 theme="home"
                 surface="veil"
               />
             ))}
-          </div>
+          </ServiceFunnelCarousel>
           <div className="mt-10 flex justify-center">
             <SkipAhead theme="home" href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>

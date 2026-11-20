@@ -17,7 +17,6 @@ type SelectionCardProps = {
   theme?: "default" | "home";
   layout?: "material" | "type";
   tallImage?: boolean;
-  imageFrameClassName?: string;
   imageClassName?: string;
   imageStyle?: CSSProperties;
   descriptionClassName?: string;
@@ -36,37 +35,27 @@ export function SelectionCard({
   sizes,
   selected = false,
   onClick,
-  tallImage = false,
-  imageFrameClassName,
   imageClassName,
   imageStyle,
-  descriptionClassName,
-  paddingClassName = "p-4",
   surface = "solid",
 }: SelectionCardProps) {
-  const imageFrame =
-    imageFrameClassName ??
-    "relative mb-2 h-[135px] w-full shrink-0 overflow-hidden rounded-[4px] bg-slate-800 sm:h-[145px]";
-
   return (
     <Link
       href={href}
       onClick={onClick}
       aria-current={selected ? "true" : undefined}
-      className={`group flex h-full cursor-pointer flex-col rounded-[4px] ${surface === "veil" ? "bg-[#182B3E]/75 backdrop-blur-[2px]" : "bg-[#2B3E50]/85"} ${paddingClassName} transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
-        tallImage ? "justify-between" : ""
-      } ${
-        selected ? "border border-sky-400 ring-2 ring-sky-400" : "border border-white/15"
-      }`}
+      className={`group flex h-full cursor-pointer flex-col overflow-hidden rounded-[4px] transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] ${
+        surface === "veil" ? "bg-[#182B3E]/75 backdrop-blur-[2px]" : "bg-[#2B3E50]/85"
+      } ${selected ? "border border-sky-400 ring-2 ring-sky-400" : "border border-white/15"}`}
     >
-      <span className={imageFrame}>
+      <span className="relative h-52 w-full shrink-0 overflow-hidden bg-slate-800 sm:h-56">
         {image ? (
           <Image
             src={image}
             alt={alt}
             fill
             sizes={sizes}
-            className={`block h-full w-full object-cover ${imageClassName ?? "object-center"}`}
+            className={`h-full w-full object-cover ${imageClassName ?? "object-center"}`}
             style={imageStyle}
           />
         ) : null}
@@ -76,18 +65,20 @@ export function SelectionCard({
           </span>
         ) : null}
       </span>
-      <span className="flex min-h-0 flex-1 flex-col">
-        <span className="mb-1 text-[15px] font-bold leading-tight text-white">{title}</span>
-        <span className={descriptionClassName ?? "text-xs leading-relaxed text-slate-300"}>
-          {description}
+      <span className="flex min-h-0 flex-1 flex-col justify-between overflow-hidden p-5 sm:p-6">
+        <span>
+          <span className="mb-2 block text-[15px] font-bold leading-tight text-white">{title}</span>
+          <span className="line-clamp-4 block text-xs leading-relaxed text-slate-300">{description}</span>
         </span>
-        {detail ? (
-          <span className="mt-1.5 text-xs font-medium leading-snug text-sky-400">{detail}</span>
-        ) : null}
-        <span className="mt-auto inline-flex items-center gap-1 pt-2.5 text-xs font-semibold text-white">
-          {cta}
-          <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
-            →
+        <span className="mt-auto pt-3">
+          {detail ? (
+            <span className="mb-2 block text-xs font-medium leading-snug text-sky-400">{detail}</span>
+          ) : null}
+          <span className="inline-flex items-center gap-1 text-xs font-semibold text-white">
+            {cta}
+            <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+              →
+            </span>
           </span>
         </span>
       </span>

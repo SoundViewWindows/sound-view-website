@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/Header";
 import { SelectionCard } from "@/components/SelectionCard";
+import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
 import { SkipAhead } from "@/components/SkipAhead";
 import { WindowStepNav } from "@/components/WindowStepNav";
 import {
@@ -66,7 +67,7 @@ export function TypesStep() {
         </div>
 
         <section>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ServiceFunnelCarousel>
             {windowStyles.map((style) => (
               <SelectionCard
                 key={style.slug}
@@ -78,18 +79,15 @@ export function TypesStep() {
                 alt={style.alt}
                 title={style.name}
                 description={style.body}
-                descriptionClassName="mb-2.5 text-[11px] leading-snug text-slate-300"
                 detail={style.detail}
                 cta={`Explore ${style.name}`}
-                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 300px, 280px"
                 theme="home"
                 layout="type"
-                tallImage
-                imageClassName={style.slug === "bow" ? "scale-[1.45]" : undefined}
                 surface="veil"
               />
             ))}
-          </div>
+          </ServiceFunnelCarousel>
           <div className="mt-10 text-center">
             <SkipAhead
               theme="home"

@@ -1,14 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Header } from "@/components/Header";
-import { HeroActionButtons } from "@/components/HeroActionButtons";
+import { QuoteContactBar } from "@/components/HeroActionButtons";
 import { CostComparison } from "@/components/CostComparison";
+import { PugetSoundProofCard, QuoteSelectionCard, WhatHappensNextCard } from "@/components/QuoteReassurance";
 import { ShowerDoorQuoteBox } from "@/components/ShowerDoorQuoteBox";
 import { ShowerStepNav } from "@/components/ShowerStepNav";
-import { showerSelectionBadge, showerStyleFromSlug } from "@/lib/shower-funnel";
+import { isConsultationSlug, showerStyleFromSlug, showerStyles } from "@/lib/shower-funnel";
 
 export function ShowerQuoteStep() {
   const searchParams = useSearchParams();
@@ -20,7 +20,12 @@ export function ShowerQuoteStep() {
     setStyle(showerStyleFromSlug(typeParam)?.option ?? "");
   }, [typeParam]);
 
-  const styleName = showerSelectionBadge(style, { type: typeParam, style: styleParam });
+  const styleChoice = showerStyles.find((item) => item.option === style) ?? null;
+  const styleName = styleChoice
+    ? styleChoice.name
+    : isConsultationSlug(styleParam) || isConsultationSlug(typeParam)
+      ? "Specialist Recommendation"
+      : "Open to advice";
 
   return (
     <div className="flex flex-1 flex-col bg-home-canvas text-[#E7EEF3]">
@@ -53,17 +58,20 @@ export function ShowerQuoteStep() {
                   Review your chosen configuration, then share a few details so our
                   Seattle glass specialists can prepare upfront pricing.
                 </p>
-                <p className="inline-flex items-center gap-2 rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-2.5 py-1 text-xs font-medium text-white shadow-sm">
-                  <span>{styleName}</span>
-                  <Link
-                    href="/frameless-shower-doors-and-enclosures/"
-                    className="ml-1 font-semibold text-[#38BDF8] underline decoration-[#38BDF8]/40 underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
-                  >
-                    Edit
-                  </Link>
-                </p>
                 </div>
-                <HeroActionButtons appearance="quote" />
+                <QuoteSelectionCard
+                  selections={[
+                    {
+                      label: "Style",
+                      name: styleName,
+                      href: "/frameless-shower-doors-and-enclosures/",
+                      image: styleChoice?.image,
+                      imageAlt: styleChoice?.alt,
+                    },
+                  ]}
+                />
+                <WhatHappensNextCard />
+                <PugetSoundProofCard />
               </div>
               <div className="lg:col-span-6">
                 <ShowerDoorQuoteBox
@@ -71,6 +79,7 @@ export function ShowerQuoteStep() {
                   style={style}
                   onStyleChange={setStyle}
                 />
+                <QuoteContactBar />
               </div>
             </div>
           </div>

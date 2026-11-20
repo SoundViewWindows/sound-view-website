@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DoorQuoteBox } from "@/components/DoorQuoteBox";
 import { CostComparison } from "@/components/CostComparison";
 import { DoorStepNav } from "@/components/DoorStepNav";
 import { Header } from "@/components/Header";
-import { HeroActionButtons } from "@/components/HeroActionButtons";
+import { QuoteContactBar } from "@/components/HeroActionButtons";
+import { PugetSoundProofCard, QuoteSelectionCard, WhatHappensNextCard } from "@/components/QuoteReassurance";
 import {
   DOOR_MATERIAL_STORAGE_KEY,
   doorChoiceLabel,
@@ -64,13 +64,12 @@ export function DoorQuoteStep() {
     }
   }, [manufacturerParam, materialParam, router, searchParams, typeParam]);
 
-  const styleName = doorChoiceLabel(doorStyles.find((item) => item.option === style) ?? null);
-  const materialName = doorChoiceLabel(
-    doorMaterials.find((item) => item.option === material) ?? null,
-  );
-  const manufacturerName = doorChoiceLabel(
-    doorManufacturers.find((item) => item.option === manufacturer) ?? null,
-  );
+  const styleChoice = doorStyles.find((item) => item.option === style) ?? null;
+  const materialChoice = doorMaterials.find((item) => item.option === material) ?? null;
+  const manufacturerChoice = doorManufacturers.find((item) => item.option === manufacturer) ?? null;
+  const styleName = doorChoiceLabel(styleChoice);
+  const materialName = doorChoiceLabel(materialChoice);
+  const manufacturerName = doorChoiceLabel(manufacturerChoice);
   const typeSlug = doorStyleSlugFromOption(style);
   const materialSlug =
     doorMaterials.find((item) => item.option === material)?.slug ?? materialParam ?? "undecided";
@@ -111,30 +110,42 @@ export function DoorQuoteStep() {
                   Review your door type, material, and manufacturer, then share your
                   project details so our Seattle specialists can prepare an upfront quote.
                 </p>
-                <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                  <SummaryBadge
-                    label={`Door Type: ${styleName}`}
-                    href={doorStepHref("types")}
-                  />
-                  <SummaryBadge
-                    label={`Material: ${materialName}`}
-                    href={doorStepHref("materials", {
-                      type: typeSlug,
-                      material: materialSlug,
-                      manufacturer: manufacturerSlug,
-                    })}
-                  />
-                  <SummaryBadge
-                    label={`Manufacturer: ${manufacturerName}`}
-                    href={doorStepHref("manufacturers", {
-                      type: typeSlug,
-                      material: materialSlug,
-                      manufacturer: manufacturerSlug,
-                    })}
-                  />
                 </div>
-                </div>
-                <HeroActionButtons appearance="quote" />
+                <QuoteSelectionCard
+                  selections={[
+                    {
+                      label: "Door Type",
+                      name: styleName,
+                      href: doorStepHref("types"),
+                      image: styleChoice?.image,
+                      imageAlt: styleChoice?.alt,
+                    },
+                    {
+                      label: "Material",
+                      name: materialName,
+                      href: doorStepHref("materials", {
+                        type: typeSlug,
+                        material: materialSlug,
+                        manufacturer: manufacturerSlug,
+                      }),
+                      image: materialChoice?.image,
+                      imageAlt: materialChoice?.alt,
+                    },
+                    {
+                      label: "Manufacturer",
+                      name: manufacturerName,
+                      href: doorStepHref("manufacturers", {
+                        type: typeSlug,
+                        material: materialSlug,
+                        manufacturer: manufacturerSlug,
+                      }),
+                      image: manufacturerChoice?.image,
+                      imageAlt: manufacturerChoice?.alt,
+                    },
+                  ]}
+                />
+                <WhatHappensNextCard />
+                <PugetSoundProofCard />
               </div>
               <div className="lg:col-span-6">
                 <DoorQuoteBox
@@ -146,6 +157,7 @@ export function DoorQuoteStep() {
                   onStyleChange={setStyle}
                   onManufacturerChange={setManufacturer}
                 />
+                <QuoteContactBar />
               </div>
             </div>
           </div>
@@ -153,19 +165,5 @@ export function DoorQuoteStep() {
         <CostComparison service="doors" theme="about" />
       </main>
     </div>
-  );
-}
-
-function SummaryBadge({ label, href }: { label: string; href: string }) {
-  return (
-    <p className="inline-flex items-center gap-2 rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-2.5 py-1 text-xs font-medium text-white shadow-sm">
-      <span>{label}</span>
-      <Link
-        href={href}
-        className="ml-1 font-semibold text-[#38BDF8] underline decoration-[#38BDF8]/40 underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
-      >
-        Edit
-      </Link>
-    </p>
   );
 }

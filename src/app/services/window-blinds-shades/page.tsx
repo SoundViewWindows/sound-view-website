@@ -3,6 +3,7 @@ import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
+import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
 import { CostComparison } from "@/components/CostComparison";
 import { treatmentStyles } from "@/lib/window-treatments";
 
@@ -91,38 +92,44 @@ export default function WindowBlindsShadesPage() {
         </section>
 
         <section aria-label="Treatment categories">
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 px-4 pb-16 sm:grid-cols-2 sm:px-5 lg:grid-cols-4">
+          <div className="mx-auto max-w-[1440px] px-4 pb-16 sm:px-5">
+          <ServiceFunnelCarousel>
             {treatments.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
-                className="group flex h-full cursor-pointer flex-col rounded-[4px] border border-white/15 bg-[#182B3E]/75 p-4 backdrop-blur-[2px] transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-[4px] border border-white/15 bg-[#182B3E]/75 backdrop-blur-[2px] transition-all hover:border-white/35 hover:bg-[#31465A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
               >
-                <span className="relative mb-2 h-[135px] w-full shrink-0 overflow-hidden rounded-[4px] bg-slate-800 sm:h-[145px]">
+                <span className="relative h-52 w-full shrink-0 overflow-hidden bg-slate-800 sm:h-56">
                   <img
                     src={item.image}
                     alt={item.imageAlt}
-                    className="block h-full w-full object-cover object-center"
+                    className="h-full w-full object-cover object-center"
                     loading="lazy"
                   />
                 </span>
-                <span className="flex min-h-0 flex-1 flex-col">
-                  <span className="mb-1 text-[11px] font-bold uppercase tracking-wider text-sky-300">
-                    {item.tagline}
+                <span className="flex min-h-0 flex-1 flex-col justify-between overflow-hidden p-5 sm:p-6">
+                  <span>
+                    <span className="mb-2 block text-[15px] font-bold leading-tight text-white">
+                      {item.title}
+                    </span>
+                    <span className="line-clamp-4 block text-xs leading-relaxed text-slate-300">
+                      {item.copy}
+                    </span>
                   </span>
-                  <span className="mb-1 text-[15px] font-bold leading-tight text-white">
-                    {item.title}
-                  </span>
-                  <span className="text-xs leading-relaxed text-slate-300">
-                    {item.copy}
-                  </span>
-                  <span className="mt-auto inline-flex items-center gap-1 pt-2.5 text-xs font-semibold text-white">
-                    Explore Style & Details
-                    <span className="transition-transform group-hover:translate-x-1">→</span>
+                  <span className="mt-auto pt-3">
+                    <span className="mb-2 block text-xs font-medium leading-snug text-sky-400">
+                      {item.tagline}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-white">
+                      Explore Style & Details
+                      <span className="transition-transform group-hover:translate-x-1">→</span>
+                    </span>
                   </span>
                 </span>
               </Link>
             ))}
+          </ServiceFunnelCarousel>
           </div>
         </section>
           </div>

@@ -1,6 +1,7 @@
 import { DoorStepNav } from "@/components/DoorStepNav";
 import { Header } from "@/components/Header";
 import { SelectionCard } from "@/components/SelectionCard";
+import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
 import { SkipAhead } from "@/components/SkipAhead";
 import { doorStyles } from "@/lib/door-funnel";
 
@@ -38,7 +39,7 @@ export default function DoorTypesPage() {
         </div>
 
         <section>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ServiceFunnelCarousel>
             {doorStyles.map((style) => (
               <SelectionCard
                 key={style.slug}
@@ -54,7 +55,7 @@ export default function DoorTypesPage() {
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
               />
             ))}
-          </div>
+          </ServiceFunnelCarousel>
           <div className="mt-10 text-center">
             <SkipAhead theme="home" href="/services/door-replacement/materials?type=undecided">
               Not sure yet? Continue to Door Materials

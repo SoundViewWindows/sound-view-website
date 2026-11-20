@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/Header";
 import { SelectionCard } from "@/components/SelectionCard";
+import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
 import { SkipAhead } from "@/components/SkipAhead";
 import { ShowerStepNav } from "@/components/ShowerStepNav";
 import { showerStyles } from "@/lib/shower-funnel";
@@ -46,7 +47,7 @@ export function ShowerTypesStep() {
         </div>
 
         <section>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ServiceFunnelCarousel>
             {showerStyles.map((style) => (
               <SelectionCard
                 key={style.slug}
@@ -59,16 +60,10 @@ export function ShowerTypesStep() {
                 layout="type"
                 theme="home"
                 surface="veil"
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                imageClassName={style.slug === "frameless" ? "scale-[1.40]" : undefined}
-                imageStyle={
-                  style.slug === "frameless"
-                    ? { transform: "scale(1.40)", transformOrigin: "center center" }
-                    : undefined
-                }
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 300px, 280px"
               />
             ))}
-          </div>
+          </ServiceFunnelCarousel>
           <div className="mt-10 text-center">
             <SkipAhead theme="home" href={quoteHref}>
               Not sure yet? Skip to Quote

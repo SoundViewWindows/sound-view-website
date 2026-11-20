@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { GlassStepNav } from "@/components/GlassStepNav";
 import { Header } from "@/components/Header";
 import { SelectionCard } from "@/components/SelectionCard";
+import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
 import { SkipAhead } from "@/components/SkipAhead";
 import { glassTypes } from "@/lib/glass-funnel";
 
@@ -46,7 +47,7 @@ export function GlassTypesStep() {
         </div>
 
         <section>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ServiceFunnelCarousel>
             {glassTypes.map((type) => (
               <SelectionCard
                 key={type.slug}
@@ -62,7 +63,7 @@ export function GlassTypesStep() {
                 sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               />
             ))}
-          </div>
+          </ServiceFunnelCarousel>
           <div className="mt-10 text-center">
             <SkipAhead theme="home" href={quoteHref}>
               Not sure yet? Skip to Quote

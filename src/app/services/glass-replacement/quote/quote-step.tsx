@@ -1,14 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { GlassQuoteBox } from "@/components/GlassQuoteBox";
 import { CostComparison } from "@/components/CostComparison";
 import { GlassStepNav } from "@/components/GlassStepNav";
 import { Header } from "@/components/Header";
-import { HeroActionButtons } from "@/components/HeroActionButtons";
-import { glassSelectionBadge, glassTypeFromSlug } from "@/lib/glass-funnel";
+import { QuoteContactBar } from "@/components/HeroActionButtons";
+import { PugetSoundProofCard, QuoteSelectionCard, WhatHappensNextCard } from "@/components/QuoteReassurance";
+import { glassTypes, glassTypeFromSlug, isConsultationSlug } from "@/lib/glass-funnel";
 
 export function GlassQuoteStep() {
   const searchParams = useSearchParams();
@@ -20,7 +20,12 @@ export function GlassQuoteStep() {
     setGlassType(glassTypeFromSlug(typeParam)?.option ?? "");
   }, [typeParam]);
 
-  const typeName = glassSelectionBadge(glassType, { type: typeParam, style: styleParam });
+  const typeChoice = glassTypes.find((item) => item.option === glassType) ?? null;
+  const typeName = typeChoice
+    ? typeChoice.name
+    : isConsultationSlug(typeParam) || isConsultationSlug(styleParam)
+      ? "In-Home Assessment"
+      : "Open to advice";
 
   return (
     <div className="flex flex-1 flex-col bg-home-canvas text-[#E7EEF3]">
@@ -53,17 +58,20 @@ export function GlassQuoteStep() {
                   Review your chosen glass type, then share a few details so our
                   Seattle specialists can prepare upfront pricing.
                 </p>
-                <p className="inline-flex items-center gap-2 rounded-[4px] border border-white/15 bg-[#182B3E]/75 px-2.5 py-1 text-xs font-medium text-white shadow-sm">
-                  <span>{typeName}</span>
-                  <Link
-                    href="/glass-replacement/"
-                    className="ml-1 font-semibold text-[#38BDF8] underline decoration-[#38BDF8]/40 underline-offset-2 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
-                  >
-                    Edit
-                  </Link>
-                </p>
                 </div>
-                <HeroActionButtons appearance="quote" />
+                <QuoteSelectionCard
+                  selections={[
+                    {
+                      label: "Glass Type",
+                      name: typeName,
+                      href: "/glass-replacement/",
+                      image: typeChoice?.image,
+                      imageAlt: typeChoice?.alt,
+                    },
+                  ]}
+                />
+                <WhatHappensNextCard />
+                <PugetSoundProofCard />
               </div>
               <div className="lg:col-span-6">
                 <GlassQuoteBox
@@ -71,6 +79,7 @@ export function GlassQuoteStep() {
                   glassType={glassType}
                   onGlassTypeChange={setGlassType}
                 />
+                <QuoteContactBar />
               </div>
             </div>
           </div>
