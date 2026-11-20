@@ -69,11 +69,11 @@ export default function ContactPage() {
           </div>
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-7">
-              <div className="bg-[#152538]/90 backdrop-blur-xs border border-slate-700/70 rounded-2xl shadow-2xl p-6 sm:p-10">
+              <div className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-6 shadow-2xl backdrop-blur-md sm:p-10">
                 <h1 className="mb-2 text-2xl font-black tracking-tight text-white sm:text-3xl">
                   Leave Us a Message
                 </h1>
-                <p className="mb-8 text-sm leading-6 text-slate-300 sm:text-base">
+                <p className="mb-8 text-sm leading-6 text-slate-200 sm:text-base">
                   Have a question about our showrooms, products, or scheduling?
                   Send us a note and our team will get back to you during
                   operating hours.
@@ -86,11 +86,11 @@ export default function ContactPage() {
               {showrooms.map((room) => (
                 <article
                   key={room.href}
-                  className="rounded-2xl border border-slate-700/70 bg-[#152538]/90 p-5 shadow-xl"
+                  className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-5 shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60"
                 >
                   <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
                   <h2 className="text-lg font-black text-white">{room.name}</h2>
-                  <p className="mt-1 text-sm leading-6 text-slate-300">{room.address}</p>
+                  <p className="mt-1 text-sm leading-6 text-slate-200">{room.address}</p>
                   <a
                     href={room.phoneHref}
                     className={`text-[#38BDF8] font-black text-lg hover:text-sky-300 hover:underline block mb-1 mt-3 ${focusRing}`}
@@ -102,19 +102,19 @@ export default function ContactPage() {
                   ) : null}
                   <Link
                     href={room.href}
-                    className={`mt-2 inline-flex text-sm font-bold text-white underline-offset-4 hover:text-[#38BDF8] hover:underline ${focusRing}`}
+                    className={`mt-2 inline-flex text-sm font-semibold text-[#38BDF8] hover:text-sky-300 ${focusRing}`}
                   >
                     Showroom details
                   </Link>
                 </article>
               ))}
 
-              <article className="rounded-2xl border border-slate-700/70 bg-[#152538]/90 p-5 shadow-xl">
+              <article className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-5 shadow-2xl backdrop-blur-md">
                 <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
-                <h2 className="text-white font-extrabold text-xs uppercase tracking-wider mb-4">
+                <h2 className="mb-4 text-xs font-extrabold uppercase tracking-wider text-[#38BDF8]">
                   Showroom Hours
                 </h2>
-                <dl className="space-y-2 text-sm text-slate-300">
+                <dl className="space-y-2 text-sm text-slate-200">
                   {hours.map((row) => (
                     <div key={row.day} className="flex items-baseline justify-between gap-4">
                       <dt>{row.day}</dt>
@@ -124,7 +124,7 @@ export default function ContactPage() {
                 </dl>
               </article>
 
-              <p className="rounded-2xl border border-slate-700/70 bg-[#152538]/90 p-5 text-sm text-slate-300">
+              <p className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-5 text-sm text-slate-200 shadow-2xl backdrop-blur-md">
                 Typical response time is under 2 business hours during operating
                 hours. You will hear from a local specialist, with no
                 high-pressure sales call.

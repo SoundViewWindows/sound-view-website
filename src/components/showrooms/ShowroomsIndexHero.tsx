@@ -32,46 +32,30 @@ export function ShowroomsIndexHero() {
 
       <div className="relative z-10 flex flex-col lg:flex-row lg:items-stretch">
         <div className="min-w-0 flex-1 py-8 pl-4 pr-6 sm:pl-6 lg:py-10 lg:pl-10 lg:pr-10 xl:pl-16">
-          <div className="mb-6 flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
-            <div className="max-w-xl">
-              <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
-                <ol className="flex flex-wrap items-center gap-2">
-                  <li>
-                    <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                      Home
-                    </Link>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span aria-hidden="true">&gt;</span>
-                    <span aria-current="page">Showrooms</span>
-                  </li>
-                </ol>
-              </nav>
-              <p className="mt-3 text-xs font-bold uppercase tracking-widest text-[#38BDF8] sm:text-sm">
-                Greater Seattle Showrooms
-              </p>
-              <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                Our Greater Seattle Showrooms
-              </h1>
-              <p className="mt-2 text-base text-slate-200">
-                Test full-size window, entry door, shower glass, and window treatment
-                displays in person at Lake City, West Queen Anne, or Bellevue.
-              </p>
-            </div>
-            <div className="flex shrink-0 flex-wrap items-center gap-3">
-              <Link
-                href="/book-appointment"
-                className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-5 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
-              >
-                Book Showroom Appointment
-              </Link>
-              <a
-                href="tel:+12063314296"
-                className={`inline-flex items-center justify-center rounded-lg bg-white px-5 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
-              >
-                Call (206) 331-4296
-              </a>
-            </div>
+          <div className="mb-6">
+            <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
+              <ol className="flex flex-wrap items-center gap-2">
+                <li>
+                  <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
+                    Home
+                  </Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span aria-hidden="true">&gt;</span>
+                  <span aria-current="page">Showrooms</span>
+                </li>
+              </ol>
+            </nav>
+            <p className="mt-3 text-xs font-bold uppercase tracking-widest text-[#38BDF8] sm:text-sm">
+              Greater Seattle Showrooms
+            </p>
+            <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+              Our Greater Seattle Showrooms
+            </h1>
+            <p className="mt-2 text-base text-slate-200">
+              Test full-size window, entry door, shower glass, and window treatment
+              displays in person at Lake City, West Queen Anne, or Bellevue.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-3">
@@ -113,7 +97,7 @@ function ShowroomHeroCard({ room }: { room: Showroom }) {
   const hours = room.hours[0];
 
   return (
-    <article className="flex flex-col justify-between overflow-hidden rounded-xl border border-slate-700/80 bg-[#152538]/90">
+    <article className="flex flex-col justify-between overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60">
       <div>
         <div
           className={`relative w-full overflow-hidden ${
@@ -142,20 +126,20 @@ function ShowroomHeroCard({ room }: { room: Showroom }) {
               </span>
             ) : null}
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-slate-300">{room.summary}</p>
-          <p className="mt-3 text-sm font-medium text-white">{room.address}</p>
+          <p className="mt-2 text-sm leading-relaxed text-slate-200">{room.summary}</p>
+          <p className="mt-3 text-sm font-medium text-slate-200">{room.address}</p>
           <p className="mt-1 text-sm text-slate-300">
             {hours.day}: {hours.time}
           </p>
           <a
             href={room.phoneHref}
-            className={`mt-2 inline-flex text-sm font-semibold text-[#38BDF8] underline-offset-4 hover:underline ${focusRing}`}
+            className={`mt-2 inline-flex text-sm font-semibold text-[#38BDF8] hover:text-sky-300 ${focusRing}`}
           >
             {room.phone}
           </a>
         </div>
       </div>
-      <div className="mx-4 mb-4 mt-4 flex flex-wrap gap-2 border-t border-slate-700/70 pt-4">
+      <div className="mx-4 mb-4 mt-4 flex flex-wrap gap-2 border-t border-white/15 pt-4">
         <Link
           href={`/book-appointment?showroom=${bookingLocation(room.slug)}`}
           className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-3 py-2 text-xs font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}

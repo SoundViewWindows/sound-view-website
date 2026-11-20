@@ -12,11 +12,6 @@ const focusRing =
 const skyButton = `inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-5 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`;
 const whiteButton = `inline-flex items-center justify-center rounded-lg bg-white px-5 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`;
 
-function bookHrefFor(slug: ShowroomSlug) {
-  const location = slug === "west-queen-anne" ? "queen-anne" : slug;
-  return `/book-appointment?showroom=${location}`;
-}
-
 function headerHours(room: Showroom) {
   if (room.hours[0]?.time === "8:00 AM to 4:30 PM") {
     return "Mon to Fri: 8:00 AM to 4:30 PM";
@@ -40,7 +35,6 @@ export function ShowroomLocation({
 }) {
   const room = getShowroom(slug);
   const tour = room.virtualTour;
-  const bookHref = bookHrefFor(room.slug);
 
   return (
     <div className="bg-white text-[#0F1D2E]">
@@ -57,7 +51,7 @@ export function ShowroomLocation({
             <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
           </div>
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-6 flex flex-col gap-5 rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-6 py-5 backdrop-blur-xs sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="mb-6 rounded-2xl border border-white/20 bg-[#0F1D2E]/90 px-6 py-5 shadow-2xl backdrop-blur-md sm:px-8 sm:py-6">
               <div>
                 <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
                   <ol className="flex flex-wrap items-center gap-2">
@@ -91,7 +85,7 @@ export function ShowroomLocation({
                     </span>
                   ) : null}
                 </div>
-                <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-300">
+                <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-200">
                   <span className="inline-flex items-center gap-1.5">
                     <MapPin className="h-4 w-4 shrink-0 text-[#38BDF8]" aria-hidden="true" />
                     {room.address}
@@ -105,26 +99,12 @@ export function ShowroomLocation({
                   </span>
                 </p>
               </div>
-              <div className="flex shrink-0 flex-wrap items-center gap-3">
-                <Link
-                  href={bookHref}
-                  className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-5 py-2.5 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
-                >
-                  Book Showroom Appointment
-                </Link>
-                <a
-                  href={room.phoneHref}
-                  className={`inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
-                >
-                  Call {room.phone}
-                </a>
-              </div>
             </div>
 
             <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2">
               <div className="flex min-w-0 flex-col gap-8">
                 <div
-                  className={`relative w-full overflow-hidden rounded-2xl border border-slate-700/80 ${
+                  className={`relative w-full overflow-hidden rounded-2xl border border-white/20 shadow-2xl ${
                     room.slug === "west-queen-anne"
                       ? "aspect-[16/9] shadow-2xl"
                       : room.slug === "bellevue"
@@ -154,7 +134,7 @@ export function ShowroomLocation({
                   <iframe
                     src={room.mapSrc}
                     title={room.mapTitle}
-                    className="h-[320px] w-full overflow-hidden rounded-xl border border-slate-700/80"
+                    className="h-[320px] w-full overflow-hidden rounded-xl border border-white/15"
                     loading="lazy"
                     allowFullScreen
                   />
@@ -169,7 +149,7 @@ export function ShowroomLocation({
                     <iframe
                       src={tour.embedSrc}
                       title={tour.iframeTitle}
-                      className="h-[380px] w-full overflow-hidden rounded-xl border border-slate-700/80"
+                      className="h-[380px] w-full overflow-hidden rounded-xl border border-white/15"
                       loading="lazy"
                       allowFullScreen
                       referrerPolicy="no-referrer-when-downgrade"
@@ -178,7 +158,7 @@ export function ShowroomLocation({
                       href={tour.mapsHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`mt-3 inline-flex text-sm font-semibold text-[#38BDF8] underline-offset-4 hover:underline ${focusRing}`}
+                      className={`mt-3 inline-flex text-sm font-semibold text-[#38BDF8] hover:text-sky-300 ${focusRing}`}
                     >
                       View on Google Maps
                     </a>
@@ -186,11 +166,11 @@ export function ShowroomLocation({
                 ) : null}
                 <DarkPanel title="Showroom Address">
                   <p className="text-lg font-bold text-white">{room.address}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-300">{room.addressNote}</p>
-                  <h3 className="mb-3 mt-6 text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  <p className="mt-2 text-sm leading-relaxed text-slate-200">{room.addressNote}</p>
+                  <h3 className="mb-3 mt-6 text-xs font-semibold uppercase tracking-wider text-[#38BDF8]">
                     Hours of Operation
                   </h3>
-                  <dl className="space-y-2 text-sm text-slate-300">
+                  <dl className="space-y-2 text-sm text-slate-200">
                     {room.hours.map((row) => (
                       <div key={row.day} className="flex items-baseline justify-between gap-4">
                         <dt>{row.day}</dt>
@@ -199,12 +179,12 @@ export function ShowroomLocation({
                     ))}
                   </dl>
                   <p className="mt-2 text-xs font-medium text-slate-300">{room.hoursNote}</p>
-                  <h3 className="mb-1 mt-6 text-xs font-semibold uppercase tracking-wider text-slate-300">
+                  <h3 className="mb-1 mt-6 text-xs font-semibold uppercase tracking-wider text-[#38BDF8]">
                     Direct Line
                   </h3>
                   <a
                     href={room.phoneHref}
-                    className={`text-lg font-extrabold text-[#38BDF8] underline-offset-4 hover:underline ${focusRing}`}
+                    className={`text-lg font-semibold text-[#38BDF8] hover:text-sky-300 ${focusRing}`}
                   >
                     {room.phone}
                   </a>
@@ -241,7 +221,7 @@ export function ShowroomLocation({
 
 function DarkPanel({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <article className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs sm:p-8">
+    <article className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-6 shadow-2xl backdrop-blur-md sm:p-8">
       <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
       <h2 className="mb-4 text-xl font-bold text-white">{title}</h2>
       {children}

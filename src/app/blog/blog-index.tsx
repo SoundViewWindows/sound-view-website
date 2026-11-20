@@ -83,7 +83,7 @@ export function BlogIndex({
           <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
         </div>
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-6 flex flex-col gap-5 rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-6 py-5 backdrop-blur-xs sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="mb-6 flex flex-col gap-5 rounded-2xl border border-white/20 bg-[#0F1D2E]/90 px-6 py-5 shadow-2xl backdrop-blur-md sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
                 <ol className="flex flex-wrap items-center gap-2">
@@ -104,7 +104,7 @@ export function BlogIndex({
               <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
                 Window, Door &amp; Glass Buying Guides
               </h1>
-              <p className="mt-1.5 text-sm text-slate-300">
+              <p className="mt-1.5 text-sm text-slate-200">
                 Practical advice from our Seattle installation specialists on replacement timing, glass performance, and maintenance.
               </p>
             </div>
@@ -148,7 +148,7 @@ export function BlogIndex({
                   className={`shrink-0 rounded-[4px] border px-4 py-2 text-sm font-medium transition-colors duration-200 ${focusRing} ${
                     active
                       ? "border-[#38BDF8] bg-[#38BDF8] font-bold text-[#0F1D2E]"
-                      : "border-slate-700/80 bg-[#152538]/90 text-slate-200 hover:border-sky-400/70 hover:text-white"
+                      : "border-white/20 bg-[#0F1D2E]/90 text-slate-200 backdrop-blur-md hover:border-[#38BDF8]/60 hover:text-white"
                   }`}
                 >
                   {item}
@@ -173,7 +173,7 @@ export function BlogIndex({
             aria-label="Show previous categories"
             disabled={!canScrollLeft}
             onClick={() => scrollCategories(-320)}
-            className={`absolute left-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-[4px] border border-slate-700 bg-[#152538] text-white transition-all duration-200 hover:border-[#38BDF8] hover:text-[#38BDF8] ${focusRing} ${
+            className={`absolute left-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-[#0F1D2E]/90 text-white shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60 hover:text-[#38BDF8] ${focusRing} ${
               canScrollLeft
                 ? "pointer-events-auto opacity-100"
                 : "pointer-events-none opacity-0"
@@ -186,7 +186,7 @@ export function BlogIndex({
             aria-label="Show more categories"
             disabled={!canScrollRight}
             onClick={() => scrollCategories(320)}
-            className={`absolute right-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-[4px] border border-slate-700 bg-[#152538] text-white transition-all duration-200 hover:border-[#38BDF8] hover:text-[#38BDF8] ${focusRing} ${
+            className={`absolute right-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-[#0F1D2E]/90 text-white shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60 hover:text-[#38BDF8] ${focusRing} ${
               canScrollRight
                 ? "pointer-events-auto opacity-100"
                 : "pointer-events-none opacity-0"
@@ -199,7 +199,7 @@ export function BlogIndex({
           {featured ? (
             <Link
               href={featured.href}
-              className={`group grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-700/80 bg-[#152538]/90 shadow-xl backdrop-blur-xs transition-all hover:border-sky-400/70 lg:grid-cols-2 ${focusRing}`}
+              className={`group grid grid-cols-1 overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60 lg:grid-cols-2 ${focusRing}`}
             >
               <div className="overflow-hidden">
                 <Cover
@@ -218,17 +218,17 @@ export function BlogIndex({
                   {featured.title}
                 </h2>
                 {featured.excerpt ? (
-                  <p className="mt-4 line-clamp-4 text-base leading-relaxed text-slate-300 sm:text-lg">
+                  <p className="mt-4 line-clamp-4 text-base leading-relaxed text-slate-200 sm:text-lg">
                     {featured.excerpt}
                   </p>
                 ) : null}
-                <span className="mt-8 inline-flex w-fit text-sm font-medium text-[#38BDF8] transition-colors group-hover:text-sky-300">
+                <span className="mt-8 inline-flex w-fit text-sm font-semibold text-[#38BDF8] transition-colors group-hover:text-sky-300">
                   Read Guide
                 </span>
               </div>
             </Link>
           ) : (
-            <p className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-6 py-10 text-slate-300 shadow-xl backdrop-blur-xs">
+            <p className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 px-6 py-10 text-slate-200 shadow-2xl backdrop-blur-md">
               {filter === "All"
                 ? "No guides published yet."
                 : "No guides in this category yet."}
@@ -243,7 +243,7 @@ export function BlogIndex({
                   <Link
                     key={post.id || post.slug}
                     href={post.href}
-                    className={`group flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-700/80 bg-[#152538]/90 shadow-xl backdrop-blur-xs transition-all hover:border-sky-400/70 ${focusRing}`}
+                    className={`group flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60 ${focusRing}`}
                   >
                     <div>
                       <div className="overflow-hidden">
@@ -263,14 +263,14 @@ export function BlogIndex({
                           {post.title}
                         </h3>
                         {post.excerpt ? (
-                          <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-300">
+                          <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-200">
                             {post.excerpt}
                           </p>
                         ) : null}
                       </div>
                     </div>
                     <div className="px-6 pb-6">
-                      <span className="inline-flex items-center gap-2 text-sm font-medium text-[#38BDF8] transition-colors group-hover:text-sky-300">
+                      <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#38BDF8] transition-colors group-hover:text-sky-300">
                         Read article
                         <span
                           aria-hidden="true"

@@ -40,7 +40,7 @@ export default function PortfolioPage() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
             </div>
             <div className="relative z-10">
-              <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-6 py-5 backdrop-blur-xs sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
+              <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-white/20 bg-[#0F1D2E]/90 px-6 py-5 shadow-2xl backdrop-blur-md sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
                 <div>
                   <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
                     <ol className="flex flex-wrap items-center gap-2">
@@ -61,7 +61,7 @@ export default function PortfolioPage() {
                   <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
                     Completed Window, Door & Glass Installations
                   </h1>
-                  <p className="mt-1.5 text-sm text-slate-300">
+                  <p className="mt-1.5 text-sm text-slate-200">
                     Browse real Greater Seattle projects, field installation videos, and before-and-after home transformations.
                   </p>
                 </div>
@@ -100,7 +100,7 @@ export default function PortfolioPage() {
                     <Link
                       key={category.slug}
                       href={`/portfolio/${category.slug}`}
-                      className={`flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#152538]/90 shadow-xl backdrop-blur-xs transition-colors hover:border-sky-400/70 ${focusRing}`}
+                      className={`flex flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60 ${focusRing}`}
                     >
                       <div className="aspect-[16/10] w-full overflow-hidden bg-[#0F1D2E]">
                         {preview ? (
@@ -116,12 +116,12 @@ export default function PortfolioPage() {
                           {preview?.area ?? "Greater Seattle"}
                         </p>
                         <h2 className="mt-1 text-lg font-bold text-white">{category.name}</h2>
-                        <p className="mt-2 text-sm leading-6 text-slate-300">{category.funnel}</p>
+                        <p className="mt-2 text-sm leading-6 text-slate-200">{category.funnel}</p>
                       </div>
                     </Link>
                   );
                 })}
-                <article className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#152538]/90 shadow-xl backdrop-blur-xs">
+                <article className="flex flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md">
                   <div className="aspect-[16/10] w-full overflow-hidden bg-[#0F1D2E]">
                     <iframe
                       src={fieldVideo.src}
@@ -136,7 +136,7 @@ export default function PortfolioPage() {
                       Watch Our Installers in the Field
                     </p>
                     <h2 className="mt-1 text-lg font-bold text-white">On-Site Glass &amp; Trim Installation</h2>
-                    <p className="mt-1 text-sm text-slate-300">
+                    <p className="mt-1 text-sm text-slate-200">
                       Real-world window, glass, and finish trim installation by our Greater Seattle crew.
                     </p>
                   </div>

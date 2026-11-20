@@ -81,11 +81,11 @@ export function ContactForm() {
 
   if (submittedName) {
     return (
-      <div className="rounded-2xl border border-slate-700/70 bg-[#0F1D2E]/90 px-5 py-8">
+      <div className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 px-5 py-8 shadow-2xl backdrop-blur-md">
         <h3 className="text-2xl font-black text-white">
           Thank you, {submittedName}.
         </h3>
-        <p className="mt-3 text-sm leading-6 text-slate-300">
+        <p className="mt-3 text-sm leading-6 text-slate-200">
           Your message is in. A local specialist will follow up during operating
           hours, typically within 2 business hours. No high-pressure sales calls.
         </p>
