@@ -3,14 +3,22 @@
 import { useState } from "react";
 import { QuoteRequestForm } from "@/components/quote-request-form";
 
-export function FlushQuoteSidebar({ formName, id }: { formName: string; id?: string }) {
+export function FlushQuoteSidebar({
+  formName,
+  id,
+  className = "scroll-mt-20",
+}: {
+  formName: string;
+  id?: string;
+  className?: string;
+}) {
   const [projectType, setProjectType] = useState("");
   const [quoteSubmitted, setQuoteSubmitted] = useState(false);
 
   return (
     <aside
       id={id}
-      className="flex w-full shrink-0 scroll-mt-20 flex-col self-stretch bg-[#0B4F78] pt-0 text-white lg:w-[380px] xl:w-[420px]"
+      className={`flex w-full shrink-0 flex-col self-stretch bg-[#0B4F78] pt-0 text-white lg:w-[380px] xl:w-[420px] ${className}`}
     >
       <div className="px-6 py-8 sm:px-8 lg:sticky lg:top-20">
         {quoteSubmitted ? null : (
