@@ -277,30 +277,24 @@ const homepageShowrooms = [
 const factoryBrands = [
   {
     name: "Milgard",
-    href: "https://www.milgard.com/",
     src: "/images/brands/milgard.png",
     alt: "Milgard Windows & Doors",
-    cardClass: "overflow-hidden border border-[#D6001C] bg-[#D6001C] hover:border-red-800",
-    imageClass:
-      "h-full w-full object-contain scale-[1.6] transition-transform group-hover:scale-[1.75] sm:scale-[1.7]",
+    cardClass: "overflow-hidden border border-[#D6001C] bg-[#D6001C]",
+    imageClass: "h-full w-full object-contain scale-[1.6] sm:scale-[1.7]",
   },
   {
     name: "Andersen",
-    href: "https://www.andersenwindows.com/",
     src: "/images/brands/andersen.png",
     alt: "Andersen Windows & Doors",
-    cardClass: "overflow-hidden border border-slate-200 bg-white hover:border-sky-400",
-    imageClass:
-      "h-full w-full object-contain scale-[1.35] transition-transform group-hover:scale-[1.45] sm:scale-[1.4]",
+    cardClass: "overflow-hidden border border-slate-200 bg-white",
+    imageClass: "h-full w-full object-contain scale-[1.35] sm:scale-[1.4]",
   },
   {
     name: "Ply Gem",
-    href: "https://www.plygem.com/",
     src: "/images/brands/ply-gem.png",
     alt: "Ply Gem Windows",
-    cardClass: "overflow-hidden border border-slate-200 bg-white hover:border-sky-400",
-    imageClass:
-      "h-full w-full object-contain scale-[1.45] transition-transform group-hover:scale-[1.6] sm:scale-[1.55]",
+    cardClass: "overflow-hidden border border-slate-200 bg-white",
+    imageClass: "h-full w-full object-contain scale-[1.45] sm:scale-[1.55]",
   },
 ] as const;
 
@@ -428,16 +422,12 @@ function ShowroomShowcase() {
         </p>
         <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-3 lg:w-auto">
           {factoryBrands.map((brand) => (
-            <a
+            <div
               key={brand.name}
-              href={brand.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Visit ${brand.name} website`}
-              className={`group flex h-14 min-w-[145px] items-center justify-center overflow-hidden rounded-xl shadow-2xs transition-all hover:shadow-sm sm:h-16 sm:min-w-[165px] ${brand.cardClass}`}
+              className={`flex h-14 min-w-[145px] items-center justify-center overflow-hidden rounded-xl shadow-2xs sm:h-16 sm:min-w-[165px] ${brand.cardClass}`}
             >
               <img src={brand.src} alt={brand.alt} className={brand.imageClass} />
-            </a>
+            </div>
           ))}
         </div>
       </div>
