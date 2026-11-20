@@ -17,6 +17,7 @@ type SelectionCardProps = {
   theme?: "default" | "home";
   layout?: "material" | "type";
   tallImage?: boolean;
+  imageFrameClassName?: string;
   imageClassName?: string;
   imageStyle?: CSSProperties;
   descriptionClassName?: string;
@@ -36,6 +37,7 @@ export function SelectionCard({
   selected = false,
   onClick,
   tallImage = false,
+  imageFrameClassName,
   imageClassName,
   imageStyle,
   descriptionClassName,
@@ -43,6 +45,7 @@ export function SelectionCard({
   surface = "solid",
 }: SelectionCardProps) {
   const imageFrame =
+    imageFrameClassName ??
     "relative mb-2 h-[135px] w-full shrink-0 overflow-hidden rounded-[4px] bg-slate-800 sm:h-[145px]";
 
   return (
@@ -63,7 +66,7 @@ export function SelectionCard({
             alt={alt}
             fill
             sizes={sizes}
-            className={`block h-full w-full object-cover object-center ${imageClassName ?? ""}`}
+            className={`block h-full w-full object-cover ${imageClassName ?? "object-center"}`}
             style={imageStyle}
           />
         ) : null}

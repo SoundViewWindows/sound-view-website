@@ -56,6 +56,8 @@ export function MaterialsStep() {
                 layout="material"
                 tallImage
                 surface="veil"
+                imageFrameClassName="relative mb-2 h-64 w-full shrink-0 overflow-hidden rounded-[4px] bg-slate-800 sm:h-72"
+                imageClassName="object-[50%_72%] transition-transform duration-300 group-hover:scale-[1.03]"
               />
             ))}
           </div>
