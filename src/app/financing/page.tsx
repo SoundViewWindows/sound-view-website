@@ -44,41 +44,41 @@ export default function FinancingPage() {
           </div>
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-stretch">
             <div className="min-w-0 flex-1 py-8 pl-4 pr-4 sm:pl-6 sm:pr-6 lg:py-10 lg:pl-10 lg:pr-10 xl:pl-16">
-            <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-slate-700/80 bg-[#152538]/90 px-6 py-5 backdrop-blur-xs sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-slate-200/90 bg-white px-6 py-5 shadow-xl sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
               <div>
-                <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
+                <nav aria-label="Breadcrumb" className="text-xs text-slate-500">
                   <ol className="flex flex-wrap items-center gap-2">
                     <li>
-                      <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
+                      <Link href="/" className={`rounded-sm hover:text-[#0284C7] ${focusRing}`}>
                         Home
                       </Link>
                     </li>
                     <li className="flex items-center gap-2">
                       <span aria-hidden="true">&gt;</span>
-                      <span aria-current="page">Financing</span>
+                      <span aria-current="page" className="text-[#0F1D2E]">Financing</span>
                     </li>
                   </ol>
                 </nav>
-                <p className="text-xs font-bold tracking-wider text-[#38BDF8]">
+                <p className="text-xs font-bold tracking-wider text-[#0284C7]">
                   FINANCING & PAYMENT OPTIONS
                 </p>
-                <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
+                <h1 className="mt-1 text-2xl font-bold text-[#0F1D2E] sm:text-3xl">
                   Your Financing Checklist
                 </h1>
-                <p className="mt-1.5 text-sm text-slate-300">
+                <p className="mt-1.5 text-sm text-slate-700">
                   Explore monthly payment plans and simple pre-qualification options built to fit your window, door, or glass project budget.
                 </p>
               </div>
               <div className="flex shrink-0 flex-wrap items-center gap-3">
                 <Link
                   href="/book-appointment"
-                  className={`rounded-lg bg-[#38BDF8] px-5 py-2.5 font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
+                  className={`rounded-lg bg-[#38BDF8] px-5 py-2.5 font-semibold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
                 >
                   Book a Consultation
                 </Link>
                 <a
                   href="tel:+12063314296"
-                  className={`rounded-lg bg-white px-5 py-2.5 font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
+                  className={`rounded-lg bg-[#0F1D2E] px-5 py-2.5 font-semibold text-white transition-colors hover:bg-slate-800 ${focusRing}`}
                 >
                   Call (206) 331-4296
                 </a>
@@ -86,17 +86,17 @@ export default function FinancingPage() {
             </div>
 
             <div className="w-full space-y-5">
-              <article className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs sm:p-8">
-                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
+              <article className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-xl sm:p-8">
+                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#0284C7]" />
                 <CheckBadge />
-                <h2 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">1. Apply</h2>
-                <p className="text-sm font-normal leading-relaxed text-slate-300">
+                <h2 className="mb-2 mt-4 text-lg font-bold text-[#0F1D2E] sm:text-xl">1. Apply</h2>
+                <p className="text-sm font-normal leading-relaxed text-slate-700">
                   First, you must apply for a credit line directly through Synchrony
                   to secure your account.
                 </p>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-300">
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-700">
                   <li>
-                    The Process: Complete the Synchrony application form. Once
+                    <strong className="font-semibold text-[#0F1D2E]">The Process:</strong> Complete the Synchrony application form. Once
                     approved, you will be issued a Synchrony Account Number. Please
                     save this number immediately.
                   </li>
@@ -105,81 +105,81 @@ export default function FinancingPage() {
                   href={synchronyHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
+                  className={`mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-semibold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
                 >
                   APPLY FOR FINANCING
                   <ExternalLinkIcon />
                 </a>
               </article>
 
-              <article className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs sm:p-8">
-                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
+              <article className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-xl sm:p-8">
+                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#0284C7]" />
                 <CheckBadge />
-                <h2 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">
+                <h2 className="mb-2 mt-4 text-lg font-bold text-[#0F1D2E] sm:text-xl">
                   2. Notify Your Sales Representative
                 </h2>
-                <p className="text-sm font-normal leading-relaxed text-slate-300">
+                <p className="text-sm font-normal leading-relaxed text-slate-700">
                   Once you have your account number, contact your Sales rep to
                   update your project terms.
                 </p>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-300">
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-700">
                   <li>
-                    Provide your info: Give your rep your new Synchrony Account
+                    <strong className="font-semibold text-[#0F1D2E]">Provide your info:</strong> Give your rep your new Synchrony Account
                     Number.
                   </li>
                   <li>
-                    Quote Adjustment: Your rep will manually update your project
+                    <strong className="font-semibold text-[#0F1D2E]">Quote Adjustment:</strong> Your rep will manually update your project
                     quote to remove the standard deposit requirement, as Synchrony
                     will be used for the funding.
                   </li>
                   <li>
-                    Resending the Quote: Your rep will then resend the updated
+                    <strong className="font-semibold text-[#0F1D2E]">Resending the Quote:</strong> Your rep will then resend the updated
                     quote to you for your digital signature.
                   </li>
                 </ul>
               </article>
 
-              <article className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs sm:p-8">
-                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
+              <article className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-xl sm:p-8">
+                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#0284C7]" />
                 <CheckBadge />
-                <h2 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">
+                <h2 className="mb-2 mt-4 text-lg font-bold text-[#0F1D2E] sm:text-xl">
                   3. Review And Sign Your Quote
                 </h2>
-                <p className="text-sm font-normal leading-relaxed text-slate-300">
+                <p className="text-sm font-normal leading-relaxed text-slate-700">
                   After your rep resends the quote, you must authorize the new
                   terms.
                 </p>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-300">
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-700">
                   <li>
-                    Review: Look for an email notification that your quote has been
+                    <strong className="font-semibold text-[#0F1D2E]">Review:</strong> Look for an email notification that your quote has been
                     updated. Log in to our portal to confirm the deposit has been
                     removed ($0.00 deposit due).
                   </li>
-                  <li>Sign: Approve and digitally sign the updated quote online.</li>
+                  <li><strong className="font-semibold text-[#0F1D2E]">Sign:</strong> Approve and digitally sign the updated quote online.</li>
                 </ul>
               </article>
 
-              <article className="rounded-2xl border border-slate-700/80 bg-[#152538]/90 p-6 shadow-xl backdrop-blur-xs sm:p-8">
-                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
+              <article className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-xl sm:p-8">
+                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#0284C7]" />
                 <CheckBadge />
-                <h2 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">
+                <h2 className="mb-2 mt-4 text-lg font-bold text-[#0F1D2E] sm:text-xl">
                   4. Provide Final Verification Details
                 </h2>
-                <p className="text-sm font-normal leading-relaxed text-slate-300">
+                <p className="text-sm font-normal leading-relaxed text-slate-700">
                   To finalize the connection between your Synchrony account and
                   your project, we require a few specific details for the
                   lender&apos;s secure portal. You can provide these to your rep via
                   phone or email.
                 </p>
-                <p className="mt-5 rounded-2xl border border-slate-700/80 bg-[#0F1D2E]/70 px-4 py-3 text-sm leading-6 text-slate-300">
-                  Important: You do NOT select your financing plan online during
+                <p className="mt-5 rounded-2xl border border-slate-200/90 bg-slate-50 px-4 py-3 text-sm leading-6 text-slate-700">
+                  <strong className="font-semibold text-[#0F1D2E]">Important:</strong> You do NOT select your financing plan online during
                   the initial application. We process your plan selection on our
                   end during this final step.
                 </p>
-                <p className="mb-3 mt-5 text-lg font-bold text-white">
+                <p className="mb-3 mt-5 text-lg font-bold text-[#0F1D2E]">
                   Please provide the following to your Sales Rep:
                 </p>
-                <ol className="list-decimal space-y-2 pl-5 text-base leading-7 text-slate-300">
+                <ol className="list-decimal space-y-2 pl-5 text-base leading-7 text-slate-700">
                   {verificationItems.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -248,7 +248,7 @@ function CheckBadge() {
   return (
     <span
       aria-hidden="true"
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#38BDF8]/50 text-[#38BDF8]"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-sky-200 bg-sky-50 text-[#0284C7]"
     >
       <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2">
         <path strokeLinecap="round" strokeLinejoin="round" d="m5 10.5 3.2 3.2L15 7" />
