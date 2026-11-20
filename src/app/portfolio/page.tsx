@@ -18,18 +18,10 @@ export const metadata: Metadata = {
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
-const videos = [
-  {
-    src: "https://www.youtube.com/embed/_330VSt1DKs",
-    title: "Complete Window Tear-Out & Weatherproof Install",
-    label: "Complete Window Tear-Out & Install",
-  },
-  {
-    src: "https://www.youtube.com/embed/wcTlT2Mdw_E",
-    title: "On-Site Architectural Glass & Trim Installation",
-    label: "On-Site Glass & Trim Installation",
-  },
-];
+const fieldVideo = {
+  src: "https://www.youtube.com/embed/wcTlT2Mdw_E",
+  title: "On-Site Architectural Glass & Trim Installation",
+};
 
 export default function PortfolioPage() {
   return (
@@ -108,9 +100,9 @@ export default function PortfolioPage() {
                     <Link
                       key={category.slug}
                       href={`/portfolio/${category.slug}`}
-                      className={`overflow-hidden rounded-2xl border border-slate-700/80 bg-[#152538]/90 shadow-xl backdrop-blur-xs transition-colors hover:border-sky-400/70 ${focusRing}`}
+                      className={`flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#152538]/90 shadow-xl backdrop-blur-xs transition-colors hover:border-sky-400/70 ${focusRing}`}
                     >
-                      <div className="h-48 w-full overflow-hidden bg-[#0F1D2E] sm:h-56">
+                      <div className="aspect-[16/10] w-full overflow-hidden bg-[#0F1D2E]">
                         {preview ? (
                           <img
                             src={preview.src}
@@ -119,7 +111,7 @@ export default function PortfolioPage() {
                           />
                         ) : null}
                       </div>
-                      <div className="p-5 sm:p-6">
+                      <div className="flex flex-1 flex-col justify-center p-5 sm:p-6">
                         <p className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
                           {preview?.area ?? "Greater Seattle"}
                         </p>
@@ -129,31 +121,26 @@ export default function PortfolioPage() {
                     </Link>
                   );
                 })}
-              </div>
-
-              <div className="mt-8 border-t border-slate-700/70 pt-6">
-                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
-                  Watch Our Installers in the Field
-                </p>
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                  {videos.map((video) => (
-                    <article
-                      key={video.src}
-                      className="overflow-hidden rounded-xl border border-slate-700/80 bg-[#152538]/90"
-                    >
-                      <div className="aspect-video w-full bg-black">
-                        <iframe
-                          src={video.src}
-                          title={video.title}
-                          className="h-full w-full"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        />
-                      </div>
-                      <p className="truncate px-4 py-3 text-sm font-semibold text-white">{video.label}</p>
-                    </article>
-                  ))}
-                </div>
+                <article className="flex flex-col overflow-hidden rounded-2xl border border-slate-700/80 bg-[#152538]/90 shadow-xl backdrop-blur-xs">
+                  <div className="aspect-[16/10] w-full overflow-hidden bg-[#0F1D2E]">
+                    <iframe
+                      src={fieldVideo.src}
+                      title={fieldVideo.title}
+                      className="h-full w-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col justify-center p-5 sm:p-6">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8]">
+                      Watch Our Installers in the Field
+                    </p>
+                    <h2 className="mt-1 text-lg font-bold text-white">On-Site Glass &amp; Trim Installation</h2>
+                    <p className="mt-1 text-sm text-slate-300">
+                      Real-world window, glass, and finish trim installation by our Greater Seattle crew.
+                    </p>
+                  </div>
+                </article>
               </div>
             </div>
           </div>
