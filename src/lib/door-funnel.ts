@@ -269,7 +269,7 @@ export function doorManufacturerSlugFromOption(option: string) {
 const doorManufacturersByMaterial: Record<string, readonly string[]> = {
   wood: ["simpson", "rogue-valley"],
   "wood-clad": ["stile", "andersen", "jeld-wen"],
-  fiberglass: ["therma-tru", "andersen", "milgard", "codel"],
+  fiberglass: ["therma-tru", "milgard", "codel"],
   vinyl: ["ply-gem", "milgard", "jeld-wen"],
   aluminum: ["milgard"],
   composite: ["andersen"],

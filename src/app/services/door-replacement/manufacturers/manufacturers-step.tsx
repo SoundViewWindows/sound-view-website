@@ -85,29 +85,55 @@ export function DoorManufacturersStep() {
         </div>
 
         <section>
-          <ServiceFunnelCarousel>
-            {brands.map((brand) => {
-              const active = selected?.slug === brand.slug;
-              return (
-                <ManufacturerCard
-                  key={brand.slug}
-                  href={doorStepHref("quote", {
-                    type: typeSlug,
-                    material: materialSlug,
-                    manufacturer: brand.slug,
-                  })}
-                  name={brand.name}
-                  description={brand.body}
-                  detail={brand.detail}
-                  image={brand.image}
-                  alt={brand.alt}
-                  selected={active}
-                  theme="home"
-                  surface="veil"
-                />
-              );
-            })}
-          </ServiceFunnelCarousel>
+          {brands.length === 3 ? (
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 [&>*]:h-[490px] sm:[&>*]:h-[510px]">
+              {brands.map((brand) => {
+                const active = selected?.slug === brand.slug;
+                return (
+                  <ManufacturerCard
+                    key={brand.slug}
+                    href={doorStepHref("quote", {
+                      type: typeSlug,
+                      material: materialSlug,
+                      manufacturer: brand.slug,
+                    })}
+                    name={brand.name}
+                    description={brand.body}
+                    detail={brand.detail}
+                    image={brand.image}
+                    alt={brand.alt}
+                    selected={active}
+                    theme="home"
+                    surface="veil"
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <ServiceFunnelCarousel>
+              {brands.map((brand) => {
+                const active = selected?.slug === brand.slug;
+                return (
+                  <ManufacturerCard
+                    key={brand.slug}
+                    href={doorStepHref("quote", {
+                      type: typeSlug,
+                      material: materialSlug,
+                      manufacturer: brand.slug,
+                    })}
+                    name={brand.name}
+                    description={brand.body}
+                    detail={brand.detail}
+                    image={brand.image}
+                    alt={brand.alt}
+                    selected={active}
+                    theme="home"
+                    surface="veil"
+                  />
+                );
+              })}
+            </ServiceFunnelCarousel>
+          )}
           <div className="mt-10 flex justify-center">
             <SkipAhead theme="home" href={quoteHref}>Not sure yet? Continue to Free Quote</SkipAhead>
           </div>
