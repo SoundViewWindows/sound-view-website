@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { QuoteRequestForm } from "@/components/quote-request-form";
 import { OPEN_QUOTE_DRAWER_EVENT } from "@/components/QuoteSlideIn";
 
@@ -22,6 +22,7 @@ export function HomeQuoteSidebar({
   const [desktop, setDesktop] = useState(true);
   const [hasLeftHero, setHasLeftHero] = useState(false);
   const [navBottom, setNavBottom] = useState(54);
+  const prevHasLeftHeroRef = useRef(false);
   const lockedOpen = desktop && !hasLeftHero;
   const panelOpen = lockedOpen || (desktop ? !minimized : mobileOpen);
   const showTab = hasLeftHero && !panelOpen;
@@ -39,6 +40,19 @@ export function HomeQuoteSidebar({
     setMinimized(true);
     setMobileOpen(false);
   }
+
+  useEffect(() => {
+    const wasOutside = prevHasLeftHeroRef.current;
+    prevHasLeftHeroRef.current = hasLeftHero;
+    if (!hasLeftHero) {
+      setMinimized(false);
+      return;
+    }
+    if (!wasOutside) {
+      setMinimized(true);
+      setMobileOpen(false);
+    }
+  }, [hasLeftHero]);
 
   useEffect(() => {
     onDockedChange(!hasLeftHero);
