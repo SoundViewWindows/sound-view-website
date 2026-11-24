@@ -3,8 +3,9 @@ import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { QuoteDrawerButton, QuoteSlideIn } from "@/components/QuoteSlideIn";
+import { QuoteSlideIn } from "@/components/QuoteSlideIn";
 import { portfolioCategories } from "@/lib/portfolio-categories";
+import { services } from "@/lib/services";
 
 export const metadata: Metadata = {
   alternates: {
@@ -23,6 +24,19 @@ const fieldVideo = {
   title: "On-Site Architectural Glass & Trim Installation",
 };
 
+const categoryServiceId: Record<string, string> = {
+  windows: "window-replacement",
+  doors: "door-replacement",
+  "shower-doors": "shower-door-replacement",
+  glass: "glass-railing-installation",
+  "window-blinds-shades": "window-blinds-shades",
+};
+
+function categoryCardImage(slug: string) {
+  const serviceId = categoryServiceId[slug];
+  return services.find((service) => service.id === serviceId);
+}
+
 export default function PortfolioPage() {
   return (
     <div className="bg-white text-[#0B192C]">
@@ -40,44 +54,29 @@ export default function PortfolioPage() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
             </div>
             <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-white/20 bg-[#0F1D2E]/90 px-6 py-5 shadow-2xl backdrop-blur-md sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
-                <div>
-                  <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
-                    <ol className="flex flex-wrap items-center gap-2">
-                      <li>
-                        <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                          Home
-                        </Link>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span aria-hidden="true">&gt;</span>
-                        <span aria-current="page">Portfolio</span>
-                      </li>
-                    </ol>
-                  </nav>
-                  <p className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
-                    Project Portfolio
-                  </p>
-                  <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
-                    Completed Window, Door & Glass Installations
-                  </h1>
-                  <p className="mt-1.5 text-sm text-slate-200">
-                    Browse real Greater Seattle projects, field installation videos, and before-and-after home transformations.
-                  </p>
-                </div>
-                <div className="flex shrink-0 flex-wrap items-center gap-3">
-                  <Link
-                    href="/book-appointment"
-                    className={`rounded-lg bg-[#38BDF8] px-5 py-2.5 font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
-                  >
-                    Schedule a Showroom Visit
-                  </Link>
-                  <QuoteDrawerButton
-                    className={`rounded-lg bg-white px-5 py-2.5 font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
-                  >
-                    Request a Free Quote
-                  </QuoteDrawerButton>
-                </div>
+              <div className="mb-6">
+                <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
+                  <ol className="flex flex-wrap items-center gap-2">
+                    <li>
+                      <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
+                        Home
+                      </Link>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span aria-hidden="true">&gt;</span>
+                      <span aria-current="page">Portfolio</span>
+                    </li>
+                  </ol>
+                </nav>
+                <p className="mt-3 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
+                  Project Portfolio
+                </p>
+                <h1 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+                  Completed Window, Door & Glass Installations
+                </h1>
+                <p className="mt-2 text-sm text-slate-200">
+                  Browse real Greater Seattle projects, field installation videos, and before-and-after home transformations.
+                </p>
               </div>
 
               <div className="mb-6 flex flex-wrap gap-2">
@@ -95,6 +94,7 @@ export default function PortfolioPage() {
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {portfolioCategories.map((category) => {
                   const preview = category.images[0];
+                  const cardImage = categoryCardImage(category.slug);
                   return (
                     <Link
                       key={category.slug}
@@ -102,10 +102,10 @@ export default function PortfolioPage() {
                       className={`flex flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60 ${focusRing}`}
                     >
                       <div className="aspect-[16/10] w-full overflow-hidden bg-[#0F1D2E]">
-                        {preview ? (
+                        {cardImage ? (
                           <img
-                            src={preview.src}
-                            alt={preview.alt}
+                            src={cardImage.image}
+                            alt={cardImage.imageAlt}
                             className="h-full w-full object-cover object-center"
                           />
                         ) : null}

@@ -85,23 +85,7 @@ export const portfolioCategories: PortfolioCategory[] = [
         highlights: "Opening prep and unit setting during a local replacement.",
       },
     ],
-    videos: [
-      {
-        kind: "youtube",
-        src: "https://www.youtube.com/embed/_330VSt1DKs",
-        title: "Complete Window Tear-Out and Weatherproof Install",
-        notes:
-          "Removal of the old unit, sill prep, and airtight sealing for wet maritime winters.",
-      },
-      {
-        kind: "youtube",
-        src: "https://www.youtube.com/embed/2Q2s_spo7zs",
-        title: "Casement Window Product Walkthrough",
-        notes:
-          "A look at casement operation and the composite frame used on low-maintenance replacements.",
-      },
-      showroomVideo,
-    ],
+    videos: [],
   },
   {
     slug: "doors",
@@ -234,7 +218,7 @@ export const portfolioCategories: PortfolioCategory[] = [
     name: "Glass & Railings",
     eyebrow: "GLASS & RAILINGS PORTFOLIO",
     summary:
-      "Look through Greater Seattle glass railing, stair glass, and replacement glass projects and field videos.",
+      "Look through Greater Seattle glass railing, stair glass, and replacement glass projects.",
     funnel: "Railings, stair glass, and glass replacement.",
     images: [
       {
@@ -280,20 +264,7 @@ export const portfolioCategories: PortfolioCategory[] = [
         highlights: "Exterior railing glass set for an open edge and a clear view.",
       },
     ],
-    videos: [
-      {
-        kind: "youtube",
-        src: "https://www.youtube.com/embed/wcTlT2Mdw_E",
-        title: "On-Site Architectural Glass and Trim",
-        notes:
-          "Exterior casing, insulation pack, and sash adjustment from a field installation.",
-      },
-      {
-        ...showroomVideo,
-        notes:
-          "West Queen Anne showroom video covering architectural glass and railing displays you can stand next to.",
-      },
-    ],
+    videos: [],
   },
   {
     slug: "window-blinds-shades",
@@ -346,14 +317,7 @@ export const portfolioCategories: PortfolioCategory[] = [
         highlights: "A clean roller profile for solar control.",
       },
     ],
-    videos: [
-      {
-        ...showroomVideo,
-        title: "Showroom Treatment Displays",
-        notes:
-          "West Queen Anne showroom video. Window treatment displays are reviewed in person alongside the window samples.",
-      },
-    ],
+    videos: [],
   },
 ];
 

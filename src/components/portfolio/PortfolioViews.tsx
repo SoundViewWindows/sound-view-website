@@ -83,7 +83,13 @@ export function CategoryHub({ category }: { category: PortfolioCategory }) {
         </div>
       </section>
       <section className="bg-[#F4F6F9] py-8 sm:py-10">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 md:grid-cols-2 lg:gap-8 lg:px-8">
+        <div
+          className={`mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 lg:gap-8 lg:px-8 ${
+            category.slug === "glass" || category.slug === "window-blinds-shades"
+              ? "max-w-3xl"
+              : "md:grid-cols-2"
+          }`}
+        >
           <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
             <div className="relative h-56 bg-slate-100 sm:h-64">
               {preview ? (
@@ -106,6 +112,7 @@ export function CategoryHub({ category }: { category: PortfolioCategory }) {
               </Link>
             </div>
           </article>
+          {category.slug === "glass" || category.slug === "window-blinds-shades" ? null : (
           <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
             <div className="relative flex h-56 items-center justify-center bg-[#0F1D2E] sm:h-64">
               {preview ? (
@@ -133,9 +140,46 @@ export function CategoryHub({ category }: { category: PortfolioCategory }) {
               </Link>
             </div>
           </article>
+          )}
         </div>
       </section>
     </PortfolioShell>
+  );
+}
+
+function WindowInstallVideoCard({
+  featured = false,
+  src = "https://www.youtube.com/embed/wcTlT2Mdw_E",
+  iframeTitle = "Greater Seattle Window Installation Video",
+  heading = "Greater Seattle Window Installation",
+  description = "See our certified crew in action installing energy-efficient replacement windows with precision flashing and clean interior finish work.",
+}: {
+  featured?: boolean;
+  src?: string;
+  iframeTitle?: string;
+  heading?: string;
+  description?: string;
+}) {
+  return (
+    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md">
+      <div className={`${featured ? "aspect-video" : "aspect-[16/10]"} w-full overflow-hidden bg-[#0F1D2E]`}>
+        <iframe
+          src={src}
+          title={iframeTitle}
+          className="h-full w-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          loading="lazy"
+        />
+      </div>
+      <div className="flex flex-1 flex-col justify-center p-5 sm:p-6">
+        <p className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8]">
+          Watch Our Installers in the Field
+        </p>
+        <h2 className="mt-1 text-lg font-bold text-white">{heading}</h2>
+        <p className="mt-1 text-sm text-slate-200">{description}</p>
+      </div>
+    </article>
   );
 }
 
@@ -199,11 +243,30 @@ export function VideoPortfolio({ category }: { category: PortfolioCategory }) {
         secondaryAction={{ label: `Back to ${category.name}`, href: `/portfolio/${category.slug}` }}
       />
       <section className="bg-white py-14">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
-          {category.videos.map((video) => (
-            <VideoCard key={video.src} video={video} />
-          ))}
-        </div>
+        {category.slug === "windows" ? (
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
+            <WindowInstallVideoCard featured />
+            <WindowInstallVideoCard
+              featured
+              src="https://www.youtube.com/embed/_330VSt1DKs"
+              iframeTitle="Complete Window Tear-Out and Weatherproof Install"
+              heading="Complete Window Tear-Out & Install"
+              description="Precision removal of the old unit, sill prep, and airtight sealing for wet maritime winters."
+            />
+          </div>
+        ) : category.videos.length === 0 ? (
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <p className="text-sm text-[#556980]">
+              Installation videos for this category are not posted yet.
+            </p>
+          </div>
+        ) : (
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
+            {category.videos.map((video) => (
+              <VideoCard key={video.src} video={video} />
+            ))}
+          </div>
+        )}
         <div className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             href="/book-appointment"
