@@ -162,7 +162,7 @@ function WindowInstallVideoCard({
 }) {
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md">
-      <div className={`${featured ? "aspect-video" : "aspect-[16/10]"} w-full overflow-hidden bg-[#0F1D2E]`}>
+      <div className={`${featured ? "aspect-video" : "aspect-[16/10]"} flex w-full items-center justify-center overflow-hidden bg-[#0B1623]`}>
         <iframe
           src={src}
           title={iframeTitle}
@@ -245,14 +245,16 @@ export function VideoPortfolio({ category }: { category: PortfolioCategory }) {
       <section className="bg-white py-14">
         {category.slug === "windows" ? (
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
-            <WindowInstallVideoCard featured />
-            <WindowInstallVideoCard
-              featured
-              src="https://www.youtube.com/embed/_330VSt1DKs"
-              iframeTitle="Complete Window Tear-Out and Weatherproof Install"
-              heading="Complete Window Tear-Out & Install"
-              description="Precision removal of the old unit, sill prep, and airtight sealing for wet maritime winters."
-            />
+            {category.videos.map((video) => (
+              <WindowInstallVideoCard
+                key={video.src}
+                featured
+                src={video.src}
+                iframeTitle={video.iframeTitle ?? video.title}
+                heading={video.title}
+                description={video.notes}
+              />
+            ))}
           </div>
         ) : category.videos.length === 0 ? (
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
@@ -283,19 +285,19 @@ export function VideoPortfolio({ category }: { category: PortfolioCategory }) {
 function VideoCard({ video }: { video: PortfolioVideo }) {
   return (
     <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-      <div className="relative w-full bg-black pb-[56.25%]">
+      <div className="flex aspect-video w-full items-center justify-center overflow-hidden bg-[#0B1623]">
         {video.kind === "youtube" ? (
           <iframe
             src={video.src}
-            title={video.title}
-            className="absolute inset-0 h-full w-full"
+            title={video.iframeTitle ?? video.title}
+            className={video.portrait ? "aspect-[9/16] h-full w-auto max-w-full" : "h-full w-full"}
             loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           />
         ) : (
           <video
-            className="absolute inset-0 h-full w-full"
+            className="h-full w-full"
             controls
             playsInline
             preload="metadata"

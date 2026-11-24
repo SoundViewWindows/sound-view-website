@@ -12,6 +12,8 @@ export type PortfolioVideo = {
   notes: string;
   kind: "youtube" | "file";
   poster?: string;
+  iframeTitle?: string;
+  portrait?: boolean;
 };
 
 export type PortfolioCategory = {
@@ -85,7 +87,32 @@ export const portfolioCategories: PortfolioCategory[] = [
         highlights: "Opening prep and unit setting during a local replacement.",
       },
     ],
-    videos: [],
+    videos: [
+      {
+        kind: "youtube",
+        src: "https://www.youtube.com/embed/wcTlT2Mdw_E",
+        title: "Greater Seattle Window Installation",
+        iframeTitle: "Greater Seattle Window Installation Video",
+        notes:
+          "See our certified crew in action installing energy-efficient replacement windows with precision flashing and clean interior finish work.",
+      },
+      {
+        kind: "youtube",
+        src: "https://www.youtube.com/embed/_330VSt1DKs",
+        title: "Complete Window Tear-Out & Install",
+        iframeTitle: "Complete Window Tear-Out and Weatherproof Install",
+        notes:
+          "Precision removal of the old unit, sill prep, and airtight sealing for wet maritime winters.",
+      },
+      {
+        kind: "youtube",
+        src: "https://www.youtube.com/embed/hXHxYPtYIYA",
+        title: "Lead Prep and Window Install",
+        iframeTitle: "lead prep and window install",
+        notes:
+          "Lead prep and window installation by our Greater Seattle crew, from the opening work through the set unit.",
+      },
+    ],
   },
   {
     slug: "doors",
@@ -141,15 +168,13 @@ export const portfolioCategories: PortfolioCategory[] = [
     videos: [
       {
         kind: "youtube",
-        src: "https://www.youtube.com/embed/Xlq-C1mtKfE",
-        title: "Simpson Door Craftsmanship",
+        src: "https://www.youtube.com/embed/bGsNSKhzA0k",
+        title: "It is all in the prep work",
+        iframeTitle: "It is all in the prep work",
+        portrait: true,
+        poster: "https://i.ytimg.com/vi/bGsNSKhzA0k/hqdefault.jpg",
         notes:
-          "Manufacturer walkthrough of wood entry doors built for exterior exposure, including species and joinery.",
-      },
-      {
-        ...showroomVideo,
-        notes:
-          "West Queen Anne showroom video where entry and patio door displays can be opened and compared in person.",
+          "Door opening prep and installation by our Greater Seattle crew.",
       },
     ],
   },
