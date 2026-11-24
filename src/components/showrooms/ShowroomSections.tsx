@@ -4,9 +4,9 @@ import { showrooms, type Showroom, type ShowroomSlug } from "@/data/showrooms";
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
-const bookButton = `inline-flex items-center justify-center bg-[#0090c8] hover:bg-[#007fb1] text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-sm transition-all ${focusRing}`;
+const bookButton = `inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-4 py-2.5 text-sm font-semibold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`;
 
-const directionsButton = `inline-flex items-center justify-center border border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold text-sm px-4 py-2.5 rounded-xl transition-all ${focusRing}`;
+const directionsButton = `inline-flex items-center justify-center rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`;
 
 export function ShowroomCards({
   currentSlug,
@@ -53,28 +53,28 @@ function ShowroomCard({ room, current }: { room: Showroom; current: boolean }) {
   return (
     <article
       aria-current={current ? "page" : undefined}
-      className="flex h-full flex-col bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-md hover:shadow-lg transition-all"
+      className="flex h-full flex-col rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-6 shadow-2xl backdrop-blur-md sm:p-8"
     >
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <h2 className="text-2xl font-extrabold tracking-tight text-[#0B192C]">
-          <Link href={room.href} className={`rounded-sm hover:text-[#0090c8] ${focusRing}`}>
+        <h2 className="text-2xl font-extrabold tracking-tight text-white">
+          <Link href={room.href} className={`rounded-sm hover:text-[#38BDF8] ${focusRing}`}>
             {room.name}
           </Link>
         </h2>
         {room.appointmentOnly ? (
-          <span className="bg-sky-50 text-sky-700 border border-sky-200 text-xs font-bold px-2.5 py-1 rounded-full uppercase">
+          <span className="rounded-full border border-[#38BDF8]/50 bg-[#38BDF8]/15 px-2.5 py-1 text-xs font-bold uppercase text-[#38BDF8]">
             By Appointment Only
           </span>
         ) : null}
       </div>
-      <p className="text-sm leading-relaxed text-[#556980] sm:text-base">{room.summary}</p>
-      <p className="mt-4 text-sm font-medium leading-6 text-[#0B192C]">{room.address}</p>
-      <p className="mt-2 text-sm leading-6 text-[#556980]">
+      <p className="text-sm leading-relaxed text-slate-200 sm:text-base">{room.summary}</p>
+      <p className="mt-4 text-sm font-medium leading-6 text-slate-200">{room.address}</p>
+      <p className="mt-2 text-sm leading-6 text-slate-200">
         {room.hours[0].day}: {room.hours[0].time}
       </p>
       <a
         href={room.phoneHref}
-        className={`mt-3 w-fit text-lg font-extrabold text-[#0B192C] underline-offset-4 hover:text-[#0090c8] hover:underline ${focusRing}`}
+        className={`mt-3 w-fit text-lg font-bold text-[#38BDF8] underline-offset-4 hover:text-sky-300 hover:underline ${focusRing}`}
       >
         {room.phone}
       </a>
@@ -85,7 +85,7 @@ function ShowroomCard({ room, current }: { room: Showroom; current: boolean }) {
         <a href={room.directionsHref} target="_blank" rel="noopener noreferrer" className={directionsButton}>
           Get Directions
         </a>
-        <Link href={room.href} className={`text-sm font-semibold text-[#0090c8] underline-offset-4 hover:underline ${focusRing}`}>
+        <Link href={room.href} className={`text-sm font-semibold text-[#38BDF8] underline-offset-4 hover:underline ${focusRing}`}>
           View Showroom
         </Link>
       </div>
