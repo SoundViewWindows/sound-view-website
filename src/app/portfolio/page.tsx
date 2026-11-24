@@ -19,11 +19,6 @@ export const metadata: Metadata = {
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
-const fieldVideo = {
-  src: "https://www.youtube.com/embed/wcTlT2Mdw_E",
-  title: "On-Site Architectural Glass & Trim Installation",
-};
-
 const categoryServiceId: Record<string, string> = {
   windows: "window-replacement",
   doors: "door-replacement",
@@ -120,26 +115,6 @@ export default function PortfolioPage() {
                     </Link>
                   );
                 })}
-                <article className="flex flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md">
-                  <div className="aspect-[16/10] w-full overflow-hidden bg-[#0F1D2E]">
-                    <iframe
-                      src={fieldVideo.src}
-                      title={fieldVideo.title}
-                      className="h-full w-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col justify-center p-5 sm:p-6">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8]">
-                      Watch Our Installers in the Field
-                    </p>
-                    <h2 className="mt-1 text-lg font-bold text-white">On-Site Glass &amp; Trim Installation</h2>
-                    <p className="mt-1 text-sm text-slate-200">
-                      Real-world window, glass, and finish trim installation by our Greater Seattle crew.
-                    </p>
-                  </div>
-                </article>
               </div>
             </div>
         </section>
