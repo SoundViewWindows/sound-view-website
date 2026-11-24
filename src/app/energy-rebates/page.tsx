@@ -3,7 +3,7 @@ import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
-import { EnergyRebatesQuoteSidebar } from "./quote-sidebar";
+import { QuoteSlideIn } from "@/components/QuoteSlideIn";
 
 export const metadata: Metadata = {
   alternates: {
@@ -101,9 +101,9 @@ export default function EnergyRebatesPage() {
   return (
     <div className="flex flex-1 flex-col bg-white text-[#0B192C]">
       <Header />
+      <QuoteSlideIn id="energy-rebates-quote" formName="energy-rebates-quote" />
       <main className="flex-1">
-        <section className="flex flex-col lg:flex-row">
-          <div className="relative flex flex-1 flex-col overflow-hidden bg-[#0F1D2E] py-6 pl-4 pr-4 text-white sm:pl-6 sm:pr-6 lg:py-7 lg:pl-10 lg:pr-10 xl:pl-16">
+        <section className="relative overflow-hidden bg-[#0F1D2E] py-6 text-white lg:py-7">
             <div className="pointer-events-none absolute inset-0 z-0 select-none">
               <img
                 src="/images/hero-bg.jpg"
@@ -113,7 +113,7 @@ export default function EnergyRebatesPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
             </div>
-            <div className="relative z-10 flex h-full flex-col gap-5">
+            <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col gap-5 px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h1 className="text-xs font-bold uppercase tracking-wider text-[#38BDF8] sm:text-sm">
                 Energy Rebates &amp; Tax Credits for Windows &amp; Doors
@@ -186,9 +186,7 @@ export default function EnergyRebatesPage() {
                 ))}
               </div>
             </div>
-            </div>
           </div>
-          <EnergyRebatesQuoteSidebar />
         </section>
 
         <section className="bg-slate-50 pt-16 pb-20 text-[#0B192C] md:pt-20 md:pb-24">
@@ -215,6 +213,7 @@ export default function EnergyRebatesPage() {
         <p>© 2026 Sound View Window &amp; Door. All Rights Reserved.</p>
       </footer>
       <CtaBanner
+        quoteDrawer
         className="bg-[#0F1D2E] py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
         style={{
           backgroundColor: "#0F1D2E",

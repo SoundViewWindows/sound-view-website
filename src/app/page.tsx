@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CountUp } from "@/components/CountUp";
 import { Header } from "@/components/Header";
 import { HeroActionButtons } from "@/components/HeroActionButtons";
+import { HomeQuoteSidebar } from "@/components/HomeQuoteSidebar";
+import { openQuoteDrawer } from "@/components/QuoteSlideIn";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { QuoteRequestForm } from "@/components/quote-request-form";
 import { ServiceAreasSection } from "@/components/ServiceAreasSection";
 import { services } from "@/lib/services";
 
@@ -31,33 +32,22 @@ export default function Home() {
   const [quoteSubmitted, setQuoteSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  useEffect(() => {
-    if (window.location.hash !== "#homepage-quote-box") return;
-    const timer = window.setTimeout(() => {
-      document.getElementById("homepage-quote-box")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 60);
-    return () => window.clearTimeout(timer);
+  const [quoteDocked, setQuoteDocked] = useState(true);
+  const quotePad = quoteDocked
+    ? "lg:pr-[360px] xl:pr-[390px] transition-[padding] duration-300 ease-out"
+    : "lg:pr-0 transition-[padding] duration-300 ease-out";
+  const keepQuoteDocked = useCallback((docked: boolean) => {
+    setQuoteDocked(docked);
   }, []);
 
-  function focusQuote() {
-    document.getElementById("homepage-quote-box")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-    document.getElementById("quote-name")?.focus({ preventScroll: true });
-  }
+  useEffect(() => {
+    if (window.location.hash !== "#homepage-quote-box") return;
+    openQuoteDrawer();
+  }, []);
 
   function chooseService(id: string) {
     setProjectType(id);
-    if (window.innerWidth < 1024) {
-      document.getElementById("homepage-quote-box")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
+    if (window.innerWidth < 1024) openQuoteDrawer();
   }
 
   return (
@@ -65,7 +55,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col">
       <Header onServiceSelect={chooseService} />
 
-      <section id="hero" className="relative flex-1 overflow-hidden bg-[#0B192C]">
+      <section id="hero" className={`relative flex-1 overflow-hidden bg-[#0B192C] ${quotePad}`}>
         <div className="pointer-events-none absolute inset-0 z-0 select-none">
           <img
             src="/images/hero-bg.jpg"
@@ -75,7 +65,7 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/65" />
         </div>
-      <main className="relative z-10 mx-auto grid w-full max-w-[1440px] flex-1 gap-4 px-4 pb-0 sm:px-5 lg:grid-cols-[minmax(0,1fr)_calc(18rem+70px)] lg:items-start lg:pb-3 lg:pl-5 lg:pr-0">
+      <main className="relative z-10 mx-auto w-full max-w-[1440px] flex-1 px-4 pb-0 sm:px-5 lg:pb-3 lg:px-5">
         <div className="relative z-20 flex min-h-0 flex-col">
           <div className="relative z-30 mb-4 flex w-full flex-col items-center justify-center gap-5 pb-7 pt-6 md:flex-row md:pb-4 md:pt-5 xl:pb-5 xl:pt-6">
             <Image
@@ -111,7 +101,7 @@ export default function Home() {
               <div className="relative flex flex-wrap items-center justify-center gap-4">
               <button
                 type="button"
-                onClick={focusQuote}
+                onClick={openQuoteDrawer}
                 className="rounded-none bg-home-accent px-4 py-2 text-sm font-medium text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-home-accent md:hidden"
               >
                 Get a Free Quote
@@ -190,50 +180,27 @@ export default function Home() {
             </section>
           </ScrollReveal>
         </div>
-
-        <aside
-          id="homepage-quote-box"
-          className="home-quote-panel relative z-10 flex scroll-mt-24 flex-col rounded-b-none p-6 text-white sm:p-7 lg:rounded-none lg:!w-[calc(18rem+70px)] lg:!max-w-[calc(18rem+70px)]"
-        >
-          {quoteSubmitted ? null : (
-            <div className="-mx-6 -mt-6 px-6 py-6 text-center sm:-mx-7 sm:-mt-7 sm:px-8 sm:py-7">
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8] sm:text-sm">
-                Special Offer
-              </p>
-              <p className="mt-1 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-[28px] lg:text-[30px]">
-                Save 10% on Labor
-              </p>
-              <p className="mt-1.5 text-sm italic text-sky-100/95 sm:text-[15px]">
-                Book your project by November 30th.
-              </p>
-            </div>
-          )}
-          <div
-            className={
-              quoteSubmitted
-                ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto text-center"
-                : "mt-5 min-h-0 flex-1"
-            }
-          >
-            <QuoteRequestForm
-              projectType={projectType}
-              onProjectTypeChange={setProjectType}
-              onSubmittedChange={setQuoteSubmitted}
-            />
-          </div>
-        </aside>
       </main>
       </section>
     </div>
 
+      <div className={quotePad}>
       <ShowroomShowcase />
       <HowItWorks />
       <FaqAndCta
         openIndex={openFaq}
         onToggle={(index) => setOpenFaq((current) => (current === index ? null : index))}
-        onQuote={focusQuote}
+        onQuote={openQuoteDrawer}
       />
       <HomeownerReviews />
+      </div>
+      <HomeQuoteSidebar
+        projectType={projectType}
+        onProjectTypeChange={setProjectType}
+        quoteSubmitted={quoteSubmitted}
+        onSubmittedChange={setQuoteSubmitted}
+        onDockedChange={keepQuoteDocked}
+      />
     </div>
   );
 }

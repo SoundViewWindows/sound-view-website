@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
+import { QuoteSlideIn } from "@/components/QuoteSlideIn";
 import { ShowroomsIndexHero } from "@/components/showrooms/ShowroomsIndexHero";
 
 export const metadata: Metadata = {
@@ -17,9 +18,10 @@ export default function ShowroomsPage() {
   return (
     <div className="bg-white text-[#0B192C]">
       <Header />
+      <QuoteSlideIn id="showrooms-quote" formName="showrooms-quote" />
       <main>
         <ShowroomsIndexHero />
-        <CtaBanner />
+        <CtaBanner quoteDrawer />
       </main>
     </div>
   );

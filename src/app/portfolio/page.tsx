@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
-import { FlushQuoteSidebar } from "@/components/FlushQuoteSidebar";
 import { Header } from "@/components/Header";
+import { QuoteDrawerButton, QuoteSlideIn } from "@/components/QuoteSlideIn";
 import { portfolioCategories } from "@/lib/portfolio-categories";
 
 export const metadata: Metadata = {
@@ -27,9 +27,9 @@ export default function PortfolioPage() {
   return (
     <div className="bg-white text-[#0B192C]">
       <Header />
+      <QuoteSlideIn id="portfolio-quote" formName="portfolio-quote" />
       <main>
-        <section className="flex flex-col lg:flex-row">
-          <div className="relative flex-1 overflow-hidden bg-[#0F1D2E] py-8 pl-4 pr-4 text-white sm:pl-6 sm:pr-6 lg:py-10 lg:pl-10 lg:pr-10 xl:pl-16">
+        <section className="relative overflow-hidden bg-[#0F1D2E] py-8 text-white lg:py-10">
             <div className="pointer-events-none absolute inset-0 z-0 select-none">
               <img
                 src="/images/hero-bg.jpg"
@@ -39,7 +39,7 @@ export default function PortfolioPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
             </div>
-            <div className="relative z-10">
+            <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-white/20 bg-[#0F1D2E]/90 px-6 py-5 shadow-2xl backdrop-blur-md sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
                 <div>
                   <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
@@ -72,12 +72,11 @@ export default function PortfolioPage() {
                   >
                     Schedule a Showroom Visit
                   </Link>
-                  <a
-                    href="#portfolio-quote"
+                  <QuoteDrawerButton
                     className={`rounded-lg bg-white px-5 py-2.5 font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
                   >
                     Request a Free Quote
-                  </a>
+                  </QuoteDrawerButton>
                 </div>
               </div>
 
@@ -143,8 +142,6 @@ export default function PortfolioPage() {
                 </article>
               </div>
             </div>
-          </div>
-          <FlushQuoteSidebar id="portfolio-quote" formName="portfolio-quote" />
         </section>
 
         <section

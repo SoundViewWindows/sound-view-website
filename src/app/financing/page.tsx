@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
 import { FinancingCalculator } from "@/components/FinancingCalculator";
-import { FinancingQuoteSidebar } from "./financing-quote-sidebar";
+import { QuoteSlideIn } from "@/components/QuoteSlideIn";
 
 export const metadata: Metadata = {
   alternates: {
@@ -61,6 +61,7 @@ export default function FinancingPage() {
   return (
     <div className="bg-white text-[#0B192C]">
       <Header />
+      <QuoteSlideIn id="financing-quote" formName="financing-quote" />
       <main>
         <section className="relative bg-[#0F1D2E] text-white">
           <div className="pointer-events-none absolute inset-0 z-0 select-none">
@@ -72,8 +73,7 @@ export default function FinancingPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
           </div>
-          <div className="relative z-10 flex flex-col lg:flex-row lg:items-stretch">
-            <div className="min-w-0 flex-1 py-8 pl-4 pr-4 sm:pl-6 sm:pr-6 lg:py-10 lg:pl-10 lg:pr-10 xl:pl-16">
+          <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
             <div>
               <nav aria-label="Breadcrumb" className="text-xs text-slate-300">
                 <ol className="flex flex-wrap items-center gap-2">
@@ -186,8 +186,6 @@ export default function FinancingPage() {
                 Hearth is a technology company, licensed as a broker as may be required by state law. Hearth does not accept applications for credit, does not make loans, and does not make credit decisions. All loans are subject to credit review and approval by Hearth&apos;s lending partners. Rates, terms, and amounts vary by lender and credit profile.
               </p>
             </section>
-            </div>
-            <FinancingQuoteSidebar />
           </div>
         </section>
 
@@ -231,6 +229,7 @@ export default function FinancingPage() {
           </div>
         </section>
         <CtaBanner
+          quoteDrawer
           className="py-16 text-white md:py-20 [&_h2]:text-white [&_p]:text-slate-300"
           style={{
             backgroundColor: "#0F1D2E",

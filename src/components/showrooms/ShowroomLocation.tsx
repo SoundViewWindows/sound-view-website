@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
+import { QuoteDrawerButton, QuoteSlideIn } from "@/components/QuoteSlideIn";
 import { ShowroomCards } from "@/components/showrooms/ShowroomSections";
 import { getShowroom, type Showroom, type ShowroomSlug } from "@/data/showrooms";
 
@@ -37,6 +38,7 @@ export function ShowroomLocation({
   return (
     <div className="bg-white text-[#0F1D2E]">
       <Header />
+      <QuoteSlideIn id={`${slug}-showroom-quote`} formName={`${slug}-showroom-quote`} />
       <main>
         <section className="relative overflow-hidden bg-[#0F1D2E] pb-16 pt-10 text-white sm:pb-20 sm:pt-12">
           <div className="pointer-events-none absolute inset-0 z-0 select-none">
@@ -187,9 +189,9 @@ export function ShowroomLocation({
             top-tier products from brands like Milgard and Andersen, or schedule a
             personalized consultation at one of our local showrooms.
           </p>
-          <Link href="/#homepage-quote-box" className={ctaButton}>
+          <QuoteDrawerButton className={ctaButton}>
             Get A Free Quote
-          </Link>
+          </QuoteDrawerButton>
         </section>
       </main>
     </div>

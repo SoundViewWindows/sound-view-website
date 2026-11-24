@@ -165,19 +165,22 @@ test("Blog index opens with a framed navy header", () => {
 });
 
 test("Portfolio and About open beside a flush quote sidebar", () => {
-  for (const file of ["src/app/portfolio/page.tsx", "src/app/about/page.tsx"]) {
-    const page = source(file);
-    assert.match(page, /FlushQuoteSidebar/);
-    assert.match(page, /lg:flex-row/);
-    assert.match(page, /bg-\[#0F1D2E\]/);
-    assert.doesNotMatch(page, /HeroQuoteLayout/);
-  }
+  const about = source("src/app/about/page.tsx");
+  assert.match(about, /AboutQuoteSlideIn/);
+  assert.match(about, /bg-\[#0F1D2E\]/);
+  assert.doesNotMatch(about, /HeroQuoteLayout/);
+
+  const portfolio = source("src/app/portfolio/page.tsx");
+  assert.match(portfolio, /QuoteSlideIn/);
+  assert.match(portfolio, /max-w-7xl/);
+  assert.match(portfolio, /bg-\[#0F1D2E\]/);
+  assert.doesNotMatch(portfolio, /FlushQuoteSidebar|HeroQuoteLayout/);
 });
 
 for (const [label, file] of identityPages) {
   test(`${label} opens with a page identity hero`, () => {
     const page = source(file);
-    assert.match(page, /SoundViewPageHero/);
+    assert.match(page, /QuoteSlideIn/);
     assert.doesNotMatch(page, /HeroQuoteLayout|QuoteRequestForm/);
   });
 }
@@ -305,7 +308,8 @@ test("glass railing page renders its own request form", async () => {
 
 test("blog and showroom pages render the traced quote components", () => {
   assert.match(source("src/app/blog/page.tsx"), /<BlogIndex/);
-  assert.match(source("src/app/showrooms/page.tsx"), /SoundViewPageHero/);
+  assert.match(source("src/app/showrooms/page.tsx"), /QuoteSlideIn/);
+  assert.match(source("src/app/showrooms/page.tsx"), /ShowroomsIndexHero/);
 });
 
 test("contact message form creates a general Jobber inquiry", async () => {

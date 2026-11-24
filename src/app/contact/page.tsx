@@ -3,6 +3,7 @@ import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { Header } from "@/components/Header";
+import { QuoteSlideIn } from "@/components/QuoteSlideIn";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
@@ -56,6 +57,7 @@ export default function ContactPage() {
   return (
     <div className="flex flex-1 flex-col bg-white text-[#0B192C]">
       <Header />
+      <QuoteSlideIn id="contact-quote" formName="contact-quote" />
       <main className="flex-1">
         <section className="relative overflow-hidden bg-[#0B192C] pt-10 pb-16 sm:pt-12 sm:pb-20">
           <div className="pointer-events-none absolute inset-0 z-0 select-none">

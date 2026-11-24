@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import { QuoteDrawerButton } from "@/components/QuoteSlideIn";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
@@ -7,9 +8,11 @@ const focusRing =
 export function CtaBanner({
   className,
   style,
+  quoteDrawer = false,
 }: {
   className?: string;
   style?: CSSProperties;
+  quoteDrawer?: boolean;
 }) {
   return (
     <section
@@ -24,12 +27,20 @@ export function CtaBanner({
         top-tier products from brands like Milgard and Andersen, or schedule a
         personalized consultation at one of our local showrooms.
       </p>
-      <Link
-        href="/#homepage-quote-box"
-        className={`inline-flex items-center justify-center rounded-[4px] bg-[#0090c8] px-8 py-3.5 font-bold text-white shadow-md transition-colors hover:bg-[#007fb1] ${focusRing}`}
-      >
-        Get A Free Quote
-      </Link>
+      {quoteDrawer ? (
+        <QuoteDrawerButton
+          className={`inline-flex items-center justify-center rounded-[4px] bg-[#0090c8] px-8 py-3.5 font-bold text-white shadow-md transition-colors hover:bg-[#007fb1] ${focusRing}`}
+        >
+          Get A Free Quote
+        </QuoteDrawerButton>
+      ) : (
+        <Link
+          href="/#homepage-quote-box"
+          className={`inline-flex items-center justify-center rounded-[4px] bg-[#0090c8] px-8 py-3.5 font-bold text-white shadow-md transition-colors hover:bg-[#007fb1] ${focusRing}`}
+        >
+          Get A Free Quote
+        </Link>
+      )}
     </section>
   );
 }

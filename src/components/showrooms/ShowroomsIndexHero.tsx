@@ -1,9 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { QuoteRequestForm } from "@/components/quote-request-form";
 import { showrooms, type Showroom, type ShowroomSlug } from "@/data/showrooms";
 
 const focusRing =
@@ -15,9 +11,6 @@ function bookingLocation(slug: ShowroomSlug) {
 }
 
 export function ShowroomsIndexHero() {
-  const [projectType, setProjectType] = useState("");
-  const [quoteSubmitted, setQuoteSubmitted] = useState(false);
-
   return (
     <section className="relative overflow-hidden bg-[#0F1D2E] text-white">
       <div className="pointer-events-none absolute inset-0 z-0 select-none">
@@ -30,8 +23,7 @@ export function ShowroomsIndexHero() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
       </div>
 
-      <div className="relative z-10 flex flex-col lg:flex-row lg:items-stretch">
-        <div className="min-w-0 flex-1 py-8 pl-4 pr-6 sm:pl-6 lg:py-10 lg:pl-10 lg:pr-10 xl:pl-16">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
           <div className="mb-6">
             <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
               <ol className="flex flex-wrap items-center gap-2">
@@ -63,31 +55,6 @@ export function ShowroomsIndexHero() {
               <ShowroomHeroCard key={room.slug} room={room} />
             ))}
           </div>
-        </div>
-
-        <aside className="flex w-full shrink-0 flex-col self-stretch bg-[#003d6b] px-6 py-8 text-white sm:px-8 lg:w-[380px] xl:w-[420px]">
-          {quoteSubmitted ? null : (
-            <div className="text-center">
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8] sm:text-sm">
-                Special Offer
-              </p>
-              <p className="mt-1 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-[28px] lg:text-[30px]">
-                Save 10% on Labor
-              </p>
-              <p className="mt-1.5 text-sm italic text-sky-100/95 sm:text-[15px]">
-                Book your project by November 30th.
-              </p>
-            </div>
-          )}
-          <div className={quoteSubmitted ? "flex min-h-0 flex-1 flex-col" : "mt-5 min-h-0 flex-1"}>
-            <QuoteRequestForm
-              projectType={projectType}
-              onProjectTypeChange={setProjectType}
-              onSubmittedChange={setQuoteSubmitted}
-              formName="showrooms-quote"
-            />
-          </div>
-        </aside>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { openQuoteDrawer } from "@/components/QuoteSlideIn";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -250,13 +251,8 @@ export function ServiceAreasSection() {
     setSelectedCity(null);
     document.body.style.overflow = "";
     if (window.location.pathname === "/") {
-      window.setTimeout(() => {
-        document.getElementById("homepage-quote-box")?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-        window.history.replaceState(null, "", "/#homepage-quote-box");
-      }, 60);
+      window.history.replaceState(null, "", "/#homepage-quote-box");
+      openQuoteDrawer();
       return;
     }
     router.push("/#homepage-quote-box");
