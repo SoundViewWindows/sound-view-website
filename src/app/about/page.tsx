@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
+import { AboutQuoteOpenButton, AboutQuoteSlideIn } from "@/components/AboutQuoteSlideIn";
 import { Header } from "@/components/Header";
 import { canonicalUrl } from "@/config/site";
 import { showrooms } from "@/data/showrooms";
@@ -92,21 +93,26 @@ const installVideo = {
 };
 
 export default function AboutPage() {
-  const quoteHref = "/#quote";
   return (
     <div className="bg-white text-[#0F1D2E]">
       <Header />
+      <AboutQuoteSlideIn />
       <main>
-        <section className="relative overflow-hidden bg-[#0F1D2E] text-white">
-          <div className="pointer-events-none absolute inset-0 z-0 select-none">
-            <img
-              src="/images/hero-bg.jpg"
-              alt=""
-              aria-hidden="true"
-              className="h-full w-full object-cover object-center opacity-40"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
-          </div>
+        <section className="relative overflow-hidden bg-[#0B1623] text-white">
+          <video
+            className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-35 motion-reduce:hidden"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            tabIndex={-1}
+            disablePictureInPicture
+          >
+            <source src="/videos/about-hero.mp4" type="video/mp4" />
+          </video>
+          <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#0B1623]/60 via-[#0F1D2E]/45 to-[#0B1623]/85" />
           <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
             <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
               <div className="lg:col-span-5">
@@ -181,12 +187,11 @@ export default function AboutPage() {
                   >
                     Book Appointment
                   </Link>
-                  <Link
-                    href={quoteHref}
+                  <AboutQuoteOpenButton
                     className={`inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
                   >
                     Get a Free Quote
-                  </Link>
+                  </AboutQuoteOpenButton>
                 </div>
               </div>
             </div>
@@ -435,12 +440,11 @@ export default function AboutPage() {
               explore top-tier products from brands like Milgard and Andersen, or
               schedule a personalized consultation at one of our local showrooms.
             </p>
-            <Link
-              href={quoteHref}
+            <AboutQuoteOpenButton
               className={`mt-8 inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-semibold text-[#0F1D2E] transition-colors hover:bg-sky-300 ${focusRing}`}
             >
               Get A Free Quote
-            </Link>
+            </AboutQuoteOpenButton>
           </div>
         </section>
       </main>
