@@ -268,7 +268,7 @@ export function doorManufacturerSlugFromOption(option: string) {
 
 const doorManufacturersByMaterial: Record<string, readonly string[]> = {
   wood: ["simpson", "rogue-valley"],
-  "wood-clad": ["stile", "jeld-wen"],
+  "wood-clad": ["stile", "andersen", "jeld-wen"],
 };
 
 function doorMaterialRestrictionKey(material: string | null | undefined) {
@@ -277,16 +277,25 @@ function doorMaterialRestrictionKey(material: string | null | undefined) {
     (item) => item.option === material || item.slug === material || item.name === material,
   );
   const slug = (match?.slug ?? material).trim().toLowerCase().replace(/[\s_]+/g, "-");
-  if (slug === "wood" || slug === "wood-door") return "wood";
-  if (slug === "wood-clad" || slug === "woodclad") return "wood-clad";
+  if (
+    slug === "wood-clad" ||
+    slug === "woodclad" ||
+    slug === "clad-wood" ||
+    slug === "cladwood"
+  ) {
+    return "wood-clad";
+  }
+  if (slug === "wood" || slug === "wood-door" || slug === "solid-wood") return "wood";
   return null;
 }
 
 export function doorManufacturersForMaterial(material: string | null | undefined) {
   const key = doorMaterialRestrictionKey(material);
   if (!key) return doorManufacturers;
-  const allowed = new Set(doorManufacturersByMaterial[key]);
-  return doorManufacturers.filter((item) => allowed.has(item.slug));
+  return doorManufacturersByMaterial[key].flatMap((slug) => {
+    const match = doorManufacturers.find((item) => item.slug === slug);
+    return match ? [match] : [];
+  });
 }
 
 export function doorManufacturerAllowed(
