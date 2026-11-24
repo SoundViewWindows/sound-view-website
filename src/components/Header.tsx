@@ -110,7 +110,7 @@ export function Header({ onServiceSelect }: HeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-50 h-14 min-h-[54px] w-full shrink-0 border-b border-slate-200 bg-white py-0" style={{ height: "54px", minHeight: "54px" }}>
+    <header id="site-header" className="sticky top-0 z-50 h-14 min-h-[54px] w-full shrink-0 border-b border-slate-200 bg-white py-0" style={{ height: "54px", minHeight: "54px" }}>
       <div className="relative flex h-full w-full items-center justify-center px-6">
         <nav aria-label="Primary" className="hidden items-center justify-center gap-6 lg:flex xl:gap-9">
             {navigation.map((entry) =>

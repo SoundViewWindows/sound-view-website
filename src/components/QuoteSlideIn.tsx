@@ -67,6 +67,14 @@ export function QuoteSlideIn({
 
   const visible = forcedOpen || (desktop && pastHero && !dismissed);
 
+  useEffect(() => {
+    if (visible && desktop) document.body.dataset.quoteOpen = "true";
+    else delete document.body.dataset.quoteOpen;
+    return () => {
+      delete document.body.dataset.quoteOpen;
+    };
+  }, [visible, desktop]);
+
   function closePanel() {
     setForcedOpen(false);
     setDismissed(true);

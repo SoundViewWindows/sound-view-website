@@ -21,6 +21,7 @@ export function HomeQuoteSidebar({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktop, setDesktop] = useState(true);
   const [hasLeftHero, setHasLeftHero] = useState(false);
+  const [navBottom, setNavBottom] = useState(54);
   const lockedOpen = desktop && !hasLeftHero;
   const panelOpen = lockedOpen || (desktop ? !minimized : mobileOpen);
   const showTab = hasLeftHero && !panelOpen;
@@ -28,7 +29,6 @@ export function HomeQuoteSidebar({
   function expand() {
     setMinimized(false);
     setMobileOpen(true);
-    onDockedChange(true);
     window.setTimeout(() => {
       document.getElementById("quote-name")?.focus();
     }, 60);
@@ -38,12 +38,38 @@ export function HomeQuoteSidebar({
     if (window.matchMedia("(min-width: 1024px)").matches && !hasLeftHero) return;
     setMinimized(true);
     setMobileOpen(false);
-    onDockedChange(false);
   }
 
   useEffect(() => {
-    onDockedChange(lockedOpen || !minimized);
-  }, [lockedOpen, minimized, onDockedChange]);
+    onDockedChange(!hasLeftHero);
+  }, [hasLeftHero, onDockedChange]);
+
+  useEffect(() => {
+    if (panelOpen && desktop) document.body.dataset.quoteOpen = "true";
+    else delete document.body.dataset.quoteOpen;
+    return () => {
+      delete document.body.dataset.quoteOpen;
+    };
+  }, [panelOpen, desktop]);
+
+  useEffect(() => {
+    function syncNav() {
+      const visibleHeader = Array.from(document.querySelectorAll("header")).find(
+        (el) => el.getBoundingClientRect().height > 0,
+      );
+      const topOffset = visibleHeader
+        ? Math.max(0, Math.round(visibleHeader.getBoundingClientRect().bottom))
+        : 0;
+      setNavBottom((current) => (current === topOffset ? current : topOffset));
+    }
+    syncNav();
+    window.addEventListener("scroll", syncNav, { passive: true });
+    window.addEventListener("resize", syncNav);
+    return () => {
+      window.removeEventListener("scroll", syncNav);
+      window.removeEventListener("resize", syncNav);
+    };
+  }, []);
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1024px)");
@@ -88,12 +114,14 @@ export function HomeQuoteSidebar({
       </button>
       <aside
         id="homepage-quote-box"
-        className={`home-quote-follow fixed bottom-0 right-0 top-[72px] z-40 w-[360px] max-w-full overflow-y-auto bg-[#003d6b] p-6 text-white shadow-2xl transition-transform duration-300 ease-out sm:p-7 xl:w-[390px] ${
+        className={`home-quote-follow fixed bottom-0 right-0 z-40 flex w-[360px] max-w-full flex-col overflow-y-auto bg-[#003d6b] shadow-2xl transition-transform duration-300 ease-out xl:w-[390px] ${
           mobileOpen ? "block" : "hidden lg:block"
         } ${panelOpen ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-full"}`}
+        style={{ top: `${navBottom}px` }}
         aria-hidden={!panelOpen}
         inert={!panelOpen}
       >
+        <div className="flex min-h-full flex-1 flex-col bg-[#003d6b] text-white">
         <button
           type="button"
           onClick={minimize}
@@ -107,7 +135,7 @@ export function HomeQuoteSidebar({
           X
         </button>
         {quoteSubmitted ? null : (
-          <div className="-mx-6 -mt-6 px-6 py-6 pr-12 text-center sm:-mx-7 sm:-mt-7 sm:px-8 sm:py-7">
+          <div className="px-6 pb-2 pt-6 pr-12 text-center sm:px-8 sm:pt-7">
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8] sm:text-sm">
               Special Offer
             </p>
@@ -122,8 +150,8 @@ export function HomeQuoteSidebar({
         <div
           className={
             quoteSubmitted
-              ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto text-center"
-              : "mt-5 min-h-0 flex-1"
+              ? "flex min-h-0 flex-1 flex-col items-center justify-start overflow-y-auto px-6 pb-6 text-center sm:px-7"
+              : "mt-5 min-h-0 flex-1 px-6 pb-6 sm:px-7"
           }
         >
           <QuoteRequestForm
@@ -131,6 +159,7 @@ export function HomeQuoteSidebar({
             onProjectTypeChange={onProjectTypeChange}
             onSubmittedChange={onSubmittedChange}
           />
+        </div>
         </div>
       </aside>
     </>
