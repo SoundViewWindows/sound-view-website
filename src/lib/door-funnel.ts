@@ -269,6 +269,10 @@ export function doorManufacturerSlugFromOption(option: string) {
 const doorManufacturersByMaterial: Record<string, readonly string[]> = {
   wood: ["simpson", "rogue-valley"],
   "wood-clad": ["stile", "andersen", "jeld-wen"],
+  fiberglass: ["therma-tru", "andersen", "milgard", "codel"],
+  vinyl: ["ply-gem", "milgard", "jeld-wen"],
+  aluminum: ["milgard"],
+  composite: ["andersen"],
 };
 
 function doorMaterialRestrictionKey(material: string | null | undefined) {
@@ -286,6 +290,10 @@ function doorMaterialRestrictionKey(material: string | null | undefined) {
     return "wood-clad";
   }
   if (slug === "wood" || slug === "wood-door" || slug === "solid-wood") return "wood";
+  if (slug === "fiberglass" || slug === "fiberglass-door") return "fiberglass";
+  if (slug === "vinyl" || slug === "vinyl-door") return "vinyl";
+  if (slug === "aluminum" || slug === "aluminium" || slug === "aluminum-door") return "aluminum";
+  if (slug === "composite" || slug === "composite-door") return "composite";
   return null;
 }
 
