@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
+import { FinancingCalculator } from "@/components/FinancingCalculator";
 import { FinancingQuoteSidebar } from "./financing-quote-sidebar";
 
 export const metadata: Metadata = {
@@ -12,19 +13,48 @@ export const metadata: Metadata = {
   },
   title: "Financing | Sound View Window & Door",
   description:
-    "Flexible Synchrony Bank financing for replacement windows, doors, and custom glass in the Greater Seattle Area.",
+    "Monthly payment options for replacement windows, doors, and custom glass through Hearth, Sound View Window & Door's financing partner.",
 };
 
-const synchronyHref = "https://www.synchrony.com/mmc/AO166613500";
+const HEARTH_FINANCING_URL =
+  "https://homeowner.gethearth.com/v1/organizations/63142/users/115199/financing?utm_campaign=63142&utm_content=general&utm_medium=custom-lp&utm_source=contractor&utm_term=115199";
 
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
-const verificationItems = [
-  "Synchrony Account Number",
-  "Full Name (as it appears on the Synchrony account)",
-  "Date of Birth (of the primary account holder)",
-  "Your Chosen Financing Plan (e.g., 18 Months Deferred Interest, Reduced interest, etc.)",
+const whyItems = [
+  "Loans from $1,000 to $250,000, with terms from 2 to 12 years",
+  "Fixed monthly payments: no surprises, and no prepayment penalties",
+  "No home equity required on personal loans",
+  "One quick request shops 18+ lenders for you",
+  "0% introductory APR card options for qualified buyers (6-18 months)",
+  "Funds in your account as fast as 24 hours after approval",
+];
+
+const howItWorks = [
+  'Tap "See my payment options" and answer a few questions (about 2 minutes, soft credit check only).',
+  "Compare your real offers (monthly payment, rate, and term) from multiple lenders, side by side.",
+  "Pick the option you like, finish the application with that lender, and get funded, usually within a few business days. Then we get your project scheduled.",
+];
+
+const financingQuestions = [
+  {
+    question: "Will checking hurt my credit?",
+    answer: "No: pre-qualifying is a soft pull and does not affect your score.",
+  },
+  {
+    question: "Do I need home equity?",
+    answer: "Not for a personal loan. Larger projects can also look at HELOC options.",
+  },
+  {
+    question: "Can I pay it off early?",
+    answer: "Yes: no prepayment penalties.",
+  },
+  {
+    question: "Who am I borrowing from?",
+    answer:
+      "Hearth is not a lender; it matches you with its lending partners, and your loan is with the lender you choose.",
+  },
 ];
 
 export default function FinancingPage() {
@@ -44,148 +74,118 @@ export default function FinancingPage() {
           </div>
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-stretch">
             <div className="min-w-0 flex-1 py-8 pl-4 pr-4 sm:pl-6 sm:pr-6 lg:py-10 lg:pl-10 lg:pr-10 xl:pl-16">
-            <div className="mb-8 flex flex-col gap-5 rounded-2xl border border-white/20 bg-[#0F1D2E]/90 px-6 py-5 shadow-2xl backdrop-blur-md sm:px-8 sm:py-6 lg:flex-row lg:items-center lg:justify-between">
-              <div>
-                <nav aria-label="Breadcrumb" className="text-xs text-slate-300">
-                  <ol className="flex flex-wrap items-center gap-2">
-                    <li>
-                      <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                        Home
-                      </Link>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span aria-hidden="true">&gt;</span>
-                      <span aria-current="page">Financing</span>
-                    </li>
-                  </ol>
-                </nav>
-                <p className="text-xs font-bold tracking-wider text-[#38BDF8]">
-                  FINANCING & PAYMENT OPTIONS
-                </p>
-                <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
-                  Your Financing Checklist
-                </h1>
-                <p className="mt-1.5 text-sm text-slate-200">
-                  Explore monthly payment plans and simple pre-qualification options built to fit your window, door, or glass project budget.
-                </p>
-              </div>
-              <div className="flex shrink-0 flex-wrap items-center gap-3">
-                <Link
-                  href="/book-appointment"
-                  className={`rounded-lg bg-[#38BDF8] px-5 py-2.5 font-semibold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
-                >
-                  Book a Consultation
-                </Link>
-                <a
-                  href="tel:+12063314296"
-                  className={`rounded-lg bg-white px-5 py-2.5 font-semibold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
-                >
-                  Call (206) 331-4296
-                </a>
-              </div>
-            </div>
-
-            <div className="w-full space-y-5">
-              <article className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-6 shadow-2xl backdrop-blur-md sm:p-8">
-                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
-                <CheckBadge />
-                <h2 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">1. Apply</h2>
-                <p className="text-sm font-normal leading-relaxed text-slate-200">
-                  First, you must apply for a credit line directly through Synchrony
-                  to secure your account.
-                </p>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-200">
+            <div>
+              <nav aria-label="Breadcrumb" className="text-xs text-slate-300">
+                <ol className="flex flex-wrap items-center gap-2">
                   <li>
-                    <strong className="font-semibold text-white">The Process:</strong> Complete the Synchrony application form. Once
-                    approved, you will be issued a Synchrony Account Number. Please
-                    save this number immediately.
+                    <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
+                      Home
+                    </Link>
                   </li>
-                </ul>
-                <a
-                  href={synchronyHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-semibold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
-                >
-                  APPLY FOR FINANCING
-                  <ExternalLinkIcon />
-                </a>
-              </article>
-
-              <article className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-6 shadow-2xl backdrop-blur-md sm:p-8">
-                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
-                <CheckBadge />
-                <h2 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">
-                  2. Notify Your Sales Representative
-                </h2>
-                <p className="text-sm font-normal leading-relaxed text-slate-200">
-                  Once you have your account number, contact your Sales rep to
-                  update your project terms.
-                </p>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-200">
-                  <li>
-                    <strong className="font-semibold text-white">Provide your info:</strong> Give your rep your new Synchrony Account
-                    Number.
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <span aria-current="page">Financing</span>
                   </li>
-                  <li>
-                    <strong className="font-semibold text-white">Quote Adjustment:</strong> Your rep will manually update your project
-                    quote to remove the standard deposit requirement, as Synchrony
-                    will be used for the funding.
-                  </li>
-                  <li>
-                    <strong className="font-semibold text-white">Resending the Quote:</strong> Your rep will then resend the updated
-                    quote to you for your digital signature.
-                  </li>
-                </ul>
-              </article>
-
-              <article className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-6 shadow-2xl backdrop-blur-md sm:p-8">
-                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
-                <CheckBadge />
-                <h2 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">
-                  3. Review And Sign Your Quote
-                </h2>
-                <p className="text-sm font-normal leading-relaxed text-slate-200">
-                  After your rep resends the quote, you must authorize the new
-                  terms.
-                </p>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-7 text-slate-200">
-                  <li>
-                    <strong className="font-semibold text-white">Review:</strong> Look for an email notification that your quote has been
-                    updated. Log in to our portal to confirm the deposit has been
-                    removed ($0.00 deposit due).
-                  </li>
-                  <li><strong className="font-semibold text-white">Sign:</strong> Approve and digitally sign the updated quote online.</li>
-                </ul>
-              </article>
-
-              <article className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-6 shadow-2xl backdrop-blur-md sm:p-8">
-                <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
-                <CheckBadge />
-                <h2 className="mb-2 mt-4 text-lg font-bold text-white sm:text-xl">
-                  4. Provide Final Verification Details
-                </h2>
-                <p className="text-sm font-normal leading-relaxed text-slate-200">
-                  To finalize the connection between your Synchrony account and
-                  your project, we require a few specific details for the
-                  lender&apos;s secure portal. You can provide these to your rep via
-                  phone or email.
-                </p>
-                <p className="mt-5 rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm leading-6 text-slate-200">
-                  <strong className="font-semibold text-white">Important:</strong> You do NOT select your financing plan online during
-                  the initial application. We process your plan selection on our
-                  end during this final step.
-                </p>
-                <p className="mb-3 mt-5 text-lg font-bold text-white">
-                  Please provide the following to your Sales Rep:
-                </p>
-                <ol className="list-decimal space-y-2 pl-5 text-base leading-7 text-slate-200">
-                  {verificationItems.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
                 </ol>
-              </article>
+              </nav>
+              <p className="mt-4 text-xs font-semibold uppercase tracking-widest text-[#38BDF8]">FINANCING</p>
+              <h1 className="mt-2 text-3xl font-bold text-white sm:text-4xl">
+                Pay monthly, not all at once: financing through Hearth
+              </h1>
+              <p className="mt-3 max-w-2xl leading-relaxed text-slate-200">
+                Sound View Window & Door partners with Hearth to bring you monthly payment options for your window and door project. See your personalized options in about two minutes: checking will not affect your credit score, and there is no obligation.
+              </p>
+              <a
+                href={HEARTH_FINANCING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`mt-6 inline-flex items-center gap-2 rounded-xl bg-[#38BDF8] px-6 py-3 font-semibold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
+              >
+                See my payment options
+              </a>
             </div>
+
+            <section className="mt-8 border-t border-white/15 pt-8">
+              <p className="mb-5 text-xs font-semibold uppercase tracking-widest text-[#38BDF8]">
+                HOW IT WORKS: 3 STEPS
+              </p>
+              <ol className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                {howItWorks.map((step, index) => (
+                  <li key={step} className="flex gap-3 text-sm leading-relaxed text-slate-200">
+                    <span
+                      aria-hidden="true"
+                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/15 text-sm font-bold text-[#38BDF8]"
+                    >
+                      {index + 1}
+                    </span>
+                    <span className="pt-1">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+
+            <section className="mt-8 grid grid-cols-1 items-start gap-8 border-t border-white/15 pt-8 xl:grid-cols-12">
+              <div className="space-y-8 xl:col-span-7">
+                <div>
+                  <p className="mb-3 text-sm font-semibold text-white">Watch: how financing works (1 minute)</p>
+                  <div className="aspect-video overflow-hidden rounded-xl border border-white/20 shadow-xl">
+                    <iframe
+                      className="h-full w-full"
+                      src="https://www.youtube.com/embed/KxCNN1gbARM"
+                      title="How financing works (1 minute)"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 items-center gap-6 sm:grid-cols-[1fr_190px]">
+                  <div>
+                    <h2 className="mb-3 text-xl font-bold text-white">Why homeowners use it</h2>
+                    <ul className="space-y-2.5 text-sm text-slate-200">
+                      {whyItems.map((item) => (
+                        <li key={item} className="flex gap-3 leading-relaxed">
+                          <CheckIcon />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <a
+                    href={HEARTH_FINANCING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mx-auto block w-full max-w-[190px] overflow-hidden rounded-xl border border-white/20 shadow-xl transition-all hover:scale-[1.02] hover:border-[#38BDF8]/60"
+                  >
+                    <img
+                      src="/images/hearth-0-apr-banner.png"
+                      alt="Explore 0% APR financing for your project through Hearth"
+                      className="h-auto w-full"
+                    />
+                  </a>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-6 shadow-2xl backdrop-blur-md xl:col-span-5">
+                <FinancingCalculator financingUrl={HEARTH_FINANCING_URL} />
+              </div>
+            </section>
+
+            <section className="mt-10 space-y-6 border-t border-white/15 pt-8">
+              <h2 className="text-2xl font-bold text-white">Questions we hear</h2>
+              <dl className="divide-y divide-white/15">
+                {financingQuestions.map((item) => (
+                  <div key={item.question} className="py-4">
+                    <dt className="font-semibold text-white">{item.question}</dt>
+                    <dd className="mt-1 text-sm leading-relaxed text-slate-200">{item.answer}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="pt-2 text-xs leading-relaxed text-slate-400">
+                Hearth is a technology company, licensed as a broker as may be required by state law. Hearth does not accept applications for credit, does not make loans, and does not make credit decisions. All loans are subject to credit review and approval by Hearth&apos;s lending partners. Rates, terms, and amounts vary by lender and credit profile.
+              </p>
+            </section>
             </div>
             <FinancingQuoteSidebar />
           </div>
@@ -244,25 +244,13 @@ export default function FinancingPage() {
   );
 }
 
-function CheckBadge() {
+function CheckIcon() {
   return (
-    <span
-      aria-hidden="true"
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/15 text-[#38BDF8]"
-    >
+    <span aria-hidden="true" className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center text-[#38BDF8]">
       <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2">
         <path strokeLinecap="round" strokeLinejoin="round" d="m5 10.5 3.2 3.2L15 7" />
       </svg>
     </span>
-  );
-}
-
-function ExternalLinkIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8 5H5.5A1.5 1.5 0 0 0 4 6.5v8A1.5 1.5 0 0 0 5.5 16h8a1.5 1.5 0 0 0 1.5-1.5V12" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M10 10 16 4m0 0h-4.5M16 4v4.5" />
-    </svg>
   );
 }
 
