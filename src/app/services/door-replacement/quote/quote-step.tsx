@@ -12,6 +12,7 @@ import {
   DOOR_MATERIAL_STORAGE_KEY,
   doorChoiceLabel,
   doorManufacturerFromSlug,
+  doorManufacturerAllowed,
   doorManufacturers,
   doorMaterialAllowed,
   doorMaterialFromSlug,
@@ -45,9 +46,12 @@ export function DoorQuoteStep() {
     const allowed =
       !nextMaterial || doorMaterialAllowed(nextStyle?.slug ?? null, nextMaterial.slug);
     const nextManufacturer = doorManufacturerFromSlug(manufacturerParam);
+    const materialOption = allowed && nextMaterial ? nextMaterial.option : "";
+    const manufacturerOk =
+      !nextManufacturer || doorManufacturerAllowed(materialOption, nextManufacturer.option);
     setStyle(nextStyle?.option ?? "");
     setMaterial(allowed && nextMaterial ? nextMaterial.option : "");
-    setManufacturer(nextManufacturer?.option ?? "");
+    setManufacturer(manufacturerOk && nextManufacturer ? nextManufacturer.option : "");
     if (allowed && nextMaterial) {
       sessionStorage.setItem(DOOR_MATERIAL_STORAGE_KEY, nextMaterial.slug);
     } else {
@@ -56,6 +60,14 @@ export function DoorQuoteStep() {
     if (materialParam && materialParam !== "undecided" && !allowed) {
       const params = new URLSearchParams(searchParams.toString());
       params.delete("material");
+      const query = params.toString();
+      router.replace(
+        query ? `/services/door-replacement/quote?${query}` : "/services/door-replacement/quote",
+        { scroll: false },
+      );
+    } else if (manufacturerParam && manufacturerParam !== "undecided" && !manufacturerOk) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("manufacturer");
       const query = params.toString();
       router.replace(
         query ? `/services/door-replacement/quote?${query}` : "/services/door-replacement/quote",

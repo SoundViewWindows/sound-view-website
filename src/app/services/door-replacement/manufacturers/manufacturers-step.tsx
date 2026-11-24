@@ -10,7 +10,8 @@ import { SkipAhead } from "@/components/SkipAhead";
 import {
   doorChoiceLabel,
   doorManufacturerFromSlug,
-  doorManufacturers,
+  doorManufacturersForMaterial,
+  doorManufacturerAllowed,
   doorMaterialFromSlug,
   doorStepHref,
   doorStyleFromSlug,
@@ -23,7 +24,10 @@ export function DoorManufacturersStep() {
   const manufacturerSlug = searchParams.get("manufacturer") ?? "";
   const style = doorStyleFromSlug(typeSlug);
   const material = doorMaterialFromSlug(materialSlug);
-  const selected = doorManufacturerFromSlug(manufacturerSlug);
+  const brands = doorManufacturersForMaterial(material?.option ?? materialSlug);
+  const selected = doorManufacturerAllowed(material?.option ?? materialSlug, manufacturerSlug)
+    ? doorManufacturerFromSlug(manufacturerSlug)
+    : null;
   const continueSlug = selected?.slug ?? "recommend";
   const quoteHref = doorStepHref("quote", {
     type: typeSlug,
@@ -82,7 +86,7 @@ export function DoorManufacturersStep() {
 
         <section>
           <ServiceFunnelCarousel>
-            {doorManufacturers.map((brand) => {
+            {brands.map((brand) => {
               const active = selected?.slug === brand.slug;
               return (
                 <ManufacturerCard

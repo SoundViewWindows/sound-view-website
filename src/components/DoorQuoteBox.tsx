@@ -6,7 +6,8 @@ import { doorQuoteSubmission } from "@/lib/quote-payloads";
 import { submitWebsiteQuote } from "@/lib/quote-submit";
 import {
   DOOR_MATERIAL_STORAGE_KEY,
-  doorManufacturers,
+  doorManufacturerAllowed,
+  doorManufacturersForMaterial,
   doorMaterialAllowed,
   doorMaterialSlugFromOption,
   doorMaterialsForStyle,
@@ -54,6 +55,9 @@ export function DoorQuoteBox({
   const manufacturerValue = onManufacturerChange ? manufacturer : internalManufacturer;
 
   function updateMaterial(value: string) {
+    if (manufacturerValue && !doorManufacturerAllowed(value, manufacturerValue)) {
+      updateManufacturer("");
+    }
     if (onMaterialChange) onMaterialChange(value);
     else setInternalMaterial(value);
   }
@@ -77,6 +81,7 @@ export function DoorQuoteBox({
   const materialOptions = doorMaterialsForStyle(
     styleValue ? doorStyleSlugFromOption(styleValue) : null,
   );
+  const manufacturerOptions = doorManufacturersForMaterial(materialValue);
 
   function validate() {
     const next: FieldErrors = {};
@@ -327,7 +332,7 @@ export function DoorQuoteBox({
               className={fieldClass}
             >
               <option value="">No preference yet / Open to advice</option>
-              {doorManufacturers.map((item) => (
+              {manufacturerOptions.map((item) => (
                 <option key={item.slug} value={item.option}>
                   {item.option}
                 </option>
