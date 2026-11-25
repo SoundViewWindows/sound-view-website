@@ -104,10 +104,10 @@ export default function AboutPage() {
                 </ol>
               </nav>
               <p className="mt-4 text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8]">
-                Our Story & Accountability
+                About Sound View Window & Door
               </p>
-              <h1 className="mt-3 text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl">
-                Built for the Long Term in Greater Seattle
+              <h1 className="mt-3 text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[44px]">
+                Trusted Window & Door Contractors Serving Greater Seattle for 17+ Years
               </h1>
               <div className="mt-5 space-y-4 text-base leading-relaxed text-slate-200 sm:text-lg">
                 <p>
@@ -146,15 +146,16 @@ export default function AboutPage() {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Link
                   href="/book-appointment"
-                  className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3.5 font-bold text-[#0F1D2E] shadow-lg transition hover:bg-sky-400 ${focusRing}`}
+                  className={`inline-flex items-center justify-center rounded-none bg-[#38BDF8] px-6 py-3.5 font-bold text-[#0F1D2E] shadow-lg transition hover:bg-sky-400 ${focusRing}`}
                 >
-                  BOOK MY FREE CONSULTATION →
+                  SCHEDULE A FREE CONSULTATION →
                 </Link>
-                <AboutQuoteOpenButton
-                  className={`inline-flex items-center justify-center rounded-lg bg-white px-6 py-3.5 font-bold text-[#0F1D2E] shadow-lg transition hover:bg-slate-100 ${focusRing}`}
+                <Link
+                  href="/showrooms"
+                  className={`inline-flex items-center justify-center rounded-none bg-white px-6 py-3.5 font-bold text-[#0F1D2E] shadow-lg transition hover:bg-slate-100 ${focusRing}`}
                 >
-                  GET MY FREE QUOTE →
-                </AboutQuoteOpenButton>
+                  EXPLORE OUR SHOWROOMS
+                </Link>
               </div>
             </div>
             <div className="lg:col-span-5">

@@ -82,7 +82,7 @@ export function ContactForm() {
   if (submittedName) {
     return (
       <div
-        className="rounded-2xl border border-white/20 bg-[#0F1D2E] px-5 py-8 shadow-2xl"
+        className="rounded-none border border-white/20 bg-[#0F1D2E] px-5 py-8 shadow-2xl"
         style={{ backgroundColor: "#0F1D2E", color: "#FFFFFF" }}
       >
         <h3 className="text-2xl font-black text-white">
@@ -191,7 +191,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="bg-[#38BDF8] hover:bg-sky-400 text-[#0F1D2E] font-bold uppercase tracking-wide transition-colors rounded-md disabled:opacity-70 w-full py-4 px-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+        className="bg-[#38BDF8] hover:bg-sky-400 text-[#0F1D2E] font-bold uppercase tracking-wide transition-colors rounded-none disabled:opacity-70 w-full py-4 px-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
       >
         {submitting ? "Sending" : "SEND MESSAGE & REQUEST FOLLOW-UP →"}
       </button>
@@ -233,7 +233,7 @@ function Field({
 
 function inputClass(invalid: boolean) {
   return [
-    "w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-sm text-slate-900 placeholder:text-slate-500 focus:border-[#38BDF8] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/30",
+    "w-full bg-white border border-slate-300 rounded-none px-4 py-3 text-sm text-slate-900 placeholder:text-slate-500 focus:border-[#38BDF8] focus:outline-none focus:ring-2 focus:ring-[#38BDF8]/30",
     invalid ? "border-red-600" : "",
   ].join(" ");
 }

@@ -3,8 +3,7 @@ import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { PhotographicHero, heroPrimaryClass, heroSecondaryClass } from "@/components/PhotographicHero";
-import { QuoteDrawerButton, QuoteSlideIn } from "@/components/QuoteSlideIn";
+import { QuoteSlideIn } from "@/components/QuoteSlideIn";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
@@ -60,39 +59,24 @@ export default function ContactPage() {
       <Header />
       <QuoteSlideIn id="contact-quote" formName="contact-quote" />
       <main className="flex-1">
-        <PhotographicHero
-          image="/images/sound-view-lake-city-storefront.jpg"
-          eyebrow="Contact Sound View Window & Door"
-          title="Request a Free Window & Door Estimate in Greater Seattle"
-          lead="Tell us about the openings, send a few photos, or call a showroom. A local specialist follows up during business hours with a clear next step."
-          actions={
-            <>
-              <QuoteDrawerButton className={heroPrimaryClass}>GET MY FREE UPFRONT QUOTE →</QuoteDrawerButton>
-              <a href="tel:2065723411" className={heroSecondaryClass}>
-                CALL NOW: (206) 572-3411
-              </a>
-            </>
-          }
-          cards={[
-            {
-              title: "Three Greater Seattle Showrooms",
-              body: "Compare full-size windows and doors in Lake City, West Queen Anne, or Bellevue.",
-            },
-            {
-              title: "Reply During Business Hours",
-              body: "Messages sent on weekdays are reviewed by the same team that measures and installs.",
-            },
-            {
-              title: "No Pressure to Buy",
-              body: "Ask about materials, timing, or rebates before you schedule a site visit.",
-            },
-          ]}
-        />
-        <section className="bg-[#f4fafd] py-14 sm:py-16" style={{ backgroundColor: "#F4FAFD", color: "#0F1D2E" }}>
+        <header className="bg-[#0F1D2E] py-10 text-white" style={{ backgroundColor: "#0F1D2E", color: "#FFFFFF" }}>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8]">
+              Contact Sound View Window & Door
+            </p>
+            <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+              Contact Our Greater Seattle Window & Door Team
+            </h1>
+            <p className="mt-2 max-w-2xl text-base text-slate-200 sm:text-lg">
+              Send us your project details, call a local showroom directly, or schedule a relaxed showroom visit.
+            </p>
+          </div>
+        </header>
+        <section className="bg-[#f4fafd] py-8 sm:py-10" style={{ backgroundColor: "#F4FAFD", color: "#0F1D2E" }}>
           <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
             <div className="lg:col-span-7">
               <div
-                className="rounded-2xl border border-white/10 bg-[#0F1D2E] p-6 shadow-2xl sm:p-10"
+                className="rounded-none border border-white/10 bg-[#0F1D2E] p-6 shadow-2xl sm:p-10"
                 style={{ backgroundColor: "#0F1D2E", color: "#FFFFFF" }}
               >
                 <h2 className="mb-2 text-2xl font-black tracking-tight text-white sm:text-3xl">
@@ -114,7 +98,7 @@ export default function ContactPage() {
               {showrooms.map((room) => (
                 <article
                   key={room.href}
-                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                  className="rounded-none border border-slate-200 bg-white p-5 shadow-sm"
                   style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}
                 >
                   <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
@@ -139,7 +123,7 @@ export default function ContactPage() {
               ))}
 
               <article
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                className="rounded-none border border-slate-200 bg-white p-5 shadow-sm"
                 style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}
               >
                 <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
@@ -157,7 +141,7 @@ export default function ContactPage() {
               </article>
 
               <p
-                className="rounded-2xl border border-slate-200 bg-white p-5 text-sm leading-relaxed text-slate-700 shadow-sm"
+                className="rounded-none border border-slate-200 bg-white p-5 text-sm leading-relaxed text-slate-700 shadow-sm"
                 style={{ backgroundColor: "#FFFFFF", color: "#334155" }}
               >
                 A local specialist will follow up during business hours, with no
