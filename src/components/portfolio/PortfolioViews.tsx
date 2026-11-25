@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { SoundViewPageHero } from "@/components/SoundViewPageHero";
 import { ImageLightbox } from "@/components/portfolio/ImageLightbox";
+import { PortfolioCompactHeader, portfolioPillClass } from "@/components/portfolio/PortfolioCompactHeader";
+import { QuoteSlideIn } from "@/components/QuoteSlideIn";
 import {
   portfolioCategoryPills,
   type PortfolioCategory,
@@ -14,133 +14,60 @@ const focusRing =
 
 export function PortfolioShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-white text-[#0B192C]">
+    <div className="bg-white text-[#0F1D2E]" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
       <Header />
+      <QuoteSlideIn id="portfolio-gallery-quote" formName="portfolio-gallery-quote" />
       <main>{children}</main>
     </div>
   );
 }
 
 export function CategoryHub({ category }: { category: PortfolioCategory }) {
-  const preview = category.images[0];
   const pills = portfolioCategoryPills(category.slug);
   return (
     <PortfolioShell>
-      <section className="relative overflow-hidden bg-[#0F1D2E] py-6 text-white sm:py-8">
-        <img
-          src="/images/hero-bg.jpg"
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-15"
-        />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[#0F1D2E]/75" />
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
-              <ol className="flex flex-wrap items-center gap-2">
-                <li>
-                  <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                    Home
-                  </Link>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span aria-hidden="true">&gt;</span>
-                  <Link href="/portfolio" className={`rounded-sm hover:text-white ${focusRing}`}>
-                    Portfolio
-                  </Link>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span aria-hidden="true">&gt;</span>
-                  <span aria-current="page">{category.name}</span>
-                </li>
-              </ol>
-            </nav>
-            <div className="flex flex-wrap items-center gap-2">
-              {pills.map((pill) => (
-                <Link
-                  key={pill.href}
-                  href={pill.href}
-                  aria-current={pill.active ? "page" : undefined}
-                  className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
-                    pill.active
-                      ? "bg-[#38BDF8] text-slate-950"
-                      : "border border-white/25 text-white hover:bg-white/10"
-                  } ${focusRing}`}
-                >
-                  {pill.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="mt-4">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
-              {category.eyebrow}
-            </p>
-            <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
-              {category.name} Installations &amp; Projects
-            </h1>
-          </div>
-        </div>
-      </section>
-      <section className="bg-[#F4F6F9] py-8 sm:py-10">
-        <div
-          className={`mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 lg:gap-8 lg:px-8 ${
-            category.slug === "glass" || category.slug === "window-blinds-shades"
-              ? "max-w-3xl"
-              : "md:grid-cols-2"
-          }`}
-        >
-          <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-            <div className="relative h-56 bg-slate-100 sm:h-64">
-              {preview ? (
-                <Image src={preview.src} alt={preview.alt} fill className="object-cover" sizes="(min-width: 768px) 40vw, 100vw" />
-              ) : null}
-            </div>
-            <div className="p-4 sm:p-5">
-              <p className="text-xs font-bold uppercase tracking-wider text-[#0284C7]">Photo Gallery</p>
-              <h2 className="mt-1 text-lg font-bold text-[#0B192C] sm:text-xl">
-                View {category.name} Image Portfolio
-              </h2>
-              <p className="mt-2 text-sm leading-5 text-[#556980]">
-                Completed Greater Seattle photo projects for {category.name.toLowerCase()}.
-              </p>
+      <PortfolioCompactHeader
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Portfolio", href: "/portfolio" },
+          { label: category.name },
+        ]}
+        eyebrow="Greater Seattle Project Portfolio"
+        title={`${category.name} Installations Across Greater Seattle`}
+        subtitle={category.summary}
+      />
+      <section className="bg-white pt-6 pb-16" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap gap-2">
+            <Link href="/portfolio" className={`${portfolioPillClass} border border-slate-200 bg-white text-[#0F1D2E] hover:border-sky-400`}>
+              All
+            </Link>
+            {pills.map((pill) => (
               <Link
-                href={`/portfolio/${category.slug}/images`}
-                className={`mt-4 inline-flex rounded-md bg-[#38BDF8] px-5 py-2.5 font-semibold text-slate-950 hover:bg-sky-300 ${focusRing}`}
+                key={pill.href}
+                href={pill.href}
+                aria-current={pill.active ? "page" : undefined}
+                className={`${portfolioPillClass} border ${
+                  pill.active
+                    ? "border-[#38BDF8] bg-[#38BDF8] text-[#0F1D2E]"
+                    : "border-slate-200 bg-white text-[#0F1D2E] hover:border-sky-400"
+                }`}
               >
-                Browse Photo Gallery
+                {pill.label}
               </Link>
-            </div>
-          </article>
-          {category.slug === "glass" || category.slug === "window-blinds-shades" ? null : (
-          <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-            <div className="relative flex h-56 items-center justify-center bg-[#0F1D2E] sm:h-64">
-              {preview ? (
-                <Image src={preview.src} alt="" fill className="object-cover opacity-40" sizes="(min-width: 768px) 40vw, 100vw" />
-              ) : null}
-              <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-[#38BDF8] text-lg font-bold text-slate-950">
-                ▶
-              </span>
-            </div>
-            <div className="p-4 sm:p-5">
-              <p className="text-xs font-bold uppercase tracking-wider text-[#0284C7]">
-                Field &amp; Walkthrough Videos
-              </p>
-              <h2 className="mt-1 text-lg font-bold text-[#0B192C] sm:text-xl">
-                View {category.name} Video Portfolio
-              </h2>
-              <p className="mt-2 text-sm leading-5 text-[#556980]">
-                Installation and walkthrough videos for {category.name.toLowerCase()} in Greater Seattle.
-              </p>
-              <Link
-                href={`/portfolio/${category.slug}/videos`}
-                className={`mt-4 inline-flex rounded-md border border-[#0F1D2E] bg-[#0F1D2E] px-5 py-2.5 font-semibold text-[#38BDF8] hover:bg-[#192A3E] ${focusRing}`}
-              >
-                Watch Installation Videos
+            ))}
+            <Link href={`/portfolio/${category.slug}/images`} className={`${portfolioPillClass} border border-slate-200 bg-white text-[#0F1D2E] hover:border-sky-400`}>
+              Photos
+            </Link>
+            {category.videos.length > 0 ? (
+              <Link href={`/portfolio/${category.slug}/videos`} className={`${portfolioPillClass} border border-slate-200 bg-white text-[#0F1D2E] hover:border-sky-400`}>
+                Videos
               </Link>
-            </div>
-          </article>
-          )}
+            ) : null}
+          </div>
+          <div className="mt-6">
+            <ImageLightbox images={category.images} categoryName={category.name} />
+          </div>
         </div>
       </section>
     </PortfolioShell>
@@ -161,7 +88,7 @@ function WindowInstallVideoCard({
   description?: string;
 }) {
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md">
+    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <div className={`${featured ? "aspect-video" : "aspect-[16/10]"} flex w-full items-center justify-center overflow-hidden bg-[#0B1623]`}>
         <iframe
           src={src}
@@ -173,11 +100,11 @@ function WindowInstallVideoCard({
         />
       </div>
       <div className="flex flex-1 flex-col justify-center p-5 sm:p-6">
-        <p className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8]">
+        <p className="text-[11px] font-bold uppercase tracking-wider text-[#0284C7]">
           Watch Our Installers in the Field
         </p>
-        <h2 className="mt-1 text-lg font-bold text-white">{heading}</h2>
-        <p className="mt-1 text-sm text-slate-200">{description}</p>
+        <h2 className="mt-1 text-lg font-bold text-[#0F1D2E]">{heading}</h2>
+        <p className="mt-1 text-sm text-[#556980]">{description}</p>
       </div>
     </article>
   );
@@ -186,22 +113,33 @@ function WindowInstallVideoCard({
 export function ImagePortfolio({ category }: { category: PortfolioCategory }) {
   return (
     <PortfolioShell>
-      <SoundViewPageHero
-        breadcrumbs={[
+      <PortfolioCompactHeader
+        crumbs={[
           { label: "Home", href: "/" },
           { label: "Portfolio", href: "/portfolio" },
           { label: category.name, href: `/portfolio/${category.slug}` },
-          { label: "Image Portfolio" },
+          { label: "Photos" },
         ]}
-        eyebrow={category.eyebrow}
-        title={`${category.name} Image Portfolio`}
+        eyebrow="Greater Seattle Project Portfolio"
+        title={`${category.name} Installations Across Greater Seattle`}
         subtitle={category.summary}
-        primaryAction={{ label: "Switch to Video Portfolio", href: `/portfolio/${category.slug}/videos` }}
-        secondaryAction={{ label: `Back to ${category.name}`, href: `/portfolio/${category.slug}` }}
       />
-      <section className="bg-white py-14">
+      <section className="bg-white pt-6 pb-16" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <ImageLightbox images={category.images} />
+          <div className="mb-6 flex flex-wrap gap-2">
+            <Link href="/portfolio" className={`${portfolioPillClass} border border-slate-200 bg-white text-[#0F1D2E] hover:border-sky-400`}>
+              All
+            </Link>
+            <Link href={`/portfolio/${category.slug}`} className={`${portfolioPillClass} border border-slate-200 bg-white text-[#0F1D2E] hover:border-sky-400`}>
+              {category.name}
+            </Link>
+            {category.videos.length > 0 ? (
+              <Link href={`/portfolio/${category.slug}/videos`} className={`${portfolioPillClass} border border-slate-200 bg-white text-[#0F1D2E] hover:border-sky-400`}>
+                Videos
+              </Link>
+            ) : null}
+          </div>
+          <ImageLightbox images={category.images} categoryName={category.name} />
         </div>
       </section>
       <section className="bg-[#0F1D2E] py-12 text-white">
@@ -229,18 +167,16 @@ export function ImagePortfolio({ category }: { category: PortfolioCategory }) {
 export function VideoPortfolio({ category }: { category: PortfolioCategory }) {
   return (
     <PortfolioShell>
-      <SoundViewPageHero
-        breadcrumbs={[
+      <PortfolioCompactHeader
+        crumbs={[
           { label: "Home", href: "/" },
           { label: "Portfolio", href: "/portfolio" },
           { label: category.name, href: `/portfolio/${category.slug}` },
-          { label: "Video Portfolio" },
+          { label: "Videos" },
         ]}
-        eyebrow={category.eyebrow}
-        title={`${category.name} Video Portfolio`}
+        eyebrow="Greater Seattle Project Portfolio"
+        title={`${category.name} Installations Across Greater Seattle`}
         subtitle={category.summary}
-        primaryAction={{ label: "Switch to Image Portfolio", href: `/portfolio/${category.slug}/images` }}
-        secondaryAction={{ label: `Back to ${category.name}`, href: `/portfolio/${category.slug}` }}
       />
       <section className="bg-white py-14">
         {category.slug === "windows" ? (
@@ -272,7 +208,7 @@ export function VideoPortfolio({ category }: { category: PortfolioCategory }) {
         <div className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             href="/book-appointment"
-            className={`inline-flex rounded-md bg-[#0F1D2E] px-5 py-2.5 font-semibold text-white hover:bg-[#192A3E] ${focusRing}`}
+            className={`inline-flex rounded-lg bg-[#38BDF8] px-5 py-2.5 font-bold text-[#0F1D2E] hover:bg-sky-400 ${focusRing}`}
           >
             Book Appointment
           </Link>
@@ -284,7 +220,7 @@ export function VideoPortfolio({ category }: { category: PortfolioCategory }) {
 
 function VideoCard({ video }: { video: PortfolioVideo }) {
   return (
-    <article className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+    <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <div className="flex aspect-video w-full items-center justify-center overflow-hidden bg-[#0B1623]">
         {video.kind === "youtube" ? (
           <iframe

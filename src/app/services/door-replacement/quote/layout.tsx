@@ -6,9 +6,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: canonicalUrl("/services/door-replacement/quote"),
   },
-  title: "Door Estimate | Sound View Window & Door",
+  title: "Get a Free Door Replacement Quote in Greater Seattle | Sound View Window & Door",
   description:
-    "Request upfront pricing for replacement doors across the Greater Seattle Area.",
+    "Request a free entry and patio door replacement estimate in Greater Seattle, with clear pricing, professional installation, and no-pressure guidance.",
 };
 
 export default function DoorQuoteLayout({ children }: { children: ReactNode }) {

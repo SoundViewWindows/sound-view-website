@@ -44,121 +44,146 @@ export function legacyArticleMetadata(post: BlogPost): Metadata {
 export function LegacyArticle({ post }: { post: BlogPost }) {
   const cta = ctaFor(post);
   const canonical = canonicalUrl(articlePublicPath(post.originalPath));
+  const related = relatedPosts(post);
   return (
-    <div className="bg-white text-slate-800">
+    <div className="bg-white text-[#0F1D2E]" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
       <Header />
-      <main className="bg-white">
-        <header className="border-b border-slate-200 bg-white text-[#0B192C]">
-          <div className="mx-auto max-w-4xl px-4 pb-8 pt-8 sm:px-6 sm:pt-12">
-            <nav
-              aria-label="Breadcrumb"
-              className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:text-sm"
-            >
+      <main>
+        <header className="bg-[#0F1D2E] text-white" style={{ backgroundColor: "#0F1D2E", color: "#FFFFFF" }}>
+          <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:py-16">
+            <nav aria-label="Breadcrumb" className="text-xs text-slate-300">
               <ol className="flex flex-wrap items-center gap-2">
                 <li>
-                  <Link href="/" className={`rounded-sm font-medium hover:text-[#0B192C] ${focusRing}`}>
+                  <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
                     Home
                   </Link>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span aria-hidden="true" className="text-slate-400">&gt;</span>
-                  <Link href={publicPaths.blog} className={`rounded-sm font-medium hover:text-[#0B192C] ${focusRing}`}>
-                    Resources
-                  </Link>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span aria-hidden="true" className="text-slate-400">&gt;</span>
-                  <Link href={publicPaths.blog} className={`rounded-sm font-medium hover:text-[#0B192C] ${focusRing}`}>
+                  <span aria-hidden="true">&gt;</span>
+                  <Link href={publicPaths.blog} className={`rounded-sm hover:text-white ${focusRing}`}>
                     Blog &amp; Guides
                   </Link>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span aria-hidden="true" className="text-slate-400">&gt;</span>
+                  <span aria-hidden="true">&gt;</span>
                   <span aria-current="page">{post.category}</span>
                 </li>
               </ol>
             </nav>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-              <span className="inline-flex rounded-[4px] bg-[#E0F2FE] px-3 py-1 text-xs font-semibold text-[#0284C7]">
-                {post.category}
-              </span>
-              <time dateTime={post.publishedAt.slice(0, 10)} className="text-xs font-medium text-slate-500 sm:text-sm">
-                {post.date}
-              </time>
-              <span aria-hidden="true" className="text-xs font-medium text-slate-500 sm:text-sm">
-                &middot;
-              </span>
-              <span className="text-xs font-medium text-slate-500 sm:text-sm">{post.readTime}</span>
-            </div>
-            <h1 className="mt-3 text-3xl font-black leading-tight tracking-tight text-[#0B192C] sm:text-4xl lg:text-5xl">
+            <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8]">{post.category}</p>
+            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl leading-[1.12]">
               {post.title}
             </h1>
+            <p className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-sm text-slate-200">
+              <time dateTime={post.publishedAt.slice(0, 10)}>{post.date}</time>
+              <span aria-hidden="true">&middot;</span>
+              <span>{post.readTime}</span>
+            </p>
           </div>
         </header>
         {showArticleCover(post) ? (
-          <div className="mx-auto mb-8 w-full max-w-4xl bg-white px-4 pt-8 sm:px-6">
-            <div className="overflow-hidden rounded-[4px] border border-slate-200/80 bg-white shadow-sm">
-              <img src={post.coverImage} alt={post.coverAlt} className="block h-auto w-full" />
+          <div className="bg-white" style={{ backgroundColor: "#FFFFFF" }}>
+            <div className="mx-auto w-full max-w-3xl px-4 pt-10 sm:px-6">
+              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm">
+                <img src={post.coverImage} alt={post.coverAlt} className="block max-h-[32rem] w-full object-cover object-center" />
+              </div>
             </div>
           </div>
         ) : null}
-        <article className="mx-auto max-w-4xl bg-white px-4 pb-16 sm:px-6">
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Article",
-                headline: post.title,
-                datePublished: post.publishedAt,
-                url: canonical,
-                mainEntityOfPage: canonical,
-                image: post.coverImage ? [canonicalUrl(post.coverImage)] : undefined,
-                author: { "@type": "Organization", name: articleAuthor },
-              }),
-            }}
-          />
-          <div
-            className="prose prose-lg max-w-none leading-relaxed prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-[#0B192C] prose-p:text-slate-700 prose-p:leading-relaxed prose-li:text-slate-700 prose-li:leading-relaxed prose-strong:text-[#0B192C] prose-a:text-[#0284C7] prose-a:underline hover:prose-a:text-[#0090c8] prose-blockquote:rounded-[4px] prose-blockquote:border prose-blockquote:border-slate-200 prose-blockquote:bg-[#F4F6F9] prose-blockquote:p-6 prose-blockquote:text-[#0B192C] prose-blockquote:not-italic prose-img:h-auto prose-img:w-full prose-img:rounded-[4px] [&_table]:my-8 [&_table]:w-full [&_table]:overflow-hidden [&_table]:rounded-[4px] [&_table]:border [&_table]:border-slate-200 [&_th]:bg-[#F4F6F9] [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:text-[#0B192C] [&_td]:border-t [&_td]:border-slate-200 [&_td]:px-3 [&_td]:py-2 [&_td]:text-[#0B192C] [&_iframe]:my-8 [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-[4px]"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
-          {post.tags.length > 0 ? (
-            <ul className="mt-10 flex list-none flex-wrap gap-2 p-0">
-              {post.tags.map((tag) => (
-                <li key={tag} className="rounded-[4px] border border-slate-200/90 bg-[#F8FAFC] px-3 py-1 text-xs text-[#0284C7]">
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-          <aside className="mt-12 rounded-[4px] border border-slate-200/90 bg-[#F4F6F9] p-6 text-slate-700">
-            <p className="text-xs font-bold uppercase tracking-wider text-[#0284C7]">Local team</p>
-            <h2 className="mt-2 text-2xl font-bold text-[#0B192C]">Written by {articleAuthor}</h2>
-            <p className="mt-3 text-base leading-relaxed text-[#556980]">
-              Specialists in replacement windows, doors, and custom glass for homes across the Greater Seattle Area, with 17+ years in the Pacific Northwest.
-            </p>
-            <Link
-              href={publicPaths.contact}
-              className={`mt-5 inline-flex text-sm font-medium text-[#0284C7] underline decoration-sky-400/40 underline-offset-4 hover:text-[#0090c8] ${focusRing}`}
-            >
-              Contact the team
-            </Link>
-          </aside>
-          <aside className="mt-6 rounded-[4px] border border-slate-200/80 bg-white p-6 text-[#0B192C] shadow-sm sm:p-8">
-            <h2 className="text-2xl font-bold">{cta.heading}</h2>
-            <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#556980]">{cta.body}</p>
-            <Link
-              href={cta.href}
-              className={`mt-6 inline-flex rounded-[4px] bg-[#0090c8] px-5 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-[#007fb1] ${focusRing}`}
-            >
-              {cta.label}
-            </Link>
-          </aside>
+        <article className="bg-white" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
+          <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-12">
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "Article",
+                  headline: post.title,
+                  datePublished: post.publishedAt,
+                  url: canonical,
+                  mainEntityOfPage: canonical,
+                  image: post.coverImage ? [canonicalUrl(post.coverImage)] : undefined,
+                  author: { "@type": "Organization", name: articleAuthor },
+                }),
+              }}
+            />
+            <div
+              className="prose prose-lg max-w-none leading-relaxed prose-headings:mt-10 prose-headings:mb-4 prose-headings:font-sans prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-[#0F1D2E] prose-h2:text-2xl prose-h3:text-xl prose-p:mb-5 prose-p:text-[#334155] prose-p:leading-8 prose-li:text-[#334155] prose-li:leading-7 prose-strong:text-[#0F1D2E] prose-a:text-[#0284C7] prose-a:underline hover:prose-a:text-[#0F1D2E] prose-blockquote:rounded-2xl prose-blockquote:border prose-blockquote:border-slate-200 prose-blockquote:bg-[#f4fafd] prose-blockquote:p-6 prose-blockquote:text-[#0F1D2E] prose-blockquote:not-italic prose-img:my-8 prose-img:h-auto prose-img:w-full prose-img:rounded-2xl prose-img:object-cover [&_table]:my-8 [&_table]:block [&_table]:w-full [&_table]:overflow-x-auto [&_th]:bg-[#f4fafd] [&_th]:px-3 [&_th]:py-2 [&_th]:text-left [&_th]:text-[#0F1D2E] [&_td]:border-t [&_td]:border-slate-200 [&_td]:px-3 [&_td]:py-2 [&_td]:text-[#334155] [&_iframe]:my-8 [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-2xl"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+            {post.tags.length > 0 ? (
+              <ul className="mt-10 flex list-none flex-wrap gap-2 p-0">
+                {post.tags.map((tag) => (
+                  <li key={tag} className="rounded-full border border-slate-200 bg-[#f4fafd] px-3 py-1 text-xs font-medium text-[#0284C7]">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
         </article>
+        <section className="border-t border-slate-200/80 bg-[#f4fafd]" style={{ backgroundColor: "#F4FAFD", color: "#0F1D2E" }}>
+          <div className="mx-auto max-w-3xl space-y-6 px-4 py-12 sm:px-6">
+            <aside>
+              <p className="text-xs font-bold uppercase tracking-wider text-[#0284C7]">Local team</p>
+              <h2 className="mt-2 text-2xl font-bold text-[#0F1D2E]">Written by {articleAuthor}</h2>
+              <p className="mt-3 text-base leading-relaxed text-[#556980]">
+                Specialists in replacement windows, doors, and custom glass for homes across the Greater Seattle Area, with 17+ years in the Pacific Northwest.
+              </p>
+              <Link
+                href={publicPaths.contact}
+                className={`mt-5 inline-flex text-sm font-semibold text-[#0284C7] underline decoration-sky-400/40 underline-offset-4 hover:text-[#0F1D2E] ${focusRing}`}
+              >
+                Contact the team
+              </Link>
+            </aside>
+            <aside className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+              <h2 className="text-2xl font-bold text-[#0F1D2E]">{cta.heading}</h2>
+              <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#556980]">{cta.body}</p>
+              <Link
+                href={cta.href}
+                className={`mt-6 inline-flex rounded-lg bg-[#38BDF8] px-5 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
+              >
+                {cta.label}
+              </Link>
+            </aside>
+          </div>
+        </section>
+        {related.length > 0 ? (
+          <section className="bg-white" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
+            <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+              <h2 className="text-2xl font-bold tracking-tight text-[#0F1D2E] sm:text-3xl">More in {post.category}</h2>
+              <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+                {related.map((item) => (
+                  <Link
+                    key={item.slug}
+                    href={articlePublicPath(item.originalPath)}
+                    className={`overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-colors hover:border-sky-400 ${focusRing}`}
+                  >
+                    {item.coverImage ? (
+                      <img src={item.coverImage} alt={item.coverAlt} className="aspect-[16/10] w-full object-cover object-center" />
+                    ) : null}
+                    <div className="p-5">
+                      <p className="text-xs font-bold uppercase tracking-wide text-[#0284C7]">{item.category}</p>
+                      <h3 className="mt-2 text-base font-bold leading-snug text-[#0F1D2E]">{item.title}</h3>
+                      <p className="mt-2 text-xs text-[#556980]">{item.readTime}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
       </main>
       <CtaBanner />
     </div>
   );
+}
+
+function relatedPosts(post: BlogPost) {
+  return blogPosts
+    .filter((item) => item.slug !== post.slug && item.categories.some((category) => post.categories.includes(category)))
+    .slice(0, 3);
 }
 
 export function legacyArticleOrNotFound(prefix: string, slug: string) {

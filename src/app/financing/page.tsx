@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
 import { FinancingCalculator } from "@/components/FinancingCalculator";
-import { QuoteSlideIn } from "@/components/QuoteSlideIn";
+import { QuoteDrawerButton, QuoteSlideIn } from "@/components/QuoteSlideIn";
 
 export const metadata: Metadata = {
   alternates: {
@@ -69,9 +69,9 @@ export default function FinancingPage() {
               src="/images/hero-bg.jpg"
               alt=""
               aria-hidden="true"
-              className="h-full w-full object-cover object-center opacity-40"
+              className="h-full w-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/95 via-[#0F1D2E]/85 to-[#0F1D2E]/70" />
           </div>
           <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
             <div>
@@ -88,104 +88,110 @@ export default function FinancingPage() {
                   </li>
                 </ol>
               </nav>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-widest text-[#38BDF8]">FINANCING</p>
-              <h1 className="mt-2 text-3xl font-bold text-white sm:text-4xl">
-                Pay monthly, not all at once: financing through Hearth
+              <p className="mt-4 text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8]">Hearth Home Improvement Financing</p>
+              <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[52px] leading-[1.08]">
+                Finance Your Window & Door Replacement with Flexible Monthly Payments
               </h1>
-              <p className="mt-3 max-w-2xl leading-relaxed text-slate-200">
-                Sound View Window & Door partners with Hearth to bring you monthly payment options for your window and door project. See your personalized options in about two minutes: checking will not affect your credit score, and there is no obligation.
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
+                Sound View Window & Door partners with Hearth so you can compare monthly payment options for your window and door project. Checking will not affect your credit score, and there is no obligation.
               </p>
+              <div className="mt-8 flex flex-wrap gap-4">
               <a
                 href={HEARTH_FINANCING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`mt-6 inline-flex items-center gap-2 rounded-xl bg-[#38BDF8] px-6 py-3 font-semibold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
+                className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3.5 font-extrabold text-[#0F1D2E] shadow-lg transition hover:bg-sky-400 ${focusRing}`}
               >
-                See my payment options
+                SEE MY MONTHLY PAYMENT IN 2 MINS →
+              </a>
+              <QuoteDrawerButton className={`inline-flex items-center justify-center rounded-lg bg-white px-6 py-3.5 font-bold text-[#0F1D2E] shadow-lg transition hover:bg-slate-100 ${focusRing}`}>
+                GET MY FREE PROJECT QUOTE
+              </QuoteDrawerButton>
+              </div>
+              <p className="mt-4 text-xs font-medium text-sky-200/90">
+                Soft Credit Check Only (Zero Impact) &nbsp;•&nbsp; Rates From 4.99% APR &nbsp;•&nbsp; 2-Minute Pre-Qualification
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#f4fafd]" style={{ backgroundColor: "#F4FAFD", color: "#0F1D2E" }}>
+          <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+            <p className="text-xs font-bold uppercase tracking-widest text-[#608b9e]">How it works: 3 steps</p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight text-[#0c1f38] sm:text-4xl">How it works</h2>
+            <ol className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
+              {howItWorks.map((step, index) => (
+                <li key={step}>
+                  <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border-b-4 border-[#0090c8] bg-white text-lg font-bold text-[#0c1f38] shadow-md">
+                    {index + 1}
+                  </span>
+                  <p className="text-sm leading-relaxed text-[#556980] sm:text-base">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section className="bg-white" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
+          <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-16">
+            <div className="space-y-8 lg:col-span-7">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight text-[#0F1D2E] sm:text-4xl">Why homeowners use it</h2>
+                <ul className="mt-6 space-y-3 text-sm text-[#334155] sm:text-base">
+                  {whyItems.map((item) => (
+                    <li key={item} className="flex gap-3 leading-relaxed">
+                      <CheckIcon />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="mb-3 text-sm font-semibold text-[#0F1D2E]">Watch: how financing works (1 minute)</p>
+                <div className="aspect-video overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+                  <iframe
+                    className="h-full w-full"
+                    src="https://www.youtube.com/embed/KxCNN1gbARM"
+                    title="How financing works (1 minute)"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <a
+                href={HEARTH_FINANCING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block max-w-[220px] overflow-hidden rounded-2xl border border-slate-200 shadow-sm transition hover:border-sky-400"
+              >
+                <img
+                  src="/images/hearth-0-apr-banner.png"
+                  alt="Explore 0% APR financing for your project through Hearth"
+                  className="h-auto w-full"
+                />
               </a>
             </div>
+            <div className="rounded-2xl bg-[#0F1D2E] p-6 text-white shadow-sm lg:col-span-5">
+              <FinancingCalculator financingUrl={HEARTH_FINANCING_URL} />
+            </div>
+          </div>
+        </section>
 
-            <section className="mt-8 border-t border-white/15 pt-8">
-              <p className="mb-5 text-xs font-semibold uppercase tracking-widest text-[#38BDF8]">
-                HOW IT WORKS: 3 STEPS
-              </p>
-              <ol className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                {howItWorks.map((step, index) => (
-                  <li key={step} className="flex gap-3 text-sm leading-relaxed text-slate-200">
-                    <span
-                      aria-hidden="true"
-                      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#38BDF8]/40 bg-[#38BDF8]/15 text-sm font-bold text-[#38BDF8]"
-                    >
-                      {index + 1}
-                    </span>
-                    <span className="pt-1">{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </section>
-
-            <section className="mt-8 grid grid-cols-1 items-start gap-8 border-t border-white/15 pt-8 xl:grid-cols-12">
-              <div className="space-y-8 xl:col-span-7">
-                <div>
-                  <p className="mb-3 text-sm font-semibold text-white">Watch: how financing works (1 minute)</p>
-                  <div className="aspect-video overflow-hidden rounded-xl border border-white/20 shadow-xl">
-                    <iframe
-                      className="h-full w-full"
-                      src="https://www.youtube.com/embed/KxCNN1gbARM"
-                      title="How financing works (1 minute)"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      loading="lazy"
-                    />
-                  </div>
+        <section className="border-t border-slate-200/80 bg-white" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
+          <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:py-16">
+            <h2 className="text-3xl font-bold tracking-tight text-[#0F1D2E] sm:text-4xl">Questions we hear</h2>
+            <dl className="mt-6 divide-y divide-slate-200">
+              {financingQuestions.map((item) => (
+                <div key={item.question} className="py-4">
+                  <dt className="font-semibold text-[#0F1D2E]">{item.question}</dt>
+                  <dd className="mt-1 text-sm leading-relaxed text-[#556980] sm:text-base">{item.answer}</dd>
                 </div>
-
-                <div className="grid grid-cols-1 items-center gap-6 sm:grid-cols-[1fr_190px]">
-                  <div>
-                    <h2 className="mb-3 text-xl font-bold text-white">Why homeowners use it</h2>
-                    <ul className="space-y-2.5 text-sm text-slate-200">
-                      {whyItems.map((item) => (
-                        <li key={item} className="flex gap-3 leading-relaxed">
-                          <CheckIcon />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <a
-                    href={HEARTH_FINANCING_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mx-auto block w-full max-w-[190px] overflow-hidden rounded-xl border border-white/20 shadow-xl transition-all hover:scale-[1.02] hover:border-[#38BDF8]/60"
-                  >
-                    <img
-                      src="/images/hearth-0-apr-banner.png"
-                      alt="Explore 0% APR financing for your project through Hearth"
-                      className="h-auto w-full"
-                    />
-                  </a>
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-6 shadow-2xl backdrop-blur-md xl:col-span-5">
-                <FinancingCalculator financingUrl={HEARTH_FINANCING_URL} />
-              </div>
-            </section>
-
-            <section className="mt-10 space-y-6 border-t border-white/15 pt-8">
-              <h2 className="text-2xl font-bold text-white">Questions we hear</h2>
-              <dl className="divide-y divide-white/15">
-                {financingQuestions.map((item) => (
-                  <div key={item.question} className="py-4">
-                    <dt className="font-semibold text-white">{item.question}</dt>
-                    <dd className="mt-1 text-sm leading-relaxed text-slate-200">{item.answer}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="pt-2 text-xs leading-relaxed text-slate-400">
-                Hearth is a technology company, licensed as a broker as may be required by state law. Hearth does not accept applications for credit, does not make loans, and does not make credit decisions. All loans are subject to credit review and approval by Hearth&apos;s lending partners. Rates, terms, and amounts vary by lender and credit profile.
-              </p>
-            </section>
+              ))}
+            </dl>
+            <p className="pt-4 text-xs leading-relaxed text-[#556980]">
+              Hearth is a technology company, licensed as a broker as may be required by state law. Hearth does not accept applications for credit, does not make loans, and does not make credit decisions. All loans are subject to credit review and approval by Hearth&apos;s lending partners. Rates, terms, and amounts vary by lender and credit profile.
+            </p>
           </div>
         </section>
 

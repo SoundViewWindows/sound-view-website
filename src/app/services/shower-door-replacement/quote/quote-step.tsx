@@ -51,12 +51,14 @@ export function ShowerQuoteStep() {
                   backLabel="Styles"
                 />
                 <div className="space-y-1.5">
-                <h1 className="text-2xl font-bold leading-tight tracking-tight text-white drop-shadow-sm sm:text-3xl md:text-[34px]">
-                  Your Custom Shower Door Estimate
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8]">
+                  Custom Shower Glass
+                </p>
+                <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[52px] leading-[1.08]">
+                  Get a Free Custom Shower Door Estimate in Greater Seattle
                 </h1>
                 <p className="max-w-2xl text-sm leading-snug text-slate-200 drop-shadow-sm md:text-[15px]">
-                  Review your chosen configuration, then share a few details so our
-                  Seattle glass specialists can prepare upfront pricing.
+                  Every shower opening is different. We help homeowners select glass styles, hardware, and configurations that complement their bathrooms, with careful measurements and straightforward project pricing.
                 </p>
                 </div>
                 <QuoteSelectionCard
@@ -79,7 +81,10 @@ export function ShowerQuoteStep() {
                   style={style}
                   onStyleChange={setStyle}
                 />
-                <QuoteContactBar />
+                <QuoteContactBar
+                  bookLabel="Book a Free Measurement Consultation"
+                  callLabel="Call Your Local Showroom"
+                />
               </div>
             </div>
           </div>

@@ -101,8 +101,7 @@ export function QuoteThankYou({
       </h2>
       <p className={`mb-6 max-w-sm text-sm leading-relaxed ${home || !framed ? "text-home-mist" : "text-slate-300"}`}>
         Our local Pacific Northwest specialists are reviewing your project
-        specifications. A team member will follow up with your upfront estimate
-        in under 2 business hours.
+        specifications. A local specialist will follow up during business hours.
       </p>
       <div
         className={`mb-6 w-full rounded-[4px] border p-5 text-left ${

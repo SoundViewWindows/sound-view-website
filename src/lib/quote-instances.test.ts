@@ -9,6 +9,7 @@ import {
   jobberQuoteInputs,
   normalizeQuoteBody,
   quoteRequestTitle,
+  blindsQuoteSubmission,
   railingQuoteSubmission,
   showerQuoteSubmission,
   standardQuoteSubmission,
@@ -132,7 +133,8 @@ async function verifyInstance(submission: WebsiteQuoteSubmission, requiredAnswer
 
 test("homepage quote uses the sidebar handler", async () => {
   const page = source("src/app/page.tsx");
-  assert.match(page, /<QuoteRequestForm/);
+  assert.match(page, /<HomeQuoteSidebar/);
+  assert.match(source("src/components/HomeQuoteSidebar.tsx"), /<QuoteRequestForm/);
   assert.doesNotMatch(page, /variant="horizontal"/);
   assertConnectedHandler("src/components/quote-request-form.tsx", "standardQuoteSubmission");
   const sidebar = source("src/components/quote-request-form.tsx");
@@ -173,7 +175,7 @@ test("Portfolio and About open beside a flush quote sidebar", () => {
   const portfolio = source("src/app/portfolio/page.tsx");
   assert.match(portfolio, /QuoteSlideIn/);
   assert.match(portfolio, /max-w-7xl/);
-  assert.match(portfolio, /bg-\[#0F1D2E\]/);
+  assert.match(portfolio, /PortfolioCompactHeader/);
   assert.doesNotMatch(portfolio, /FlushQuoteSidebar|HeroQuoteLayout/);
 });
 
@@ -210,8 +212,8 @@ for (const [label, file] of [
   test(`${label} opens with the showroom identity hero`, () => {
     assert.match(source(file), /<ShowroomLocation/);
     const location = source("src/components/showrooms/ShowroomLocation.tsx");
-    assert.match(location, /bg-\[#0F1D2E\]/);
-    assert.match(location, /Sound View Showroom Location/);
+    assert.match(location, /bg-\[#f4fafd\]/);
+    assert.match(location, /Visit Our Lake City Window & Door Showroom/);
     assert.match(location, /Showroom Address/);
     assert.doesNotMatch(location, /Book Showroom Appointment/);
     assert.doesNotMatch(location, /SoundViewPageHero/);
@@ -296,6 +298,16 @@ test("glass quote page passes the selected glass type into its box", async () =>
   );
 });
 
+test("window blinds page renders its own request form", async () => {
+  const page = source("src/app/services/window-blinds-shades/page.tsx");
+  assert.match(page, /<BlindsQuoteRequest/);
+  assertConnectedHandler("src/components/BlindsQuoteRequest.tsx", "blindsQuoteSubmission");
+  await verifyInstance(
+    blindsQuoteSubmission({ ...customer, notes: "Living room, four windows" }),
+    [],
+  );
+});
+
 test("glass railing page renders its own request form", async () => {
   const page = source("src/app/services/glass-railing-installation/page.tsx");
   assert.match(page, /<GlassRailingRequest/);
@@ -340,7 +352,6 @@ test("contact message form creates a general Jobber inquiry", async () => {
     "src/app/services/door-replacement/manufacturers/page.tsx",
     "src/app/services/shower-door-replacement/types/page.tsx",
     "src/app/services/glass-replacement/types/page.tsx",
-    "src/app/services/window-blinds-shades/page.tsx",
     "src/app/blog/[slug]/page.tsx",
   ];
   for (const file of noQuoteForm) {

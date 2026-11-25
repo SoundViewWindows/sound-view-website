@@ -51,12 +51,14 @@ export function GlassQuoteStep() {
                   backLabel="Glass Types"
                 />
                 <div className="space-y-1.5">
-                <h1 className="text-2xl font-bold leading-tight tracking-tight text-white drop-shadow-sm sm:text-3xl md:text-[34px]">
-                  Your Custom Glass Estimate
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8]">
+                  Residential Glass Replacement
+                </p>
+                <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[52px] leading-[1.08]">
+                  Get a Free Residential Glass Replacement Estimate in Greater Seattle
                 </h1>
                 <p className="max-w-2xl text-sm leading-snug text-slate-200 drop-shadow-sm md:text-[15px]">
-                  Review your chosen glass type, then share a few details so our
-                  Seattle specialists can prepare upfront pricing.
+                  Not every glass issue requires the same solution. Our team helps you understand your replacement options, glass specifications, and installation considerations before you commit to a project.
                 </p>
                 </div>
                 <QuoteSelectionCard
@@ -79,7 +81,10 @@ export function GlassQuoteStep() {
                   glassType={glassType}
                   onGlassTypeChange={setGlassType}
                 />
-                <QuoteContactBar />
+                <QuoteContactBar
+                  bookLabel="Schedule a Glass Consultation"
+                  callLabel="Call Your Local Showroom"
+                />
               </div>
             </div>
           </div>

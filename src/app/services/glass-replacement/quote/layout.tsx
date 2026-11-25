@@ -6,9 +6,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: canonicalUrl("/services/glass-replacement/quote"),
   },
-  title: "Glass Estimate | Sound View Window & Door",
+  title: "Get a Free Residential Glass Replacement Estimate in Greater Seattle | Sound View Window & Door",
   description:
-    "Request upfront pricing for glass replacement across the Greater Seattle Area.",
+    "Request a free residential glass replacement estimate in Greater Seattle, including insulated glass, clear pricing, and professional installation.",
 };
 
 export default function GlassQuoteLayout({ children }: { children: ReactNode }) {

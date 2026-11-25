@@ -8,8 +8,9 @@ import { submitWebsiteQuote } from "@/lib/quote-submit";
 export function RequestInstallationButton() {
   function scrollToRequest(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document.getElementById("railing-quote-form")?.scrollIntoView({
-      behavior: "smooth",
+      behavior: reduceMotion ? "auto" : "smooth",
       block: "start",
     });
     document.getElementById("railing-name")?.focus({ preventScroll: true });
@@ -19,9 +20,9 @@ export function RequestInstallationButton() {
     <a
       href="#railing-quote-form"
       onClick={scrollToRequest}
-      className="flex items-center gap-2 rounded-[4px] border border-white/20 bg-white px-6 py-3 text-sm font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+      className="flex items-center gap-2 rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
     >
-      Request Professional Installation
+      Request a Free Installation Estimate
     </a>
   );
 }
@@ -98,9 +99,9 @@ export function GlassRailingRequest() {
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
-            <h2 className="text-xl font-bold text-white">Request Professional Installation</h2>
+            <h2 className="text-xl font-extrabold tracking-tight text-white">Let&apos;s Plan Your Glass Railing Project</h2>
             <p className="mt-1 text-xs text-home-mist">
-              No pressure, upfront guidance from local Pacific Northwest specialists.
+              Tell us where you want glass railings installed and what you&apos;re envisioning. We&apos;ll help you take the next step toward a custom solution.
             </p>
           </div>
           <div>
@@ -204,12 +205,12 @@ export function GlassRailingRequest() {
             type="submit"
             disabled={isSubmitting}
             aria-busy={isSubmitting}
-            className="w-full rounded-[4px] bg-[#4EC6FF] py-3.5 text-sm font-extrabold uppercase tracking-wide text-[#062033] shadow-md shadow-sky-500/20 transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70"
+            className="w-full rounded-lg bg-[#38BDF8] py-3.5 text-sm font-extrabold tracking-wide text-[#0F1D2E] shadow-lg transition hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {isSubmitting ? "Submitting" : "Request Professional Installation"}
+            {isSubmitting ? "Submitting" : "GET MY FREE RAILING ESTIMATE →"}
           </button>
-          <p className="text-center text-[11px] text-home-mist">
-            We never share your information. Typical response time under 2 business hours.
+          <p className="text-center text-xs font-medium text-sky-200/90">
+            Custom glass railing solutions &nbsp;•&nbsp; Professional installation &nbsp;•&nbsp; Free, no-obligation estimate
           </p>
         </form>
     </aside>

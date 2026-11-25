@@ -3,7 +3,8 @@ import { canonicalUrl } from "@/config/site";
 import { publicPaths } from "@/lib/public-paths";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
-import { QuoteSlideIn } from "@/components/QuoteSlideIn";
+import { PhotographicHero, heroPrimaryClass, heroSecondaryClass } from "@/components/PhotographicHero";
+import { QuoteDrawerButton, QuoteSlideIn } from "@/components/QuoteSlideIn";
 
 export const metadata: Metadata = {
   alternates: {
@@ -103,42 +104,62 @@ export default function EnergyRebatesPage() {
       <Header />
       <QuoteSlideIn id="energy-rebates-quote" formName="energy-rebates-quote" />
       <main className="flex-1">
-        <section className="relative overflow-hidden bg-[#0F1D2E] py-6 text-white lg:py-7">
-            <div className="pointer-events-none absolute inset-0 z-0 select-none">
-              <img
-                src="/images/hero-bg.jpg"
-                alt=""
-                aria-hidden="true"
-                className="h-full w-full object-cover object-center opacity-40"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
+        <PhotographicHero
+          image="/images/hero-bg.jpg"
+          eyebrow="Seattle & Puget Sound Energy Rebates"
+          title="Claim Up to $600 in Federal Tax Credits & Local Utility Window Rebates"
+          lead="Puget Sound Energy, Tacoma Public Utilities, and Avista offer local incentives for qualifying window and door replacements. A Sound View specialist checks eligibility before you order."
+          actions={
+            <>
+              <QuoteDrawerButton className={heroPrimaryClass}>Check Rebate Eligibility</QuoteDrawerButton>
+              <a href="/showrooms" className={heroSecondaryClass}>Explore Showrooms</a>
+            </>
+          }
+          cards={[
+            {
+              title: "Utility Rebates",
+              body: "Local electric and gas programs pay per qualifying window or door when the product meets their ratings.",
+            },
+            {
+              title: "Federal 25C Credit",
+              body: "ENERGY STAR Most Efficient windows can qualify for a 30% credit, up to $600 per year, on a primary home.",
+            },
+            {
+              title: "Installed by Sound View",
+              body: "We document the product ratings and install so your rebate paperwork matches the openings.",
+            },
+          ]}
+        />
+        <section id="utility-rebates" className="bg-white py-14 lg:py-16" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
+            <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#0284C7]">
+                  Energy Rebates &amp; Tax Credits for Windows &amp; Doors
+                </p>
+                <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#0F1D2E] sm:text-4xl">Local utility programs</h2>
+              </div>
+              <span className="text-sm text-[#556980]">Greater Seattle Utility &amp; Federal 25C Incentives</span>
             </div>
-            <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col gap-5 px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h1 className="text-xs font-bold uppercase tracking-wider text-[#38BDF8] sm:text-sm">
-                Energy Rebates &amp; Tax Credits for Windows &amp; Doors
-              </h1>
-              <span className="text-xs text-slate-400">Greater Seattle Utility &amp; Federal 25C Incentives</span>
-            </div>
-            <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-3">
+            <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3">
               {providers.map((provider) => (
                 <a
                   key={provider.title}
                   href={provider.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group flex cursor-pointer flex-col rounded-2xl border border-white/20 bg-[#0F1D2E]/90 p-5 shadow-2xl backdrop-blur-md transition-colors hover:border-sky-400/70 sm:p-6 ${focusRing}`}
+                  className={`group flex cursor-pointer flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-colors hover:border-sky-400 hover:shadow-md ${focusRing}`}
                 >
                   <div>
                     <span aria-hidden="true" className="mb-3 block h-0.5 w-8 bg-[#38BDF8]" />
-                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#0284C7]">
                       {provider.tagline}
                     </p>
-                    <h2 className="text-xl font-bold text-white transition-colors group-hover:text-sky-300 sm:text-[22px]">
+                    <h3 className="text-xl font-bold text-[#0F1D2E] transition-colors group-hover:text-[#0284C7]">
                       {provider.title}
-                    </h2>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-200">{provider.description}</p>
-                    <ul className="mt-4 space-y-2 text-xs text-slate-200">
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-[#556980]">{provider.description}</p>
+                    <ul className="mt-4 space-y-2 text-sm text-[#334155]">
                       {provider.points.map((point) => (
                         <li key={point} className="flex items-start gap-2">
                           <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#38BDF8]" />
@@ -147,49 +168,55 @@ export default function EnergyRebatesPage() {
                       ))}
                     </ul>
                   </div>
-                  <span className="mt-5 inline-flex items-center gap-1.5 border-t border-white/15 pt-4 text-sm font-semibold text-[#38BDF8] hover:text-sky-300">
+                  <span className="mt-5 inline-flex items-center gap-1.5 border-t border-slate-100 pt-4 text-sm font-semibold text-[#0284C7] group-hover:text-[#0F1D2E]">
                     {provider.cta}
                     <ExternalLinkIcon />
                   </span>
                 </a>
               ))}
             </div>
-            <div className="flex flex-col gap-4 border-t border-slate-700/70 pt-5 lg:flex-row lg:items-center lg:justify-between">
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8]">
-                  Federal Tax Incentive (Section 25C)
-                </p>
-                <h2 className="mt-1 text-base font-bold text-white sm:text-lg">
-                  Up to $600 Annual Federal Tax Credit on Qualifying Windows
-                </h2>
-                <p className="mt-1 max-w-3xl text-xs leading-relaxed text-slate-300 sm:text-sm">
-                  Windows and skylights meeting ENERGY STAR Most Efficient criteria can qualify for a 30% federal tax credit (up to $600 per year) when installed in your primary residence.
-                </p>
-              </div>
-              <span className="shrink-0 rounded-lg border border-slate-700/80 bg-[#152538]/90 px-3.5 py-2 text-xs font-semibold text-[#38BDF8]">
-                ENERGY STAR Most Efficient Certified
-              </span>
-            </div>
-            <div className="border-t border-slate-700/70 pt-5">
+          </div>
+        </section>
+
+        <section className="bg-[#0F1D2E] text-white">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-12 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-14">
+            <div>
               <p className="text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
-                Included With Every Sound View Energy Upgrade
+                Federal Tax Incentive (Section 25C)
               </p>
-              <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-3">
-                {qualifications.map((item) => (
-                  <div key={item.title}>
-                    <p className="flex items-start gap-2 text-sm font-bold text-white">
-                      <CheckIcon />
-                      {item.title}
-                    </p>
-                    <p className="mt-1.5 text-xs leading-relaxed text-slate-300 sm:text-[13px]">{item.text}</p>
-                  </div>
-                ))}
-              </div>
+              <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
+                Up to $600 Annual Federal Tax Credit on Qualifying Windows
+              </h2>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-200 sm:text-base">
+                Windows and skylights meeting ENERGY STAR Most Efficient criteria can qualify for a 30% federal tax credit (up to $600 per year) when installed in your primary residence.
+              </p>
+            </div>
+            <span className="shrink-0 rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold text-[#38BDF8]">
+              ENERGY STAR Most Efficient Certified
+            </span>
+          </div>
+        </section>
+
+        <section className="bg-[#f4fafd]" style={{ backgroundColor: "#F4FAFD", color: "#0F1D2E" }}>
+          <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+            <p className="text-xs font-bold uppercase tracking-widest text-[#608b9e]">
+              Included With Every Sound View Energy Upgrade
+            </p>
+            <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-3">
+              {qualifications.map((item) => (
+                <div key={item.title}>
+                  <p className="flex items-start gap-2 text-base font-bold text-[#0c1f38]">
+                    <CheckIcon />
+                    {item.title}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-[#556980] sm:text-base">{item.text}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="bg-slate-50 pt-16 pb-20 text-[#0B192C] md:pt-20 md:pb-24">
+        <section className="bg-white pt-16 pb-20 text-[#0B192C] md:pt-20 md:pb-24" style={{ backgroundColor: "#FFFFFF", color: "#0B192C" }}>
           <h2 className="mb-3 text-center text-3xl font-bold text-[#0B192C] sm:text-4xl">
             Before You Start Your Project
           </h2>
@@ -198,7 +225,7 @@ export default function EnergyRebatesPage() {
             {steps.map((step) => (
               <article
                 key={step.number}
-                className="rounded-[4px] border border-slate-200/80 bg-white p-6 shadow-sm"
+                className="rounded-2xl border border-slate-200 bg-[#f4fafd] p-6"
               >
                 <p className="mb-1 text-xl font-extrabold text-[#0284C7]">{step.number}</p>
                 <h3 className="mb-2 block text-base font-bold text-[#0B192C] sm:text-lg">{step.heading}</h3>

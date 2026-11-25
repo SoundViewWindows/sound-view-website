@@ -147,9 +147,9 @@ export function DoorQuoteBox({
     >
         <form noValidate className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div>
-            <h2 className="text-xl font-extrabold tracking-tight text-white">Get a Quick Door Estimate</h2>
+            <h2 className="text-xl font-extrabold tracking-tight text-white">Let&apos;s Price Your New Door</h2>
             <p className="mt-1 text-xs text-home-mist">
-              No pressure, upfront guidance from local Pacific Northwest specialists.
+              Share a few details about your door project so we can help you choose the right product and installation approach.
             </p>
           </div>
 
@@ -349,12 +349,12 @@ export function DoorQuoteBox({
             type="submit"
             disabled={isSubmitting}
             aria-busy={isSubmitting}
-            className="mt-2 flex w-full items-center justify-center rounded-[4px] bg-[#4EC6FF] px-4 py-3.5 text-xs font-bold uppercase tracking-wider text-[#062033] transition-colors hover:bg-[#7DD3FC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70 sm:text-sm"
+            className="mt-2 flex w-full items-center justify-center rounded-lg bg-[#38BDF8] px-4 py-3.5 text-sm font-extrabold tracking-wide text-[#0F1D2E] shadow-lg transition hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {isSubmitting ? "Submitting" : "Request Upfront Pricing"}
+            {isSubmitting ? "Submitting" : "GET MY FREE DOOR QUOTE →"}
           </button>
-          <p className="text-center text-[11px] text-home-mist">
-            We never share your information. Typical response time under 2 business hours.
+          <p className="text-center text-xs font-medium text-sky-200/90">
+            Free, no-obligation estimate &nbsp;•&nbsp; Clear, upfront pricing &nbsp;•&nbsp; Professional door installation
           </p>
         </form>
     </aside>

@@ -10,8 +10,8 @@ export type QuoteSelection = {
 
 const nextSteps = [
   {
-    title: "Specialist Review Within 2 Business Hours",
-    body: "A local Sound View estimator reviews your specs and prepares upfront pricing.",
+    title: "Local Specialist Review",
+    body: "A local Sound View estimator reviews your specs and prepares accurate upfront pricing.",
   },
   {
     title: "Precision Measurement or Showroom Visit",

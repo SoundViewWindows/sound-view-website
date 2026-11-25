@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function ShowroomsPage() {
   return (
-    <div className="bg-white text-[#0B192C]">
+    <div className="bg-white text-[#0F1D2E]" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
       <Header />
       <QuoteSlideIn id="showrooms-quote" formName="showrooms-quote" />
       <main>

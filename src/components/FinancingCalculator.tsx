@@ -100,9 +100,9 @@ export function FinancingCalculator({ financingUrl }: { financingUrl: string }) 
         href={financingUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4 inline-flex w-full items-center justify-center rounded-xl bg-[#38BDF8] px-6 py-3 text-sm font-semibold text-[#0F1D2E] transition-colors hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+        className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3.5 text-sm font-extrabold tracking-wide text-[#0F1D2E] shadow-lg transition hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
       >
-        {"Get Financing Options ->"}
+        CHECK MY REAL PAYMENT OPTIONS →
       </a>
       <p className="mt-4 text-xs leading-relaxed text-slate-400">
         This estimate uses a 60 month term and a {apr.toFixed(2)}% APR. It is for illustration only and does not account for missed payments, deferments, or other special conditions.

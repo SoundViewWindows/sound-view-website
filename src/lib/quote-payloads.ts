@@ -158,6 +158,23 @@ export function railingQuoteSubmission(
   };
 }
 
+export function blindsQuoteSubmission(
+  input: Customer & {
+    notes: string;
+  },
+): WebsiteQuoteSubmission {
+  return {
+    name: input.name,
+    phone: input.phone,
+    zip: input.zip,
+    email: input.email,
+    projectType: "window-blinds-shades",
+    details: input.notes,
+    form: "Window blinds quote",
+    answers: [],
+  };
+}
+
 const REQUEST_TITLES: Record<string, string> = {
   "window-replacement": "Window Replacement Quote",
   "door-replacement": "Door Replacement Quote",

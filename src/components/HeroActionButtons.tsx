@@ -143,13 +143,30 @@ export function HeroActionButtons({ appearance = "home" }: { appearance?: "home"
   );
 }
 
-export function QuoteContactBar() {
+export function QuoteContactBar({
+  bookLabel = "Book Free Measure",
+  callLabel = "Call (206) 572-3411",
+}: {
+  bookLabel?: string;
+  callLabel?: string;
+}) {
   return (
-    <div className="relative z-20 mt-4 flex flex-col gap-3 rounded-2xl border border-white/15 bg-[#0F1D2E]/85 p-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-4">
-      <p className="text-xs font-medium text-slate-200 sm:text-sm">
-        Prefer to visit a showroom or talk now?
-      </p>
-      <HeroActionButtons appearance="quote" />
+    <div className="relative z-20 mt-4 overflow-visible rounded-2xl border border-white/15 bg-[#0F1D2E]/85 p-4 backdrop-blur-md sm:p-5">
+      <p className="text-sm font-semibold text-white">Ready to get measured faster?</p>
+      <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <Link
+          href="/book-appointment"
+          className="inline-flex w-full items-center justify-center rounded-lg border border-white bg-white px-4 py-3 text-center text-sm font-bold text-[#0F1D2E] shadow-lg transition hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+        >
+          {bookLabel}
+        </Link>
+        <a
+          href="tel:+12065723411"
+          className="inline-flex w-full items-center justify-center rounded-lg border border-white/20 bg-[#0F1D2E]/80 px-4 py-3 text-center text-sm font-bold text-white shadow-lg backdrop-blur-md transition hover:border-[#38BDF8]/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+        >
+          {callLabel}
+        </a>
+      </div>
     </div>
   );
 }

@@ -20,25 +20,6 @@ export const metadata: Metadata = {
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]";
 
-const trustItems = [
-  {
-    title: "17+ Years in Puget Sound",
-    body: "Local Greater Seattle expertise",
-  },
-  {
-    title: "10,000+ Installations",
-    body: "Completed residential and commercial projects",
-  },
-  {
-    title: "4.9/5 Homeowner Rating",
-    body: "Verified Pacific Northwest customer reviews",
-  },
-  {
-    title: "WA Licensed, Bonded & Insured",
-    body: "Full contractor protection and accountability",
-  },
-];
-
 const values = [
   {
     title: "Respect for Every Homeowner",
@@ -98,120 +79,97 @@ export default function AboutPage() {
       <Header />
       <AboutQuoteSlideIn />
       <main>
-        <section className="relative overflow-hidden bg-[#0B1623] text-white">
-          <video
-            className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-35 motion-reduce:hidden"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            aria-hidden="true"
-            tabIndex={-1}
-            disablePictureInPicture
-          >
-            <source src="/videos/about-hero.mp4" type="video/mp4" />
-          </video>
-          <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#0B1623]/60 via-[#0F1D2E]/45 to-[#0B1623]/85" />
-          <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-            <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
-              <div className="lg:col-span-5">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-slate-700/80 shadow-2xl">
-                  <Image
-                    src="/images/sound-view-lake-city-storefront.jpg"
-                    alt="Sound View Window & Door Lake City showroom exterior"
-                    fill
-                    sizes="(min-width: 1024px) 36rem, 100vw"
-                    className="h-full w-full object-cover object-center"
-                  />
-                </div>
-              </div>
-              <div className="lg:col-span-7">
-                <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
-                  <ol className="flex flex-wrap items-center gap-2">
-                    <li>
-                      <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                        Home
-                      </Link>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span aria-hidden="true">&gt;</span>
-                      <span aria-current="page">About</span>
-                    </li>
-                  </ol>
-                </nav>
-                <p className="mt-2 text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
-                  About Sound View Window & Door
+        <section className="relative overflow-hidden bg-[#0F1D2E] text-white" style={{ backgroundColor: "#0F1D2E", color: "#FFFFFF" }}>
+          <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+            <img
+              src="/images/about-window-install.jpg"
+              alt=""
+              className="h-full w-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/95 via-[#0F1D2E]/85 to-[#0F1D2E]/70" />
+          </div>
+          <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
+            <div className="lg:col-span-7">
+              <nav aria-label="Breadcrumb" className="text-xs text-slate-300">
+                <ol className="flex flex-wrap items-center gap-2">
+                  <li>
+                    <Link href="/" className={`rounded-sm text-slate-300 hover:text-white ${focusRing}`}>
+                      Home
+                    </Link>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span aria-hidden="true">&gt;</span>
+                    <span aria-current="page">About</span>
+                  </li>
+                </ol>
+              </nav>
+              <p className="mt-4 text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8]">
+                Our Story & Accountability
+              </p>
+              <h1 className="mt-3 text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl">
+                Built for the Long Term in Greater Seattle
+              </h1>
+              <div className="mt-5 space-y-4 text-base leading-relaxed text-slate-200 sm:text-lg">
+                <p>
+                  Sound View Window & Door grew up in Greater Seattle by staying
+                  with the same homes for the long term. Homeowners come back
+                  because the recommendation still makes sense years later, not
+                  because someone rushed a signature on the first visit.
                 </p>
-                <h1 className="mt-2 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-[42px]">
-                  A Name Greater Seattle Homeowners Trust
-                </h1>
-                <div className="mt-5 space-y-4 text-base leading-relaxed text-slate-300">
-                  <p>
-                    Sound View Window & Door grew up in Greater Seattle by staying
-                    with the same homes for the long term. Homeowners come back
-                    because the recommendation still makes sense years later, not
-                    because someone rushed a signature on the first visit.
-                  </p>
-                  <p>
-                    We compare{" "}
-                    <Link href={publicPaths.windows} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:text-sky-300 hover:underline ${focusRing}`}>
-                      replacement windows
-                    </Link>
-                    ,{" "}
-                    <Link href={publicPaths.doors} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:text-sky-300 hover:underline ${focusRing}`}>
-                      doors
-                    </Link>
-                    , and{" "}
-                    <Link href={publicPaths.glass} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:text-sky-300 hover:underline ${focusRing}`}>
-                      custom glass
-                    </Link>{" "}
-                    in plain language. You see the tradeoffs in frame material,
-                    glass package, and hardware before anyone talks about a start
-                    date.
-                  </p>
-                  <p>
-                    The same team stays accountable from the first conversation in
-                    one of our{" "}
-                    <Link href={publicPaths.showrooms} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:text-sky-300 hover:underline ${focusRing}`}>
-                      showrooms
-                    </Link>{" "}
-                    through measurement, installation, and the final walkthrough.
-                    If something needs attention, you know who to call.
-                  </p>
-                </div>
-                <div className="mt-7 flex flex-wrap items-center gap-4">
-                  <Link
-                    href="/book-appointment"
-                    className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-sky-400 ${focusRing}`}
-                  >
-                    Book Appointment
+                <p>
+                  We compare{" "}
+                  <Link href={publicPaths.windows} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:underline ${focusRing}`}>
+                    replacement windows
                   </Link>
-                  <AboutQuoteOpenButton
-                    className={`inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#0F1D2E] transition-colors hover:bg-slate-100 ${focusRing}`}
-                  >
-                    Get a Free Quote
-                  </AboutQuoteOpenButton>
-                </div>
+                  ,{" "}
+                  <Link href={publicPaths.doors} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:underline ${focusRing}`}>
+                    doors
+                  </Link>
+                  , and{" "}
+                  <Link href={publicPaths.glass} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:underline ${focusRing}`}>
+                    custom glass
+                  </Link>{" "}
+                  in plain language. You see the tradeoffs in frame material,
+                  glass package, and hardware before anyone talks about a start
+                  date.
+                </p>
+                <p>
+                  The same team stays accountable from the first conversation in
+                  one of our{" "}
+                  <Link href={publicPaths.showrooms} className={`font-semibold text-[#38BDF8] underline-offset-4 hover:underline ${focusRing}`}>
+                    showrooms
+                  </Link>{" "}
+                  through measurement, installation, and the final walkthrough.
+                  If something needs attention, you know who to call.
+                </p>
+              </div>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/book-appointment"
+                  className={`inline-flex items-center justify-center rounded-lg bg-[#38BDF8] px-6 py-3.5 font-bold text-[#0F1D2E] shadow-lg transition hover:bg-sky-400 ${focusRing}`}
+                >
+                  BOOK MY FREE CONSULTATION →
+                </Link>
+                <AboutQuoteOpenButton
+                  className={`inline-flex items-center justify-center rounded-lg bg-white px-6 py-3.5 font-bold text-[#0F1D2E] shadow-lg transition hover:bg-slate-100 ${focusRing}`}
+                >
+                  GET MY FREE QUOTE →
+                </AboutQuoteOpenButton>
               </div>
             </div>
-            <ul className="mt-12 grid grid-cols-1 gap-4 border-t border-slate-700/70 pt-8 sm:grid-cols-2 lg:grid-cols-4">
-              {trustItems.map((item) => (
-                <li
-                  key={item.title}
-                  className="flex items-start gap-3 rounded-xl border border-slate-700/80 bg-[#152538]/90 p-4"
-                >
-                  <div>
-                    <p className="text-sm font-semibold text-white">{item.title}</p>
-                    <p className="mt-1 text-sm leading-5 text-slate-300">{item.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <div className="lg:col-span-5">
+              <Image
+                src="/images/sound-view-lake-city-storefront.jpg"
+                alt="Sound View Window and Door Lake City storefront"
+                width={1200}
+                height={800}
+                className="aspect-[4/3] w-full rounded-none border border-white/15 object-cover shadow-2xl"
+              />
+            </div>
           </div>
         </section>
 
-        <section className="bg-slate-50">
+        <section className="bg-[#f4fafd]">
           <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
             <div className="lg:col-span-7">
               <p className="text-xs font-bold uppercase tracking-widest text-sky-600">
@@ -225,7 +183,7 @@ export default function AboutPage() {
                 architectural glass partner by combining honest, zero-pressure
                 guidance with precision Pacific Northwest craftsmanship.&quot;
               </p>
-              <ul className="mt-6 space-y-3.5 rounded-xl border border-slate-200 bg-white p-6 shadow-xs">
+              <ul className="mt-6 space-y-3.5 rounded-none border border-slate-200 bg-white p-6 shadow-xs">
                 {values.map((value) => (
                   <li key={value.title} className="flex gap-3">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#38BDF8]" aria-hidden="true" />
@@ -238,13 +196,13 @@ export default function AboutPage() {
               </ul>
             </div>
             <div className="lg:col-span-5">
-              <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-md">
+              <div className="overflow-hidden rounded-none border border-slate-200 shadow-md">
                 <Image
-                  src="/images/services/window-replacement.png"
-                  alt="Technician setting a replacement window sash into an existing opening"
+                  src="/images/about-window-install.jpg"
+                  alt="Installer setting a replacement window with flashing tape and a level"
                   width={960}
-                  height={720}
-                  className="aspect-[4/5] w-full object-cover object-center sm:aspect-[4/3] lg:aspect-[4/5]"
+                  height={960}
+                  className="aspect-[4/3] w-full object-cover object-center"
                 />
               </div>
             </div>
@@ -271,7 +229,7 @@ export default function AboutPage() {
                   projects.
                 </p>
               </div>
-              <blockquote className="mt-6 rounded-r-xl border-l-4 border-[#38BDF8] bg-slate-50 p-5 text-slate-700 italic">
+              <blockquote className="mt-6 rounded-none border-l-4 border-[#38BDF8] bg-[#f4fafd] p-5 text-slate-700 italic">
                 <p>
                   &quot;Sound View replaced 12 original windows in our home with
                   zero high-pressure sales tactics. The team walked us through
@@ -290,7 +248,7 @@ export default function AboutPage() {
               </Link>
             </div>
             <div className="lg:col-span-6">
-              <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+              <article className="overflow-hidden rounded-none border border-slate-200 bg-white shadow-lg">
                 <div className="relative w-full bg-black pb-[56.25%]">
                   <iframe
                     src={installVideo.src}
@@ -309,14 +267,14 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="bg-slate-50">
+        <section className="bg-[#f4fafd]">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
             <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
               <div className="lg:col-span-5">
-                <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-md">
+                <div className="overflow-hidden rounded-none border border-slate-200 shadow-md">
                   <Image
-                    src="/images/sound-view-queen-anne-showroom.jpg"
-                    alt="Sound View Window & Door West Queen Anne showroom exterior"
+                    src="/images/sound-view-lake-city-storefront.jpg"
+                    alt="Sound View Window & Door Lake City showroom exterior"
                     width={1200}
                     height={800}
                     quality={95}
@@ -351,7 +309,7 @@ export default function AboutPage() {
               {specialties.map((item) => (
                 <article
                   key={item.title}
-                  className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs"
+                  className="rounded-none border border-slate-200 bg-white p-6 shadow-xs"
                 >
                   <h3 className="text-xl font-bold text-[#0F1D2E]">{item.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-slate-700">{item.body}</p>
@@ -381,7 +339,7 @@ export default function AboutPage() {
               {showrooms.map((room) => (
                 <article
                   key={room.href}
-                  className="flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/70"
+                  className="flex flex-col justify-between overflow-hidden rounded-none border border-slate-200 bg-[#f4fafd]/70"
                 >
                   <iframe
                     src={room.mapSrc}

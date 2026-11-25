@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: canonicalUrl("/services/glass-railing-installation"),
   },
-  title: "Glass Railing Installation | Sound View Window & Door",
+  title: "Plan Custom Glass Railing Installation in Greater Seattle | Sound View Window & Door",
   description:
-    "Tempered glass railings for decks, balconies, and staircases across the Greater Seattle Area.",
+    "Plan custom glass railing installation in Greater Seattle for decks, balconies, and stairs, with transparent pricing and professional installation.",
 };
 
 const highlights = [
@@ -101,27 +101,25 @@ export default function GlassRailingPage() {
                 </ol>
               </nav>
               <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
-                Architectural Glass Systems
+                Custom Glass Railing Consultations
               </p>
-              <h1 className="mb-4 max-w-full text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
-                Custom Glass Railings Engineered for Unobstructed Views
+              <h1 className="mb-4 max-w-full text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[52px] leading-[1.08]">
+                Plan Custom Glass Railing Installation in Greater Seattle With Local Specialists
               </h1>
               <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
-                Open up your deck, balcony, or interior staircase with
-                precision-measured tempered glass railing systems designed to
-                withstand Pacific Northwest marine conditions.
+                A successful glass railing project starts with the right system, careful planning, and professional installation. We&apos;ll help you evaluate design options, hardware, and project requirements with transparent pricing and no sales pressure.
               </p>
               <div className="flex flex-wrap gap-4">
+                <RequestInstallationButton />
                 <a
                   href="https://sound-view-window-door.myshopify.com/collections/shower-glass-hardware"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-medium text-[#0B192C] transition-colors hover:bg-sky-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                  className="flex items-center gap-2 rounded-[4px] border border-white/20 bg-white px-6 py-3 text-sm font-semibold text-[#0B192C] shadow-sm transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
                 >
                   <BagIcon />
                   Shop Railing Hardware Online
                 </a>
-                <RequestInstallationButton />
               </div>
               <div className="mt-7 grid w-full grid-cols-1 gap-4 sm:grid-cols-3 md:mt-8">
                 {highlights.map((item) => (

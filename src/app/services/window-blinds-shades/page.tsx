@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { canonicalUrl } from "@/config/site";
 import Link from "next/link";
+import { BlindsQuoteRequest, ShadeQuoteButton } from "@/components/BlindsQuoteRequest";
 import { CtaBanner } from "@/components/CtaBanner";
 import { Header } from "@/components/Header";
 import { ServiceFunnelCarousel } from "@/components/ServiceFunnelCarousel";
@@ -11,9 +12,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: canonicalUrl("/services/window-blinds-shades"),
   },
-  title: "Window Blinds & Shades | Sound View Window & Door",
+  title: "Get a Free Custom Blinds & Shades Quote in Greater Seattle | Sound View Window & Door",
   description:
-    "Custom blinds and motorized shades for privacy, light control, and insulation in Greater Seattle homes.",
+    "Request a free custom blinds and shades quote in Greater Seattle. Compare fabrics, light control, and motorized options with clear pricing and no pressure.",
 };
 
 const shopHref =
@@ -43,10 +44,9 @@ export default function WindowBlindsShadesPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0B192C]/65 via-[#0B192C]/45 to-[#0B192C]/75" />
           </div>
-          <div className="relative z-10">
-        <section className="mx-auto max-w-[1440px] px-4 pt-8 sm:px-5">
-          <div className="mb-6 flex flex-col gap-4 md:mb-7 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
+          <div className="relative z-10 mx-auto max-w-[1440px] px-4 py-10 sm:px-5 md:py-12">
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="flex min-w-0 flex-col items-start lg:col-span-7">
               <nav aria-label="Breadcrumb" className="mb-4 text-sm text-slate-400">
                 <ol className="flex flex-wrap items-center gap-2">
                   <li>
@@ -68,28 +68,35 @@ export default function WindowBlindsShadesPage() {
                 </ol>
               </nav>
               <p className="mb-2 text-xs font-bold uppercase tracking-wider text-sky-300">
-                CUSTOM WINDOW TREATMENTS
+                Custom Window Blinds &amp; Shades
               </p>
-              <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
-                Custom Blinds and Motorized Shades Tailored to Your Home
+              <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[52px] leading-[1.08]">
+                Get a Free Custom Blinds &amp; Shades Quote in Greater Seattle
               </h1>
-              <p className="text-base leading-relaxed text-slate-300 sm:text-lg">
-                Enhance privacy, soften natural sunlight, and boost insulation with
-                premium custom blinds and motorized window shades engineered for
-                Pacific Northwest living.
+              <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+                The right window treatments should fit your windows, your routines, and the way you use each room. We&apos;ll help you compare fabrics, styles, light-filtering options, and motorization with clear pricing and no pressure.
               </p>
+              <div className="flex flex-wrap gap-4">
+                <ShadeQuoteButton />
+                <a
+                  href={shopHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#0F1D2E] shadow-lg transition hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8]"
+                >
+                  <ShoppingBagIcon />
+                  Shop Window Treatments Online
+                </a>
+              </div>
             </div>
-            <a
-              href={shopHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-[4px] bg-[#38BDF8] px-6 py-3 text-sm font-semibold text-[#0B192C] transition-colors hover:bg-[#0284C7] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#38BDF8] lg:self-end"
-            >
-              <ShoppingBagIcon />
-              Shop Window Treatments Online
-            </a>
+            <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
+              <div id="blinds-quote-form" className="w-full max-w-md scroll-mt-24">
+                <BlindsQuoteRequest />
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
+        <div className="relative z-10">
 
         <section aria-label="Treatment categories">
           <div className="mx-auto max-w-[1440px] px-4 pb-16 sm:px-5">

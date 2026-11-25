@@ -75,12 +75,14 @@ export function QuoteStep() {
                   onDark
                 />
                 <div className="space-y-1.5">
-                <h1 className="text-2xl font-bold leading-tight tracking-tight text-white drop-shadow-sm sm:text-3xl md:text-[34px]">
-                  Your Free Window Quote
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8]">
+                  Window Replacement Estimates
+                </p>
+                <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[52px] leading-[1.08]">
+                  Get a Free Window Replacement Quote in Greater Seattle
                 </h1>
                 <p className="max-w-2xl text-sm leading-snug text-slate-200 drop-shadow-sm md:text-[15px]">
-                  Review the material, type, and manufacturer you chose, then share
-                  a few details so a local specialist can prepare upfront pricing.
+                  Choosing new windows is a long-term investment in your home. Our local team helps you compare options, understand installation considerations, and review upfront pricing without pressure to buy.
                 </p>
                 </div>
                 <QuoteSelectionCard
@@ -124,7 +126,10 @@ export function QuoteStep() {
                   onStyleChange={setStyle}
                   onManufacturerChange={setManufacturer}
                 />
-                <QuoteContactBar />
+                <QuoteContactBar
+                  bookLabel="Book a Free In-Home Measure"
+                  callLabel="Call Your Local Showroom"
+                />
               </div>
             </div>
           </div>

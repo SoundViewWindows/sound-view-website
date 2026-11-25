@@ -115,12 +115,14 @@ export function DoorQuoteStep() {
                   manufacturer={manufacturerSlug}
                 />
                 <div className="space-y-1.5">
-                <h1 className="text-2xl font-bold leading-tight tracking-tight text-white drop-shadow-sm sm:text-3xl md:text-[34px]">
-                  Your Free Door Quote
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8]">
+                  Door Replacement Estimates
+                </p>
+                <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[52px] leading-[1.08]">
+                  Get a Free Door Replacement Quote in Greater Seattle
                 </h1>
                 <p className="max-w-2xl text-sm leading-snug text-slate-200 drop-shadow-sm md:text-[15px]">
-                  Review your door type, material, and manufacturer, then share your
-                  project details so our Seattle specialists can prepare an upfront quote.
+                  The right door should complement your home, perform reliably, and fit properly. We&apos;ll help you compare styles, materials, and installation options with clear pricing and no pressure.
                 </p>
                 </div>
                 <QuoteSelectionCard
@@ -169,7 +171,10 @@ export function DoorQuoteStep() {
                   onStyleChange={setStyle}
                   onManufacturerChange={setManufacturer}
                 />
-                <QuoteContactBar />
+                <QuoteContactBar
+                  bookLabel="Book a Free In-Home Measure"
+                  callLabel="Call Your Local Showroom"
+                />
               </div>
             </div>
           </div>

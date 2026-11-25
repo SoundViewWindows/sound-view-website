@@ -1,8 +1,7 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import type { BlogPost } from "@/data/blogPosts";
 
 const focusRing =
@@ -31,34 +30,6 @@ export function BlogIndex({
 }) {
   const filters = useMemo(() => ["All", ...categories], [categories]);
   const [filter, setFilter] = useState("All");
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-
-    const update = () => {
-      setCanScrollLeft(el.scrollLeft > 10);
-      setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
-    };
-
-    update();
-    el.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    const observer = new ResizeObserver(update);
-    observer.observe(el);
-    return () => {
-      el.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-      observer.disconnect();
-    };
-  }, [filters]);
-
-  const scrollCategories = (distance: number) => {
-    scrollerRef.current?.scrollBy({ left: distance, behavior: "smooth" });
-  };
 
   const visible = useMemo(
     () =>
@@ -71,207 +42,172 @@ export function BlogIndex({
   const [featured, ...recent] = visible;
 
   return (
-    <main>
-      <section className="relative overflow-hidden bg-[#0F1D2E] pt-10 pb-16 text-white sm:pt-12 sm:pb-20">
+    <main className="overflow-x-hidden bg-white text-[#0F1D2E]" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
+      <section className="relative overflow-hidden bg-[#0F1D2E] text-white">
         <div className="pointer-events-none absolute inset-0 z-0 select-none">
           <img
             src="/images/hero-bg.jpg"
             alt=""
             aria-hidden="true"
-            className="h-full w-full object-cover object-center opacity-40"
+            className="h-full w-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/65 via-[#0F1D2E]/45 to-[#0F1D2E]/65" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/95 via-[#0F1D2E]/85 to-[#0F1D2E]/70" />
         </div>
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-6">
-            <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
-              <ol className="flex flex-wrap items-center gap-2">
-                <li>
-                  <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
-                    Home
-                  </Link>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span aria-hidden="true">&gt;</span>
-                  <span aria-current="page">Blog &amp; Guides</span>
-                </li>
-              </ol>
-            </nav>
-            <p className="mt-3 text-xs font-bold tracking-wider text-[#38BDF8]">
-              HOMEOWNER GUIDES &amp; RESOURCES
-            </p>
-            <h1 className="mt-1 text-2xl font-bold text-white sm:text-3xl">
-              Window, Door &amp; Glass Buying Guides
-            </h1>
-            <p className="mt-1.5 max-w-2xl text-sm text-slate-200">
-              Practical advice from our Seattle installation specialists on replacement timing, glass performance, and maintenance.
-            </p>
-          </div>
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
+            <ol className="flex flex-wrap items-center gap-2">
+              <li>
+                <Link href="/" className={`rounded-sm hover:text-white ${focusRing}`}>
+                  Home
+                </Link>
+              </li>
+              <li className="flex items-center gap-2">
+                <span aria-hidden="true">&gt;</span>
+                <span aria-current="page">Blog &amp; Guides</span>
+              </li>
+            </ol>
+          </nav>
+          <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-[#38BDF8]">
+            Homeowner Resources &amp; Guides
+          </p>
+          <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[52px] leading-[1.08]">
+            Compare Seattle Window, Door &amp; Glass Buying Guides Before You Buy
+          </h1>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">
+            Practical advice from our Seattle installation specialists on replacement timing, glass performance, and maintenance.
+          </p>
+        </div>
+      </section>
 
-          <div id="guide-categories" className="relative mb-10 flex scroll-mt-24 items-center">
-          <div
-            ref={scrollerRef}
-            className="scrollbar-none flex items-center gap-2 overflow-x-auto overscroll-x-contain scroll-smooth px-4 py-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-            role="toolbar"
-            aria-label="Filter guides by category"
-          >
-            {filters.map((item) => {
-              const active = filter === item;
-              return (
-                <button
-                  key={item}
-                  type="button"
-                  aria-pressed={active}
-                  onClick={() => setFilter(item)}
-                  onFocus={(event) =>
-                    event.currentTarget.scrollIntoView({
-                      inline: "nearest",
-                      block: "nearest",
-                    })
-                  }
-                  className={`shrink-0 rounded-[4px] border px-4 py-2 text-sm font-medium transition-colors duration-200 ${focusRing} ${
-                    active
-                      ? "border-[#38BDF8] bg-[#38BDF8] font-bold text-[#0F1D2E]"
-                      : "border-white/20 bg-[#0F1D2E]/90 text-slate-200 backdrop-blur-md hover:border-[#38BDF8]/60 hover:text-white"
-                  }`}
-                >
-                  {item}
-                </button>
-              );
-            })}
-          </div>
-          <div
-            aria-hidden="true"
-            className={`pointer-events-none absolute left-0 z-10 h-full w-8 bg-gradient-to-r from-[#0F1D2E] to-transparent ${
-              canScrollLeft ? "opacity-100" : "opacity-0"
-            }`}
-          />
-          <div
-            aria-hidden="true"
-            className={`pointer-events-none absolute right-0 z-10 h-full w-8 bg-gradient-to-l from-[#0F1D2E] to-transparent ${
-              canScrollRight ? "opacity-100" : "opacity-0"
-            }`}
-          />
-          <button
-            type="button"
-            aria-label="Show previous categories"
-            disabled={!canScrollLeft}
-            onClick={() => scrollCategories(-320)}
-            className={`absolute left-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-[#0F1D2E]/90 text-white shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60 hover:text-[#38BDF8] ${focusRing} ${
-              canScrollLeft
-                ? "pointer-events-auto opacity-100"
-                : "pointer-events-none opacity-0"
-            }`}
-          >
-            <ChevronLeft aria-hidden="true" className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            aria-label="Show more categories"
-            disabled={!canScrollRight}
-            onClick={() => scrollCategories(320)}
-            className={`absolute right-0 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-[#0F1D2E]/90 text-white shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60 hover:text-[#38BDF8] ${focusRing} ${
-              canScrollRight
-                ? "pointer-events-auto opacity-100"
-                : "pointer-events-none opacity-0"
-            }`}
-          >
-            <ChevronRight aria-hidden="true" className="h-4 w-4" />
-          </button>
-        </div>
+      <section className="bg-white" style={{ backgroundColor: "#FFFFFF", color: "#0F1D2E" }}>
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <CategoryNav filters={filters} filter={filter} onSelect={setFilter} />
 
           {featured ? (
             <Link
               href={featured.href}
-              className={`group grid grid-cols-1 overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60 lg:grid-cols-2 ${focusRing}`}
+              className={`group mt-10 grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-colors hover:border-sky-400 lg:grid-cols-2 ${focusRing}`}
             >
-              <div className="overflow-hidden">
+              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100 lg:aspect-auto lg:min-h-[22rem]">
                 <Cover
                   src={featured.coverImage}
                   alt={featured.coverAlt}
                   category={featured.category}
-                  className="aspect-[16/9] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 lg:aspect-auto lg:h-full lg:min-h-[24rem]"
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                 />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
-                <div className="mb-4 flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   <CategoryPill>{featured.category}</CategoryPill>
-                  <span className="text-sm text-slate-400">{featured.readTime}</span>
+                  <span className="text-sm text-[#556980]">{featured.date}</span>
+                  <span className="text-sm text-[#556980]">{featured.readTime}</span>
                 </div>
-                <h2 className="text-3xl font-bold leading-tight text-white transition-colors group-hover:text-[#38BDF8] sm:text-4xl">
+                <h2 className="mt-4 max-w-xl text-2xl font-bold leading-tight tracking-tight text-[#0F1D2E] transition-colors group-hover:text-[#0284C7] sm:text-3xl">
                   {featured.title}
                 </h2>
                 {featured.excerpt ? (
-                  <p className="mt-4 line-clamp-4 text-base leading-relaxed text-slate-200 sm:text-lg">
+                  <p className="mt-4 max-w-xl text-base leading-relaxed text-[#556980]">
                     {featured.excerpt}
                   </p>
                 ) : null}
-                <span className="mt-8 inline-flex w-fit text-sm font-semibold text-[#38BDF8] transition-colors group-hover:text-sky-300">
+                <span className="mt-6 inline-flex w-fit rounded-lg bg-[#38BDF8] px-4 py-2.5 text-sm font-bold text-[#0F1D2E] transition-colors group-hover:bg-sky-400">
                   Read Guide
                 </span>
               </div>
             </Link>
           ) : (
-            <p className="rounded-2xl border border-white/20 bg-[#0F1D2E]/90 px-6 py-10 text-slate-200 shadow-2xl backdrop-blur-md">
+            <p className="mt-10 rounded-2xl border border-slate-200 bg-[#f4fafd] px-6 py-10 text-[#556980]">
               {filter === "All"
                 ? "No guides published yet."
                 : "No guides in this category yet."}
             </p>
           )}
-
-          {recent.length > 0 ? (
-            <div className="mt-12">
-              <h2 className="mb-6 text-2xl font-bold text-white">Recent Articles</h2>
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {recent.map((post) => (
-                  <Link
-                    key={post.id || post.slug}
-                    href={post.href}
-                    className={`group flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-white/20 bg-[#0F1D2E]/90 shadow-2xl backdrop-blur-md transition-colors hover:border-[#38BDF8]/60 ${focusRing}`}
-                  >
-                    <div>
-                      <div className="overflow-hidden">
-                        <Cover
-                          src={post.coverImage}
-                          alt={post.coverAlt}
-                          category={post.category}
-                          className="aspect-[16/10] h-auto w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="p-6">
-                        <div className="mb-3 flex flex-wrap items-center gap-3">
-                          <CategoryPill>{post.category}</CategoryPill>
-                          <span className="text-sm text-slate-400">{post.readTime}</span>
-                        </div>
-                        <h3 className="text-xl font-bold leading-snug text-white transition-colors group-hover:text-[#38BDF8]">
-                          {post.title}
-                        </h3>
-                        {post.excerpt ? (
-                          <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-200">
-                            {post.excerpt}
-                          </p>
-                        ) : null}
-                      </div>
-                    </div>
-                    <div className="px-6 pb-6">
-                      <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#38BDF8] transition-colors group-hover:text-sky-300">
-                        Read article
-                        <span
-                          aria-hidden="true"
-                          className="transition-transform duration-300 group-hover:translate-x-1"
-                        >
-                          →
-                        </span>
-                      </span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ) : null}
         </div>
       </section>
+
+      {recent.length > 0 ? (
+        <section className="border-t border-slate-200/80 bg-[#f4fafd]" style={{ backgroundColor: "#F4FAFD", color: "#0F1D2E" }}>
+          <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+            <h2 className="text-3xl font-bold tracking-tight text-[#0F1D2E] sm:text-4xl">Recent Articles</h2>
+            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {recent.map((post) => (
+                <Link
+                  key={post.id || post.slug}
+                  href={post.href}
+                  className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-colors hover:border-sky-400 hover:shadow-md ${focusRing}`}
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                    <Cover
+                      src={post.coverImage}
+                      alt={post.coverAlt}
+                      category={post.category}
+                      className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-5 sm:p-6">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <CategoryPill>{post.category}</CategoryPill>
+                      <span className="text-xs text-[#556980]">{post.readTime}</span>
+                    </div>
+                    <h3 className="mt-3 text-lg font-bold leading-snug text-[#0F1D2E] transition-colors group-hover:text-[#0284C7]">
+                      {post.title}
+                    </h3>
+                    {post.excerpt ? (
+                      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[#556980]">
+                        {post.excerpt}
+                      </p>
+                    ) : null}
+                    <span className="mt-4 text-sm font-semibold text-[#0284C7] group-hover:text-[#0F1D2E]">
+                      Read article
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
     </main>
+  );
+}
+
+function CategoryNav({
+  filters,
+  filter,
+  onSelect,
+}: {
+  filters: string[];
+  filter: string;
+  onSelect: (value: string) => void;
+}) {
+  return (
+    <div id="guide-categories" className="scroll-mt-24">
+      <p className="text-xs font-bold uppercase tracking-widest text-[#608b9e]">Browse by topic</p>
+      <div
+        className="mt-3 flex gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible"
+        role="toolbar"
+        aria-label="Filter guides by category"
+      >
+        {filters.map((item) => {
+          const active = filter === item;
+          return (
+            <button
+              key={item}
+              type="button"
+              aria-pressed={active}
+              onClick={() => onSelect(item)}
+              className={`shrink-0 rounded-full border px-3.5 py-2 text-sm transition-colors ${focusRing} ${
+                active
+                  ? "border-[#38BDF8] bg-[#38BDF8] font-bold text-[#0F1D2E]"
+                  : "border-slate-200 bg-white font-medium text-[#0F1D2E] hover:border-sky-400"
+              }`}
+            >
+              {item}
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -317,7 +253,7 @@ function Cover({
 
 function CategoryPill({ children }: { children: string }) {
   return (
-    <span className="inline-flex text-xs font-semibold tracking-wide text-[#38BDF8]">
+    <span className="text-xs font-bold uppercase tracking-wide text-[#0284C7]">
       {children}
     </span>
   );

@@ -46,7 +46,7 @@ export function TypesStep() {
                   Change
                 </Link>
               </p>
-              <h1 className="mb-1.5 text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-[34px]">
+              <h1 className="mb-3 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[52px] leading-[1.08]">
                 Select the Window Type That Fits Your Home
               </h1>
               <p className="max-w-2xl text-sm leading-snug text-slate-200 md:text-[15px]">

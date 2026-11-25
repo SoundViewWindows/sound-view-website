@@ -115,12 +115,12 @@ export function SoundViewPageHero({
         src="/images/hero-bg.jpg"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-15"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
       />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[#0F1D2E]/75" />
-      <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#0F1D2E]/95 via-[#0F1D2E]/85 to-[#0F1D2E]/70" />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav aria-label="Breadcrumb" className="text-xs text-slate-400">
-          <ol className="flex flex-wrap items-center justify-center gap-2">
+          <ol className="flex flex-wrap items-center gap-2">
             {breadcrumbs.map((item, index) => (
               <li key={`${item.label}-${index}`} className="flex items-center gap-2">
                 {index > 0 ? <span aria-hidden="true">&gt;</span> : null}
@@ -138,18 +138,18 @@ export function SoundViewPageHero({
         <p className="mt-4 text-xs font-bold uppercase tracking-widest text-[#38BDF8] sm:text-sm">
           {eyebrow}
         </p>
-        <h1 className="mx-auto mt-2 max-w-4xl text-3xl font-bold tracking-tight text-white sm:text-5xl">
+        <h1 className="mt-3 max-w-4xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[52px] leading-[1.08]">
           {title}
         </h1>
-        <p className="mx-auto mt-3 max-w-2xl text-base text-slate-300 sm:text-lg">{subtitle}</p>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">{subtitle}</p>
         {primaryAction && secondaryAction ? (
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-4">
             <HeroLink action={primaryAction} tone="primary" />
             <HeroLink action={secondaryAction} tone="secondary" />
           </div>
         ) : null}
         {pills ? (
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+          <div className="mt-6 flex flex-wrap items-center gap-2">
             {pills.map((pill) => (
               <Link
                 key={pill.href}
